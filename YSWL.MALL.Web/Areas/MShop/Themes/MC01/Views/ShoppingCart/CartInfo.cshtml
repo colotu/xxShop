@@ -1,0 +1,31 @@
+﻿@{
+    Layout = "~/Areas/MShop/Themes/MC01/Views/Shared/_BaseLayout.cshtml";
+    ViewBag.Title = "购物车";
+}
+@section head{
+    <link href="/Areas/MShop/Themes/MC01/Content/Css/main.css" rel="stylesheet" />
+}
+<div class="main_wrapper">
+    <!--START HEADER-->
+    <header>
+        <div class="top_navbar fixed_header">
+            @Html.Partial("/Areas/MShop/Themes/MC01/Views/Partial/_Back.cshtml")
+            <p class="header_title">购物车</p>
+            <em class="btn_edit dsn" id="cart_edit">编辑</em>
+            @Html.Partial("/Areas/MShop/Themes/MC01/Views/Partial/_HeaderMsg.cshtml")
+        </div>
+    </header>
+    <!-- END HEADER -->
+    <div class="top"></div>
+
+    @Html.Action("CartListBySupp", "ShoppingCart",new  { viewName= "_CartInfo" })
+</div>
+@section foot{
+   <script type="text/javascript">
+    $(function () {
+        $('#body').addClass('m_home');
+    });
+</script>
+}
+
+

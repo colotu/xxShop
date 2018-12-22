@@ -1,0 +1,101 @@
+﻿@using Webdiyer.WebControls.Mvc
+@model PagedList<YSWL.MALL.Model.Members.Users> 
+<script type="text/javascript">
+    $(function () {
+        //隔行换色
+        var trs = $('table.GridViewTyle tr');
+        for (var i = 0; i < trs.length; i++) {
+            if (i % 2 != 0) {
+                trs.eq(i).addClass('eventrcolor');
+            }
+        }
+        //鼠标移动效果
+        $("table.GridViewTyle tr").hover(
+            function () {
+                $(this).addClass("tylehover");
+            },
+            function () {
+                $(this).removeClass("tylehover");
+            }
+        );
+
+
+        $(".iframe").colorbox({ iframe: true, width: "840", height: "700", overlayClose: false });
+
+
+    }); 
+</script>
+
+@if (Model != null && Model.Count > 0)
+{
+    <table width="100%" border="0" cellspacing="0" cellpadding="5" class="show stdtable stdtablecb GridViewTyle">
+        <tr class="head1">
+            <td width="4%" bgcolor="#FFFFFF">
+                ID
+            </td>
+            <td width="10%" bgcolor="#FFFFFF">
+                会员号
+            </td>
+            <td width="10%" bgcolor="#FFFFFF">
+                昵称
+            </td>
+            @*<td width="5%" bgcolor="#FFFFFF">
+                是否VIP
+            </td>*@
+            <td width="10%" bgcolor="#FFFFFF">
+                加入时间
+            </td>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr class="oddtrcolor" height="27px">
+                <td align="center" height="27px" style="width: 60px; padding-left: 5px; height: 27px;">
+                    @item.UserID.ToString()
+                </td>
+                <td align="center" height="27px" style="width: 100px; padding-left: 5px; height: 27px;">
+                    @item.UserName
+                </td>
+                <td align="center" height="27px" style="width: 100px; padding-left: 5px; height: 27px;">
+                    @item.NickName
+                </td>
+                @*<td align="center" height="27px" style="width: 80px; padding-left: 5px; height: 27px;">
+                    @item.User_cLang
+                </td>*@
+                <td align="center" height="27px" style="width: 100px; padding-left: 5px; height: 27px;">
+                    @item.User_dateCreate.ToString()
+                </td>
+            </tr>
+        }
+    </table>
+    <br />
+    <table width="100%" border="0" cellspacing="0" cellpadding="5" class="news_123">
+        <tr>
+            <td width="5%" style="padding-left: 12px;">
+            </td>
+            <td width="5%">
+                &nbsp;
+            </td>
+            <td width="5%">
+                &nbsp;
+            </td>
+            <td width="50%">
+                @Ajax.Pager(Model, new PagerOptions
+                        {
+                            ShowDisabledPagerItems = false,
+                            AlwaysShowFirstLastPageNumber = false,
+                            PageIndexParameterName = "p",
+                            NumericPagerItemCount = 6,
+                            //CurrentPagerItemTemplate = "<span class=\"in_s\">{0}</span>",
+                            //NumericPagerItemTemplate = "<span>{0}</span>",
+                            //NavigationPagerItemTemplate = "<span>{0}</span>",
+                            CurrentPagerItemTemplate = "<li><span class=\"ins\">{0}</span></li>",
+                            MorePagerItemTemplate = "<span>{0}</span>",
+                            NumericPagerItemTemplate = "<span>{0}</span>",
+                            NavigationPagerItemTemplate = "<label class=\"page_xia\">{0}</label>",
+                            CssClass = "page",
+                             
+                        }).AjaxOptions(a => a.SetUpdateTargetId("divOrderList"))
+            </td>
+        </tr>
+    </table>
+}

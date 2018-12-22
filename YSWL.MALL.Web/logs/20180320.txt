@@ -1,0 +1,7 @@
+发生时间：2018/3/20 0:28:16
+事件级别：Error
+事件来源：未将对象引用设置到对象的实例。
+事件操作人信息：()
+事件内容：   在 YSWL.MALL.Web.Handlers.Shop.V2.OrderHandler.SubmitOrder(HttpContext context) 位置 E:\ZheJiangBiYan\BYShop\YSWL.MALL.Web\Handlers\Shop\v2\OrderHandler.cs:行号 647
+   在 YSWL.MALL.Web.Handlers.Shop.V2.OrderHandler.ProcessRequest(HttpContext context) 位置 E:\ZheJiangBiYan\BYShop\YSWL.MALL.Web\Handlers\Shop\v2\OrderHandler.cs:行号 77
+---------------------------------------------------------

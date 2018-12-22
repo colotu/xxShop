@@ -1,0 +1,101 @@
+﻿@model YSWL.MALL.ViewModel.Shop.SalesModel
+@if (Model != null && Model.SalesItems != null && Model.SalesItems.Count > 0)
+{
+    <div class="s-panel summary-promotion" id="wholeSalePanel">
+        <div class="dt">批发</div>
+  <div class="dd">
+      <div class="wholeSaleTip-list">
+          @{
+              var sales = Model.SalesItems.Find(o => o.ItemType == 0);
+              if (sales != null)
+              {
+                  <em class="act-tag">打折</em>
+              }
+              sales = Model.SalesItems.Find(o => o.ItemType == 1);
+              if (sales != null)
+              {
+                  <em class="act-tag">减价</em>
+              }
+              sales = Model.SalesItems.Find(o => o.ItemType == 2);
+              if (sales != null)
+              {
+                  <em class="act-tag">固定价</em>
+              }
+              <span class="showTiptxt hidden">可享受以下批发活动</span>
+              <span class="icon-r fr" id="wholeSale_Expand"></span>
+          }
+      </div>
+      <div class="module listItem  hidden">
+          @foreach (var item in Model.SalesItems)
+          {
+              <div class="prom-item">
+                  @switch (item.ItemType)
+                    {
+                        case 0:
+                          <em class="act-tag"> 打折</em>
+                          break;
+                      case 1:
+                          <em class="act-tag"> 减价</em>
+                          break;
+                      case 2:
+                          <em class="act-tag"> 固定价</em>
+                          break;
+                  }
+
+                  @if (item.UserRankList != null)
+                  {
+                      <span class="prom-txt">
+                          会员级别为
+                          @for (int i = 0; i < item.UserRankList.Count; i++)
+                          {
+                              if (i > 0)
+                              {
+                                  @:、
+                                        }
+                              <em class="em_price">@item.UserRankList[i].Name</em>
+                          }
+                          的用户,
+                      </span>
+                  }
+
+                  @if (Model.SalesRule.RuleUnit == 0)
+                  {
+                      if (item.ItemType == 0)
+                      {
+                          @:满<em class="em_price">@item.UnitValue</em>个，优惠<em class="em_price">@(100 - item.RateValue)</em>%
+                         }
+                      if (item.ItemType == 1)
+                      {
+                          @:满<em class="em_price">@item.UnitValue</em>个，总价优惠<em class="em_price">@item.RateValue</em>元
+                         }
+                      if (item.ItemType == 2)
+                      {
+                          @:满<em class="em_price">@item.UnitValue</em>个，每个优惠<em class="em_price">@item.RateValue</em>元
+                         }
+                  }
+                  else
+                  {
+                      if (item.ItemType == 0)
+                      {
+                          @:满<em class="em_price">@item.UnitValue</em>元，优惠<em class="em_price">@(100 - item.RateValue)</em>%
+                         }
+                      if (item.ItemType == 1)
+                      {
+                          @:满<span class="em_price">@item.UnitValue</span>元，总价优惠<em class="em_price">@item.RateValue</em>元
+                         }
+                      if (item.ItemType == 2)
+                      {
+
+                          @:满<em class="em_price">@item.UnitValue</em>元，每个优惠<em class="em_price">@item.RateValue</em>元
+                         }
+                  }
+
+
+
+              </div>
+
+          }
+      </div>
+        </div>
+            </div>
+            }

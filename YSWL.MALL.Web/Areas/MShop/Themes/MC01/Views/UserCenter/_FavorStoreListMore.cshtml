@@ -1,0 +1,48 @@
+﻿@using YSWL.MALL.Model.Shop.Products
+@model List<YSWL.MALL.ViewModel.Shop.FavoStoreModel>
+@if (Model != null && Model.Count > 0)
+{
+            foreach (var item in Model)
+            {
+                if (item.Status ==1 && item.StoreStatus == 1)
+                {
+                    <li>
+                        <a href="@(ViewBag.BasePath)store/@item.SupplierId">
+                            <div class="list_item">
+                                <div class="shop_img">
+                                    <img src="@(ViewBag.BasePath)Partial/SuppLogo?id=@(item.SupplierId)&size=T200X200" alt="@item.ShopName" onerror="this.onerror = ''; this.src = '/Content/themes/base/images/404/404_1.png'">
+                                </div>
+                                <div class="shop_info">
+                                    <div class="name">@item.ShopName</div>
+                                    <div class="num">销量@(item.SalesCount)</div>
+                                    <span class="pro_gone txt_tag">
+                                        失效
+                                    </span>
+                                </div>
+                                <span class="gointo_btn btn_default">进店</span>
+                            </div>
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <a href="javascript:;">
+                            <div class="list_item">
+                                <div class="shop_img">
+                                    <img src="@(ViewBag.BasePath)Partial/SuppLogo?id=@(item.SupplierId)&size=T200X200" alt="@item.ShopName" onerror="this.onerror = ''; this.src = '/Content/themes/base/images/404/404_1.png'">
+                                </div>
+                                <div class="shop_info">
+                                    <div class="name">@item.ShopName</div>
+                                    <div class="num">销量@(item.SalesCount)</div>
+                                    <span class="pro_gone txt_tag">
+                                        失效
+                                    </span>
+                                </div>
+                                <span class="gointo_btn btn_default">进店</span>
+                            </div>
+                        </a>
+                    </li>
+                }
+            }
+}

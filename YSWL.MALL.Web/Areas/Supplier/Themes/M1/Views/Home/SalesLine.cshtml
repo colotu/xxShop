@@ -1,0 +1,190 @@
+﻿@{
+    Layout = "~/Areas/Supplier/Themes/M1/Views/Shared/_SupplierLayout.cshtml";
+}
+<script src="/FusionCharts/FusionCharts.js" type="text/javascript"></script>
+ <script src="/Scripts/Highcharts/highcharts.js" type="text/javascript"></script>
+ <script src="/Scripts/Highcharts/themes/gray.js" type="text/javascript"></script>
+ <script type="text/javascript">
+     $(function () {
+
+         //显示哪一个
+         if ($('#hfSalesType').val() == "2") {
+             $('#lblDescription').text('已付款订单的应付金额之和(不含已取消的订单)');
+             $("#priceContent").show();
+         } else {
+             $('#lblDescription').text('已付款订单的商品数量之和(不含已取消的订单)');
+             $("#countContent").show();
+         }
+
+
+
+         //走势图
+         var hfCategoryVal = $("[id$='hfCategory']").val();
+         if (hfCategoryVal.length <= 0) {
+             return;
+         }
+         hfCategoryVal = hfCategoryVal.replace(/\d{4}-/g, '');
+         var categories = hfCategoryVal.split(',');
+ 
+         var dayCount = [];
+         var price = [];
+
+         var datavalue = $("[id$='hfCount']").val().split(',');
+         for (var i = 0; i < datavalue.length; i++) {
+             var item = parseInt(datavalue[i]);
+             dayCount.push(item);
+         }
+
+         var pricedatavalue = $("[id$='hfPrice']").val().split(',');
+         for (var i = 0; i < pricedatavalue.length; i++) {
+             var item = parseFloat(pricedatavalue[i]); //parseFloat(pricedatavalue[i]).toFixed(2);
+             price.push(item);
+         }
+
+         $('#countContent').highcharts({
+             chart: {
+                 type: 'line'
+             },
+             title: {
+                 text: '销量走势图'
+             },
+             subtitle: {
+                 text: '销量'
+             },
+             xAxis: {
+                 categories: categories
+             },
+             yAxis: {
+                 title: {
+                     text: '销量'
+                 }
+             },
+             tooltip: {
+                 formatter: function () {
+                     return '<b>' + this.x + '：</b><br/> ' + this.y + '个';
+                 }
+             },
+             plotOptions: {
+                 line: {
+                     dataLabels: {
+                         enabled: true
+                     },
+                     enableMouseTracking: true
+                 }
+             },
+             series: [{
+                 name: '销量',
+                 data: dayCount
+             }
+                ]
+         });
+         $("#countContent text:last").hide();
+         $("#countContent span:last").hide();
+
+
+
+
+         $('#priceContent').highcharts({
+             chart: {
+                 type: 'line'
+             },
+             title: {
+                 text: '业绩走势图'
+             },
+             subtitle: {
+                 text: '销售额'
+             },
+             xAxis: {
+                 categories: categories
+             },
+             yAxis: {
+                 title: {
+                     text: '销售额'
+                 }
+             },
+             tooltip: {
+                 formatter: function () {
+                     return '<b>' + this.x + '：</b><br/> ' + this.y + '元';
+                 }
+             },
+             plotOptions: {
+                 line: {
+                     dataLabels: {
+                         enabled: true
+                     },
+                     enableMouseTracking: true
+                 }
+             },
+             series: [{
+                 name: '销售额',
+                 data: price
+             }
+                ]
+         });
+         $("#priceContent text:last").hide();
+         $("#priceContent span:last").hide();
+
+         //选中日期
+         $('#selectYear').val($('#hfSelectYear').val());
+     });
+</script>
+
+
+<form name="form1" method="post" action="">
+<div class="mar30">
+    <div class="contenttitle2">
+        <h3>
+            <label>@(ViewBag.pageTitel)走势图</label>
+        </h3>
+        <small class="desc">
+            <label>
+                您可以查看@(ViewBag.pageTitel)走势图信息 </label><label  style="color: #FB9337;" id="lblDescription"></label>
+        </small>
+    </div>
+    <input type="hidden"  id="hfCategory"  value="@ViewBag.Category" />
+    <input type="hidden"  id="hfCount"  value="@ViewBag.Count"/>
+    <input type="hidden"  id="hfPrice"  value="@ViewBag.Price"/>
+    <input type="hidden"  id="hfSalesType"  value="@ViewBag.SalesType"/>
+       <input type="hidden"  id="hfSelectYear"  value="@ViewBag.SelectYear"/>
+     
+    <div style="background-color: #ffffff; border: 1px solid #CCC;">
+        <table style="width: 100%;" cellpadding="2" cellspacing="1" class="border">
+            <tr>
+                <td class="tdbg">
+                    <table cellspacing="0" cellpadding="0" width="100%" border="0">
+                        <tr>
+                            <td class="td_class">
+                                选择年份:
+                                @{
+                                    DateTime baseYear = YSWL.Common.Globals.SafeDateTime("2013-01-01", DateTime.Now);
+                                    int count = DateTime.Now.Year - baseYear.Year;
+                                    <select name="selectYear" id="selectYear">
+                                        @for (int i = 0; i <= count; i++)
+                                        {
+                                            <option  value="@(baseYear.AddYears(i).Year.ToString())"  >@baseYear.AddYears(i).Year.ToString()</option>
+                                        }
+                                    </select>
+                                }
+                            </td>
+                            <td height="25">
+                                <div class="form stdform">
+                                    &emsp;&emsp;
+                                    <input type="submit" name="name" value="统计" class="reset radius2" />
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                            <div id="countContent" style="width:100%;height:400px;margin-top: 8px;display:none;">
+                            </div>
+                            <div id="priceContent" style="width:100%;height:400px;margin-top: 8px;display:none;">
+                            </div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+</form>

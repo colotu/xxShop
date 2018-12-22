@@ -1,0 +1,38 @@
+﻿@{
+    Layout = "/Areas/MShop/Themes/MC01/Views/Shared/_BaseLayout.cshtml";
+    ViewBag.Title = "订单";
+}
+<link href="/Areas/MShop/Themes/MC01/Content/Css/main.css" rel="stylesheet" />
+<script src="/Areas/MShop/Themes/MC01/Content/Scripts/pullUp.js"></script>
+<div class="main_wrapper">
+    <!--START HEADER-->
+    <header>
+        <div class="top_navbar fixed_header">
+            @Html.Partial("/Areas/MShop/Themes/MC01/Views/Partial/_Back.cshtml")
+            <p class="header_title">我的评价</p>
+        </div>
+    </header>
+    <!-- END HEADER -->
+    <div class="top"></div>
+    <div class="commentModel">
+        @*<div class="comment_head">
+            <div class="my_head">
+                <img alt="头像" src="/Upload/User/Gravatar/@(ViewBag.UserId).jpg?id=@DateTime.Now" onerror="this.onerror = '';this.src = '/Upload/User/Gravatar/nophoto.png'">
+            </div>
+            <div class="txt" >
+                <span>评论获得积分</span>
+                <span class="num">20</span>
+            </div>
+        </div>*@
+        <div class="comment_list" id="LoadPreviewList">
+
+            @Html.Action("MyPeviewList", "UserCenter", new { Areas = "Mshop", pageSize = 10 })
+        </div>
+    </div>
+    <!-- ################-->
+    <!-- END TOP MENU -->
+    <!-- ################-->
+</div>
+<!--加载提示信息--->
+@Html.Partial("/Areas/MShop/Themes/MC01/Views/Partial/_LoadTip.cshtml")
+<!-- ################-->

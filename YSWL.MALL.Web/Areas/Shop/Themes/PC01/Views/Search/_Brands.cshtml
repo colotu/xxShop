@@ -1,0 +1,40 @@
+﻿@model List<YSWL.MALL.Model.Shop.Products.BrandInfo>
+@{
+    string cid = Request.RequestContext.RouteData.Values["cid"] != null ? Request.RequestContext.RouteData.Values["cid"].ToString() : "0";
+    string brandid = Request.RequestContext.RouteData.Values["brandid"] != null ? Request.RequestContext.RouteData.Values["brandid"].ToString() : "0";
+    string keyword = Request.RequestContext.RouteData.Values["keyword"] != null ? Request.RequestContext.RouteData.Values["keyword"].ToString() : "";
+    string mod = Request.RequestContext.RouteData.Values["mod"] != null ? Request.RequestContext.RouteData.Values["mod"].ToString() : "default";
+    string price = Request.RequestContext.RouteData.Values["price"] != null ? Request.RequestContext.RouteData.Values["price"].ToString() : "0-0";
+
+}
+                 @if (Model != null && Model.Count > 0)
+                 {
+                    <div class="selector-line">
+                        <div class="sl-key">品牌</div>
+                        <div class="sl-value">
+                            <div class="sl-list">
+                                <ul>
+                                    <li>
+                                        <a brandId="0" anchor="Filter" href="@(ViewBag.BasePath)search/@cid/0/@mod/@price/@keyword"  title="不限" class="brand-list">
+                                            不限
+                                        </a>
+                                    </li>
+                                    @for (int i = 0; i < Model.Count; i++)
+                                    {
+                                        <li  class="@(i>12?"hidden expanditem":"")">
+                                            <a brandId="@Model[i].BrandId" class="brand-list" title="@Model[i].BrandName" anchor="Filter" href="@(ViewBag.BasePath)search/@cid/@Model[i].BrandId/@mod/@price/@keyword">
+                                                @Model[i].BrandName
+                                            </a>
+                                        </li>
+                                    }
+                                </ul>
+                                @if (Model.Count > 13)
+                                {
+                                <div class="more-sl expandMore">
+                                    <a href="javascript:;" class="s-btn-hollow price-confirm">更多<span class="icon-r"></span></a>
+                                </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                 }

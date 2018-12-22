@@ -1,0 +1,61 @@
+﻿@model  YSWL.MALL.ViewModel.Shop.ActivityModel 
+ @if (Model != null )
+ {
+    <div class="preferential bgc-f  clearfix preferential-po" id="activityList">
+        <span class="fl">促销</span>
+        <div class="showTxt fl">
+            @if (Model.First != null && Model.First.Count > 0)
+            {
+                <em>首单</em>
+            }
+            @if (Model.Full != null && Model.Full.Count > 0)
+            {
+                <em>满额</em>
+            }
+            @if (Model.Coupon != null && Model.Coupon.Count > 0)
+            {
+                <em>赠券</em>
+            }
+            @if (Model.FreeShipping != null && Model.FreeShipping.Count > 0)
+            {
+                <em>包邮</em>
+            }
+        </div>
+        <div class="showTxt2 fl">
+            <span class="showTit">可享受以下促销活动</span>
+            @if (Model.First != null && Model.First.Count > 0)
+            {
+                foreach (YSWL.MALL.Model.Shop.Activity.ActivityInfo item in Model.First)
+                {
+                    @Html.Partial("_ActivityListSub", item)
+                }
+            }
+            @if (Model.Full != null && Model.Full.Count > 0)
+            {
+                foreach (YSWL.MALL.Model.Shop.Activity.ActivityInfo item in Model.Full)
+                {
+                    @Html.Partial("_ActivityListSub", item)
+                }
+            }
+
+
+            @if (Model.Coupon != null && Model.Coupon.Count > 0)
+            {
+                foreach (YSWL.MALL.Model.Shop.Activity.ActivityInfo item in Model.Coupon)
+                {
+                    @Html.Partial("_ActivityListSub", item)
+                }
+            }
+
+            @if (Model.FreeShipping != null && Model.FreeShipping.Count > 0)
+            {
+                foreach (YSWL.MALL.Model.Shop.Activity.ActivityInfo item in Model.FreeShipping)
+                {
+                    @Html.Partial("_ActivityListSub", item)
+                }
+            }
+        </div>
+        <i class="preMore si fr" id="activ_preMore"></i>
+    </div>
+
+ }

@@ -1,0 +1,14 @@
+E:\ZheJiangBiYan\BYShop\Lib\CS\YSWL.JsonRpc\YSWL.Json\bin\Debug\YSWL.Json.dll
+E:\ZheJiangBiYan\BYShop\Lib\CS\YSWL.JsonRpc\YSWL.Json\bin\Debug\YSWL.Json.pdb
+E:\ZheJiangBiYan\BYShop\Lib\CS\YSWL.JsonRpc\YSWL.Json\obj\Debug\YSWL.Json.dll
+E:\ZheJiangBiYan\BYShop\Lib\CS\YSWL.JsonRpc\YSWL.Json\obj\Debug\YSWL.Json.pdb
+E:\zhou\洪光顺\XXShop\Lib\CS\YSWL.JsonRpc\YSWL.Json\bin\Debug\YSWL.Json.dll
+E:\zhou\洪光顺\XXShop\Lib\CS\YSWL.JsonRpc\YSWL.Json\bin\Debug\YSWL.Json.pdb
+E:\zhou\洪光顺\XXShop\Lib\CS\YSWL.JsonRpc\YSWL.Json\obj\Debug\YSWL.Json.csprojResolveAssemblyReference.cache
+E:\zhou\洪光顺\XXShop\Lib\CS\YSWL.JsonRpc\YSWL.Json\obj\Debug\YSWL.Json.dll
+E:\zhou\洪光顺\XXShop\Lib\CS\YSWL.JsonRpc\YSWL.Json\obj\Debug\YSWL.Json.pdb
+D:\MyWork\Shop\Lib\CS\YSWL.JsonRpc\YSWL.Json\bin\Debug\YSWL.Json.dll
+D:\MyWork\Shop\Lib\CS\YSWL.JsonRpc\YSWL.Json\bin\Debug\YSWL.Json.pdb
+D:\MyWork\Shop\Lib\CS\YSWL.JsonRpc\YSWL.Json\obj\Debug\YSWL.Json.csproj.CoreCompileInputs.cache
+D:\MyWork\Shop\Lib\CS\YSWL.JsonRpc\YSWL.Json\obj\Debug\YSWL.Json.dll
+D:\MyWork\Shop\Lib\CS\YSWL.JsonRpc\YSWL.Json\obj\Debug\YSWL.Json.pdb

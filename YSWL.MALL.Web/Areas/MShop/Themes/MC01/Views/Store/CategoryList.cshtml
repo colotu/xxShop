@@ -1,0 +1,53 @@
+﻿@{
+     Layout = "/Areas/MShop/Themes/MC01/Views/Shared/_StoreLayout.cshtml";
+     ViewBag.Title = "商品分类";
+     ViewBag.Keywords = "商品分类";
+     ViewBag.Description = "商品分类";
+}
+@model List<YSWL.MALL.Model.Shop.Supplier.SupplierCategories>
+<div class="main_wrapper">
+    <!--START HEADER-->
+    <header class="fixed_header main_wrapper">
+        @Html.Partial("/Areas/MShop/Themes/MC01/Views/Partial/_Back.cshtml")
+        <h2 class="title">店铺分类</h2>
+    </header>
+    <div class="top"></div>
+    <!--END HEADER-->
+    <div id="cate">
+        @if (Model != null && Model.Count > 0)
+        {
+            for (int i = 0; i < Model.Count; i++)
+            {
+                <div class="topNavWrapper topNavWrapper2 clearfix">
+                    <a cid="@Model[i].CategoryId" class="toggle-t clearfix border-b first" href="javascript:;"><span class="fl tit">@Model[i].Name</span><span class="fr lookMore"><i class="preMore si"></i></span></a> @*preMore-bp2*@
+                    <ul id="subcatelist_@(Model[0].CategoryId)">
+                        @Html.Action("CategoryList", "Store", new { suppId= Model[i].SupplierId,pcid = Model[i].CategoryId, viewName = "_TwoCate"})
+                    </ul>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="empty pro_list_empty">
+                <div class="img_wrap">
+                    <img src="/Areas/MShop/Themes/MC01/Content/images/nopro.png" alt="">
+                </div>
+                <div class="txt">
+                    <p>暂无分类信息</p>
+                </div>
+            </div>
+        }
+    </div>
+
+</div>
+@section foot{
+    <script>
+        $(function(){
+            // 收起展示切换
+            $(".toggle-t").on("click",function() {
+                $(this).siblings('ul').toggle();
+                //$(this).find('i').toggleClass('preMore-bp2');
+            });
+        });
+    </script>
+}

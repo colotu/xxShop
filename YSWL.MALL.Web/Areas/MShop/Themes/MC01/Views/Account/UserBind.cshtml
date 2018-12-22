@@ -1,0 +1,44 @@
+﻿@{
+    Layout = "/Areas/MShop/Themes/MC01/Views/Shared/_BaseLayout.cshtml";
+    ViewBag.Title = "微信用户绑定";
+}
+@model YSWL.MALL.ViewModel.Shop.LogOnModel 
+@section head{
+    <link href="/Areas/MShop/Themes/MC01/Content/Css/main.css" rel="stylesheet" />
+}
+<div class="main_wrapper">
+    <!--START HEADER-->
+    <header>
+        <div class="top_navbar fixed_header">
+            @Html.Partial("/Areas/MShop/Themes/mc01/Views/Partial/_Back.cshtml")
+            <p class="header_title">微信用户绑定</p>
+        </div>
+    </header>
+    <!-- END HEADER -->
+    <div class="top"></div>
+    <!--START 主体-->
+    <div class="menu_list">
+
+        <input type="hidden" value="@ViewBag.User" id="txtUser" />
+        <input type="hidden" value="@ViewBag.OpenId" id="txtOpenId" />
+
+        <div class="login_con_box">
+            <div class="input_item login_username">
+                <input type="text" class="spec_ipt" id="txtLogin" placeholder="账户">
+            </div>
+            <div class="input_item login_password">
+                <input type="password" class="spec_ipt" id="password" placeholder="请输入密码">
+            </div>
+        </div>
+        <div class="btn_wrap">
+            <a href="javascript:;" id="bindsubmit">
+                <div class="big_btn btn_green">
+                    <span>绑定</span>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+@section foot{
+    <script src="/Areas/MShop/Themes/MC01/Content/Scripts/login.js" type="text/javascript"></script>
+}

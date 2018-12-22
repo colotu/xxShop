@@ -1,0 +1,32 @@
+﻿@using Webdiyer.WebControls.Mvc
+@model PagedList<YSWL.MALL.Model.Shop.PromoteSales.GroupBuy>
+@{
+    Layout = "/Areas/Shop/Themes/PC01/Views/Shared/_BaseLayout.cshtml";
+    string cid = Request.RequestContext.RouteData.Values["cid"] != null ? Request.RequestContext.RouteData.Values["cid"].ToString() : "0";
+    string regionId = Request.RequestContext.RouteData.Values["regionid"] != null ? Request.RequestContext.RouteData.Values["regionid"].ToString() : "643";
+    string mod = Request.RequestContext.RouteData.Values["mod"] != null ? Request.RequestContext.RouteData.Values["mod"].ToString() : "default";
+}
+<script type="text/javascript">
+    pagename = "groupbuy_list";
+</script>
+<div class="activity bgc">
+    <div class="a-groupBuying">
+        @Html.Action("AD", "Partial", new { AdvPositionId = 113, ViewName = "_RecAD" })
+        <div class="activity-con wrap">
+            <div class="a-hd">
+                <div class="title">
+                    <h1>特卖团购</h1><span>团购的更实惠！</span>
+                </div>
+            </div>
+            <div class="a-bd" id="tab_a">
+                @Html.Action("GetListCate")
+                <div class="tab-con"  id="ProductListDiv">
+                        @{Html.RenderPartial("_Group", Model);}
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/Areas/Shop/Themes/PC01/Content/scripts/timeCountDown.js" type="text/javascript"></script>
+<script src="/scripts/MvcPager-1.8.js" type="text/javascript"></script>

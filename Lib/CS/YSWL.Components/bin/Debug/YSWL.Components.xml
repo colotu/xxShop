@@ -1,0 +1,638 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>YSWL.Components</name>
+    </assembly>
+    <members>
+        <member name="T:YSWL.Web.Controllers.ControllerBaseAbs">
+            <summary>
+            页面层(表示层)基类,所有前台页面继承，无权限验证
+            </summary>
+        </member>
+        <member name="P:YSWL.Web.Controllers.ControllerBaseAbs.UserPrincipal">
+            <summary>
+             权限角色验证对象
+            </summary>
+        </member>
+        <member name="P:YSWL.Web.Controllers.ControllerBaseAbs.CurrentUser">
+            <summary>
+            当前登录用户
+            </summary>
+        </member>
+        <member name="M:YSWL.Web.Controllers.ControllerBaseAbs.InitializeComponent(System.Web.Mvc.ActionExecutingContext)">
+            <summary>
+            加载已登录用户对象和Style数据, 由子类实现 采用虚方法 子类可选
+            </summary>
+        </member>
+        <member name="M:YSWL.Web.Controllers.ControllerBaseAbs.GetPermidByActID(System.Int32)">
+            <summary>
+            根据功能行为编号得到所属权限编号
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:YSWL.Web.AreaRoute">
+            <summary>
+            路由区域枚举
+            </summary>
+        </member>
+        <member name="F:YSWL.Web.AreaRoute.None">
+            <summary>
+            默认主区域(根目录的Controller和View)
+            </summary>
+        </member>
+        <member name="F:YSWL.Web.AreaRoute.CMS">
+            <summary>
+            CMS区域
+            </summary>
+        </member>
+        <member name="F:YSWL.Web.AreaRoute.Shop">
+            <summary>
+            Shop区域
+            </summary>
+        </member>
+        <member name="F:YSWL.Web.AreaRoute.SNS">
+            <summary>
+            SNS区域
+            </summary>
+        </member>
+        <member name="F:YSWL.Web.AreaRoute.MSNS">
+            <summary>
+            移动平台社区区域
+            </summary>
+        </member>
+        <member name="F:YSWL.Web.AreaRoute.UserCenter">
+            <summary>
+            用户中心区域 (预留)
+            </summary>
+        </member>
+        <member name="F:YSWL.Web.AreaRoute.Tao">
+            <summary>
+            淘宝客区域
+            </summary>
+        </member>
+        <member name="F:YSWL.Web.AreaRoute.COM">
+            <summary>
+            共用模块区域
+            </summary>
+        </member>
+        <member name="F:YSWL.Web.AreaRoute.MShop">
+            <summary>
+            移动平台商城区域
+            </summary>
+        </member>
+        <member name="F:YSWL.Web.AreaRoute.MBShop">
+            <summary>
+            移动订货商城区域
+            </summary>
+        </member>
+        <member name="F:YSWL.Web.AreaRoute.MPage">
+            <summary>
+            移动平台官网区域
+            </summary>
+        </member>
+        <member name="F:YSWL.Web.AreaRoute.MobileSP">
+            <summary>
+            移动商家区域
+            </summary>
+        </member>
+        <member name="F:YSWL.Web.AreaRoute.MobileAG">
+            <summary>
+            移动代理商区域
+            </summary>
+        </member>
+        <member name="F:YSWL.Web.AreaRoute.ERP">
+            <summary>
+            ERP系统
+            </summary>
+        </member>
+        <member name="F:YSWL.Web.AreaRoute.Supplier">
+            <summary>
+            商家后台区域
+            </summary>
+        </member>
+        <member name="F:YSWL.Web.AreaRoute.Agent">
+            <summary>
+            代理商后台区域
+            </summary>
+        </member>
+        <member name="F:YSWL.Web.AreaRoute.MPageSP">
+            <summary>
+            商家微官网区域
+            </summary>
+        </member>
+        <member name="F:YSWL.Web.AreaRoute.Sales">
+            <summary>
+            业务员区域
+            </summary>
+        </member>
+        <member name="F:YSWL.Web.AreaRoute.Ship">
+            <summary>
+            加盟商区域
+            </summary>
+        </member>
+        <member name="F:YSWL.Web.AreaRoute.Admin">
+            <summary>
+            管理员区域
+            </summary>
+        </member>
+        <member name="F:YSWL.Web.AreaRoute.SAAS">
+            <summary>
+            SAAS区域
+            </summary>
+        </member>
+        <member name="F:YSWL.Web.AreaRoute.MSAAS">
+            <summary>
+            MSAAS区域
+            </summary>
+        </member>
+        <member name="F:YSWL.Web.AreaRoute.MAdmin">
+            <summary>
+            管理员手机区域
+            </summary>
+        </member>
+        <member name="F:YSWL.Web.AreaRoute.MB">
+             <summary>
+            订货B端区域
+             </summary>
+        </member>
+        <member name="F:YSWL.Web.AreaRoute.BShop">
+             <summary>
+            PC端订货B端区域
+             </summary>
+        </member>
+        <member name="T:YSWL.Web.IPageBaseOption">
+            <summary>
+            页面基类接口
+            </summary>
+        </member>
+        <member name="T:YSWL.Web.PageBaseAbs">
+            <summary>
+            页面层(表示层)基类,所有前台页面继承，无权限验证
+            </summary>
+        </member>
+        <member name="P:YSWL.Web.PageBaseAbs.UserPrincipal">
+            <summary>
+             权限角色验证对象
+            </summary>
+        </member>
+        <member name="P:YSWL.Web.PageBaseAbs.CurrentUser">
+            <summary>
+            当前登录用户
+            </summary>
+        </member>
+        <member name="M:YSWL.Web.PageBaseAbs.InitializeComponent">
+            <summary>
+            加载已登录用户对象和Style数据, 子类可替换此基础逻辑
+            </summary>
+        </member>
+        <member name="M:YSWL.Web.PageBaseAbs.GetPermidByActID(System.Int32)">
+            <summary>
+            根据功能行为编号得到所属权限编号
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Web.PageBaseAbs.GetboolText(System.String)">
+            <summary>
+            转换Bool类型的文本多语言描述
+            </summary>
+            <param name="bValid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Web.PageBaseAbs.TranslateToPercent(System.String)">
+            <summary>
+            百分率转换
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Web.PageBaseAbs.GetApprovedText(System.Object)">
+            <summary>
+            审批状态
+            </summary>
+            <param name="Value">审核人</param>
+            <returns></returns>
+        </member>
+        <member name="T:YSWL.Web.PageBaseAdminAbs">
+            <summary>
+            页面基类,所有Admin页面继承该页面
+            </summary>
+        </member>
+        <member name="P:YSWL.Web.PageBaseAdminAbs.UserPrincipal">
+            <summary>
+             权限角色验证对象
+            </summary>
+        </member>
+        <member name="P:YSWL.Web.PageBaseAdminAbs.CurrentUser">
+            <summary>
+            当前登录用户
+            </summary>
+        </member>
+        <member name="M:YSWL.Web.PageBaseAdminAbs.GetPermidByActID(System.Int32)">
+            <summary>
+            根据功能行为编号得到所属权限编号
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Web.PageBaseAdminAbs.GetboolText(System.Object)">
+            <summary>
+            转换Bool类型的文本多语言描述
+            </summary>
+            <param name="bValid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Web.PageBaseAdminAbs.TranslateToPercent(System.String)">
+            <summary>
+            百分率转换
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Web.PageBaseAdminAbs.GetApprovedText(System.Object)">
+            <summary>
+            审批状态
+            </summary>
+            <param name="Value">审核人</param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Web.PageBaseAdminAbs.ExportToExcel(System.String,System.String)">
+            <summary>
+            HTML Table表格数据(html)导出EXCEL
+            </summary>
+            <param name="tabHead"></param>
+            <param name="tabData"></param>
+        </member>
+        <member name="M:YSWL.Web.PageBaseAdminAbs.ExportToExcel(System.Web.UI.Control)">
+            <summary>
+            将控件内容，导出EXCEL
+            </summary>
+            <param name="ctr"></param>
+        </member>
+        <member name="T:YSWL.Web.SingleLogin">
+            <summary>
+            单用户登录类，解决多地登录问题
+            </summary>
+        </member>
+        <member name="M:YSWL.Web.SingleLogin.UserLogin(System.Object)">
+            <summary>
+            用户登陆操作
+            </summary>
+            <param name="id">为用户ID或用户名,这个必须是用户的唯一标识</param>
+        </member>
+        <member name="M:YSWL.Web.SingleLogin.IsLogin(System.Object)">
+            <summary>
+            判断某用户是否已经登陆 
+            </summary>
+            <param name="id">为用户ID或用户名这个必须是用户的唯一标识</param>
+            <returns>flase为没有登陆 true为被迫下线</returns>
+        </member>
+        <member name="M:YSWL.Web.SingleLogin.ValidateForceLogin">
+            <summary>
+            判断某用户是否已经登录，并强迫登录用户下线。可以放到页面基类里面实时监测。
+            </summary>
+            <param name="id">为用户ID或用户名这个必须是用户的唯一标识</param>
+            <returns>flase为没有登陆 true为被迫下线</returns>
+        </member>
+        <member name="P:YSWL.Web.UserControlBase.UserPrincipal">
+            <summary>
+             权限角色验证对象
+            </summary>
+        </member>
+        <member name="P:YSWL.Web.UserControlBase.CurrentUser">
+            <summary>
+            当前登录用户
+            </summary>
+        </member>
+        <member name="M:YSWL.Web.UserControlBase.GetPermidByActID(System.Int32)">
+            <summary>
+            根据功能行为编号得到所属权限编号
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Components.Filters.TokenAuthorizeAttribute.#ctor">
+            <summary>
+            仅进行登录 Check
+            </summary>
+        </member>
+        <member name="M:YSWL.Components.Filters.TokenAuthorizeAttribute.#ctor(YSWL.Components.Filters.AccountType)">
+            <summary>
+            进行登录和指定用户类型 Check
+            </summary>
+            <param name="userType">用户类型</param>
+        </member>
+        <member name="M:YSWL.Components.Filters.TokenAuthorizeAttribute.#ctor(System.Int32)">
+            <summary>
+            进行登录和指定权限 Check
+            </summary>
+            <param name="permissionId">指定权限码</param>
+        </member>
+        <member name="M:YSWL.Components.Filters.TokenAuthorizeAttribute.#ctor(YSWL.Components.Filters.AccountType,System.Int32)">
+            <summary>
+            进行登录/指定用户类型/指定权限码 Check
+            </summary>
+            <param name="userType">用户类型</param>
+            <param name="permissionId">指定权限码</param>
+        </member>
+        <member name="T:YSWL.Components.Filters.AccountType">
+            <summary>
+            帐号类型
+            </summary>
+        </member>
+        <member name="F:YSWL.Components.Filters.AccountType.None">
+            <summary>
+            默认空值
+            </summary>
+        </member>
+        <member name="F:YSWL.Components.Filters.AccountType.Admin">
+            <summary>
+            网站管理员
+            </summary>
+        </member>
+        <member name="F:YSWL.Components.Filters.AccountType.User">
+            <summary>
+            普通用户(会员)
+            </summary>
+        </member>
+        <member name="F:YSWL.Components.Filters.AccountType.Enterprise">
+            <summary>
+            企业用户
+            </summary>
+        </member>
+        <member name="F:YSWL.Components.Filters.AccountType.Agent">
+            <summary>
+            代理商用户
+            </summary>
+        </member>
+        <member name="F:YSWL.Components.Filters.AccountType.Supplier">
+            <summary>
+            供应商用户
+            </summary>
+        </member>
+        <member name="F:YSWL.Components.Handlers.API.HandlerBase.PATH_FORMAT_FOLDER">
+            <summary>
+            上传目录 格式化字符串
+            <remarks>
+            {0} 模块文件夹 如 简报 或 考勤
+            {1} 用户ID文件夹
+            </remarks>
+            </summary>
+        </member>
+        <member name="F:YSWL.Components.Handlers.API.HandlerBase.PATH_FORMAT_FILENAME">
+            <summary>
+            上传文件名 格式化字符串
+            <remarks> 
+            {0} 模块主键 如 简报ID 或 考勤ID
+            {1} 文件名称 接口端上传
+            </remarks>
+            </summary>
+        </member>
+        <member name="F:YSWL.Components.Handlers.API.HandlerBase.DATE_FORMAT_DATETIME">
+            <summary>
+            日期时间格式
+            </summary>
+        </member>
+        <member name="F:YSWL.Components.Handlers.API.HandlerBase.DATE_FORMAT_DATE">
+            <summary>
+            日期格式
+            </summary>
+        </member>
+        <member name="T:YSWL.Components.Handlers.API.Result">
+            <summary>
+            API返回值
+            </summary>
+        </member>
+        <member name="T:YSWL.Components.Handlers.API.ResultStatus">
+            <summary>
+            API接口状态
+            </summary>
+        </member>
+        <member name="F:YSWL.Components.Handlers.API.ResultStatus.None">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:YSWL.Components.Handlers.API.ResultStatus.Success">
+            <summary>
+            成功
+            </summary>
+        </member>
+        <member name="F:YSWL.Components.Handlers.API.ResultStatus.Failed">
+            <summary>
+            失败
+            </summary>
+        </member>
+        <member name="F:YSWL.Components.Handlers.API.ResultStatus.Error">
+            <summary>
+            错误
+            </summary>
+        </member>
+        <member name="P:YSWL.Components.Handlers.HandlerBase.CurrentUser">
+            <summary>
+            当前登录用户
+            </summary>
+        </member>
+        <member name="T:YSWL.Components.IApplicationOption">
+            <summary>
+            IApplicationOption接口
+            </summary>
+        </member>
+        <member name="P:YSWL.Components.IApplicationOption.WebPowerBy">
+            <summary>
+            网站版权
+            </summary>
+        </member>
+        <member name="P:YSWL.Components.IApplicationOption.WebRecord">
+            <summary>
+            备案信息
+            </summary>
+        </member>
+        <member name="P:YSWL.Components.IApplicationOption.PageFootJs">
+            <summary>
+            统计脚本
+            </summary>
+        </member>
+        <member name="P:YSWL.Components.IApplicationOption.SiteName">
+            <summary>
+            网站名称
+            </summary>
+        </member>
+        <member name="P:YSWL.Components.IApplicationOption.ThemeName">
+            <summary>
+            模版名称
+            </summary>
+        </member>
+        <member name="M:YSWL.Components.IApplicationOption.GetAreaThemeName(YSWL.Web.AreaRoute,System.Web.Mvc.ControllerContext)">
+            <summary>
+            获取指定区域的模版名称
+            </summary>
+        </member>
+        <member name="T:YSWL.Components.MvcApplication">
+            <summary>
+            HttpApplication 基类
+            </summary>
+        </member>
+        <member name="F:YSWL.Components.MvcApplication.ApplicationOption">
+            <summary>
+            ApplicationOption接口 必须使用子类静态构造函数初始化
+            </summary>
+        </member>
+        <member name="F:YSWL.Components.MvcApplication.UploadFolder">
+            <summary>
+            上传文件跟目录
+            </summary>
+        </member>
+        <member name="P:YSWL.Components.MvcApplication.SiteName">
+            <summary>
+            网站名称
+            </summary>
+        </member>
+        <member name="P:YSWL.Components.MvcApplication.ThemeName">
+            <summary>
+            模版名称
+            </summary>
+        </member>
+        <member name="M:YSWL.Components.MvcApplication.HasArea(YSWL.Web.AreaRoute)">
+            <summary>
+            当前系统是否有指定区域
+            </summary>
+            <remarks>在运行池启动时加载目录</remarks>
+            <param name="area">Area</param>
+        </member>
+        <member name="P:YSWL.Components.MvcApplication.StaticHost">
+            <summary>
+            静态站Host
+            </summary>
+        </member>
+        <member name="M:YSWL.Components.MvcApplication.GetCurrentThemeName(YSWL.Web.AreaRoute)">
+            <summary>
+            获取模版名称
+            </summary>
+        </member>
+        <member name="M:YSWL.Components.MvcApplication.GetCurrentAreaRoute(System.Web.Mvc.ControllerContext)">
+            <summary>
+            获取当前区域标识
+            </summary>
+            <param name="controllerContext">当前ControllerContext</param>
+            <returns>AreaRoute</returns>
+        </member>
+        <member name="M:YSWL.Components.MvcApplication.GetCurrentAreaRoute(System.Object)">
+            <summary>
+            获取当前区域标识
+            </summary>
+            <param name="currentArea">当前路由</param>
+            <returns>AreaRoute</returns>
+        </member>
+        <member name="M:YSWL.Components.MvcApplication.GetCurrentRoutePath(System.Web.Mvc.ControllerContext)">
+            <summary>
+            获取当前路由的访问路径(前缀)
+            </summary>
+            <param name="controllerContext">当前ControllerContext</param>
+            <returns>访问前缀</returns>
+        </member>
+        <member name="M:YSWL.Components.MvcApplication.GetCurrentRoutePath(System.Object)">
+            <summary>
+            获取当前路由的访问路径(前缀)
+            </summary>
+            <param name="currentArea">当前路由</param>
+            <returns>访问前缀</returns>
+        </member>
+        <member name="M:YSWL.Components.MvcApplication.GetCurrentRoutePath(YSWL.Web.AreaRoute)">
+            <summary>
+            获取当前路由的访问路径(前缀)
+            </summary>
+            <param name="currentArea">当前路由</param>
+            <returns>访问前缀</returns>
+        </member>
+        <member name="M:YSWL.Components.MvcApplication.GetCurrentViewPath(System.Object)">
+            <summary>
+            获取当前View的访问路径(前缀)
+            </summary>
+            <param name="currentArea">当前路由</param>
+            <returns>View路径前缀</returns>
+        </member>
+        <member name="M:YSWL.Components.MvcApplication.GetCurrentViewPath(YSWL.Web.AreaRoute)">
+            <summary>
+            获取当前View的访问路径(前缀)
+            </summary>
+            <param name="currentArea">当前路由</param>
+            <returns>View路径前缀</returns>
+        </member>
+        <member name="M:YSWL.Components.MvcApplication.RegisterGlobalFilters(System.Web.Mvc.GlobalFilterCollection)">
+            <summary>
+            注册全局过滤器
+            </summary>
+        </member>
+        <member name="M:YSWL.Components.MvcApplication.RegisterIgnoreRoutes(System.Web.Routing.RouteCollection)">
+            <summary>
+            注册忽略路由
+            </summary>
+            <remarks>最高优先级</remarks>
+        </member>
+        <member name="M:YSWL.Components.MvcApplication.RegisterRoutes(System.Web.Routing.RouteCollection)">
+            <summary>
+            注册主路由
+            </summary>
+            <remarks>最低优先级</remarks>
+        </member>
+        <member name="T:YSWL.Components.Setting.IPageSetting">
+            <summary>
+            页面设置接口
+            </summary>
+        </member>
+        <member name="P:YSWL.Components.Setting.IPageSetting.Title">
+            <summary>
+            页面Title
+            </summary>
+            <remarks>赋值时将直接修改DB</remarks>
+        </member>
+        <member name="P:YSWL.Components.Setting.IPageSetting.Keywords">
+            <summary>
+            页面Keywords
+            </summary>
+            <remarks>赋值时将直接修改DB</remarks>
+        </member>
+        <member name="P:YSWL.Components.Setting.IPageSetting.Description">
+            <summary>
+            页面Description
+            </summary>
+            <remarks>赋值时将直接修改DB</remarks>
+        </member>
+        <member name="M:YSWL.Components.Setting.IPageSetting.Replace(System.String[][])">
+            <summary>
+            替换器
+            替换设置中指定的动态内容
+            </summary>
+            <param name="values">替换键值对象</param>
+            <remarks>
+            标题替换值长度截取为30字符
+            说明替换值长度截取为140字符
+            </remarks>
+            <returns>替换结果</returns>
+        </member>
+        <member name="M:YSWL.Components.Setting.IPageSetting.ReplaceTitle(System.String[][])">
+            <summary>
+            替换器
+            替换标题中指定的动态内容
+            </summary>
+            <param name="values">替换键值对象</param>
+            <remarks>标题替换值长度截取为30字符</remarks>
+            <returns>替换结果</returns>
+        </member>
+        <member name="M:YSWL.Components.Setting.IPageSetting.ReplaceKeywords(System.String[][])">
+            <summary>
+            替换器
+            替换关键字中指定的动态内容
+            </summary>
+            <param name="values">替换键值对象</param>
+            <returns>替换结果</returns>
+        </member>
+        <member name="M:YSWL.Components.Setting.IPageSetting.ReplaceDescription(System.String[][])">
+            <summary>
+            替换器
+            替换说明中指定的动态内容
+            </summary>
+            <param name="values">替换键值对象</param>
+            <remarks>说明替换值长度截取为140字符</remarks>
+            <returns>替换结果</returns>
+        </member>
+    </members>
+</doc>

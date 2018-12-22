@@ -1,0 +1,204 @@
+﻿@using YSWL.MALL.Web.SMSService
+@model List<YSWL.MALL.Model.Shop.Products.ProductInfo>
+<div class="floor-bd">
+    <div class="pro-list-wrapper">
+        <ul class="pro-list col5 pro-item-border clearfix placeholder-pf">
+            <li class="pro-list-item">
+                @Html.Action("AD", "Partial", new { AdvPositionId = 155, ViewName = "_IndexLeftAd" })
+            </li>
+            @if (Model != null && Model.Count > 0)
+            {
+                @*<li class="pro-list-item">
+                        <div class="row1">
+                            <div class="pro-item">
+                                <a href="@Model[0].SeoUrl">
+                                    <div class="pro-pic">
+                                        <img src="@YSWL.MALL.Web.Components.FileHelper.GeThumbImage(Model[0].ThumbnailUrl1, "T350X350_")" alt="@Model[0].ProductName">
+                                    </div>
+                                    <p class="pro-name">@Model[0].ProductName</p>
+                                    <div class="pro-price">
+                                        <span class="price-new"><i>¥</i>@Model[0].LowestSalePrice.ToString("F")</span>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </li>*@
+
+            if (Model.Count > 0)
+            {
+                <li class="pro-list-item">
+                    <div class="row2 placeholder-column2">
+                        <div class="pro-item">
+                            <a href="@Model[0].SeoUrl">
+                                <p class="pro-name">@Model[0].ProductName</p>
+                                <div class="pro-price">
+                                    <span class="price-new"><i>¥</i>@Model[0].LowestSalePrice.ToString("F")</span>
+                                </div>
+                                <div>
+                                    <span style="color:red;"><i>积分：</i>@Model[1].Gwjf</span>
+                                    <div class="pro-pic">
+                                        <img src="@YSWL.MALL.Web.Components.FileHelper.GeThumbImage(Model[0].ThumbnailUrl1, "T115X115_")" alt="@Model[0].ProductName">
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        @if (Model.Count > 1)
+                        {
+                            <div class="pro-item">
+                                <a href="@Model[1].SeoUrl">
+                                    <p class="pro-name">@Model[1].ProductName</p>
+                                    <div class="pro-price">
+                                        <span class="price-new"><i>¥</i>@Model[1].LowestSalePrice.ToString("F")</span>
+                                    </div>
+                                    <div>
+                                        <span style="color:red;"><i>积分：</i>@Model[1].Gwjf</span>
+                                        <div class="pro-pic">
+                                            <img src="@YSWL.MALL.Web.Components.FileHelper.GeThumbImage(Model[1].ThumbnailUrl1, "T115X115_")" alt="@Model[1].ProductName">
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        }
+                    </div>
+                </li>
+            }
+
+            if (Model.Count > 2)
+            {
+                <li class="pro-list-item">
+                    <div class="row2 placeholder-column2">
+                        <div class="pro-item">
+                            <a href="@Model[2].SeoUrl">
+                                <p class="pro-name">@Model[2].ProductName</p>
+                                <div class="pro-price">
+                                    <span class="price-new"><i>¥</i>@Model[2].LowestSalePrice.ToString("F")</span>
+                                </div>
+                                <div>
+                                    <span style="color:red;"><i>积分：</i>@Model[2].Gwjf</span>
+                                    <div class="pro-pic">
+                                        <img src="@YSWL.MALL.Web.Components.FileHelper.GeThumbImage(Model[2].ThumbnailUrl1, "T115X115_")" alt="@Model[2].ProductName">
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        @if (Model.Count > 3)
+                        {
+                            <div class="pro-item">
+                                <a href="@Model[3].SeoUrl">
+                                    <p class="pro-name">@Model[3].ProductName</p>
+                                    <div class="pro-price">
+                                        <span class="price-new"><i>¥</i>@Model[3].LowestSalePrice.ToString("F")</span>
+                                    </div>
+                                    <div>
+                                        <span style="color:red;"><i>积分：</i>@Model[3].Gwjf</span>
+                                        <div class="pro-pic">
+                                            <img src="@YSWL.MALL.Web.Components.FileHelper.GeThumbImage(Model[3].ThumbnailUrl1, "T115X115_")" alt="@Model[3].ProductName">
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        }
+                    </div>
+                </li>
+                }
+
+                if (Model.Count > 4)
+                {
+                    <li class="pro-list-item">
+                        <div class="row2 placeholder-column2">
+                            <div class="pro-item">
+                                <a href="@Model[4].SeoUrl">
+                                    <p class="pro-name">@Model[4].ProductName</p>
+                                    <div class="pro-price">
+                                        <span class="price-new"><i>¥</i>@Model[4].LowestSalePrice.ToString("F")</span>
+                                    </div>
+                                    <div>
+                                        <span style="color:red;"><i>积分：</i>@Model[4].Gwjf</span>
+                                        <div class="pro-pic">
+                                            <img src="@YSWL.MALL.Web.Components.FileHelper.GeThumbImage(Model[4].ThumbnailUrl1, "T115X115_")" alt="@Model[4].ProductName">
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            @if (Model.Count > 5)
+                            {
+                                <div class="pro-item">
+                                    <a href="@Model[5].SeoUrl">
+                                        <p class="pro-name">@Model[5].ProductName</p>
+                                        <div class="pro-price">
+                                            <span class="price-new"><i>¥</i>@Model[5].LowestSalePrice.ToString("F")</span>
+                                        </div>
+                                        <div>
+                                            <span style="color:red;"><i>积分：</i>@Model[5].Gwjf</span>
+                                            <div class="pro-pic">
+                                                <img src="@YSWL.MALL.Web.Components.FileHelper.GeThumbImage(Model[5].ThumbnailUrl1, "T115X115_")" alt="@Model[5].ProductName">
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            }
+                        </div>
+                    </li>
+                }
+
+                if (Model.Count > 6)
+                {
+                    <li class="pro-list-item">
+                        <div class="row2 placeholder-column2">
+                            <div class="pro-item">
+                                <a href="@Model[6].SeoUrl">
+                                    <p class="pro-name">@Model[6].ProductName</p>
+                                    <div class="pro-price">
+                                        <span class="price-new"><i>¥</i>@Model[6].LowestSalePrice.ToString("F")</span>
+                                    </div>
+                                    <div>
+                                        <span style="color:red;"><i>积分：</i>@Model[6].Gwjf</span>
+                                        <div class="pro-pic">
+                                            <img src="@YSWL.MALL.Web.Components.FileHelper.GeThumbImage(Model[6].ThumbnailUrl1, "T115X115_")" alt="@Model[6].ProductName">
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            @if (Model.Count > 7)
+                            {
+                                <div class="pro-item">
+                                    <a href="@Model[7].SeoUrl">
+                                        <p class="pro-name">@Model[7].ProductName</p>
+                                        <div class="pro-price">
+                                            <span class="price-new"><i>¥</i>@Model[7].LowestSalePrice.ToString("F")</span>
+                                        </div>
+                                        <div>
+                                            <span style="color:red;"><i>积分：</i>@Model[7].Gwjf</span>
+                                            <div class="pro-pic">
+                                                <img src="@YSWL.MALL.Web.Components.FileHelper.GeThumbImage(Model[7].ThumbnailUrl1, "T115X115_")" alt="@Model[7].ProductName">
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            }
+                        </div>
+                    </li>
+                }
+
+                @*if (Model.Count > 5)
+                    {
+                        <li class="pro-list-item">
+                            <div class="row1">
+                                <div class="pro-item">
+                                    <a href="@Model[5].SeoUrl">
+                                        <div class="pro-pic">
+                                            <img src="@YSWL.MALL.Web.Components.FileHelper.GeThumbImage(Model[5].ThumbnailUrl1, "T350X350_")" alt="@Model[5].ProductName">
+                                        </div>
+                                        <p class="pro-name">@Model[5].ProductName</p>
+                                        <div class="pro-price">
+                                            <span class="price-new"><i>¥</i>@Model[5].LowestSalePrice.ToString("F")</span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+                    }*@
+            }
+        </ul>
+    </div>
+</div>

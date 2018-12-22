@@ -1,0 +1,12 @@
+E:\ZheJiangBiYan\BYShop\Lib\CS\YSWL.SMS\bin\Debug\EUCPComm.dll
+E:\ZheJiangBiYan\BYShop\Lib\CS\YSWL.SMS\bin\Debug\YSWL.SMS.xml
+E:\ZheJiangBiYan\BYShop\Lib\CS\YSWL.SMS\bin\Debug\YSWL.SMS.dll
+E:\ZheJiangBiYan\BYShop\Lib\CS\YSWL.SMS\bin\Debug\YSWL.SMS.pdb
+E:\ZheJiangBiYan\BYShop\Lib\CS\YSWL.SMS\obj\Debug\YSWL.SMS.dll
+E:\ZheJiangBiYan\BYShop\Lib\CS\YSWL.SMS\obj\Debug\YSWL.SMS.pdb
+E:\zhou\洪光顺\XXShop\Lib\CS\YSWL.SMS\bin\Debug\EUCPComm.dll
+E:\zhou\洪光顺\XXShop\Lib\CS\YSWL.SMS\bin\Debug\YSWL.SMS.xml
+E:\zhou\洪光顺\XXShop\Lib\CS\YSWL.SMS\bin\Debug\YSWL.SMS.dll
+E:\zhou\洪光顺\XXShop\Lib\CS\YSWL.SMS\bin\Debug\YSWL.SMS.pdb
+E:\zhou\洪光顺\XXShop\Lib\CS\YSWL.SMS\obj\Debug\YSWL.SMS.dll
+E:\zhou\洪光顺\XXShop\Lib\CS\YSWL.SMS\obj\Debug\YSWL.SMS.pdb

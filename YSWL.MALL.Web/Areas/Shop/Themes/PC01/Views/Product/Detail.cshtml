@@ -1,0 +1,366 @@
+﻿@{
+    Layout = "/Areas/Shop/Themes/PC01/Views/Shared/_BaseLayout.cshtml";
+}
+@using YSWL.Common
+@using YSWL.MALL.Model.Shop.Products
+@model YSWL.MALL.ViewModel.Shop.ProductModel
+<script src="/Scripts/jquery/maticsoft.img.min.js" type="text/javascript"></script>
+<link href="/Scripts/jqueryui/base/jquery-ui-1.9.2.min.css" rel="stylesheet" type="text/css" />
+<script src="/Scripts/jqueryui/jquery-ui-1.9.2.custom.js" type="text/javascript"></script>
+<script src="/Areas/Shop/Themes/PC01/Content/scripts/Product/Detail.js" type="text/javascript"></script>
+<script src="/Areas/Shop/Themes/PC01/Content/scripts/Product/SKU.js?v=1.0" type="text/javascript"></script>
+<link href="@Url.Content("/Areas/Shop/Themes/PC01/Content/Css/image.zoom.css")" rel="stylesheet" type="text/css" />
+<script src="/Areas/Shop/Themes/PC01/Content/scripts/image.zoom.base.js" type="text/javascript"></script>
+<script type="text/javascript">
+    pagename = "product_detail";
+    $(function () {
+    if(@Model.ProductInfo.SalesType==3){
+             $('#btnAddToCart').removeClass('addCart').addClass('addCart-gray');
+             $('#iteminfo #divBuyInfo').hide();
+             $('#iteminfo #divSelectInfo').empty();
+             $('#iteminfo #closeArrivingNotifyMess').text("非常抱歉, 此商品为赠品，暂不出售!");
+             $('#iteminfo #closeArrivingNotifyMess').show();
+        }
+        if (@Model.ProductInfo.SaleStatus !== 1) {
+            $('#btnAddToCart').removeClass('addCart').addClass('addCart-gray');
+            $('#iteminfo #divBuyInfo').hide();
+            $('#iteminfo #divSelectInfo').empty();
+            $('#iteminfo #closeArrivingNotifyMess').text("非常抱歉, 此商品已下架!");
+            $('#iteminfo #closeArrivingNotifyMess').show();
+        }
+
+
+        $("#btnAddToCart").click(function () {
+            if ($(this).hasClass('addCart-gray')) return false;
+            if (!$(this).attr('itemid')) {
+                $('#SKUOptions,#SKUOptions a').effect('highlight', 500);
+                ShowFailTip('请选择商品规格属性！');
+                return false;
+            }
+            var count = parseInt($("#productCounts").val());
+            @if (YSWL.MALL.BLL.SysManage.ConfigSystem.GetValueByCache("Shop_BuyMode") == "BuyNow")
+            {
+                @:location.href = "@(ViewBag.BasePath)Order/SubmitOrder?sku=" + $(this).attr('itemid') + "&Count=" + count+ "&r=" + $.getUrlParam("r");
+            }
+            else
+            {
+                @:location.href = "@(ViewBag.BasePath)ShoppingCart/AddCart?sku=" + $(this).attr('itemid') + "&Count=" + count+ "&r=" + $.getUrlParam("r");
+            }
+        });
+
+        $("#plus").click(function () {
+            var count = parseInt($("#productCounts").val()) + 1;
+            $('#subtract').removeClass('disabled');
+            $("#productCounts").val(count);
+        });
+        $("#subtract").click(function () {
+            var count = parseInt($("#productCounts").val());
+            if (count > 1) {
+                count = count - 1;
+            }
+            if(count<=1){
+                $(this).addClass('disabled');
+            }
+            $("#productCounts").val(count);
+        });
+
+
+        GetPvCount(@Model.ProductInfo.ProductId);
+    });
+     var GetPvCount = function(pid) {
+          $.ajax({
+                            url: "@(ViewBag.BasePath)Product/GetPvCount",
+                            type: 'post',
+                            dataType: 'json',
+                            timeout: 10000,
+                            data: {
+                                pid: pid
+                            },
+                            success: function (jsondata) {
+                                if(jsondata.STATUS=="SUCCESS")
+                                {
+                                     //jsondata.DATA; 将访问数展示到页面上  预留
+                                }
+                            },
+                            error: function (messsage) {
+                                alert(messsage);
+                            }
+                        });
+
+    };
+</script>
+
+<div class="bgc">
+    <div class="wrap">
+        <div class="breadcrumb">
+            <a href="@(ViewBag.BasePath)" class="crumbs-lk">首页</a>
+            @if (Model.CategoryInfos != null && Model.CategoryInfos.Count > 0)
+            {
+                foreach (var item in Model.CategoryInfos)
+                {
+                    <i class="arrow-r">&gt;</i><a href="@(ViewBag.BasePath)product/@item.CategoryId" class="crumbs-lk">@item.Name</a>
+                }
+            }
+            <i class="arrow-r">&gt;</i>
+            <a href="javascript:;" class="crumbs-lk">@Model.ProductInfo.ProductName</a>
+        </div>
+    </div>
+</div>
+<div class="wrap">
+    <div class="product-intro module clearfix">
+        <!-- 商品图片 -->
+        <div class="preview">
+            <div class="product-gallery jqzoom" id="jqzoom">
+                <img id="samllImg" itemprop="image" width="150" ref="@YSWL.MALL.Web.Components.FileHelper.GeThumbImage(Model.ProductInfo.ThumbnailUrl1, "T350X350_")" jqimg="@Model.ProductInfo.ImageUrl" alt="@ViewBag.ImageAlt" title="@ViewBag.ImageTitle" />
+            </div>
+            <div class="thumbnail">
+                <a href="javascript:;" class="arrow-btn arrow-prev" id="prev">
+                    <i class="sprite-arrow-prev"></i>
+                </a>
+                <a href="javascript:;" class="arrow-btn arrow-next" id="next">
+                    <i class="sprite-arrow-next"></i>
+                </a>
+                <div class="thumbnail-list" id="lbtp">
+                    <ul>
+                        @if (Model != null && Model.ProductImages != null)
+                        {
+                            for (int i = 0; i < Model.ProductImages.Count; i++)
+                            {
+                                <li class="J_carousel_item @(i==0?"img-hover":"")">
+                                    <img itemprop="image" src="@YSWL.MALL.Web.Components.FileHelper.GeThumbImage(Model.ProductImages[i].ThumbnailUrl1, "T88X88_")" alt="@ViewBag.ImageAlt" title="@ViewBag.ImageTitle" jqimg="@(Model.ProductImages[i].ImageUrl)">
+                                </li>
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="itemInfo-wrap">
+            <div class="itemInfo" id="iteminfo">
+                <input type="hidden" name="name" value="@ViewBag.id" id="proId" />
+                <div class="name">
+                    <h1>@Model.ProductInfo.ProductName</h1>
+                </div>
+                <div class="summary">
+                    <div class="s-panel summary-price">
+                        <div class="dt">市场价</div>
+                        <div class="dd">
+                            <del>￥<span id="markPrice"></span></del>
+                        </div>
+                    </div>
+                    <div class="s-panel summary-price">
+                        <div class="dt">零售价</div>
+                        <div class="dd">
+                            <span class="price-c" id="salePrice"></span>
+                        </div>
+                    </div>
+                    <div class="s-panel summary-price">
+                        <div class="dt">积分</div>
+                        <div class="dd">
+                            @Model.ProductInfo.Gwjf
+                        </div>
+                    </div>
+                    @if (Model.ProductSkus[0].RankPrice > 0)
+                    {
+                        <div class="s-panel summary-price">
+                            <div class="dt">会员价格</div>
+                            <div class="dd">
+                                <span class="price-c" id="rankPrice">@Model.ProductSkus[0].RankPrice.ToString("F")</span>
+                            </div>
+                        </div>
+                    }
+
+                    <!--促销活动(赠品 优惠劵)--->
+                    @Html.Action("ActivityList", "Partial", new { pId = Model.ProductInfo.ProductId, suppId = Model.ProductInfo.SupplierId })
+                    <!--促销活动(赠品 优惠劵)--->
+                    @Html.Action("WholeSale", new { pId = Model.ProductInfo.ProductId, suppId = Model.ProductInfo.SupplierId })
+
+
+                    <div class="sales">
+                        @*<p class="comment">商品销量</p>
+                            <p class="count">@Model.ProductInfo.SaleCounts</p>*@
+                        <div class="ui-poptip">
+                            <div class="ui-poptip-arrow" style="left: 7px; right: auto;"><i></i></div>
+                            <div class="ui-poptip-body">
+                                <div class="clearfix" style="padding:3px;">
+                                    <img width="75" height="75" src="/Upload/Shop/QR/Product/@(Model.ProductInfo.ProductId).png">
+                                    <p>扫描二维码  分享朋友圈</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="choose">
+                    @if (Model.ProductInfo.SaleStatus == 1 && Model.ProductInfo.SalesType == 1 && ViewBag.IsMultiDepot)
+                    {
+                        //已开启了分仓
+                        @Html.Action("OptionSKUByDepot", "Product", new { productId = Model.ProductInfo.ProductId, SuppId = Model.ProductInfo.SupplierId, viewName = "_OptionSKU" })
+                    }
+                    else
+                    {
+                        @Html.Action("OptionSKU", "Product", new { ProductId = Model.ProductInfo.ProductId, SuppId = Model.ProductInfo.SupplierId, viewName = "_OptionSKU" })
+                    }
+                    <div class="p-choose" id="divBuyInfo">
+                        <div class="dt">购买件数</div>
+                        <div class="dd">
+                            <div class="choose-amount">
+                                <input type="text" id="productCounts" class="buy-num" value="1">
+                                <a href="javascript:;" class="change-num btn-reduce disabled" id="subtract">-</a>
+                                <a href="javascript:;" class="change-num btn-add" id="plus">+</a>
+                            </div>
+                            <span id="div_stock" style="display:none; ">（库存<span id="stock_num"></span>件）</span>
+                            <a href="javascript:;" class="btn-append addCart" id="btnAddToCart" temid="" productid="@Model.ProductInfo.ProductId">
+                                @if (YSWL.MALL.BLL.SysManage.ConfigSystem.GetValueByCache("Shop_BuyMode") == "BuyNow")
+                                {
+                                    @:立刻购买
+                                }
+                                else
+                                {
+                                    <span class="icon - cart"></span>@:加入购物车
+                                }
+                            </a>
+                        </div>
+                    </div>
+                    <div class="p-choose" id="closeArrivingNotifyMess" style="display: none;">
+                        非常抱歉, 此商品已售罄!
+                    </div>
+                    <div class="p-choose action-list" style="overflow: inherit;">
+                        <div style="margin-left:90px;">
+                            <a href="javascript:;" class="act-btn" id="btnProductFav" productId="@Model.ProductInfo.ProductId"><span class="icon icon-hollow-favor"></span><em>收藏</em></a>
+                            <div>
+                                <!--二维码开始-->
+                                @if (ViewBag.HasArea)
+                                {
+                                    <div id="qrMobile">
+                                        <a style="float: left;" href="javascript:;">
+                                            <img src="/Areas/Shop/Themes/PC01/Content/images/weixin16.png" alt="微信">
+                                        </a>
+                                        <div class="ui-poptip" id="div_qr">
+                                            <div class="ui-poptip-arrow" style="left: 7px; right: auto;"><i></i></div>
+                                            <div class="ui-poptip-body">
+                                                <div class="clearfix" style="padding:10px;">
+                                                    <img width="180" height="180" src="/Upload/Shop/QR/Product/@(Model.ProductInfo.ProductId).png">
+                                                    <p>简单一步，分享给朋友：</p><p>1、 扫描二维码</p><p>2、 把链接分享到朋友圈</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <script type="text/javascript">
+                                        $(function () {
+                                            $("#qrMobile").hover(
+                                          function () {
+                                              $('#div_qr').show();
+                                          },
+                                          function () {
+                                              $('#div_qr').hide();
+                                          }
+                                        );
+                                        });
+                                    </script>
+                                }
+                                <!--二维码结束-->
+                                @Html.Action("BaiduShare", "Partial")
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 店铺信息 -->
+        @Html.Action("FloatSuppLayer", "Partial", new { suppId = Model.ProductInfo.SupplierId })
+
+    </div>
+
+    <!--商品组合-->
+    @Html.Action("PromotionCombo", "Product", new { pid = Model.ProductInfo.ProductId, type = 2 })
+    <!--商品组合-->
+    <!--配件-->
+    @Html.Action("PromotionCombo", "Product", new { pid = Model.ProductInfo.ProductId, type = 1, viewName = "_Parts" })
+    <!--配件-->
+
+
+    <div class="list-main big-space clearfix">
+        <div class="m-list">
+            <div class="ml-wrap">
+                <div class="product-info">
+                    <div class="tab-bar">
+                        <ul>
+                            <li class="current" id="id-goods-info">商品介绍</li>
+                            <li id="id-buyer-comment">商品评价（@ViewBag.CommentCount）</li>
+                        </ul>
+                    </div>
+                    <div class="tab-con" id="product-detail">
+                        <div class="parameter">
+                            @if (!String.IsNullOrWhiteSpace(ViewBag.BrandName))
+                            {
+                                <ul class="parameter-list p-brand">
+                                    <li>品牌：@ViewBag.BrandName</li>
+                                </ul>
+                            }
+                            @Html.Action("OptionAttr", new { ProductId = Model.ProductInfo.ProductId })
+                        </div>
+                        <div class="detail-content module">
+                            @Html.Raw(YSWL.MALL.BLL.Settings.SEORelationManage.FilterStr(Model.ProductInfo.Description, true, false, true, false, false, Model.ProductInfo.ProductId, "ShopDescription"))
+                        </div>
+                    </div>
+                    <div class="tab-con" id="LoadData">
+                    </div>
+                </div>
+                <div class="recommend module">
+                    <div class="pro-list-wrapper">
+                        <div class="mhd">
+                            <h2 class="title">相关商品</h2>
+                        </div>
+                        <!--相关商品开始-->
+                        @Html.Action("ProductRelation", "Product", new { id = Model.ProductInfo.ProductId, Top = 4 })
+                        <!--相关商品结束-->
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="m-aside">
+            <div class="aside-bar">
+                <div class="mhd">
+                    <h3>热销商品</h3>
+                </div>
+                <div class="mbd">
+                    <div class="pro-list-wrapper">
+                        @Html.Action("ProductRec", "Partial", new { Type = YSWL.MALL.Model.Shop.Products.ProductRecType.Hot, Top = 8, Cid = ViewBag.Cid, ViewName = "_ProductDetialRec" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<input id="hdProductId" type="hidden" value="@Model.ProductInfo.ProductId" />
+<input id="hdProductName" type="hidden" value="@Model.ProductInfo.ProductName" />
+<input id="hdProdThumUrl1" type="hidden" value="@Model.ProductInfo.ThumbnailUrl1" />
+<input id="hdtypeid" type="hidden" value="@Model.ProductInfo.TypeId" />
+<input id="hdsuppId" type="hidden" value="@Model.ProductInfo.SupplierId" />
+<!--登陆层-->
+@Html.Action("LoginLayer", "Partial")
+<!--登陆层-->
+<script src="~/Areas/Shop/Themes/PC01/Content/Scripts/ajaxLogin.js"></script>
+<script type="text/javascript">
+    $(function () {
+        var id = $("#proId").val();
+        $.ajax({
+            url: $YSWL.BasePath + "Product/GetDetailInfo",
+            type: 'post',
+            async: false,
+            dataType: 'json',
+            timeout: 10000,
+            data: { id: id },
+            success: function (resultData) {
+                $("#markPrice").text(resultData["markPrice"]);
+                $("#salePrice").text("￥" + resultData["salePrice"]);
+                $("#rankPrice").text("￥" + resultData["rankPrice"]);
+            }
+        });
+    });
+</script>
+<script src="/scripts/MvcPager-1.8.js" type="text/javascript"></script>

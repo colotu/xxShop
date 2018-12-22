@@ -1,0 +1,34 @@
+﻿@{
+    Layout = "~/Areas/Shop/Themes/PC01/Views/Shared/_BaseLayout.cshtml";
+}
+<link href="/Areas/Shop/Themes/PC01/Content/Css/Style-1.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="/Areas/Shop/Themes/PC01/Content/Css/style.css"/>
+<link rel="stylesheet" type="text/css" href="/Areas/Shop/Themes/PC01/Content/Css/zzsc.css" />
+<script  type="text/javascript">
+    $(function () {
+        $(".copyright").css("text-align", "center");
+        $("#guide_2").mouseover(function () { $("#category").show(); }).mouseout(function () { $("#category").hide(); });
+
+    });
+
+</script>
+ 
+ <div class="w760">
+        <div class="box box-pwd">                   
+                <div id="tab_regi">
+                    <div class="J_tab_panel">                 
+<div class="error">
+  <div class="error_r"></div>
+  <div class="error_w">
+     <p class="error_w_a"> Sorry!  该功能已被管理员关闭</p>
+     <p class="error_w_b">如果有疑问，请联系网站管理员，您还可以：</p>
+      <p class="error_w_b"><a href="@(ViewBag.BasePath)Home">返回首页</a>;</p>
+  </div>
+</div> 
+                </div>
+            </div>
+        </div>
+    </div>
+
+ 
+

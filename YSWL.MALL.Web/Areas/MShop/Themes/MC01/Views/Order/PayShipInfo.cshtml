@@ -1,0 +1,143 @@
+﻿@{
+    Layout = "~/Areas/MShop/Themes/MC01/Views/Shared/_BaseLayout.cshtml";
+}
+@section head{
+   <link href="/Areas/MShop/Themes/MC01/Content/Css/main.css" rel="stylesheet" />
+}
+@model YSWL.MALL.ViewModel.Shop.ShoppingCartModel
+<div class="main_wrapper">
+    <!--START HEADER-->
+    <header>
+        <div class="top_navbar fixed_header">
+            <div class="si icon_goback" id="c_back">
+            </div>
+            <p class="header_title">选择支付配送方式</p>
+        </div>
+    </header>
+    <!-- END HEADER -->
+    <div class="top"></div>
+    <div class="choose_way_wrap margin-b50">
+@if (Model != null && Model.AllCartInfo != null && Model.AllCartInfo.Quantity > 0 && Model.AllCartInfo.Items!=null)
+{
+
+    <div class="order_item mt pd">
+        <div class="title">支付方式</div>
+        <div class="item">
+            <div class="pro_list">
+                <div class="item_l">
+                @for (int i = 0; i < Model.AllCartInfo.Items.Count; i++)
+                {
+                        <div class="p_img">
+                            <img src="@YSWL.MALL.Web.Components.FileHelper.GeThumbImage(Model.AllCartInfo.Items[i].ThumbnailsUrl, "T115X115_")" alt="@Model.AllCartInfo.Items[i].Name" onerror="this.onerror = ''; this.src = '/Content/themes/base/images/404/404_1.png'" />
+                        </div>
+                        if (i == 2)
+                        {
+                            break;
+                        }
+                    }
+                </div>
+                <div class="item_r">
+                    共@(Model.AllCartInfo.Quantity)件
+                </div>
+            </div>
+        </div>
+        <div class="choose_pay_way">
+            <div class="b_item">
+                请选择支付方式
+            </div>
+            @Html.Action("PayList", "Order",new  { viewName="_PayList"})
+        </div>
+    </div>
+        <div class="order_item mt pd">
+            <div class="title">配送方式</div>
+@if (Model.DicSuppCartItems != null)
+{
+    int num;
+    int quantity;
+    foreach (var dicSuppCartItem in Model.DicSuppCartItems)
+    {
+        num = 0;
+        quantity = 0;//每个商家商品件数
+            <div class="item">
+                <div class="pro_list">
+                    <div class="item_l">
+
+                        @foreach (YSWL.MALL.Model.Shop.Products.ShoppingCartItem item in dicSuppCartItem.Value)
+                        {
+                            quantity += item.Quantity;
+                            if (num > 2)
+                            {
+                                continue;
+                            }
+                            num++;
+                            <!--此位置只能展示三件商品-->
+                          <div class="p_img">
+                                <img src="@YSWL.MALL.Web.Components.FileHelper.GeThumbImage(item.ThumbnailsUrl, "T115X115_")" alt="@item.Name" onerror="this.onerror = ''; this.src = '/Content/themes/base/images/404/404_1.png'" />
+                         </div>
+                        }
+                    </div>
+                     
+                    <div class="item_r">
+                        共@(quantity)件
+                    </div>
+                </div>
+                <div class="btn_wrap">
+                    @Html.Action("ew3GetShipTypeBySupp","Order",new {suppId=dicSuppCartItem.Key,viewName="_ShipTypeBySupp" })
+                </div>
+            </div>
+        }
+}
+        </div>
+}
+    </div>
+    <div class="btn_wrapper" id="butCenter">
+        <input type="submit" class="b_btn btn_green" value="确定">
+    </div>
+    <!-- ################-->
+    <!-- END TOP MENU -->
+    <!-- ################-->
+</div>
+
+@section foot{
+<script src="/Scripts/jquery.cookie.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $(function () {
+        $('#body').addClass('m_home');
+
+        //hold按钮
+        holdBottomButton($(".choose_way_wrap"), $(".btn_wrapper"), 'hold-fixed');
+
+        //选中支付方式
+        var m_payid= $.cookie('m_so_payId');
+        if (m_payid == null || m_payid == "") {
+            $('#paylist li:eq(0)').addClass('active');
+        } else {
+            $('#paylist li[payid=' + m_payid + ']').addClass('active');
+        }
+      
+
+        //返回按钮
+		$('#c_back').click(function () {
+			    $.cookie('m_so_code', "", { expires: 1, path: '/' }); //清空优惠劵码
+			    window.location.replace($YSWL.BasePath + "Order/SubmitOrder");
+		});
+
+        //选择支付方式
+			$('#paylist li').on('click', function () {
+			    $('#paylist li.active').removeClass('active');
+			    $(this).addClass('active');
+			});
+
+           //确定
+			$('#butCenter').on('click', function () {
+			    var payId =parseInt($('#paylist li.active').attr('payid'));
+			    if (isNaN(payId) || payId <= 0) {
+			        ShowFailTip('请选择支付方式');
+			        return;
+			    }
+			    $.cookie('m_so_payId', payId, { expires: 1, path: '/' }); //记录payId
+			    window.location.replace($YSWL.BasePath + 'Order/SubmitOrder');
+			});
+	});
+</script>
+}

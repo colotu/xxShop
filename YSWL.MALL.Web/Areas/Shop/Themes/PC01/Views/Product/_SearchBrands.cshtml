@@ -1,0 +1,36 @@
+﻿@model List<YSWL.MALL.Model.Shop.Products.BrandInfo>
+@{
+    string cid = Request.RequestContext.RouteData.Values["cid"] != null ? Request.RequestContext.RouteData.Values["cid"].ToString() : "0";
+    string brandid = Request.RequestContext.RouteData.Values["brandid"] != null ? Request.RequestContext.RouteData.Values["brandid"].ToString() : "0";
+    string keyword = Request.RequestContext.RouteData.Values["keyword"] != null ? Request.RequestContext.RouteData.Values["keyword"].ToString() : "";
+    string mod = Request.RequestContext.RouteData.Values["mod"] != null ? Request.RequestContext.RouteData.Values["mod"].ToString() : "default";
+    string price = Request.RequestContext.RouteData.Values["price"] != null ? Request.RequestContext.RouteData.Values["price"].ToString() : "0-0";
+}
+<script type="text/javascript">
+    $(function () {
+        $(".brandlist").each(function () {
+            var value = $(this).attr("brandId");
+            if (value == @brandid) {
+                      $(this).addClass("noLimit");
+            }
+        });
+    })
+</script>
+@if (Model != null && Model.Count > 0)
+{
+    <div class="row1">
+        <div class="row1L">
+            品牌：</div>
+        <div class="row1R">
+            <ul>
+                <li><a canajax="1" brandId="0"  anchor="Filter" href="@(ViewBag.BasePath)search/@cid/0/@mod/@price/@keyword" title="全部" class="allbtn brandlist ">
+                    全部</a></li>
+                @foreach (var item in Model)
+                {
+                    <li  ><a brandId="@item.BrandId" class="brandlist" canajax="1"  title="@item.BrandName" anchor="Filter" href="@(ViewBag.BasePath)search/@cid/@item.BrandId/@mod/@price/@keyword">
+                        @item.BrandName</a> </li>
+                }
+            </ul>
+        </div>
+    </div>
+}

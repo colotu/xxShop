@@ -1,0 +1,27 @@
+﻿ @model List<YSWL.MALL.Model.Shop.Products.ProductInfo>
+@if (Model != null && Model.Count > 0)
+{
+    foreach (var item in Model)
+    {
+        <li>
+            <a href="@(ViewBag.BasePath)p/d/@item.ProductId" title="@item.ProductName">
+                <div class="list_item">
+                    <div class="pro_img">
+                        <img src="@YSWL.MALL.Web.Components.FileHelper.GeThumbImage(item.ThumbnailUrl1, "T420X420_")" alt="@item.ProductName" onerror="this.onerror = ''; this.src = '/Content/themes/base/images/404/404_1.png'">
+                    </div>
+                    <div class="pro_info">
+                        <p class="name">@item.ProductName</p>
+                        <p class="price">
+                            <span class="new_price f14">尝新价</span><strong>￥@item.LowestSalePrice.ToString("F")</strong>
+                        </p>
+                    </div>
+                    <div class="pro_bar new_pro">
+                        <span>马上抢</span>
+                    </div>
+                </div>
+            </a>
+        </li>
+    }
+} 
+
+ 

@@ -1,0 +1,45 @@
+﻿ 
+@using YSWL.Common;
+@using Webdiyer.WebControls.Mvc
+@model PagedList<YSWL.MALL.Model.Members.SiteMessage>
+@if (null != Model)
+{
+    <table width="100%" border="0" class="user_dingdan" cellspacing="0" cellpadding="0">
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td class="bor" style="width:108px;">  <img src="/Areas/SNS/Themes/Default/Content/images/admin.jpg" width="48px" height="48px" onerror="this.onerror='';this.src='/Upload/User/Gravatar/nophoto.png'" /></td>
+            <td class="bor" style="text-align:left; padding-left:20px;"> <p class="letters_bs_b1">
+                <a >@item.SenderUserName</a></p>
+            <p class="letters_bs_b2">
+                    @(string.IsNullOrEmpty(item.Title)?"":item.Title+":")@item.Content<a href="javascript:;"></a></p>
+            <div class="letters_bs_b3">
+                <p class="letters_bs_b31">
+                    @item.SendTime.Value.ToString("yyyy-MM-dd HH:mm:ss")
+                <p class="letters_bs_b32" style="display:none;">
+                    <a href="javascript:;">回复</a></p>
+                
+            </div></td>
+        </tr>
+    }
+    </table>
+
+    <div class="pagination">
+        @Ajax.Pager(Model, new PagerOptions
+       {
+           ShowDisabledPagerItems = false,
+           AlwaysShowFirstLastPageNumber = true,
+           ShowFirstLast = false,
+           PageIndexParameterName = "page",
+           NumericPagerItemCount = 6,
+           CurrentPagerItemTemplate = "<span class=\"page-item curr\">{0}</span>",
+           PagerItemTemplate = "<span class=\"page-item\">{0}</span>",
+           MorePagerItemTemplate = "<span class=\"pn-break\">{0}</span>",
+           CssClass = "p-wrap",
+           PrevPageText = "<span class=\"pn-prev \"><i>&lt;</i>上一页</span>",
+           NextPageText = "<span class=\"pn-next \">下一页<i>&gt;</i></span>",
+       }).AjaxOptions(a => a.SetUpdateTargetId("SysInfoList"))
+    </div>
+}
+<!-- FansList BEGIN -->
+

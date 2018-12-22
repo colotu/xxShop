@@ -1,0 +1,25 @@
+﻿@model List<YSWL.MALL.Model.Shop.Products.AttributeInfo>
+@if (Model != null && Model.Count > 0)
+{
+    <div class="contentTxt">
+
+        @foreach (YSWL.MALL.Model.Shop.Products.AttributeInfo item in Model)
+        {
+            if (item.AttributeValues != null && item.AttributeValues.Count > 0)
+            {
+                <p><span>@item.AttributeName</span><span>@YSWL.Common.StringPlus.SubString(string.Join(" ", item.ValueStr), 20, "..")</span></p>
+            }
+        }
+
+    </div>
+}
+else
+{
+    <div class="shop_group">
+        <div class="empty2">
+            <div class="txt">
+                <p>无其它规格参数~</p>
+            </div>
+        </div>
+    </div>
+}

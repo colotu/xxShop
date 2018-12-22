@@ -1,0 +1,35 @@
+﻿@model List<YSWL.MALL.Model.Settings.MainMenus>
+<!--navWrap开始-->
+<!-- 导航 -->
+<div class="main-navbar-wrap">
+    <div class="wrap">
+        <div class="main-navbar" id="main-navbar">
+            @if (Model != null && Model.Count > 0)
+            {
+                foreach (var item in Model)
+                {
+                    if (item.URLType == 4)
+                    {
+                      <a @(item.Target == 1 ? "target='_blank'" : "") href="@(ViewBag.BasePath)product/@item.NavURL">@item.MenuName</a> @*class= "actived"*@
+                    }
+                    else
+                    {
+                      <a href="@item.NavURL" @(item.Target == 1 ? "target='_blank'" : "")>@item.MenuName</a>
+                    }
+                }
+            }
+        </div>
+    </div>
+</div>
+<!--navWrap结束-->
+<script type="text/javascript">
+    $(function () {
+        //选中菜单
+        var url = window.location.pathname.toLowerCase();
+        $("#main-navbar a").each(function () {
+            if (url == $(this).attr("href").toLowerCase()) {
+                $(this).addClass('actived');
+            }
+        });
+    });
+</script>

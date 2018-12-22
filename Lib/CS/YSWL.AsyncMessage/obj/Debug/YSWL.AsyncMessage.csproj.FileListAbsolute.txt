@@ -1,0 +1,12 @@
+E:\ZheJiangBiYan\BYShop\Lib\CS\YSWL.AsyncMessage\bin\Debug\YSWL.AsyncMessage.dll.config
+E:\ZheJiangBiYan\BYShop\Lib\CS\YSWL.AsyncMessage\bin\Debug\YSWL.AsyncMessage.dll
+E:\ZheJiangBiYan\BYShop\Lib\CS\YSWL.AsyncMessage\bin\Debug\YSWL.AsyncMessage.pdb
+E:\ZheJiangBiYan\BYShop\Lib\CS\YSWL.AsyncMessage\obj\Debug\YSWL.AsyncMessage.dll
+E:\ZheJiangBiYan\BYShop\Lib\CS\YSWL.AsyncMessage\obj\Debug\YSWL.AsyncMessage.pdb
+E:\ZheJiangBiYan\BYShop\Lib\CS\YSWL.AsyncMessage\obj\Debug\YSWL.AsyncMessage.csprojResolveAssemblyReference.cache
+E:\zhou\洪光顺\XXShop\Lib\CS\YSWL.AsyncMessage\bin\Debug\YSWL.AsyncMessage.dll.config
+E:\zhou\洪光顺\XXShop\Lib\CS\YSWL.AsyncMessage\bin\Debug\YSWL.AsyncMessage.dll
+E:\zhou\洪光顺\XXShop\Lib\CS\YSWL.AsyncMessage\bin\Debug\YSWL.AsyncMessage.pdb
+E:\zhou\洪光顺\XXShop\Lib\CS\YSWL.AsyncMessage\obj\Debug\YSWL.AsyncMessage.csprojResolveAssemblyReference.cache
+E:\zhou\洪光顺\XXShop\Lib\CS\YSWL.AsyncMessage\obj\Debug\YSWL.AsyncMessage.dll
+E:\zhou\洪光顺\XXShop\Lib\CS\YSWL.AsyncMessage\obj\Debug\YSWL.AsyncMessage.pdb

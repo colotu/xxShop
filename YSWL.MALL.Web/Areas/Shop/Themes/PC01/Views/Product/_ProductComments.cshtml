@@ -1,0 +1,89 @@
+﻿@using Webdiyer.WebControls.Mvc
+@model  PagedList<YSWL.MALL.Model.Shop.Products.ProductReviews>
+
+    <div class="hd module">
+        <div class="fr">
+            购买过该商品的用户才能进行评论 <a href="javascript:;" style="display:none;" class="btn btn-highlight ml10 btnAddComment">
+                                <span>我要评论</span></a></div>
+        <h3>
+            顾客评论<a style="font-size: 15px;margin-left: 5px;color: #1859a5;" class="ml5 f12 fn" href="javascript:;">@(ViewBag.TotalCount)评论</a></h3>
+                      <input type="hidden"  id="hidTotalCount" value="@ViewBag.TotalCount"/>
+    </div>
+    <div class="bd" >
+        @if (Model != null && Model.Count > 0)
+        {
+            <div class="load-item">
+                <img class="load-item-img" style="display: none;" src="/Areas/Shop/Themes/PC01/Content/images/loading-pink.gif">
+                <div class="load-item-mask" style="display: none; height: 300px;">
+                </div>
+                <ul class="discusslist c6">
+                    @foreach (var item in Model)
+                    {
+                        <li class="discusslist-item cf" style="overflow: hidden;">
+                            <div class="cf" id="comment-main-0">
+                                <a class="fl discusslist-Item-avatar">  @*target="_blank" href="/SNS/User/Posts/@item.UserId"*@  
+                                    <img src="/Upload/User/Gravatar/@(item.UserId).jpg" ></a>
+                                <div class="discusslist-item-con">
+                                    <div class="tr c9" style="text-align: right;">
+                                        <span class="fl"><a  class="td_buyname" style="display:none;color:#1859a5;">@item.UserName</a></span>@item.CreatedDate</div>
+                                    <p class="mt5" style="margin-top: 5px;">
+                                        @item.ReviewText</p>
+                                </div>
+                            </div>
+                       
+                            @if (!String.IsNullOrWhiteSpace(item.ImagesPath) && !String.IsNullOrWhiteSpace(item.ImagesNames))
+                            {
+                                string[] arr = item.ImagesNames.Split(new Char[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
+                                <div class="discusslist-correlate" style="margin-left: 100px;" >
+                                    <!--图片-->
+                                    @for (int k = 0; k < arr.Length; k++)
+                                    {
+                                        <span class="detail_proimage"><img width="100px" src="@string.Format(item.ImagesPath, arr[k])"  /></span>
+                                    }                                                                      
+                                </div>
+                            }
+                
+                            <div class="discusslist-correlate" style="display: none">
+                                <div class="cf">
+                                    <div class="fr">
+                                        <a class="btn"><span>对我有用(4)</span></a></div>
+                                    <span class="mr15">身高：160厘米</span><span class="mr15">体重：55公斤</span><span class="mr15">颜色：白条纹</span><span
+                                                                                                                                           class="mr15">尺码：L</span></div>
+                            </div>
+                        </li>
+                    }
+                </ul>
+                  <div class="mt10 tr">
+                <a href="javascript:void(0)" style="display:none;"  class="btn btn-highlight btnAddComment"><span>我要评论</span></a></div>
+            </div>
+
+            <div class="pagination">
+                @Ajax.Pager(Model, new PagerOptions
+       {
+           ShowDisabledPagerItems = false,
+           AlwaysShowFirstLastPageNumber = true,
+           ShowFirstLast = false,
+           PageIndexParameterName = "pageIndex",
+           NumericPagerItemCount = 6,
+           CurrentPagerItemTemplate = "<span class=\"page-item curr\">{0}</span>",
+           PagerItemTemplate = "<span class=\"page-item\">{0}</span>",
+           MorePagerItemTemplate = "<span class=\"pn-break\">{0}</span>",
+           CssClass = "p-wrap",
+           PrevPageText = "<span class=\"pn-prev \"><i>&lt;</i>上一页</span>",
+           NextPageText = "<span class=\"pn-next \">下一页<i>&gt;</i></span>",
+       }).AjaxOptions(a => a.SetUpdateTargetId("LoadData"))
+            </div>
+        }
+    </div>
+
+<div id="divAjaxComments" style="display: none">
+    <div style='margin-left: 10px; margin-top: 10px; font-size: 14px; font-weight: bold;'>
+        评论内容：
+        <textarea id="txtComment" cols="20" rows="2" style='height: 80px; width: 260px;border: 1px solid #aaa;'></textarea>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function () {
+        $('#comment_count').text($('#hidTotalCount').val());
+    });
+</script>

@@ -1,0 +1,16 @@
+﻿ <div id="divAjaxLogin" style="display: none">
+     <div style='margin-left: 40px; margin-top: 10px; font-weight: bold;'>
+       @if (ViewBag.RegisterToggle == "Phone")
+                               {
+                                   @:手&nbsp;&nbsp;机：<input type='text' style='height: 20px; width: 220px;border: 1px solid rgb(182, 178, 178);' id='txtEmail' name='Email' />
+                               }
+                               else
+                               {
+                                   @:邮&nbsp;&nbsp;箱：<input type='text' style='height: 20px; width: 220px;border: 1px solid rgb(182, 178, 178);' id='txtEmail' name='Email' />
+                               }
+     </div>
+    <div style='margin-left: 40px; margin-top: 20px; font-weight: bold;'>
+        密&nbsp;&nbsp;码：<input type="password" style='height: 20px; width: 220px;border: 1px solid rgb(182, 178, 178);' id='txtPwd' name='Pwd' />
+    </div>
+</div>
+<input id="hfRegisterToggle" type="hidden" value="@ViewBag.RegisterToggle" />

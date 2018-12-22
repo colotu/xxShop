@@ -1,0 +1,26 @@
+﻿@using System.Web.Mvc.Html
+@{
+    Layout = "~/Areas/Shop/Themes/PC01/Views/Shared/_BaseLayout.cshtml";
+@*网站前台模版*@
+}
+@section head{
+    @RenderSection("head", false)
+}
+<div class="personalCenterContWrap">
+    	<div class="personalCenterCont">
+  @Html.Action("LeftMenu", "UserCenter", new { area = "Shop" })
+  <div class="personalCenterContR">
+    @RenderBody()
+    </div>
+    </div>
+</div>
+    @section foot{
+        @RenderSection("foot", false)
+    }
+<script type="text/javascript">
+    $(function() {
+        $("a[tab='" + $("#currentpage").val() + "']").addClass('current');
+    });
+</script>
+@Html.Action("SelectRegion", "Partial", new { area = "Shop" })
+ 

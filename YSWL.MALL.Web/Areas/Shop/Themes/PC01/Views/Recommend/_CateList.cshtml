@@ -1,0 +1,80 @@
+﻿ @model List<YSWL.MALL.Model.Shop.Products.CategoryInfo>
+@{
+    string type = Request.RequestContext.RouteData.Values["type"] != null ? Request.RequestContext.RouteData.Values["type"].ToString() : "rec";
+    string cid = Request.RequestContext.RouteData.Values["cid"] != null ? Request.RequestContext.RouteData.Values["cid"].ToString() : "0";
+    string pageSize = Request.RequestContext.RouteData.Values["pageSize"] != null ? Request.RequestContext.RouteData.Values["pageSize"].ToString() : "30";
+}
+<div class="tab-nav slide-tab" id="catelist" >
+        <span class="tab-prev arrow">&lt;</span>
+        <span class="tab-next arrow">&gt;</span>
+    <div class="js-hot">
+        <ul class="slide-list">
+            <li><a href="@(ViewBag.BasePath)rec/@type/0/1/@pageSize"  class="cate-list" cid="0">全部</a></li>
+            @if (Model != null && Model.Count > 0)
+            {
+                foreach (var item in Model)
+                {
+                    <li><a href="@(ViewBag.BasePath)rec/@type/@item.CategoryId/1/@pageSize" class="cate-list" cid="@item.CategoryId">@item.Name</a></li>
+                }
+            }
+        </ul>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function () {
+        $(".cate-list").each(function () {
+            if ($(this).attr("cid") == @cid){
+                      $(this).addClass("active");
+              }
+        });
+    });
+
+
+    (function ($) {
+        $.fn.listsildes = function (options) {
+            var opts = $.extend({}, $.fn.listsildes.defaults, options);
+            var len = opts.banners.length;
+            var boxWidth = $(this).width();
+            var liWidth = opts.banners.eq(0).outerWidth(true);
+            var ouWidth = opts.bannersBox.width(liWidth * len);
+            var now = 0;
+            var pnume = 4;
+            if (len > pnume) {
+               $('.js-hot ul li:first').before($('.js-hot ul li:last'));
+               opts.bannersBox.css({ left: -liWidth + 'px' });
+
+                return this.each(function () {
+                    opts.next.click(function () {
+                        var lefts = parseInt(opts.bannersBox.css('left')) - liWidth;
+                        opts.bannersBox.not(':animated').animate({ left: lefts + 'px' }, 100, function () {
+                            $('.js-hot ul li:last').after($('.js-hot ul li:first'));
+                            opts.bannersBox.css({ left: -liWidth + 'px' });
+                        });
+                    });
+
+                    opts.prev.click(function () {
+                        var lefts = parseInt(opts.bannersBox.css('left')) + liWidth;
+                        opts.bannersBox.not(':animated').animate({ left: lefts + 'px' }, 100, function () {
+                            $('.js-hot ul li:first').before($('.js-hot ul li:last'));
+                            opts.bannersBox.css({ left: -liWidth + 'px' });
+                        });
+                    });
+
+                });
+            }
+        }
+        $.fn.listsildes.defaults = {
+            prev: null,
+            next: null,
+            banners: null,
+            bannersBox: null
+        }
+    })(jQuery)
+
+    $(function () {
+        if($('#catelist .slide-list').width()>=1160){
+            // 左右滚动效果
+            $('.js-hot').listsildes({ bannersBox: $('.js-hot ul'), banners: $('.js-hot ul li'), next: $('.tab-next'), prev: $('.tab-prev') });
+        }
+    });
+</script>

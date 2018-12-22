@@ -1,0 +1,14 @@
+﻿  @model List<YSWL.MALL.Model.Settings.Advertisement>
+@if (Model != null && Model.Count > 0)
+{
+    <div class=" swiper-container">
+        <div class="swiper-wrapper">
+            @foreach (var item in Model)
+            {
+                <a class="swiper-slide" href="@item.NavigateUrl"><img src="@item.FileUrl" alt="@item.AdvertisementName"></a>
+            }
+        </div>
+        <div class="swiper-pagination"></div>
+    </div>
+}
+

@@ -1,0 +1,41 @@
+﻿@using Webdiyer.WebControls.Mvc
+@model  PagedList<YSWL.MALL.Model.Shop.Products.ProductReviews>
+@if (Model != null && Model.Count > 0)
+{
+    for (int i=0;i<Model.Count;i++)
+    {
+        <div class="personDetail mb">
+            <div class="personPhoto"><img src="/Upload/User/Gravatar/@(Model[i].UserId).jpg" onerror="this.onerror = ''; this.src = '/Upload/User/Gravatar/default.jpg'" /></div>
+            <span class="personName td_buyname "  style="display:none;">@Model[i].UserName</span> 
+            <p>@Model[i].ReviewText</p>
+            <p class="personTime">
+            <span>@Model[i].CreatedDate.ToString("yyyy-MM-dd")</span>
+                @if (!string.IsNullOrWhiteSpace(Model[i].Attribute))
+                {
+                    string[] tmpAttr = Model[i].Attribute.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                    foreach (string val in tmpAttr)
+                    {
+                        <span>@val</span>
+                    }
+                }
+            </p>
+            @if (!String.IsNullOrWhiteSpace(Model[i].ImagesPath) && !String.IsNullOrWhiteSpace(Model[i].ImagesNames))
+            {
+                string[] arr = Model[i].ImagesNames.Split(new Char[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
+                <div class="photoShow">
+                    <!--图片-->
+                    @for (int k = 0; k < arr.Length; k++)
+                    {
+                    <span>
+                        <img src="@string.Format(Model[i].ImagesPath, arr[k])" />
+                    </span>
+                    }
+               </div>
+            }
+        </div>
+    }
+    <script type="text/javascript">
+        //显示用户名
+        encryption('td_buyname');
+    </script>
+}

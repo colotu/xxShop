@@ -1,0 +1,10 @@
+E:\ZheJiangBiYan\BYShop\Lib\CS\YSWL.Web.Validator\bin\Debug\YSWL.Web.Validator.dll
+E:\ZheJiangBiYan\BYShop\Lib\CS\YSWL.Web.Validator\bin\Debug\YSWL.Web.Validator.pdb
+E:\ZheJiangBiYan\BYShop\Lib\CS\YSWL.Web.Validator\obj\Debug\YSWL.Web.Validator.dll
+E:\ZheJiangBiYan\BYShop\Lib\CS\YSWL.Web.Validator\obj\Debug\YSWL.Web.Validator.pdb
+E:\ZheJiangBiYan\BYShop\Lib\CS\YSWL.Web.Validator\obj\Debug\YSWL.Web.Validator.csprojResolveAssemblyReference.cache
+E:\zhou\洪光顺\XXShop\Lib\CS\YSWL.Web.Validator\bin\Debug\YSWL.Web.Validator.dll
+E:\zhou\洪光顺\XXShop\Lib\CS\YSWL.Web.Validator\bin\Debug\YSWL.Web.Validator.pdb
+E:\zhou\洪光顺\XXShop\Lib\CS\YSWL.Web.Validator\obj\Debug\YSWL.Web.Validator.csprojResolveAssemblyReference.cache
+E:\zhou\洪光顺\XXShop\Lib\CS\YSWL.Web.Validator\obj\Debug\YSWL.Web.Validator.dll
+E:\zhou\洪光顺\XXShop\Lib\CS\YSWL.Web.Validator\obj\Debug\YSWL.Web.Validator.pdb

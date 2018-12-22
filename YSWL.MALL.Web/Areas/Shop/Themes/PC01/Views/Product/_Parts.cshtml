@@ -1,0 +1,77 @@
+﻿@model List<YSWL.MALL.ViewModel.Shop.ProductAccessorie>
+@if (Model != null && Model.Count > 0)
+{
+    <div class="prod-packages">
+        <!----默认隐藏动态显示---->
+        <ul class="t1" id="main-pkt">
+            <li>推荐搭配</li>
+        </ul>
+        <div class="clear"></div>
+        <div id="parts-with" class="main-pkt-item">
+            <!----默认隐藏动态显示---->
+            <div class="tab1body">
+                <ul class="ul_detail-list" id="parts_suit">
+                    @for (int i = 0; i < Model.Count; i++)
+                {
+                    if (Model[i].ProductAccessorieInfo == null)
+                    {
+                        continue;
+                    }
+                    if (i == 0)
+                    {
+                            <li class="on" item="partacces_@(Model[i].ProductAccessorieInfo.AccessoriesId)">@Model[i].ProductAccessorieInfo.Name</li>
+                        }
+                        else
+                        {
+                            <li class="sborder" item="partacces_@(Model[i].ProductAccessorieInfo.AccessoriesId)">@Model[i].ProductAccessorieInfo.Name</li>
+                        }
+
+                    }
+                </ul>
+                <div class="clear"></div>
+            </div>
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                if (Model[i].ProductAccessorieInfo == null)
+                {
+                    continue;
+                }
+                <div class="div_access_item tcont" id="partacces_@(Model[i].ProductAccessorieInfo.AccessoriesId)" @if (i != 0) { @: style="display:none;"
+                                                                                                                                                                                                            }>
+                    <div class="list fl">
+                        @for (int k = 0; k < Model[i].SkuInfo.Count; k++)
+                    {
+                            <div class="item">
+                                <div class="pimg">
+                                    <a href="@Model[i].SkuInfo[k].SeoUrl" target="_blank">
+                                        <img src="@YSWL.MALL.Web.Components.FileHelper.GeThumbImage(Model[i].SkuInfo[k].ProductThumbnailUrl, "T115X115_")"  />
+                                    </a>
+                                </div>
+                                <div class="pname">
+                                    <a href="@Model[i].SkuInfo[k].SeoUrl" target="_blank" title="@Model[i].SkuInfo[k].ProductName">@Model[i].SkuInfo[k].ProductName</a>
+                                </div>
+                                <div style="max-height:20px" class="ohwnte">
+                                    @if (Model[i].SkuInfo[k].SkuItems != null && Model[i].SkuInfo[k].SkuItems.Count > 0)
+                                    {
+                                        foreach (var valueItems in Model[i].SkuInfo[k].SkuItems)
+                                        {
+                                            <span class="product-s-k">@valueItems.ValueStr</span>
+                                        }
+                                    }
+                                </div>
+                                <div class="price">￥@Model[i].SkuInfo[k].SalePrice.ToString("F")</div>
+                                <a class="acce-cart-btn" href="javascript:;" itemid="@Model[i].SkuInfo[k].SKU" target="_blank">加入购物车</a>
+
+                            </div>
+                        }
+
+                    </div>
+
+                </div>
+
+            }
+
+            <div class="clear"></div>
+        </div>
+    </div>
+}

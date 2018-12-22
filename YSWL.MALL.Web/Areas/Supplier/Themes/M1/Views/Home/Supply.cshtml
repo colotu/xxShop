@@ -1,0 +1,98 @@
+﻿@{
+    Layout = "~/Areas/Supplier/Themes/M1/Views/Shared/_SupplierLayout.cshtml";
+}
+<form name="form1" method="post" action="">
+<div class="mar30">
+    <div class="contenttitle2">
+        <h3>
+            供货统计
+        </h3>
+        <small class="desc">您可以查看供货统计信息 </small>
+    </div>
+    <div style="background-color: #ffffff; border: 1px solid #CCC;">
+        <table style="width: 100%;" cellpadding="2" cellspacing="1" class="border">
+            <tr>
+                <td class="tdbg">
+                    <table cellspacing="0" cellpadding="5" width="420px" border="0" style="border-collapse: collapse;
+                        margin-left: 5%; margin-top: 10px; margin-bottom: 10px">
+                        <tr>
+                            <td class="td_class" style="width: auto">
+                                &emsp;
+                            </td>
+                            <td style="text-align: center; font-weight: bold;">
+                                总量
+                            </td>
+                            <td style="text-align: right; font-weight: bold;">
+                                金额
+                            </td>
+                            <td style="text-align: left; font-weight: bold;padding-left: 30px;">
+                                 
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td_class" style="width: auto; text-align: center; font-weight: bold;">
+                                供货
+                            </td>
+                            <td height="25" style="text-align: right">
+                                @*<asp:label id="lblToalQuantity" runat="server"></asp:label>*@
+                                <label>@ViewBag.ToalQuantity</label>
+                                &emsp;
+                            </td>
+                            <td height="25" style="text-align: right">
+                              @ViewBag.ToalPrice
+                               @*<asp:label id="lblToalPrice" runat="server"></asp:label>*@
+                            </td>
+                            <td height="25" style="text-align: left;padding-left: 30px;color: #FB9337;">
+                             已出售商品数量和未出售商品数量之和
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td_class" style="width: auto; text-align: center; font-weight: bold;">
+                                已售出
+                            </td>
+                            <td height="25" style="text-align: right">
+                                @*<asp:label id="lblSoldQuantity" runat="server"></asp:label>*@
+                                <label> @ViewBag.SoldQuantity</label>
+                                &emsp;
+                            </td>
+                            <td height="25" style="text-align: right">
+                                @ViewBag.SoldPrice
+                               @*<asp:label id="lblSoldPrice" runat="server"></asp:label>*@
+                            </td>
+                            <td height="25" style="text-align: left;padding-left: 30px;color: #FB9337;">
+                             正常订单的商品数量之和、销售价之和
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td_class" style="width: auto; text-align: center; font-weight: bold;">
+                                未出售
+                            </td>
+                            <td height="25" style="text-align: right">
+                                 <label>@ViewBag.RemainQuantity</label>
+                                 &emsp;
+                            </td>
+                            <td height="25" style="text-align: right">
+                             @ViewBag.RemainPrice
+                                @*<asp:label id="lblRemainPrice" runat="server"></asp:label>*@
+                            </td>
+                            <td height="25" style="text-align: left;padding-left: 30px;color: #FB9337;">
+                             未产生购买的商品的数量之和、销售价之和
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        <table style="width: 100%;" cellpadding="2" cellspacing="1" class="border">
+            <tr>
+                <td class="td_class">
+                </td>
+                <td height="25">
+                    <div class="form stdform">
+                        <input type="submit" name="name" value="重新统计" class="reset radius2" />
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

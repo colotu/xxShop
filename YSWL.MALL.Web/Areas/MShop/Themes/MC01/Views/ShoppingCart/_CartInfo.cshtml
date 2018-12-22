@@ -1,0 +1,54 @@
+﻿@model YSWL.MALL.ViewModel.Shop.ShoppingCartModel
+ @if (Model != null && Model.AllCartInfo.Quantity > 0)
+{
+    <div  id="LoadCartList">
+        @{Html.RenderPartial("_CartList", Model);}
+    </div>
+    <!-- ################-->
+    <!-- END TOP MENU -->
+    <!-- ################-->
+            <div id="buttomContent">
+                <div class="floor recommendtip">
+                    <div class="floor_container">
+                        <div class="title">
+                            <em></em>
+                            为您推荐
+                        </div>
+                        <div class="floor_item">
+                            <div class="pro_container2_list">
+                                @Html.Action("ProductRec", "Partial", new { Type = YSWL.MALL.Model.Shop.Products.ProductRecType.Hot, Top = 30, ViewName = "/Areas/MShop/Themes/MC01/Views/Home/_ProductRec.cshtml" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bottom">
+                </div>
+                <!--START footer-->
+                <footer class="footer box_flex_f payment_total_bar" id="footerbox">
+                    <div class="shp_chk box_flex_c">
+                        <span class="cart_checkbox @(Model.SelectedCartInfo.Quantity == Model.AllCartInfo.Quantity ? "checked" : "") " id="btnCheckAll"> </span>
+                        <span class="cart_checkbox_text">全选</span>
+                    </div>
+
+                    <div class="shp_cart_info_new box_flex_c  normalStatus" id="SelectedQuantity" Quantity="@Model.SelectedCartInfo.Quantity">
+                        <strong>合计:<span class="bottom_bar_price" id="finalPrice" data-bind="@(Model.SelectedCartInfo.TotalAdjustedPrice- Model.SelectedCartInfo.TotalGwjf).ToString("F")">￥@(Model.SelectedCartInfo.TotalAdjustedPrice- Model.SelectedCartInfo.TotalGwjf).ToString("F")</span></strong>
+                        <span class="bottom_total_price">
+                            总额:<span id="totalSellPrice" data-bind="@Model.SelectedCartInfo.TotalSellPrice.ToString("F")">￥@Model.SelectedCartInfo.TotalSellPrice.ToString("F")</span>
+                            优惠:<span id="totalRate" >￥@((Model.SelectedCartInfo.TotalSellPrice-Model.SelectedCartInfo.TotalAdjustedPrice).ToString("F"))</span>
+                            商城积分:<span id="totalGwjf">-@(Model.SelectedCartInfo.TotalGwjf.ToString("F"))</span>
+                        </span>
+                    </div>
+
+                    <a href="javascript:;" class="btn_right_block box_flex_c normalStatus" id="toSettlement">
+                        结算(<span class="checkednum" id="checkednum">@Model.SelectedCartInfo.Quantity</span>)
+                    </a>
+                    <div style="display:none;"><a href="javascript:;" class="btn_right_block box_flex_c bg_red dsn editState">收藏</a></div>
+         
+                    <a href="javascript:;" class="btn_right_block box_flex_c  dsn editState" id="btnRemoveSelect">删除</a>
+                </footer>
+            </div>
+<!-- END footer -->
+<script src = "/Areas/MShop/Themes/MC01/Content/Scripts/cartList.js" ></script>
+}else{
+                @Html.Partial("/Areas/MShop/Themes/MC01/Views/ShoppingCart/_Empty.cshtml")
+            }

@@ -1,0 +1,14 @@
+E:\ZheJiangBiYan\BYShop\Lib\CS\YSWL.TaoBao\obj\Debug\YSWL.TaoBao.pdb
+E:\ZheJiangBiYan\BYShop\Lib\CS\YSWL.TaoBao\obj\Debug\YSWL.TaoBao.dll
+E:\ZheJiangBiYan\BYShop\Lib\CS\YSWL.TaoBao\bin\Debug\YSWL.TaoBao.dll
+E:\ZheJiangBiYan\BYShop\Lib\CS\YSWL.TaoBao\bin\Debug\YSWL.TaoBao.pdb
+E:\ZheJiangBiYan\BYShop\Lib\CS\YSWL.TaoBao\bin\Debug\YSWL.Json.dll
+E:\ZheJiangBiYan\BYShop\Lib\CS\YSWL.TaoBao\bin\Debug\YSWL.Json.pdb
+E:\ZheJiangBiYan\BYShop\Lib\CS\YSWL.TaoBao\obj\Debug\YSWL.TaoBao.csprojResolveAssemblyReference.cache
+E:\zhou\洪光顺\XXShop\Lib\CS\YSWL.TaoBao\bin\Debug\YSWL.TaoBao.dll
+E:\zhou\洪光顺\XXShop\Lib\CS\YSWL.TaoBao\bin\Debug\YSWL.TaoBao.pdb
+E:\zhou\洪光顺\XXShop\Lib\CS\YSWL.TaoBao\bin\Debug\YSWL.Json.dll
+E:\zhou\洪光顺\XXShop\Lib\CS\YSWL.TaoBao\bin\Debug\YSWL.Json.pdb
+E:\zhou\洪光顺\XXShop\Lib\CS\YSWL.TaoBao\obj\Debug\YSWL.TaoBao.csprojResolveAssemblyReference.cache
+E:\zhou\洪光顺\XXShop\Lib\CS\YSWL.TaoBao\obj\Debug\YSWL.TaoBao.dll
+E:\zhou\洪光顺\XXShop\Lib\CS\YSWL.TaoBao\obj\Debug\YSWL.TaoBao.pdb

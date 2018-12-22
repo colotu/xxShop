@@ -1,0 +1,39 @@
+﻿@{
+    Layout = null;
+}
+@model List<YSWL.MALL.Model.Settings.MainMenus>
+<div class="main_nav">
+    <ul>
+        @if (Model != null)
+        {
+            int i = 0;
+            foreach (var item in Model)
+            {
+               if (item.URLType == 1)
+                {
+            <li><a href="@(ViewBag.BasePath)Category/@(item.NavURL)" id="maticsoft@(i++)">@item.MenuName</a></li>
+                }
+               if (item.URLType == 0)
+               {
+             <li><a href="@(item.NavURL.StartsWith("http") ? item.NavURL : (ViewBag.BasePath + item.NavURL))" id="maticsoft@(i++)">@item.MenuName</a></li>
+               }
+            }
+        }
+    </ul>
+    <div style="clear: both">
+    </div>
+</div>
+<script language="javascript" type="text/javascript">
+    (function () {
+        var maticsoftid = "@ViewBag.YSWLId";
+        if (maticsoftid) {
+            $("#maticsoft" + maticsoftid).addClass("nav1");
+        } else {
+            if ($.PageName().indexOf('?') > 0) {
+                $('.main_nav').find("a[href$='" + $.PageName().split('?')[0] + "']").addClass("nav1");
+            } else {
+                $('.main_nav').find("a[href$='" + $.PageName() + "']").addClass("nav1");
+            }
+        }
+    })();
+</script>

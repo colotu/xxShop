@@ -1,0 +1,533 @@
+﻿@{
+    Layout = "~/Areas/Supplier/Themes/M1/Views/Shared/_SupplierLayout.cshtml";
+    int num = 0;
+}
+<style type="text/css">
+    .border
+    {
+        border: 1px solid #CCC;
+        background: #FFF;
+        color: #666;
+    }
+    table
+    {
+        border-collapse: separate;
+        border-spacing: 2px;
+        border-color: gray;
+    }
+    .hideMes
+    {
+        visibility: hidden;
+    }
+</style>
+@using YSWL.MALL.Web
+@using YSWL.Web
+@model YSWL.MALL.Model.Shop.Supplier.SupplierInfo
+<link href="/Scripts/jqueryui/jquery-ui-1.8.19.custom.css" rel="stylesheet" type="text/css" />
+<!--百度地图-->
+ <script src="http://api.map.baidu.com/api?v=1.3" type="text/javascript"></script>
+<script src="/Scripts/jquery/maticsoft.map.baidu-1.6.js" type="text/javascript"></script>
+<!--百度地图-->
+<script src="/Scripts/jqueryui/jquery-ui-1.8.19.custom.min.js" type="text/javascript"></script>
+<script src="/Scripts/jquery/maticsoft.jquery.min.js" type="text/javascript"></script>
+<script src="/Scripts/jqueryui/JqueryDataPicker4CN.js" type="text/javascript"></script>
+<!--图片上传开始-->
+<link href="/Scripts/jquery.uploadify/uploadify-v2.1.0/uploadify.css" rel="stylesheet"
+    type="text/css" />
+<script src="/Scripts/jquery.uploadify/uploadify-v2.1.0/swfobject.js" type="text/javascript"></script>
+<script src="/Scripts/jquery.uploadify/uploadify-v2.1.0/jquery.uploadify.v2.1.0.min.js"
+    type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        var upload = function ($Id, type) {
+            $Id.uploadify({
+                'uploader': '/Scripts/jquery.uploadify/uploadify-v2.1.0/uploadify.swf',
+                'script': '/SupplierUploadLogo.aspx',
+                'cancelImg': '/Scripts/jquery.uploadify/uploadify-v2.1.0/cancel.png',
+                'buttonImg': '/Areas/Supplier/Themes/M1/Content/images/uploadfile.jpg',
+                'folder': 'UploadFile',
+                'queueID': 'fileQueue',
+                'auto': true,
+                'multi': true,
+                'width': 76,
+                'height': 25,
+                'fileExt': '*.jpg;*.gif;*.png;*.bmp',
+                'fileDesc': 'Image Files (.JPG, .GIF, .PNG)',
+                'queueSizeLimit': 1,
+                'sizeLimit': 1024 * 1024 * 10,
+                'onInit': function () {
+                },
+
+                'onSelect': function (e, queueID, fileObj) {
+                },
+                'onComplete': function (event, queueId, fileObj, response, data) {
+                    var responsejson = $.parseJSON(response);
+                    if (responsejson.success) {
+                        switch (type) {
+                            case "ShopStoreIndex":
+                                $("[id$='hfLogoUrl']").val(responsejson.data.format(''));
+                                $("[id$='imagelogourl']").attr('src', responsejson.data.format(''));
+                                break;
+                            case "ShopSearch":
+                                $("[id$='hfLogoUrlSearch']").val(responsejson.data.format(''));
+                                $("[id$='imagelogourlSearch']").attr('src', responsejson.data.format(''));
+                                break;
+                            case "MShop":
+                                $("[id$='hfLogoUrlm']").val(responsejson.data.format(''));
+                                $("[id$='imagelogourlm']").attr('src', responsejson.data.format(''));
+                                break;
+                            default:
+                                break;
+                        }
+                        ShowSuccessTip("上传成功");
+                    } else {
+                        ShowFailTip("图片上传失败！");
+                    }
+                }
+            });
+        };
+        upload($("#uploadify"), "ShopStoreIndex");
+        upload($("#uploadifySearch"), "ShopSearch");
+        upload($("#uploadifym"), "MShop");
+        $('[id$="txtIndexProdTop"]').OnlyNum();
+
+        $.datepicker.setDefaults($.datepicker.regional['zh-CN']);
+
+        $("[id$='txtEstablishedDate']").prop("readonly", true).datepicker({ dateFormat: "yy-mm-dd" });
+        $("[id$=txtRegisteredCapital],[id$=txtCellPhone],[id$=txtMobileCount]").OnlyNum(); 
+        $("[id$=txtBalance]").OnlyFloat();
+    });
+</script>
+<!--图片上传结束-->
+ 
+<script type="text/javascript">
+    window.UEDITOR_HOME_URL = "/ueditor/";
+</script>
+<script src="/ueditor/ueditor.config.js" type="text/javascript"></script>
+<script src="/ueditor/ueditor.all.min.js" type="text/javascript"></script>
+<link href="/ueditor/themes/default/ueditor.css" rel="stylesheet" type="text/css" />
+<div class="mar30">
+    <div class="contenttitle2">
+        <h3>
+            <span>编辑店铺信息</span></h3>
+        <small class="desc"><span>您可以编辑店铺信息</span> </small>
+    </div>
+    @if (Model != null)
+    {
+         <table style="width: 100%;" cellpadding="2" cellspacing="1" class="border form" >
+            <tr><td>
+                    <fieldset class="border_radius border" style="width: 850px;margin: 20px;padding-bottom: 10px;" >
+                        <legend>基本设置</legend>
+                        <table style="width: 100%;" cellpadding="2" cellspacing="1">
+                            <tr>
+                                <td class="td_class">
+                                    名称 ：
+                                </td>
+                                <td height="25">
+                                    <input type="text" id="txtShopName" style="width: 350px;"  maxlength="100" value="@Model.ShopName"/>
+                                    <span><a href="@MvcApplication.GetCurrentRoutePath(AreaRoute.Shop)store/@Model.SupplierId" style="color: #1317FC;@(MvcApplication.MainAreaRoute == AreaRoute.MShop ? "display:none;" : "")" class="hideMes" id="prevShow" target="_blank">
+                                              预览</a></span> &nbsp;&nbsp;如需您要开店, 请填写店铺名称。
+                                    <input id="storeStatus" type="hidden" value="@Model.StoreStatus.ToString()" />
+                                    <span style="color: Red;" id="lterShopClose" class="hideMes">您的店铺已关闭</span>
+                                </td>
+                            </tr>
+                             @if (ViewBag.HasShopArea)
+                             {
+                                 <tr>
+                                     <td class="td_class">
+                                         Logo@(++num) ：
+                                     </td>
+                                     <td height="25">
+                                         <span id="hfLogoUrl"></span>
+                                   
+                                         <input type="file" name="uploadify" id="uploadify"   /> &nbsp;&nbsp; 建议上传图片的尺寸为 980*68(px)  (用于pc商城店铺首页)
+                                     </td>
+                                 </tr>
+                                 <tr>
+                                     <td class="td_class">
+                                     </td>
+                                     <td height="25">   
+                                         <img id="imagelogourl"  width="490" height="34" src="/Partial/SuppLogo?id=@(Model.SupplierId)&size=T980X68" onerror="this.onerror='';this.src='/Content/themes/base/images/404/404_980X68.jpg'"/>
+                                     </td>
+                                 </tr> 
+                             }
+                            <tr>
+                                <td class="td_class">
+                                    Logo@(++num) ：
+                                </td>
+                                <td height="25">
+                                    <span id="hfLogoUrlm"></span>
+                                    <input type="file" name="uploadify" id="uploadifym"   />     &nbsp;&nbsp; 建议上传图片为正方形    @if (!ViewBag.HasShopArea)
+                                                                                                                            {
+                                                                                                                                @:(用于微信商城店铺)  
+                                                                                                                            }
+                                                                                                                            else if (!ViewBag.HasMShopArea)
+                                                                                                                            {
+                                                                                                                                @:(用于商城首页精品店铺)
+                                                                                                                            }
+                                                                                                                            else
+                                                                                                                            {
+                                                                                                                            @:(用于商城首页精品店铺、微信商城店铺)  
+                                                                                                                            }                           
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td_class">
+                                </td>
+                                <td  >
+                                    <img id="imagelogourlm"  width="100" height="100"  src="/Partial/SuppLogo?id=@(Model.SupplierId)&size=T200X200" onerror="this.onerror='';this.src='/Content/themes/base/images/404/404_200X200.jpg'"/> 
+                                </td>
+                            </tr>
+                              @if (ViewBag.HasShopArea)
+                              {
+                            <tr>
+                                <td class="td_class">
+                                    Logo@(++num) ：
+                                </td>
+                                <td height="25">
+                                    <span id="hfLogoUrlSearch"></span>
+                                    <input type="file" name="uploadify" id="uploadifySearch" />&nbsp;&nbsp; 建议上传图片的尺寸为 180*60(px)   (用于pc商城搜索店铺)
+                                </td>
+                            </tr>
+                            
+                                  <tr>
+                                      <td class="td_class">
+                                      </td>
+                                      <td height="25">
+                                          <img id="imagelogourlSearch"  width="180" height="60"  src="/Partial/SuppLogo?id=@(Model.SupplierId)&size=T180X60"  onerror="this.onerror='';this.src='/Content/themes/base/images/404/404_180X60.jpg'"/>
+                                      </td>
+                                  </tr>
+                              }
+                              
+                                <tr  >
+                <td class="td_class">
+                    客服电话 ：
+                </td>
+                <td height="25">
+                    <input type="text" value="@Model.ServicePhone" name="ServicePhone" id="txtServicePhone" style="width:100px" maxlength="11" />
+                </td>
+            </tr>      
+                            <tr>
+                                <td class="td_class">
+                                </td>
+                                <td height="25">
+                                    <div class="form stdform" style="margin-top:10px;">
+                                        <span>
+                                            <input type="button" id="btnClose" value="关闭店铺" style="width: 80px !important;"  class="reset radius2 " />  
+                                        </span>
+                                    </div>
+                                </td>
+                            </tr>
+
+                        </table>
+                    </fieldset>
+
+                </td></tr>
+                @if (ViewBag.HasShopArea)
+                {
+                         <tr><td>
+                    <fieldset class="border_radius border" style="width: 850px;margin: 20px;padding-bottom: 10px;" >
+                        <legend>商城店铺设置</legend>
+                        <table style="width: 100%;" cellpadding="2" cellspacing="1">
+                           
+                            
+                       
+                            <tr>
+                                <td class="td_class" valign="top">
+                                    自定义内容区 ：
+                                </td>
+                                <td height="25">
+                                    <textarea id="txtIndexContent" style="width: 600px;">@Model.IndexContent</textarea>
+                                </td>
+           
+                            </tr>
+                            <tr>
+                                <td class="td_class" valign="top">
+                                    首页显示商品数量 ：
+                                </td>
+                                <td height="25">
+                                    <input type="text"  id="txtIndexProdTop" style="width: 50px;" value="@Model.IndexProdTop.ToString()"/>
+                                    &nbsp;&nbsp;
+                                </td>
+                            </tr>
+                            <tr>
+          
+                                <td class="td_class" valign="top">
+                                    客服QQ ：
+                                </td>
+                                <td height="25">
+                                    <input type="text" value="@Model.QQ" id="txtQQ" name="QQ" style="width:400px" maxlength="500" />
+                         
+                     <br/><span style="color:chocolate;">提示：多个QQ之间用英文逗号分隔（例：111111111,222222222）</span>
+                                    &nbsp;&nbsp;
+                                </td>
+                            </tr>
+                        </table> 
+                    </fieldset>
+
+                </td></tr>
+                }
+          @if (ViewBag.HasMShopArea)
+          {
+               <tr><td>
+                    <fieldset class="border_radius border" style="width: 850px;margin: 20px;padding-bottom: 10px;" >
+                        <legend>微商城店铺设置</legend>
+                        <table style="width: 100%;" cellpadding="2" cellspacing="1">
+                              
+                            <tr>
+                                <td class="td_class" valign="top">
+                                    首页显示商品数量 ：
+                                </td>
+                                <td height="25">
+                                    <input type="text"  id="txtMobileCount" style="width: 50px;" value="@(ViewBag.mobileCount != null ? ViewBag.mobileCount : "10")"/>
+                                </td>
+                            </tr>  
+                         
+                        </table> 
+                        </fieldset>
+
+                </td></tr>
+          }
+             <tr style="display:none;">
+                 <td>
+                     <fieldset class="border_radius border" style="width: 850px;margin: 20px;padding-bottom: 10px;" >
+                        <legend>位置设置</legend>
+                     <div class="newsadd_title">
+                         <div class="member_info_show" style="padding: 0">
+                             <ul>
+                                 <li style="margin: 0; text-align: left;">城市：</li><li style="padding-top: 0;">
+                                                                                     <input id="txtCity" runat="server" type="text" />（如北京）&nbsp;</li><li>具体位置：</li><li style="padding-top: 0;">
+                                                                                                                                                                        <input id="txtArea" type="text" />（如颐和园）&nbsp; </li>
+                                 <li style="padding-top: 0;">
+                                     <input id="btnSearch" type="button" class="adminsubmit" value="地图搜索" /></li>
+                             </ul>
+                         </div>
+                     </div>
+                     <!-- 地图信息start -->
+                     <div class="newsadd_title MapDiv">
+                         <ul>
+                             <li class="loading" style="margin: 0; width: 100%;">
+                                 <p style="text-align: center">
+                                     <img src="/Images/data-loading.gif" alt="数据装载中" /></p>
+                             </li>
+                         </ul>
+                         <ul>
+                             <li>
+                                 <div id="MapContent" style="width: 750px; height: 500px; margin: 0px;">
+                                 </div>
+                             </li>
+                         </ul>
+                         <ul>
+                             <li class="loading" style="margin: 0; width: 100%;">
+                                 <p style="text-align: center">
+                                     <img src="/Images/data-loading.gif" alt="数据装载中" /></p>
+                             </li>
+                         </ul>
+                     </div>
+                     <!-- 地图信息end -->
+                     </fieldset>
+                 </td>
+             </tr>
+                 
+  <tr>
+                                <td height="25" colspan="2" class="td_class" >
+                                    <div class="form stdform" style="margin: 0px 0px 2px 200px;text-align: left;">
+                                        <input type="button" id="btnSave" value="保存" class="reset radius2 btn_style" />
+                                        
+                                    </div>
+                                </td>
+                            </tr>
+            
+        </table>
+
+    }
+
+<input type="hidden" id="hidHasShopArea" value ="@ViewBag.HasShopArea"/>
+</div>
+<br />
+<script type="text/javascript">
+    var editor = new baidu.editor.ui.Editor({//实例化编辑器
+        iframeCssUrl: '/ueditor/themes/default/iframe.css', toolbars: [
+
+            ['fullscreen',
+                'bold', 'underline', 'strikethrough', '|', 'removeformat', '|', 'forecolor', 'backcolor',
+                '|', 'justifyleft', 'justifycenter', 'justifyright', '|',
+                'insertimage', 'imagenone', 'imageleft', 'imageright',
+                'imagecenter', '|', 'fontfamily', 'fontsize', '|', 'link', 'unlink', '|']
+        ],
+        initialContent: '',
+        initialFrameHeight: 280,
+        pasteplain: false
+        , wordCount: false
+        , elementPathEnabled: false
+        , autoClearinitialContent: false, imagePath: "/Upload/RTF/", imageManagerPath: "/"
+    });
+    if ($('[id$="txtIndexContent"]').length >= 1) {
+        editor.render('txtIndexContent'); //将编译器渲染到容器
+    }
+</script>
+<script type="text/javascript">
+    $(function() {
+        if ($("#storeStatus").val() == "2") { //
+            $("#lterShopClose").removeClass("hideMes");
+            $("#btnClose").hide();
+        }
+        if ($("#storeStatus").val() == "0") {
+            $("#lterShopClose").text("您的店铺正在审核中").removeClass("hideMes");
+            $("#btnClose").hide();
+        }
+        if ($("#storeStatus").val() == "1") {
+            $("#prevShow").removeClass("hideMes");
+        }
+        $("#btnClose")
+            .click(function() {
+                $.get($YSWL.BasePath + "Home/CloseShop",
+                    function(data) {
+                        if (data == "ok") { //关闭成功
+                            ShowSuccessTip("关闭成功！");
+                            $("#btnClose").hide();
+                            $("#lterShopClose").removeClass("hideMes");
+                        } else { //关闭失败
+                            ShowFailTip("关闭失败!");
+                        }
+                    });
+            });
+        $("#btnSave")
+            .click(function() {
+                var $shopname = $("#txtShopName").val();
+                if ($shopname.length == 0) {
+                    ShowFailTip("请输入店铺名称！");
+                    return false;
+                }
+                if ($shopname.length > 100) {
+                    ShowFailTip("店铺名称请控制在1~100字符！");
+                    return false;
+                }
+                //var logoUrl = $("#imagelogourl").attr("src");
+                var logoUrl = $Val("hfLogoUrl");
+                var textDes = "";
+                if ($('#hidHasShopArea').val().toLowerCase() == 'true') {
+                    textDes = editor.getContent();
+                }
+                                    var logoUrlSearch = $Val("hfLogoUrlSearch");
+                                    var logoUrlm = $Val("hfLogoUrlm");
+                                    var txtproductCount = $Val("txtIndexProdTop");
+                                    var txtMobileCount = $Val("txtMobileCount");
+                                    var qq = $Val("txtQQ");
+                                    var servicePhone = $Val("txtServicePhone");
+                $.ajax({
+                                        url: $YSWL.BasePath + "Home/EditShop",
+                    type: "Post",
+                    data: {
+                                            shopName: $shopname,
+                        logoUrl: logoUrl,
+                        textDes: textDes,
+                        txtProductCount: txtproductCount,
+                        txtMobileCount: txtMobileCount,
+                        logoUrlSearch: logoUrlSearch,
+                        logoUrlm: logoUrlm,
+                        qq: qq,
+                        servicePhone: servicePhone
+                    },
+                    success: function(data) {
+                                            if (data == "ok") {
+                                                ShowSuccessTip("保存成功，请等待审核！");
+                                                setTimeout(function() {
+                                                    window.location = $YSWL.BasePath + "Home/ShopInfo";
+                                                },
+                                2000);
+
+                                            }
+                                            if (data == "no") {
+                                                ShowFailTip("更新失败！");
+                                            }
+                                            if (data == "exit") {
+                                                ShowFailTip("该名称已经被注册，请更换名称再操作！");
+                                            }
+                                        }
+                                    });
+                                });
+    });
+
+    function $Val(Id) {
+        if ($('#' + Id)) {
+            return $('#' + Id).val();
+        } else {
+            return "";
+        }
+    }
+
+    function SetMarkerPoint(lng, lat) {
+        $("[id$=MarkersLongitude]").val(lng);
+        $("[id$=MarkersDimension]").val(lat);
+    }
+
+    function InitMapOption() {
+        return {
+            Container: "MapContent", //地图的容器
+            Longitude: undefined, //经度
+            Dimension: undefined, //纬度
+            Level: undefined, //缩放级别
+            SearchCity: undefined, //搜索城市
+            SearchArea: undefined, //搜索地区
+            EnableKeyboard: true, // 是否开启键盘 上下键
+            NavigationControl: true, //是否有鱼骨工具（进行上下左右放大或小的图标）
+            ScaleControl: true, //是否显示比例尺
+            MapTypeControl: true, //是否有卫星地图等的图标
+            Markers: undefined, //标注点集合
+            MenuItem: {
+                MenuItemsetPoint: {
+                    EnableDragging: true, //启用标注点拖拽
+                    SetAnimation: true, //标注点动画
+                    MenuEvent: "dragend", //设置坐标事件名称 目前是标注点拖拽 用于记录最后坐标
+                    CallBack: function(lng, lat) { //坐标事件回调
+                        SetMarkerPoint(lng, lat);
+                    },
+                    MenuClickCallBack: function(lng, lat) { //通过右键菜单添加标注点事件
+                        SetMarkerPoint(lng, lat);
+                        alert("添加标注成功, 请您填写地图下方的标注点信息.");
+                    }
+                }
+            }
+        };
+    }
+
+    //网页点击搜索时执行
+    $("#btnSearch").click(function() {
+            $('#MapContent').html('');
+            $.ajax({
+                url: "/MapHandle.aspx",
+                type: 'post',
+                dataType: 'json',
+                async: false,
+                timeout: 10000,
+                data: { Action: "GetDepartmentMapById", DepartmentId: $("[id$=hfEnID]").val() },
+                success: function(resultData) {
+
+                    $('#MapContent').empty();
+                    var searchCity = $("[id$=txtCity]").val();
+                    var searchArea = $("#txtArea").val();
+                    var option = InitMapOption();
+                    option.SearchCity = searchCity; //搜索的地区
+                    option.SearchArea = searchArea;
+
+                    switch (resultData.STATUS) {
+                    case "OK":
+                        option.Markers = LoadMakers(resultData.DATA);
+                        break;
+                    default:
+                        break;
+                    }
+                    baidumap.baidumapload(option);
+                    $('.MapDiv').show();
+                },
+                error: function(xmlHttpRequest, textStatus, errorThrown) {
+                    alert(xmlHttpRequest.responseText);
+                }
+            });
+
+
+        });
+
+</script>

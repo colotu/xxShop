@@ -1,0 +1,29 @@
+﻿@{
+    Layout = "~/Areas/Shop/Themes/PC01/Views/Shared/_SiteLayout.cshtml";
+@*商家申请环节模版*@
+}
+@section head{
+    <link href="/Areas/Shop/Themes/PC01/Content/Css/shopc2.css" rel="stylesheet" type="text/css" />
+    @RenderSection("head", false)
+}
+@Html.Action("Header", "Partial", new { area = "Shop" })
+<header>
+    <div class="wrap">
+        <div class="headerLayout clearfix">
+            <!-- logo -->
+            <div class="headerLogo">
+                <span class="headerLogo-bg">
+                    <!-- logo -->
+                    @Html.Action("Header", "Partial", new { area = "Shop", ViewName = "_HeaderLogo" })
+                </span>
+            </div>
+            @RenderSection("step", false)
+        </div>
+    </div>
+</header>
+@RenderBody()
+@Html.Action("Footer", "Partial", new { area = "Shop" })
+@Html.Action("SelectRegion", "Partial", new { area = "Shop" })
+@section foot{
+    @RenderSection("foot", false)
+}

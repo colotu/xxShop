@@ -1,0 +1,81 @@
+﻿@using Webdiyer.WebControls.Mvc
+@model YSWL.MALL.ViewModel.Shop.ProductListModel
+@{
+    Layout = "/Areas/MShop/Themes/MC01/Views/Shared/_BaseLayout.cshtml";
+    string cid = Request.RequestContext.RouteData.Values["cid"] != null ? Request.RequestContext.RouteData.Values["cid"].ToString() : "0";
+    string brandid = Request.RequestContext.RouteData.Values["brandid"] != null ? Request.RequestContext.RouteData.Values["brandid"].ToString() : "0";
+    string attrvalues = Request.RequestContext.RouteData.Values["attrvalues"] != null ? Request.RequestContext.RouteData.Values["attrvalues"].ToString() : "0";
+    string mod = Request.RequestContext.RouteData.Values["mod"] != null ? Request.RequestContext.RouteData.Values["mod"].ToString() : "hot";
+    ViewBag.Title = "商品列表212";
+}
+@section head{
+    <link href="/Areas/MShop/Themes/MC01/Content/Css/main.css" rel="stylesheet" />
+<link href="/Areas/MShop/Themes/MC01/Content/Css/sale.css" rel="stylesheet" />
+}
+<input type="hidden" id="hidCid" value="@cid"/>
+<div class="main_wrapper" id="main_page">
+    <!--START HEADER-->
+    <header>
+        <div class="top_navbar fixed_header">
+            @Html.Partial("/Areas/MShop/Themes/MC01/Views/Partial/_Back.cshtml")
+            <div class="top_search search_pl search_pr">
+                @Html.Partial("/Areas/MShop/Themes/MC01/Views/Partial/_HeaderSearch.cshtml")
+            </div>
+            <span id="switch" class="icon_switch2_view topbar_mess si"></span>
+        </div>
+    </header>
+    <!-- END HEADER -->
+    <div class="top"></div>
+    @*<div class="sort_tab">
+        <ul>
+            <li class="modList sort_a" mod="hot"><span>销量</span></li>
+            <li class="modList" mod="new">最新</li>
+            <li class="modList" item="price"  mod="price" id="li_price">价格<span class="si icon_sort"></span></li>
+            <li id="filter">筛选<span class="si icon_down"></span></li>
+        </ul>
+    </div>*@
+    <div class="saleNavWrapper newHot">
+        @Html.Action("CategoryList", "Product", new { parentId = 3, ViewName = "/Areas/MShop/Themes/MC01/Views/Recommend/_CateList.cshtml" })
+    </div>
+    <div class="floor" id="product_content">
+        <div  id="mainProductList">
+            @{Html.RenderPartial("_ProdList", Model);}
+        </div>
+    </div>
+    <!--加载提示信息--->
+@Html.Partial("/Areas/MShop/Themes/MC01/Views/Partial/_LoadTip.cshtml")
+</div>
+
+<!---筛选内容开始-->
+<!-- 右滑出筛选 -->
+<div class="popCover_wrap"  id="filter_content" isload=false>
+</div>
+<div class="black_overlay" id="f_black_overlay"></div>
+<!---筛选内容结束-->
+
+@Html.Partial("/Areas/MShop/Themes/MC01/Views/Partial/_SearchLayer.cshtml")
+@section foot{
+<script src="/Areas/MShop/Themes/MC01/Content/Scripts/pullUp.js"></script>
+<script src="/Areas/MShop/Themes/MC01/Content/Scripts/product.js"></script>
+
+<script type="text/javascript">
+    $(function () {
+        $('#body').addClass('m_home');
+  
+        //新品推荐 导航 滑动
+        $(".saleNav li").on("click", function () {
+            var dd = ($(this).width());
+            var num = $(".saleNav li").index(this);
+            $(".saleNav").animate({ scrollLeft: 60 * num }, 1000);
+            $(this).addClass('se_current');
+            $(this).siblings().removeClass('se_current');
+            var cid = $(this).attr('cid');
+            //显示 loading刷新
+            $("#bgloading,#bg").css({ height: $(window).height(), display: 'block' });
+            $('#product_content').load($YSWL.BasePath + 'product/' + cid + "", function () {
+                $("#bgloading,#bg").hide();//隐藏loading
+            });
+        });
+    });
+</script>
+}

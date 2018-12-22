@@ -1,0 +1,153 @@
+﻿@{
+    Layout = "/Areas/MShop/Themes/MC01/Views/Shared/_BaseLayout.cshtml";
+}
+<link href="/Areas/MShop/Themes/MC01/Content/Css/main.css" rel="stylesheet"/>
+@section head{
+    <script src="/Scripts/jquery/jquery.guid.js" type="text/javascript"></script>
+}
+@model YSWL.MALL.Model.Shop.Shipping.ShippingAddress
+
+<div class="main_wrapper">
+    <!--START HEADER-->
+    <header>
+        <div class="top_navbar fixed_header">
+            <a class="si icon_goback" href="@(ViewBag.BasePath)u/ShippAddressList" >
+            </a>
+
+            @if (String.IsNullOrWhiteSpace(Model.ShipName))
+            {
+                <p class="header_title">新增地址</p>
+            }
+            else
+            {
+                <p class="header_title">编辑地址</p>
+            }
+        </div>
+    </header>
+    <!-- END HEADER -->
+    <div class="top"></div>
+    <div class="address_wrap">
+        <div class="ipt_wrap new_addr pd">
+
+            @using (Html.BeginForm("SubmitShippAddress", "UserCenter", FormMethod.Post, new {id = "FormSubmitAddress", area = "MShop"}))
+            {
+                @Html.HiddenFor(m => m.ShippingId)
+                @Html.HiddenFor(m => m.UserId)
+
+                <div class="b_item">
+                    <div class="sitem_l">
+                        收货人
+                    </div>
+                    <div class="sitem_r">
+                        @Html.TextBoxFor(m => m.ShipName, new {maxlength = "20", placeholder = "请输入收货人姓名", Class = "ipt"})
+                    </div>
+                </div>
+
+                <div class="b_item">
+                    <div class="sitem_l">
+                        联系电话
+                    </div>
+                    <div class="sitem_r">
+                        @Html.TextBoxFor(m => m.CelPhone, new {maxlength = "11", placeholder = "请输入收货人联系电话", Class = "ipt",type="number"})
+                    </div>
+                </div>
+                <div class="b_item">
+                    <div class="sitem_l">
+                        请选择地区
+                    </div>
+                    <div class="sitem_r address_province" id="regiontxt">
+                        @Html.HiddenFor(m => m.RegionId, new {id = "hfSelectedNode"})
+                        <script src="/Scripts/jquery/maticsoft.selectregion.js" handle="/RegionHandle.aspx" isnull="true" type="text/javascript"></script>
+                    </div>
+                </div>
+
+                <div class="new_textarea">
+
+                    @Html.TextAreaFor(m => m.Address, new {placeholder = "请填写详细地址", Class = "textarea"})
+                </div>
+
+
+                @Html.HiddenFor(m => m.IsDefault, new { id = "IsDefault" })
+            }
+            <div class="set_default" style="@(ViewBag.SetDetfaultAddress?"display:none":"")">
+                <span id="btn_isdefalue" class="cart_checkbox checked"></span>设置为默认
+            </div>
+        </div>
+        <div class="btn_wrapper">
+            <input type="button" onclick=" Save_Consignee(this)" class="b_btn btn_green" value="保存">
+        </div>
+    </div>
+    <!-- ################-->
+    <!-- END TOP MENU -->
+    <!-- ################-->
+</div>
+@section foot{
+    <script>
+        $('#btn_isdefalue').click(function() {
+            var _this = $(this);
+            if (_this.hasClass('checked')) {
+                _this.removeClass('checked');
+            } else {
+                _this.addClass('checked');
+            }
+            });
+
+        function Save_Consignee(sender) {
+            if ($('#btn_isdefalue').hasClass('checked')) {
+                $('#IsDefault').val('true');
+            } else {
+                $('#IsDefault').val('false');
+            };
+            var isBreak = true;
+            $('#regiontxt').find('select').each(function() {
+                var _this = $(this);
+                if (_this.val().trim() == "") {
+                    ShowFailTip("请选择完整区域信息");
+                    isBreak = false;
+                }
+            });
+            if (!isBreak) {
+                return;
+            }
+            var shipName = $("#ShipName").val();
+            if (shipName == "") {
+                ShowFailTip("请填写收货人");
+                return;
+            }
+            var regionId = parseInt($("#hfSelectedNode").val());
+            if (regionId == 0 || $("#hfSelectedNode").val() == "") {
+                ShowFailTip("请选择所在地区");
+                return;
+            }
+            var address = $("#Address").val();
+            if (address == "") {
+                ShowFailTip("请填写详细地址");
+                return;
+            }
+            var celPhone = $("#CelPhone").val();
+            if (celPhone == "") {
+                ShowFailTip("请填写手机号码");
+                return;
+            }
+            if (!/^1\d{10}$/.test(celPhone)) {
+                ShowFailTip("请您输入正确的电话!");
+                return ;
+            } 
+
+            $(sender).hide();
+            $(sender).next().show();
+            var form = $('#FormSubmitAddress');
+            $.post(
+                form.get(0).action,
+                form.serialize(),
+                function(data) {
+                    if (data == "OK") {
+                        window.location.href = $YSWL.BasePath + "UserCenter/ShippAddressList";
+                    } else {
+                        ShowFailTip("服务器繁忙，请稍候再试！");
+                    }
+                }
+            );
+        }
+    </script>
+}

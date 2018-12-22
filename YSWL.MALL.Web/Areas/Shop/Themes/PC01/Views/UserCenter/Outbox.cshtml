@@ -1,0 +1,17 @@
+﻿@{
+    Layout = "/Areas/Shop/Themes/PC01/Views/Shared/_UserCenterLayout.cshtml";
+}
+@using Webdiyer.WebControls.Mvc;
+@model PagedList<YSWL.MALL.Model.Members.SiteMessage>       
+<input type="hidden" id="currentpage" value="outbox"/>
+<div class="col-main">
+  
+  <div class="user_dingdantitle">我的发件箱</div>  
+ 
+        <div   id="OutBoxList">
+            @{Html.RenderPartial("~/Areas/Shop/Themes/PC01/Views/UserCenter/_OutboxList.cshtml", Model);}
+        </div>
+</div>  
+<script src="/scripts/MvcPager-1.8.js" type="text/javascript"></script>
+
+

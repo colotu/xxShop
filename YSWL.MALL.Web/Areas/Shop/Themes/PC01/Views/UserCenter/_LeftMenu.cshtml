@@ -1,0 +1,80 @@
+﻿<div class="personalCenterContTitle">
+    <a href="@(ViewBag.BasePath)UserCenter">我的商城</a>
+</div>
+<!--personalCenterContL开始-->
+<div class="personalCenterContL">
+    <!--leftnav开始-->
+    <div class="leftnav">
+        <dl class="cate<!-- cur-->">
+            <dt>
+                <h4>个人设置</h4>
+            </dt>
+            <dd><a tab="personnal" href="@(ViewBag.BasePath)UserCenter/Personal" title="我的资料">个人资料</a></dd>
+            <dd><a tab="password" href="@(ViewBag.BasePath)UserCenter/ChangePassword" title="修改密码">修改密码</a></dd>
+            <dd><a tab="gravator" href="@(ViewBag.BasePath)UserCenter/Gravatar" title="修改头像">修改头像</a></dd>
+            @*<dd><a tab="bind" href="@(ViewBag.BasePath)UserCenter/UserBind" title="微博帐号绑定">微博帐号绑定</a> </dd>*@
+        </dl>
+
+        <dl class="cate">
+            <dt>
+                <h4>账户中心</h4>
+            </dt>
+            <dd><a tab="balance" href="@(ViewBag.BasePath)UserCenter/Balance" title="账户余额">账户余额</a> </dd>
+            <dd><a tab="points" href="@(ViewBag.BasePath)UserCenter/PointsDetail" title="我的积分">我的积分</a></dd>
+            @*<dd><a tab="exchanges" href="@(ViewBag.BasePath)UserCenter/SendPoint" title="积分转送">积分转送</a></dd>*@
+            @*<dd><a tab="exchanges" href="@(ViewBag.BasePath)UserCenter/Exchanges" title="积分兑换">积分兑换</a></dd>*@
+            <dd><a tab="coupon" href="@(ViewBag.BasePath)UserCenter/MyCoupon" title="我的优惠券">我的优惠券</a></dd>
+        </dl>
+
+        <dl class="cate">
+            <dt>
+                <h4>订单中心</h4>
+            </dt>
+            <dd><a tab="address" href="@(ViewBag.BasePath)UserCenter/ShippAddressList" title="收货地址">收货地址</a></dd>
+            <dd><a tab="order" href="@(ViewBag.BasePath)UserCenter/Orders" title="我的订单">我的订单</a></dd>
+            <dd><a tab="fav" href="@(ViewBag.BasePath)UserCenter/MyFavor" title="我收藏的商品">我收藏的商品</a></dd>
+            <dd><a tab="favsotre" href="@(ViewBag.BasePath)UserCenter/StoreFavor" title="我收藏的店铺">我收藏的店铺</a></dd>
+        </dl>
+
+        @*<dl class="cate">
+            <dt>
+                <i></i><h4>客户服务</h4>
+            </dt>
+            <dd><a tab="returnorder" href="@(ViewBag.BasePath)ReturnOrder/Index" title="退货">退货</a> </dd>
+        </dl>*@
+
+
+        <dl class="cate">
+            <dt>
+                <h4>推广中心</h4>
+            </dt>
+            <dd><a tab="invite" href="@(ViewBag.BasePath)UserCenter/MyInvite" title="我的盟友">我的盟友</a> </dd>
+            <dd><a tab="commissionPro" href="@(ViewBag.BasePath)UserCenter/CommissionPro" title="推广商品">推广商品</a> </dd>
+            <dd><a tab="myPromo" href="@(ViewBag.BasePath)UserCenter/MyPromo" title="我的佣金">我的佣金</a> </dd>
+            <dd><a tab="comsta" href="@(ViewBag.BasePath)Commission/CommPro" title="佣金统计">佣金统计</a> </dd>
+            <dd><a tab="allycom" href="@(ViewBag.BasePath)Commission/CommPro?r=2" title="盟友贡献佣金">盟友贡献佣金</a> </dd>
+            <dd><a tab="allyrank" href="@(ViewBag.BasePath)Commission/AllyRanking" title="盟友贡献排行">盟友贡献排行</a> </dd>
+        </dl>
+
+        <dl class="cate lastDl">
+            <dt>
+                <h4>站内消息</h4>
+            </dt>
+            <dd><a tab="message" href="@(ViewBag.BasePath)UserCenter/SendMessage" title="发信息">发信息</a> </dd>
+
+            @if (ViewBag.privatecount > 0)
+            {
+                <dd><a tab="inbox" href="@(ViewBag.BasePath)UserCenter/Inbox" style=" font-weight:bold;" title="发件箱">收件箱(@ViewBag.privatecount)</a></dd>
+            }
+            else
+            {
+                <dd><a tab="inbox" href="@(ViewBag.BasePath)UserCenter/Inbox" title="发件箱">收件箱</a></dd>
+            }
+
+
+            <dd><a tab="outbox" href="@(ViewBag.BasePath)UserCenter/Outbox" title="发件箱">发件箱</a></dd>
+            <dd><a tab="sysinfo" href="@(ViewBag.BasePath)UserCenter/SysInfo" title="系统消息">系统消息</a></dd>
+        </dl>
+    </div>
+    <!--leftnav结束-->
+</div>

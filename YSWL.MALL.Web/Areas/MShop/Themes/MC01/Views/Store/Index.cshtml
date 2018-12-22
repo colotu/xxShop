@@ -1,0 +1,65 @@
+﻿ @{
+    Layout = "/Areas/MShop/Themes/MC01/Views/Shared/_StoreLayout.cshtml";
+    ViewBag.Title = "电子商务解决方案-店铺首页";
+    string suppid = Request.RequestContext.RouteData.Values["suppid"] != null ? Request.RequestContext.RouteData.Values["suppid"].ToString() : "0";
+}
+@section headtop{
+    <!--swiper-->
+    <link href="/Scripts/Swiper-3.3.1/css/swiper.min.css" rel="stylesheet" />
+    <!--swiper-->
+}
+<div class="main_wrapper storeIndex">
+    <!--START HEADER-->
+    @Html.Partial("/Areas/MShop/Themes/MC01/Views/Store/_Top.cshtml")
+    <!-- END HEADER -->
+    <div class="hidden"></div>
+        <!--店铺信息-->
+        @Html.Action("Header", "Store", new {suppid = suppid})
+        <!--店铺信息-->
+
+        <!--START banner轮播-->
+        @Html.Action("AdList", "Store", new {id = 1, suppId = suppid, ViewName = "_AdList"})
+        <!--END banner轮播-->
+
+        @Html.Action("AdList", "Store", new { id = 2, suppId = suppid, ViewName = "_AdList2" })
+   
+        <!--广告位开始-->
+        @Html.Action("AdList", "Store", new {id = 3, suppId = suppid, ViewName = "_AdList3"})
+        <!--广告位结束-->
+
+        @Html.Action("AdList", "Store", new {id = 4, suppId = suppid, ViewName = "_AdList4"})
+
+        @Html.Action("Ad", "Store", new {advPositionId = 5, suppId = suppid, ViewName = "_Ad5"})
+
+        <div id="productList" class="floor floor1 store-list">
+            <div class="floor_container">
+                <div class="floor_item">
+                    <div class="pro_container2_list">
+                        @Html.Action("RecProdList", "Store", new {suppId = suppid, type = 0, vName = "_RecProdList", ajaxVName = "_RecProdListMore", pageSize = 30})
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    <!--加载提示信息--->
+    @Html.Partial("/Areas/MShop/Themes/MC01/Views/Partial/_LoadTip.cshtml")
+</div>
+@section foot{
+    <script src="/Areas/MShop/Themes/MC01/Content/Scripts/pullUp.js"></script>
+    <!--swiper-->
+    <script src="/Scripts/Swiper-3.3.1/js/swiper.min.js"></script>
+    <!--swiper-->
+<script type="text/javascript">
+    $(function(){
+		    var mySwiper = new Swiper('.swiper-container',
+		    {
+		        direction: 'horizontal',
+		        loop: true,
+		        pagination: '.swiper-pagination',
+		        autoplay: 5000
+		    });
+		});
+</script>
+}
+ 

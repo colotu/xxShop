@@ -1,0 +1,33 @@
+﻿@if (Model != null)
+{
+    foreach (var item in Model)
+    {
+        <div class="list-item">
+            <div class="text-wrap">
+                <div class="list-line">
+                    日期：
+                    <span class="intro">@item.TradeDate.ToString("yyyy-MM-dd HH:mm:ss")</span>
+                </div>
+                <div class="list-line">
+                    规则：
+                    <span class="intro">@item.RuleName</span>
+                </div>
+                <div class="list-line">
+                    佣金：
+                    @if (item.TradeType == 1)
+                    {
+                        <span class="intro price">+@item.Fee.ToString("F")</span>
+                    }
+                    else
+                    {
+                        <span class="intro price">-@item.Fee.ToString("F")</span>
+                    }
+                </div>
+                <div class="list-line">
+                    说明：
+                    <span class="intro">@item.Remark 推广商品【<a class="color-666" href="@(ViewBag.BasePath)Product/Detail/@item.ProductId">@item.Name</a>】</span>
+                </div>
+            </div>
+        </div>
+    }
+}

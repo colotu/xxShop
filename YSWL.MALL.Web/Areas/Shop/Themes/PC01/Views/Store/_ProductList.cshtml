@@ -1,0 +1,17 @@
+﻿  @model List<YSWL.MALL.Model.Shop.Products.ProductInfo>
+  <ul>
+               @if (Model != null )
+               {
+                   foreach (var item in Model)
+                   {
+             <li ><a href="@(ViewBag.BasePath)Product/Detail/@item.ProductId"  target="_blank"  title="@item.ProductName"><img src="@YSWL.MALL.Web.Components.FileHelper.GeThumbImage(item.ThumbnailUrl1, "T185X254_")" width="185" height="254" /></a>
+                <div class="shanpinlist_con">
+                    <h2><a href="@(ViewBag.BasePath)Product/Detail/@item.ProductId"  target="_blank"  title="@item.ProductName">@item.ProductName</a></h2>
+                    <p style="display:none;" >已有 <a href="javascript:;">0</a> 人评价</p>
+                    <div class="jiage_left">￥ @(item.LowestSalePrice.ToString("F"))</div>
+                    <div class="goumai" style="display:none;"><a href="javascript:;">立刻购买</a></div>
+                </div>
+            </li>
+                   }
+               }
+        </ul>

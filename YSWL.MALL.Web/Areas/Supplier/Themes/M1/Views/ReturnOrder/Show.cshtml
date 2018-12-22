@@ -1,0 +1,521 @@
+﻿  @{
+       Layout = "~/Areas/Supplier/Themes/M1/Views/Shared/_SupplierLayout.cshtml";
+ } 
+@model  YSWL.MALL.ViewModel.Shop.ReturnOrderDetailModel
+ <script src="/Scripts/tab/tab.js" type="text/javascript"></script>
+    <link href="/Scripts/tab/tab.css" rel="stylesheet" type="text/css" />
+<script src="/Scripts/jquery/maticsoft.jquery.min.js" type="text/javascript"></script>  
+  
+<link href="/Areas/Supplier/Themes/M1/Content/Css/supplier.css" rel="stylesheet" type="text/css" />
+<!--jQueryUploadify Start-->
+    <!--jQueryUploadify End-->
+<style type="text/css">
+     .td_class{
+        width: 80px;
+        border-right: 1px solid #DBE2E7;
+        border-left: 1px solid #fff;
+        border-bottom: 1px solid #ddd;
+        border-top: 1px solid #fff;
+        padding-bottom: 4px;
+        padding-top: 4px;
+    }
+    .td_content{
+        border-right: 1px solid #DBE2E7;
+        border-left: 1px solid #fff;
+        border-bottom: 1px solid #ddd;
+        border-top: 1px solid #fff;
+    }
+
+</style>
+<script type="text/javascript">
+    $(function () {
+ 
+        //隔行换色
+        var trs = $('table.GridViewTyle tr');
+        for (var i = 0; i < trs.length; i++) {
+            if (i % 2 != 0) {
+                trs.eq(i).addClass('eventrcolor');
+            }
+        }
+        //鼠标移动效果
+        $("table.GridViewTyle tr").hover(
+            function () {
+                $(this).addClass("tylehover");
+            },
+            function () {
+                $(this).removeClass("tylehover");
+            }
+        );
+
+        //订单备注
+        $('#btnSaveRemark').click(function () {
+            var roid = $(this).attr('roid');
+            var remark = $('#txtRemark').val();
+            if (parseInt(roid) <= 0) {
+                return false;
+            }
+            $.ajax({
+                url: $YSWL.BasePath + "ReturnOrder/UpdateRemark",
+                type: 'post',
+                dataType: 'text',
+                async: false,
+                timeout: 10000,
+                data: { roid: roid, remark: remark },
+                success: function (resultData) {
+                    switch (resultData) {
+                        case "NO":
+                            ShowFailTip("保存失败");
+                            break;
+                        case "OK":
+                            ShowSuccessTip("保存成功！");
+                            setTimeout(function () {
+                                javascript: parent.$.colorbox.close();
+                            }, 2000);
+                            break;
+                        default:
+                            ShowServerBusyTip("保存失败");
+                            break;
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    ShowServerBusyTip("服务器没有返回数据，可能服务器忙，请稍候再试！");
+                }
+            });
+        });
+
+        
+
+        //取货人信息
+        $('#btnSaveShip').click(function () {
+            var roid = $(this).attr('roid');
+            var cn = $('#txtContactName').val();
+            var cp = $('#txtContactPhone').val();
+            var rid = $('#hfSelectedNode').val();
+            var pa = $('#txtPickAddress').val();
+            if (parseInt(roid) <= 0) {
+                ShowFailTip("出现错误, 请刷新页面重试！");
+                return false;
+            }
+            if ($.trim(cn) == '') {
+                ShowFailTip("请填写联系人");
+                return false;
+            }
+            if ($.trim(cp) == '') {
+                ShowFailTip("请填写联系方式！");
+                return false;
+            }
+            if (rid == '' || parseInt(rid) <= 0) {
+                ShowFailTip("请选择地区！");
+                return false;
+            }
+            if ($.trim(pa) == '') {
+                ShowFailTip("请选择详细地址！");
+                return false;
+            }
+         
+            $.ajax({
+                url: $YSWL.BasePath + "ReturnOrder/UpdatePick",
+                type: 'post',
+                dataType: 'text',
+                async: false,
+                timeout: 10000,
+                data: { roid: roid, cn: cn, cp: cp, rid: rid, pa: pa},
+                success: function (resultData) {
+                    switch (resultData) {
+                        case "NO":
+                            ShowFailTip("操作失败");
+                            break;
+                        case "OK":
+                            ShowSuccessTip("操作成功！");
+                            break;
+                        case "SHIPPTYPEISNULL":
+                            ShowFailTip("配送方式不存在,请重新选择或刷新页面重试！");
+                            break;
+                        default:
+                            ShowServerBusyTip("操作失败");
+                            break;
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    ShowServerBusyTip("服务器没有返回数据，可能服务器忙，请稍候再试！");
+                }
+            });
+        });
+
+
+    })
+ 
+</script>
+
+@if(Model.Info!=null){
+     <div class="newslistabout">
+
+        <div class="newslist_title">
+            
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="borderkuang">
+                <tr>
+                    <td bgcolor="#FFFFFF" class="newstitle">
+                        <span id="lblTitle">您正在查看退货单【@Model.Info.ReturnOrderCode】的详细信息</span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="nTab4">
+            <div class="TabTitle">
+                <ul id="myTab1">
+                    <li class="active" onclick="nTabs(this,0);"><a href="javascript:;">基本信息</a></li>
+                    <li class="normal" onclick="nTabs(this,1);"><a href="javascript:;">商品清单</a></li>
+                    <li class="normal" onclick="nTabs(this,2);"><a href="javascript:;">取货信息</a></li>
+                    <li class="normal" onclick="nTabs(this,3);"><a href="javascript:;">跟踪</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="TabContent ">
+            <!--基本信息1111-->
+            <div id="myTab1_Content0">
+                <table style="width: 100%; border-bottom: none; border-top: none; float: left;" cellpadding="2"  cellspacing="1" class="border">
+                    <tr>
+                        <td style="vertical-align: top;">
+                            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="borderkuang">
+                                <tr>
+                                    <td class="td_class" style="background-color: #E2E8EB">
+                                        <span> 订单号</span>：
+                                    </td>
+                                    <td height="25" class="td_content">
+                                        <span >@Model.Info.OrderCode</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="td_class" style="background-color: #E2E8EB">
+                                         
+                                        <span> 创建日期</span>：
+                                    </td>
+                                    <td height="25" class="td_content">
+                                        <span  > @Model.Info.CreatedDate.ToString("yyyy-MM-dd HH:mm:ss")
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr  style="display: none;" >
+                                    <td class="td_class" style="background-color: #E2E8EB;padding-left: 5px;">
+                                        <span id="Literal21" style="width:65px;">退货方式</span>：
+                                    </td>
+                                    <td height="25" class="td_content">
+                                    <span>@Model.Info.ReturnTypeStr</span>
+                                    </td>
+                                </tr>
+                                <tr >
+                                    <td class="td_class" style="background-color: #E2E8EB">
+                                        <span> 退货类型</span>：
+                                    </td>
+                                    <td height="25" class="td_content">
+                                        <span id="Label3">@Model.Info.ReturnGoodsTypeStr</span>
+                                        <div style="margin-left: 50px;margin-top: -25px;color:#E29E25;">
+                                         提示：1.如果退货类型为【整单退】,应退金额等于原订单的实际支付金额<br/>
+     &#12288;&#12288;&#12288;2.如果退货类型为【部分退】,应退金额默认为0<br/>
+    &#12288;&#12288;&#12288;可根据实际情况来调整应退金额。
+   </div> 
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="td_class" style="background-color: #E2E8EB">
+                                        <span> 退货原因</span>：
+                                    </td>
+                                    <td height="25" class="td_content">
+                                        <span ID="lblOrderTotal">@Model.Info.Description</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="td_class" style="background-color: #E2E8EB">
+                                        <span> 图片信息</span>：
+                                    </td>
+                                    <td height="25" class="td_content">
+                                          @if (!String.IsNullOrWhiteSpace(Model.Info.ImageUrl))
+                    {
+                        string[] imageurl = Model.Info.ImageUrl.Split(new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
+                        foreach (string item in imageurl)
+                        {
+                          <a target=_blank href="@item"><img src="@item"  runat='server' width='50' height='50' /></a>
+                        }
+                    }
+                                    </td>
+                                </tr>
+                               
+    @if (!String.IsNullOrWhiteSpace(Model.Info.CouponCode))
+                        {
+                     <tr  id="trCoupon">
+                     <td class="td_class" style="background-color: #E2E8EB"><span>原订单优惠劵信息</span></td>
+                        <td style="vertical-align: top;"  class="td_content">
+                            <table  >  
+                                <tr>
+                                    <td >
+                                       优惠劵号：  
+                                    </td>
+                                    <td  >
+                                        <span id="lblCouponCode"  >@Model.Info.CouponCode</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td   >
+                                        <span >优惠劵名称</span>：  
+                                    </td>
+                                    <td >
+                                        <span id="lblCouponName">@Model.Info.CouponName</span>
+                                    </td>
+                                </tr>
+                                 <tr>
+                                    <td  >
+                                    <span >优惠劵金额</span>：      
+                                    </td>
+                                    <td  >
+                                    <span id="labelCouponAmount">@(Model.Info.CouponAmount.HasValue ? Model.Info.CouponAmount.Value.ToString("F") : "0.00")</span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                        }
+                              
+                                <tr>
+                                    <td class="td_class"  style="background-color: #E2E8EB;width:100px;">
+                                        <span> 商品出售总额</span>：
+                                    </td>
+                                    <td height="25" class="td_content">
+                                        <span >@Model.Info.ActualSalesTotal.ToString("F")</span>
+                                    </td>
+                                </tr>
+                                <tr   style="display:none;">
+                                    <td class="td_class" style="background-color: #E2E8EB">
+                                        <span> 实付金额</span>：
+                                    </td>
+                                    <td height="25" class="td_content">
+                                        <span >@Model.Info.Amount.ToString("F")</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="td_class" style="background-color: #E2E8EB">
+                                        <span> 应退金额</span>：
+                                    </td>
+                                    <td height="25" class="td_content">
+                                        <span >@Model.Info.AmountAdjusted.ToString("F")</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="td_class" style="background-color: #E2E8EB">
+                                        <span> 实退金额</span>：
+                                    </td>
+                                    <td height="25" class="td_content">
+                                        <span >@Model.Info.AmountActual.ToString("F")</span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+             
+
+                    <tr>
+                        <td style="vertical-align: top;">
+                            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="borderkuang">
+                             @*   <tr>
+                                    <td colspan="2" class="newstitle" bgcolor="#FFFFFF">
+                                        <span style="font-size: 14px; padding-left: 20px">其它信息</span>
+                                    </td>
+                                </tr>*@
+                                @if (!String.IsNullOrWhiteSpace(Model.Info.RefuseReason))
+                                {
+                                     <tr id="refuseReason">
+                                    <td class="td_class" style="background-color: #E2E8EB">
+                                        <span> 拒绝原因</span>：
+                                    </td>
+                                    <td height="25" class="td_content">
+                                        <span id="lblRefuseReason">@Model.Info.RefuseReason</span>
+                                    </td>
+                                </tr>
+                                }
+                               
+                                <tr>
+                                    <td class="td_class" style="background-color: #E2E8EB">
+                                        <span> 备注</span>：
+                                    </td>
+                                    <td height="25" class="td_content">
+                                    <textarea  id="txtRemark"  rows="3"    cols="50" >@Model.Info.Remark</textarea>
+                                    </td>
+                                </tr>
+                    <tr>
+                    <td height="25" colspan="2" align="center">
+                             <button id="btnSaveRemark"  class="adminsubmit_short" roid="@Model.Info.ReturnOrderId">保存</button>
+                        </td></tr>
+                </table>
+                </td>
+                </tr>
+                </table>
+            </div>
+            <!--     商品清单-->
+            <div id="myTab1_Content1" tabindex="1"   class="none4">
+                <table style="width: 100%; border-bottom: none; border-top: none; float: left;" cellpadding="2"    cellspacing="1" class="border">
+                    <tr>
+                        <td class="tdbg">
+                            <table cellspacing="0" cellpadding="3" rules="all" border="0px" class="GridViewTyle"   style="border-color:#CCCCCC;border-width:1px;border-style:solid;width:100%;border-collapse:collapse;float: left;"> 
+                                <tr height="35px" style="background-color:#E3EFFF;height:35px;background:#FFF">
+                                    <th scope="col" style="border:1px solid #dae2e8;border-right:0px;">商品图片</th>
+                                    <th scope="col" style="border:1px solid #dae2e8;border-left:0px;border-right:0px;">商品名称</th>
+                                    <th scope="col" style="border:1px solid #dae2e8;border-left:0px;border-right:0px;">商品编号</th>
+                                    <th scope="col" style="border:1px solid #dae2e8;border-left:0px;border-right:0px;">退货数量</th>
+                                    <th scope="col" style="border:1px solid #dae2e8;border-left:0px;border-right:0px;">出售单价</th>
+                                </tr>
+                           @if (Model.ListItems != null)
+                           {
+                               foreach (var item in Model.ListItems)
+                               {
+                                 <tr height="27px"  class="oddtrcolor" >
+                                    <td align="center" height="27px" style="width:60px;padding-left:5px;height:27px;">
+                                        <a href="javascript:;" target="_blank">
+                                            <img  width="80px" height="80px" src="@YSWL.MALL.Web.Components.FileHelper.GeThumbImage(item.ThumbnailsUrl, "T128X130_")" onerror="this.src='/Content/themes/base/images/404/80.jpg'" style="display: inline;">
+                                        </a>
+                                    </td>
+                                    <td align="left" height="27px" style="padding-left:5px;height:27px;">
+                                        @item.Name
+                                    </td>
+                                    <td align="center" height="27px" style="width:50px;padding-left:5px;height:27px;">
+                                        @item.SKU
+                                    </td>
+                                    <td align="center" height="27px" style="width:50px;padding-left:5px;height:27px;">
+                                        @item.Quantity
+                                    </td>
+                                    <td align="center" height="27px" style="width:50px;padding-left:5px;height:27px;">
+                                        <span class="txtprice">
+                                            @item.ReturnPrice.ToString("F")
+                                        </span>
+                                    </td>
+                                </tr>
+                               }
+
+                           }
+                              
+
+	 </table>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <!--取货信息-->
+            <div id="myTab1_Content2" tabindex="2" class="none4">
+                
+                <table style="width: 100%; border-bottom: none; border-top: none; float: left;" cellpadding="2"
+                       cellspacing="1" class="border">
+                    <tr>
+                        <td style="vertical-align: top;">
+                            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="borderkuang"
+                                   style="padding-top: 8px">
+                                <tr>
+                                    <td colspan="2" class="newstitle" bgcolor="#FFFFFF">
+                                        <span style="font-size: 16px; padding-left: 20px">取货信息</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="td_class" style="background-color: #E2E8EB">
+                                        <span>联系人</span>：
+                                    </td>
+                                    <td height="25" class="td_content">
+                                        <input  id="txtContactName"  value="@Model.Info.ContactName" />          
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="td_class" style="background-color: #E2E8EB">
+                                        <span>联系方式</span>：
+                                    </td>
+                                    <td height="25" class="td_content">
+                                        <input  id="txtContactPhone"  value="@Model.Info.ContactPhone" /> 
+                                        
+                                    </td>
+                                </tr>
+                                
+                                <tr>
+                                    <td class="td_class" style="background-color: #E2E8EB">
+                                        <span>取货地区</span>：
+                                    </td>
+                                    <td height="25" class="td_content">
+                                       <script src="/Scripts/jquery/jquery.guid.js" type="text/javascript"></script>
+                                        <input type="hidden" id="hfSelectedNode" value="@Model.Info.PickRegionId" />
+                                        <script src="/Scripts/jquery/maticsoft.selectregion.js" handle="/RegionHandle.aspx" isnull="true" type="text/javascript"></script>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="td_class" style="background-color: #E2E8EB">
+                                        <span>详细地址</span>：
+                                    </td>
+                                    <td height="25" class="td_content">
+                                        <input  id="txtPickAddress"  value="@Model.Info.PickAddress" style="width:320px;" /> 
+                                       
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+                <table style="width: 100%; border-top: none; float: left;" cellpadding="2" cellspacing="1"   class="border">
+                    <tr>
+                        <td class="tdbg">
+                            <table cellspacing="0" cellpadding="0" width="100%" border="0">
+                                <tr>
+                                    <td style="height: 6px;">
+                                    </td>
+                                    <td height="6">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                    </td>
+                                    <td height="25" style="text-align: center"  >
+                                        <button id="btnSaveShip" class="adminsubmit_short" roid="@Model.Info.ReturnOrderId">保存</button>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <!--跟踪-->
+            <div id="myTab1_Content3" tabindex="3" class="none4">
+                <table style="width: 100%; border-bottom: none; border-top: none; float: left;" cellpadding="2"     cellspacing="1" class="border">
+                    <tr>
+                        <td class="tdbg" >
+                            <table cellspacing="0" cellpadding="3" rules="all" border="0px" class="GridViewTyle" id="ctl00_ContentPlaceHolder1_gridView_Action" style="border-color:#CCCCCC;border-width:1px;border-style:solid;width:100%;border-collapse:collapse;float: left;">
+                                
+                                <tr height="35px" style="background-color:#E3EFFF;height:35px;background:#FFF">
+                                    <th scope="col" style="border:1px solid #dae2e8;border-right:0px;">处理时间</th>
+                                    <th scope="col" style="border:1px solid #dae2e8;border-left:0px;border-right:0px;">处理信息</th>
+                                    <th scope="col" style="border:1px solid #dae2e8;border-left:0px;border-right:0px;display:none;"     >处理明细</th>
+                                    <th scope="col" style="border:1px solid #dae2e8;border-left:0px;border-right:0px;">操作人</th>
+                                </tr>
+                                @if (Model.ListAction != null)
+                                {
+                                    foreach (var item in Model.ListAction)
+                                    {
+                                        <tr height="27px" class="oddtrcolor" >
+                                            <td align="center" height="27px" style="width:120px;padding-left:5px;height:27px;">
+                                                @item.ActionDate.ToString("yyyy-MM-dd HH:mm:ss")
+                                            </td>
+                                            <td align="center" height="27px" style="padding-left:5px;height:27px;">
+                                                   @YSWL.MALL.Web.Areas.Supplier.Controllers.ReturnOrderController.GetActionCode(item.ActionCode)
+                                                 </td>
+                                                 <td style="display:none;">@item.Remark</td>
+                                                 <td align="center" height="27px" style="width:80px;padding-left:5px;height:27px;">
+                                                          @item.UserName
+                                                      </td>
+                                        </tr> 
+                                    }
+                                }
+                              
+                            </table>
+                         
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    
+    </div>
+}
+   
+
+

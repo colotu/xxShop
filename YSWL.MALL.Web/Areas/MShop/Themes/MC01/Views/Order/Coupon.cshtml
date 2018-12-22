@@ -1,0 +1,217 @@
+﻿@{
+    Layout = "~/Areas/MShop/Themes/MC01/Views/Shared/_BaseLayout.cshtml";
+}
+@section head{
+        <link href="/Areas/MShop/Themes/MC01/Content/Css/main.css" rel="stylesheet" />
+        <script src="/Scripts/jquery.cookie.js" type="text/javascript"></script>
+}
+@model List<YSWL.MALL.Model.Shop.Coupon.CouponInfo>
+ <div class="main_wrapper">
+    <!--START HEADER-->
+    <header>
+        <div class="top_navbar fixed_header">
+            <div class="si icon_goback"  id="c_back"  >
+            </div>
+            <p class="header_title">我的优惠券</p>
+        </div>
+    </header>
+    <!-- END HEADER -->
+    <div class="top"></div>
+    <div class="coupons_wrap">
+        <div class="pd">
+            <div class="b_item">
+                <div class="search_pr">
+                    <input   id="txtcoupon" type="text" class="s_input coupons_ipt" placeholder="请输入优惠券码">
+                </div>
+                <span class="ipt_word"  id="entityCouponId">
+                    确定
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="coupon_excellent use pd">
+        @if (Model != null && Model.Count > 0)
+        {
+            foreach (var item in Model)
+            {
+                <div class="mc" id="coupon_@(item.CouponCode)" code="@item.CouponCode">
+                    <div class="cou_con">
+                        <div class="cou_l">
+                            <span>优惠券</span>
+                            <p><i>￥</i>@item.CouponPrice.ToString("F")</p>
+                        </div>
+                        <div class="cou_r">
+                            <p class="cou_txt1">
+                                @if (item.ProductId > 0)
+                                {
+                                    @:限定商品
+                                }
+                                else if (item.CategoryId > 0)
+                                {
+                                    @:限定分类
+                                }
+                                else
+                                {
+                                    @:全部商品
+                                }
+                            </p>
+                            <p class="cou_txt2"> @(item.LimitPrice == 0 ? "无限制" : "满" + item.LimitPrice.ToString("C") + "元可用") </p>
+                        </div>
+                    </div>
+
+            <div class="cou_ft">
+                <p class="c_hr"></p>
+                <div class="cou_time">@(item.EndDate.ToString("yyyy.MM.dd").StartsWith("9999--") ? "无限制" : item.EndDate.ToString("yyyy.MM.dd"))</div>
+            </div>
+        </div>
+            }
+        }
+    </div>
+
+    <!-- ################-->
+    <!-- END TOP MENU -->
+    <!-- ################-->
+</div>
+ 
+@section foot{ 
+<script type="text/javascript">
+    $(function () {
+        $('#body').addClass('m_home');
+
+        //返回按钮
+        $('#c_back').click(function () {
+            $.cookie('m_so_code', "", { expires: 1, path: '/' }); //清空优惠劵码
+            window.location.replace($YSWL.BasePath + "Order/SubmitOrder");
+        });
+
+        //取消使用
+        $("#a_cancel").click(function () {
+            cancelCoupon();
+        });
+
+        //选择现有优惠劵
+        $('[id^="coupon_"]').click(function () {
+            var code = $(this).attr("code");
+            if (code == "") {
+                ShowFailTip("请输入优惠券卡号！");
+                cancelCoupon();
+                return;
+            }
+            CheckCoupon(code);
+        });
+
+        //输入优惠劵码 使用
+        $("#entityCouponId").click(function () {
+            var code = $("#txtcoupon").val();
+            if (code == "") {
+                ShowFailTip("请输入优惠券卡号！");
+                cancelCoupon();
+                return;
+            }
+            CheckCoupon($("#txtcoupon").val());
+        });
+    });
+ 
+    //检测优惠劵    code:优惠劵码
+    function CheckCoupon(code) {
+        //判断用户登录信息是否已过期 
+        if (!CheckLogin()) {
+            window.location.replace($YSWL.BasePath + "account/login?returnUrl=" + $YSWL.BasePath + "Order/SubmitOrder");
+            return;
+        }
+        $.ajax({
+            type: "POST",
+            dataType: "text",
+            url: $YSWL.BasePath + "Order/AjaxGetCoupon",
+            data: { ConponCode: code },
+            success: function (data) {
+                if (data == "False") {
+                    ShowFailTip('服务器繁忙，请稍候再试！');
+                    return;
+                }
+                if (data == "HasFrozen") {
+                    ShowFailTip('该优惠券处于冻结状态，不能使用！');
+                    return;
+                }
+                if (data == "UserError") {
+                    ShowFailTip('请您不要用别人的优惠券！');
+                    return;
+                }
+                if (data == "CouponExpired") {
+                    ShowFailTip('该优惠券已过期！');
+                    return;
+                }
+                if (data == "CouponNotStart") {
+                    ShowFailTip('该优惠券日期不在使用范围内！');
+                    return;
+                }
+                if (data == "No") {
+                    ShowFailTip('您输入的优惠券不存在或不在使用范围内！');
+                    return;
+                }
+                if (data == "Used") {
+                    ShowFailTip('您输入的优惠券已使用！');
+                    return;
+                }
+                if (data == "Limit") {
+                    ShowFailTip('您输入的优惠券不满足最低消费金额！');
+                    return;
+                }
+                if (data == "CategoryLimit") {
+                    ShowFailTip('不满足该优惠券指定分类商品的最低消费金额！');
+                    return;
+                }
+                if (data == "ProductLimit") {
+                    ShowFailTip('不满足该优惠券指定商品的最低消费金额！');
+                    return;
+                }
+                if (data == "SKULimit") {
+                    ShowFailTip('不满足该优惠券指定商品SKU的最低消费金额！');
+                    return;
+                }
+                if (data == "CategoryNo") {
+                    ShowFailTip('该优惠券只能在购买指定分类商品时使用！');
+                    return;
+                }
+                if (data == "ProductNo") {
+                    ShowFailTip('该优惠券只能在购买指定商品时使用！');
+                    return;
+                }
+                if (data == "SKUNo") {
+                    ShowFailTip('该优惠券只能在购买指定商品规格时使用！');
+                    return;
+                }
+               //ShowSuccessTip('恭喜您，此优惠券可以使用！');
+                $.cookie('m_so_code', code, { expires: 1, path: '/' }); //记录优惠劵码
+                window.location.replace($YSWL.BasePath + "Order/SubmitOrder");
+            }
+        });
+    }
+
+
+    
+    //检查登陆状态
+    var CheckLogin = function () {
+        var islogin;
+        $.ajax({
+            url: $YSWL.BasePath + "Account/AjaxIsLogin",
+            type: 'post',
+            dataType: 'text',
+            timeout: 10000,
+            async: false,
+            success: function (resultData) {
+                if (resultData != "True") {
+                    islogin = false;
+                    return false;
+                } else {
+                    islogin = true;
+                    return true;
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+            }
+        });
+        return islogin;
+    };
+</script>
+}

@@ -1,0 +1,40 @@
+﻿
+   <!--START footer-->
+<footer class="footer" id="footerNav">
+    <a href="@(ViewBag.BasePath)" class="footer_btn home" item="home_a"><span></span>首页</a>
+    <a href="@(ViewBag.BasePath)p/c" class="footer_btn categorySearch"  item="categorySearch_a"><span></span>分类</a>
+    <a href="@(ViewBag.BasePath)sc/ci" class="footer_btn cartList"  item="cartList_a"><span><i class="shpcart_num dsn" id="shoppingCount">0</i></span>购物车</a>
+    <a href="javascript:;" class="footer_btn mine" onclick="MyIndex();"  item="mine_a"><span></span>我的</a>
+</footer>
+<!-- END footer -->
+<script>
+    //选中菜单
+    var url = window.location.pathname.toLowerCase();
+    var homeUrlArr = ['/mshop/', '/m/', "/mshop", "/m",'/'];
+    var myUrlArr = ['/mshop/account', '/m/account', "/mshop/u", "/m/u", '/u', '/account'];
+    if ($.inArray(url, homeUrlArr) > -1) { //存在
+        //选中首页
+        $("#footerNav .home").addClass($('#footerNav .home').attr('item'));
+    }else if ($.inArray(url, myUrlArr) > -1) { //存在
+        //选中我的
+        $("#footerNav .mine").addClass($('#footerNav .mine').attr('item'));
+    } else {
+        $("#footerNav a").each(function () {
+            if (url == $(this).attr("href").toLowerCase()) {
+                $(this).addClass($(this).attr('item'));
+            }
+        });
+    }
+    function MyIndex() {
+        if (CheckUserState()) { //登录
+            window.location.href = $YSWL.BasePath + "u";
+        } else {
+            window.location.href = $YSWL.BasePath + "Account";
+        }
+    }
+
+    $(function () {
+        //获取购物车商品数量
+        getCartCount($('#shoppingCount'));
+    });
+</script>

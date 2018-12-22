@@ -1,0 +1,11 @@
+﻿  @model List<YSWL.MALL.Model.Shop.Supplier.SupplierAD>
+@if (Model != null && Model.Count > 0)
+{ 
+    <div class="cateWrapper clearfix">
+        @foreach (var item in Model)
+        {
+            <a  href="@item.NavigateUrl"><img src="@item.FileUrl" alt="@item.Name"></a>
+        }
+    </div>
+}
+

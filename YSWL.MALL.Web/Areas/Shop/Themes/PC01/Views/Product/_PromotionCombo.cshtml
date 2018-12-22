@@ -1,0 +1,123 @@
+﻿@model List<YSWL.MALL.ViewModel.Shop.ProductAccessorie>
+@if (Model != null && Model.Count > 0)
+{
+    <div class="prod-packages">
+        <!----默认隐藏动态显示---->
+        <div class="t1">优惠套装</div>
+        <!----优惠套装-->
+        <div id="special-pack" class="main-pkt-item">
+            <!----默认隐藏动态显示---->
+            <div class="tab1body">
+                <ul class="ul_detail-list" id="ul_detail_list">
+                    @for (int i = 0; i < Model.Count; i++)
+                {
+                    if (Model[i].ProductAccessorieInfo == null)
+                    {
+                        continue;
+                    }
+                    if (i == 0)
+                    {
+                            <li class="on" item="acces_@(Model[i].ProductAccessorieInfo.AccessoriesId)">@Model[i].ProductAccessorieInfo.Name</li>
+                        }
+                        else
+                        {
+                            <li class="sborder" item="acces_@(Model[i].ProductAccessorieInfo.AccessoriesId)">@Model[i].ProductAccessorieInfo.Name</li>
+                        }
+
+                    }
+                </ul>
+                <div class="clear"></div>
+            </div>
+            @for (int i = 0; i < Model.Count; i++)
+            {
+
+                if (Model[i].ProductAccessorieInfo == null)
+                {
+                    continue;
+                }
+                <div class="div_access_item  tcont" id="acces_@(Model[i].ProductAccessorieInfo.AccessoriesId)" @if (i != 0) { @: style="display:none;"
+                                                                            }>
+                    @if (Model[i].SkuInfo != null && Model[i].SkuInfo.Count > 0)
+                    {
+                        <div class="list fl">
+
+                            <div class="item">
+                                <div class="pimg"><a href="@Model[i].SkuInfo[0].SeoUrl" target="_blank"><img src="@YSWL.MALL.Web.Components.FileHelper.GeThumbImage(Model[i].SkuInfo[0].ProductThumbnailUrl, "T115X115_")" ></a></div>
+                                <div class="pname"><a href="@Model[i].SkuInfo[0].SeoUrl" target="_blank" title="@Model[i].SkuInfo[0].ProductName">@Model[i].SkuInfo[0].ProductName</a></div>
+                                <div style="max-height:16px" class="ohwnte">
+                                    @if (Model[i].SkuInfo[0].SkuItems != null && Model[i].SkuInfo[0].SkuItems.Count > 0)
+                                    {
+                                        foreach (var valueItems in Model[i].SkuInfo[0].SkuItems)
+                                        {
+                                            <span class="product-s-k">@valueItems.ValueStr</span>
+                                        }
+                                    }
+                                </div>
+                            </div>
+                            <div class="add"></div>
+
+                            <div style="overflow-x:auto;width:792px;">
+
+                                <div style="width:@((Model[i].SkuInfo.Count-1)*204-24)px;">
+                                    @if (Model[i].SkuInfo.Count > 1)
+                                    {
+                                        for (int k = 1; k < Model[i].SkuInfo.Count; k++)
+                                        {
+                                            <div class="item">
+                                                <div class="pimg">
+                                                    <a href="@Model[i].SkuInfo[k].SeoUrl" target="_blank">
+                                                        <img src="@YSWL.MALL.Web.Components.FileHelper.GeThumbImage(Model[i].SkuInfo[k].ProductThumbnailUrl, "T115X115_")"  />
+                                                    </a>
+                                                </div>
+                                                <div class="pname">
+                                                    <a href="@Model[i].SkuInfo[k].SeoUrl" target="_blank" title="@Model[i].SkuInfo[k].ProductName">@Model[i].SkuInfo[k].ProductName</a>
+                                                </div>
+                                                <div style="max-height:16px" class="ohwnte">
+                                                    @if (Model[i].SkuInfo[k].SkuItems != null && Model[i].SkuInfo[k].SkuItems.Count > 0)
+                                                    {
+                                                        foreach (var valueItems in Model[i].SkuInfo[k].SkuItems)
+                                                        {
+                                                            <span class="product-s-k">@valueItems.ValueStr</span>
+                                                        }
+
+
+                                                    }
+
+                                                </div>
+                                                <div class="price">￥@Model[i].SkuInfo[k].SalePrice.ToString("F")</div>
+                                            </div>
+
+                                            if ((k + 1) < Model[i].SkuInfo.Count)
+                                            {
+                                                <div class="add"></div>
+                                            }
+                                        }
+
+                                    }
+                                    <div class="clear"></div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="kitprices fl">
+                            <div class="equal fl"></div>
+                            <div class="with-p fl">
+                                <div class="with-num">共@(Model[i].SkuInfo.Count)件商品</div>
+                                搭配价：<span class="price">￥@Model[i].ProductAccessorieInfo.DiscountAmount.ToString("F")</span>
+                                <a class="buynowbtn" href="@(ViewBag.BasePath)Order/SubmitOrder?a=@(Model[i].ProductAccessorieInfo.AccessoriesId)" target="_blank">立即购买</a>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    }
+
+
+                    <div class="clear"></div>
+                </div>
+
+            }
+        </div>
+    </div>
+
+
+}

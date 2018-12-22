@@ -1,0 +1,173 @@
+﻿@{
+    Layout = "/Areas/MShop/Themes/MC01/Views/Shared/_StoreLayout.cshtml";
+    ViewBag.Title = "商家入驻";
+    string suppid = Request.RequestContext.RouteData.Values["suppid"] != null ? Request.RequestContext.RouteData.Values["suppid"].ToString() : "0";
+}
+<div class="main_wrapper">
+    <!--START HEADER-->
+    <header class="fixed_header main_wrapper">
+        <a class="si icon_goback" href="@(ViewBag.BasePath)u"></a>
+        <h2 class="title">商家入驻</h2>
+    </header>
+    <!--END HEADER-->
+    <div class="contentWrapper main_wrapper">
+        <div class="storeNameWrapper">
+            <input type="text" placeholder="请输入店铺名称" id="txtShopName" />
+            <input type="text" placeholder="请输入公司名称"  id="txtCompanyName"/>
+            <input type="text" placeholder="法人"   id="txtArtiPerson"/>
+            <input type="text" placeholder="电话" id="txtTelPhone"  />
+        </div>
+        <div class="btn_wrapper">
+            <input type="button" class="b_btn btn_green" value="立即开通" id="btn-Opened" onclick="submit()" />
+        </div>
+    </div>
+    
+</div>
+
+<script type="text/javascript">
+ 
+    // 验证店铺名称
+    function checkShopName(shopName) {
+        if (shopName == "") {
+            ShowFailTip('请填写店铺名称');
+            errnum++;
+        }
+        //验证店铺名称是否存在
+        var errnum = 0;
+        $.ajax({
+            type: "POST",
+            async: false,
+            dataType: "text",
+            url: $YSWL.BasePath + "Store/ExistsShopName",
+            data: { name: shopName },
+            success: function (data) {
+                if (data == "True") {
+                    ShowInfoTip("店铺名称已存在, 请重新输入!");
+                    errnum++;
+                } else if (data == "ERROR") {
+                    ShowFailTip('服务器繁忙，请稍候再试！');
+                    errnum++;
+                }
+            },
+            error: function () {
+                ShowFailTip('服务器繁忙，请稍候再试！');
+                errnum++;
+            }
+        });
+        return errnum == 0 ? true : false;
+    }
+
+    // 验证公司名称
+    function checkCompanyName(companyName) {
+        if (companyName == "") {
+            ShowFailTip('请填写公司名称');
+            return false;
+        }
+        //验证公司名称是否存在
+        var errnum = 0;
+        $.ajax({
+            type: "POST",
+            async: false,
+            dataType: "text",
+            url: $YSWL.BasePath + "Store/ExistsSupplierName",
+            data: { name: companyName },
+            success: function (data) {
+                if (data == "True") {
+                    ShowInfoTip("公司名称已存在, 请重新输入!");
+                    errnum++;
+                } else if (data == "ERROR") {
+                    ShowFailTip('服务器繁忙，请稍候再试！');
+                    errnum++;
+                }
+            },
+            error: function () {
+                ShowFailTip('服务器繁忙，请稍候再试！');
+                errnum++;
+            }
+        });
+        return errnum == 0 ? true : false;
+    }
+    
+    // 验证法人
+    function checkArtiPerson(artiPerson) {
+        if (artiPerson == "") {
+            ShowFailTip('请填写法人');
+            return false;
+        }
+        return true;
+    }
+
+    // 验证电话
+    function checkTelPhone(telPhone) {
+        if (telPhone == "") {
+            ShowFailTip('请填写电话');
+            return false;
+        }
+        //电话或手机
+        //if (!/^0\d{2,3}-?\d{7,8}$/.test(telPhone) && !/^1\d{10}$/.test(telPhone)) {
+        //    ShowFailTip("请您输入正确的电话!");
+        //    return false;
+        //}
+        return true;
+    }
+
+
+    function submit(){
+        var shopName = $.trim($('#txtShopName').val());
+        var companyName = $.trim( $('#txtCompanyName').val());
+        var artiPerson = $.trim( $('#txtArtiPerson').val());
+        var telPhone = $.trim( $('#txtTelPhone').val());
+        if (!checkShopName(shopName)) {
+            return false;
+        }
+        if (!checkCompanyName(companyName)) {
+            return false;
+        }
+        if (!checkArtiPerson(artiPerson)) {
+            return false;
+        }
+        if (!checkTelPhone(telPhone)) {
+            return false;
+        }
+        $.ajax({
+            url: $YSWL.BasePath + "Store/ApplySubmit",
+            type: 'post',
+            dataType: 'text',
+            timeout: 10000,
+            async: false,
+            data: {
+                Action: "post",
+                shopName: shopName,
+                companyName: companyName,
+                artiPerson: artiPerson,
+                telPhone: telPhone
+            },
+            success: function (JsonData) {
+                switch (JsonData) {
+                    case "OK":
+                        window.location.replace($YSWL.BasePath + "Store/ApplySuccess");
+                        break;
+                    case "NOLOGIN":
+                        ShowFailTip("请您先登录！");
+                        break;
+                    case "noVIP":
+                        ShowFailTip("必须先成为VIP会员，才能申请商家！");
+                        break;
+                    case "ERROR":
+                    case "NO":
+                        ShowFailTip("操作失败！");
+                        break; 
+                    default:
+                        ShowFailTip("服务器没有返回数据，可能服务器忙，请稍候再试！");
+                        break;
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                ShowFailTip("服务器没有返回数据，可能服务器忙，请稍候再试！");
+            }
+        });
+
+    };
+</script>
+
+

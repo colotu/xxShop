@@ -1,0 +1,36 @@
+﻿<div class="hd-qbar">
+    <div class="w980 hd-qbar-inner">
+        <ul class="fl hd-qbar-login" id="hd-login">
+        </ul>
+        <ul class="fr hd-qbar-list">
+            <li><a rel="nofollow" href="@(ViewBag.BasePath)UserCenter/Orders">我的订单</a></li>
+            <li class="hd-qbar-list-drop" id="myshop"><a rel="nofollow" href="@(ViewBag.BasePath)UserCenter" >我的商城</a>
+                <ul style="display: none;" id="ulshopconceal">
+                    <li><a rel="nofollow" href="@(ViewBag.BasePath)UserCenter/Orders">我的订单</a></li>
+                    <li style="display: none;"><a rel="nofollow" href="javascript:;">我的问答</a></li>
+                    <li><a rel="nofollow" href="@(ViewBag.BasePath)UserCenter/MyFavor">我的收藏</a></li>
+                    <li><a rel="nofollow" href="@(ViewBag.BasePath)UserCenter/PointsDetail">我的积分</a></li>
+                </ul>
+            </li>
+            <li class="hd-qbar-list-phone"><a rel="nofollow" target="_blank" href="@(ViewBag.BasePath)Download/Android">手机商城</a></li>
+            <li class="hd-qbar-list-cart" >
+                <a rel="nofollow" target="_blank" class="icon-cart" href="@(ViewBag.BasePath)ShoppingCart/CartInfo">购物车
+                <span id="hd-cart-amount" class="h fb">0</span>件</a>
+            </li>
+            <li class="hd-qbar-list-check" ><a href="@(ViewBag.BasePath)Order/SubmitOrder" class="btn-checkout">结帐</a></li>
+        </ul>
+        <div class="minicart" style="display: none;">
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $('#hd-login').load( $YSWL.BasePath + 'Partial/Login'); //加载登录注册
+
+    $('#hd-cart-amount').load($YSWL.BasePath + 'ShoppingCart/GetCartCount?timespan=' + new Date().format('yyyyMMddhhmmssS')); 
+
+    $('#myshop').unbind('hover').hover(function () { //显示我的订单下拉列表
+        $('#ulshopconceal').show();
+    }, function () {
+        $('#ulshopconceal').hide();
+    });
+</script>

@@ -1,0 +1,11 @@
+﻿@model List<YSWL.MALL.Model.Shop.Products.AttributeValue>
+
+@if (Model != null && Model.Count > 0)
+{
+    for (int i = 1; i < Model.Count; i++)
+    {
+    <a href="javascript:;" valueId="@Model[i].ValueId" AttrId="@Model[i].AttributeId" class="valueList">
+        <span class="tag" valueId="@Model[i].ValueId" >@Model[i].ValueStr</span>
+    </a>
+        }
+    }

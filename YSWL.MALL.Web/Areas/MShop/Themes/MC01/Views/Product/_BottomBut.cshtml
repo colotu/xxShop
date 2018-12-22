@@ -1,0 +1,18 @@
+﻿@model  YSWL.MALL.Model.Shop.Supplier.SupplierInfo 
+            @if (Model != null)
+            {
+                <footer class="footer footer2 main_wrapper">
+                    <a  href="@(ViewBag.BasePath)Store/@Model.SupplierId" class="store footer_btn"><span></span>店铺</a>  
+                    <a href="javascript:;" class="collect2 footer_btn" id="btnProductFav"><span></span>收藏</a>
+                    <a href="@(ViewBag.BasePath)sc/ci" class="cartList footer_btn"><span><em id="shoppingCount" class="dsn" style="display:none;"></em></span>购物车</a>
+                    <a href="javascript:;" class="addShopping footer_btn" id="addShopping">@(YSWL.MALL.BLL.SysManage.ConfigSystem.GetValueByCache("Shop_BuyMode") == "BuyNow" ? "立刻购买" : "加入购物车")</a>
+                </footer>
+            }
+            else
+            {
+                <footer class="footer footer1  main_wrapper">
+                    <a href="javascript:;" class="collect2 footer_btn" id="btnProductFav"><span></span>收藏</a>
+                    <a href="@(ViewBag.BasePath)sc/ci" class="cartList footer_btn"><span><em id="shoppingCount" class="dsn" style="display:none;"></em></span>购物车</a>
+                    <a href="javascript:;" class="addShopping footer_btn"  id="addShopping">@(YSWL.MALL.BLL.SysManage.ConfigSystem.GetValueByCache("Shop_BuyMode") == "BuyNow" ? "立刻购买" : "加入购物车")</a>
+                </footer>
+            }

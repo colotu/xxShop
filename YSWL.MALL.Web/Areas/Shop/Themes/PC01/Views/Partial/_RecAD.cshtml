@@ -1,0 +1,12 @@
+﻿@model  YSWL.MALL.Model.Settings.Advertisement
+@if (Model != null)
+{
+    <div class="activity-banner">
+        <div class="a-banner-list">
+            <a href="@Model.NavigateUrl" title="@Model.AdvertisementName" target="_blank">
+                <div class="banner-img activity-new" style="background: url(@Model.FileUrl) center no-repeat;"></div>
+            </a>
+        </div>
+    </div>
+}
+

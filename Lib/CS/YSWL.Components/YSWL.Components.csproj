@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{52BF2294-ECE9-4D8F-928A-D63674CE0B7E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>YSWL.Components</RootNamespace>
+    <AssemblyName>YSWL.Components</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\YSWL.Components.xml</DocumentationFile>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\YSWL.Components.xml</DocumentationFile>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\YSWLFK\Code\Lib\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="YSWL.AuthenticationManagerClient">
+      <HintPath>..\..\YSWL.AuthenticationManagerClient.dll</HintPath>
+    </Reference>
+    <Reference Include="YSWL.DBUtility">
+      <HintPath>..\..\YSWL.DBUtility.dll</HintPath>
+    </Reference>
+    <Reference Include="YSWL.Log">
+      <HintPath>..\..\YSWL.Log.dll</HintPath>
+    </Reference>
+    <Reference Include="YSWL.ZipLib">
+      <HintPath>..\..\YSWL.ZipLib.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ControllerBaseAbs.cs" />
+    <Compile Include="Filters\AreaRouteFilter.cs" />
+    <Compile Include="Filters\RemoveDuplicateContentAttribute.cs" />
+    <Compile Include="Filters\TokenAuthorizeAttribute.cs" />
+    <Compile Include="Handlers\API\HandlerBase.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Handlers\API\Result.cs" />
+    <Compile Include="Handlers\API\ResultStatus.cs" />
+    <Compile Include="Handlers\HandlerBase.cs" />
+    <Compile Include="MvcApplication.cs" />
+    <Compile Include="PageBaseAbs.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PageBaseAdminAbs.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Setting\IPageSetting.cs" />
+    <Compile Include="SingleLogin.cs" />
+    <Compile Include="TemplateSwitch.cs" />
+    <Compile Include="UserControlBase.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\YSWL.Accounts\YSWL.Accounts.csproj">
+      <Project>{04BEC2DE-1D1B-41B6-8543-4626B3857E48}</Project>
+      <Name>YSWL.Accounts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YSWL.Common\YSWL.Common.csproj">
+      <Project>{f3d70b32-ace8-4501-b293-46680f9745fb}</Project>
+      <Name>YSWL.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YSWL.JsonRpc\YSWL.Json.RPC\YSWL.Json.RPC.csproj">
+      <Project>{A178A4BB-CE12-4BF3-8B17-6DF0D82120C8}</Project>
+      <Name>YSWL.Json.RPC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YSWL.JsonRpc\YSWL.Json\YSWL.Json.csproj">
+      <Project>{D107225E-370D-4805-A8F2-A2797DAE3692}</Project>
+      <Name>YSWL.Json</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy /Y $(TargetPath) $(SolutionDir)Lib
+copy /Y $(TargetPath) $(SolutionDir)..\
+copy /Y $(TargetDir)$(TargetName).xml $(SolutionDir)Lib
+copy /Y $(TargetDir)$(TargetName).xml $(SolutionDir)..\</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,86 @@
+﻿.mainBody {
+    width: 795px;
+  /*  height: 1020px;*/
+    margin: 0 auto;
+font-size:14px;
+}
+.partialhead {
+    margin-bottom: 10px;
+}
+
+.productList {
+     padding-left:12px;
+    padding-right:8px;
+    /*margin: 0 15px 0 30px;*/
+}
+.cussalefooter {
+    height: 60px;
+    clear: both;
+/*     padding-left:12px;
+    padding-right:8px;*/
+}
+
+ .cussalefooter table{
+/*width: 90%;*/
+line-height: 30px;
+}
+.pageIndex {
+    float: right;
+    padding-right: 20px;
+padding-top: 15px;
+}
+.partialhead h2 
+{
+    padding-top: 10px;
+    text-align: center;
+}
+.header_tr {
+    height: 20px;
+}
+.total_div 
+{
+    padding-top: 22px;
+    height: 20px;
+
+text-align: center;
+}
+
+.product_table tr {
+    height: 23px;
+    border-bottom: 1px solid #000000;
+}
+/*
+.total_div table {
+    width: 90%;
+}
+*/
+.total_div td {
+    width: 25%;
+    text-align: left;
+}
+.product_table {
+    border: 1px solid #000000;
+    border-collapse: collapse;
+}
+.product_table th {
+    font-weight: normal;
+    border-right: 1px solid;
+}
+.product_table td {
+    border-right: 1px solid;
+}
+
+
+.table_total{border-collapse: collapse;width: 100%;}
+.table_total td{padding-left: 2px;}
+
+
+
+
+
+
+.signName{margin:10px 30px 0px 300px;}
+.signName span{float:none;}
+.totaltr td {
+    width: auto!important;
+}

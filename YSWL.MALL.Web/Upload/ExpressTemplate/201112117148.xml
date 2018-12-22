@@ -1,0 +1,14 @@
+<printer>
+  <size>228:127</size>
+  <pic>2011012195173.jpg</pic>
+  <kind>df</kind>
+  <item>
+    <name>订单-详情_0</name>
+    <font>Verdana</font>
+    <fontsize>12</fontsize>
+    <border>0</border>
+    <italic>0</italic>
+    <align>left</align>
+    <position>150:42:3.7:12.75</position>
+  </item>
+</printer>

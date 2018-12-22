@@ -1,0 +1,12 @@
+﻿@model List<YSWL.MALL.Model.Shop.Products.AttributeInfo>
+@if (Model == null) { return; }
+<ul class="parameter-list">
+    @foreach (YSWL.MALL.Model.Shop.Products.AttributeInfo item in Model)
+            {
+                if (item.AttributeValues != null && item.AttributeValues.Count > 0)
+                {
+                   <li>@item.AttributeName：@(string.Join(" ", item.ValueStr))</li>
+        }
+    }
+</ul>
+

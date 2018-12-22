@@ -1,0 +1,42 @@
+﻿@{
+    Layout = "/Areas/MShop/Themes/MC01/Views/Shared/_BaseLayout.cshtml";
+    ViewBag.Title = "我要推广";
+}
+@section head{
+    <link href="/Areas/MShop/Themes/MC01/Content/Css/main.css" rel="stylesheet" />
+}
+<div class="main_wrapper mb55">
+    <!--START HEADER-->
+    <header>
+        <div class="top_navbar fixed_header">
+            <a href="@(ViewBag.BasePath)co">
+                <div class="si icon_goback">
+                </div>
+            </a>            
+            <p class="header_title">我要推广</p>
+        </div>
+    </header>
+    <div class="top"></div>
+    <style type="text/css">
+        .qrImg {
+            width: 100%;
+            border: 0;
+            left: 0;
+        }
+    </style>
+    <div>
+        @{
+            <img class="qrImg" src="@(ViewBag.UserQRurl)" alt="推广二维码" />
+            @*if (ViewBag.IsExist)
+            {
+                <img class="qrImg" src="@(ViewBag.UserQRurl)" alt="推广二维码" />
+            }
+            else
+            {
+                <div>
+                    <img class="qrImg" src="/Images/QR_notExist.png" alt="推广二维码不存在" />
+                </div>
+            }*@
+        }
+    </div>
+</div>

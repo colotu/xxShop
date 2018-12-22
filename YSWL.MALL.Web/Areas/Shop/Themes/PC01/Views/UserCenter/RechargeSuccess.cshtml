@@ -1,0 +1,38 @@
+﻿@{
+    Layout = "~/Areas/Shop/Themes/PC01/Views/Shared/_ShoppingLayout.cshtml";
+}
+@section step{
+<div class="m-step fr">
+    <ul class="m-step-s" id="step2">
+        <li><i class="fore1">1</i><div class="fore-tip1">填写充值金额</div></li>
+        <li><i class="fore2">2</i><div class="fore-tip2">成功申请充值</div></li>
+    </ul>
+</div>
+}
+<div class="w main" style="width: 990px;margin: 0 auto;">
+<div class="m m3" id="qpay">
+    <div class="mc">
+        <s class="icon-succ02"></s>
+        <div class="fore">
+            <h3 class="ftx-02">
+                您已申请账户余额充值，请您尽快支付！</h3>
+            <ul class="list-h">
+                <li class="fore1">充值单号：@ViewBag.RechargeId</li>
+                <li class="fore2">应付金额：<strong class="ftx-01">@(ViewBag.RechargeBlance.ToString("F"))元</strong></li>
+            </ul>
+            <p id="p_show_info">
+                &nbsp;</p>
+            <p class="reminder" style="margin-bottom: 30px">
+                <strong>立即支付<span class="ftx-01">@(ViewBag.RechargeBlance.ToString("F"))元</span>，即可完成充值。</strong>
+             
+            </p>
+            <input type="button" border="none" name="" class="btn-impay" value="立即支付">
+        </div>
+</div>
+</div></div>
+<script type="text/javascript">
+    $('.btn-impay').unbind('click').bind('click', function () {
+        window.location.replace("/pay/account@(ViewBag.RechargeId)");
+        return;
+    });
+</script>

@@ -1,0 +1,336 @@
+﻿@{
+    Layout = "~/Areas/MShop/Themes/MC01/Views/Shared/_BaseLayout.cshtml";
+}
+@section head{
+<link href="/Areas/MShop/Themes/MC01/Content/Css/main.css" rel="stylesheet" />
+}
+    @model YSWL.MALL.Model.Shop.Products.ShoppingCartInfo
+    <input  type="hidden" id="hidUseCoupon" value ="@ViewBag.PromotionsIsUseCoupon"/>
+    <input  type="hidden" id="hdIsMultiDepot" value ="@ViewBag.IsMultiDepot"/>
+    <input type="hidden" id="SkuInfo" value="@ViewBag.SkuInfo" />
+    <input type="hidden" id="SkuCount" value="@ViewBag.SkuCount" />
+    <input type="hidden" id="ProSale" value="@ViewBag.ProSale" />
+    <input type="hidden" id="GroupBuy" value="@ViewBag.GroupBuy" />
+   <input type="hidden" id="hidIsOpenInvoicesItem" value ="@ViewBag.IsOpenInvoicesItem" />
+    <div class="main_wrapper">
+        <!--START HEADER-->
+        <header>
+            <div class="top_navbar fixed_header">
+                @Html.Partial("/Areas/MShop/Themes/MC01/Views/Partial/_Back.cshtml")
+                <p class="header_title">提交订单</p>
+            </div>
+        </header>
+        <!-- END HEADER -->
+        <div class="top"></div>
+
+     
+ 
+        <div class="order_item mt">
+            <div class="shop_group">
+                <div class="shop_group_item pd">
+                        @if (Model.Items != null)
+                        {
+                            if (Model.Items.Count == 1)
+                            {
+
+                                if (Model.Items[0].SupplierId.HasValue && Model.Items[0].SupplierId.Value > 0)
+                                {
+                                    <!--是商家商品-->
+                                    <div class="shop_title">
+                                        <div class="item">
+                                            <a href="javascript:void(0);">
+                                                <div class="shop_title_content">
+                                                    <em></em>
+                                                    <span class="shop_title_name">
+                                                        @(string.IsNullOrWhiteSpace(Model.Items[0].ShopName)?Model.Items[0].SupplierName: Model.Items[0].ShopName)
+                                                    </span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                   <!--是商家商品-->
+                                }
+ 
+                            <!--只有一种商品-->
+                                <ul class="shp_cart_list">
+                                    <li>
+                                        <div class="items">
+                                            <div class="shp_cart_item_display">
+                                                <a href="javascript:;" class="cart_product_cell_1">
+                                                    <img  class="cart_photo_thumb" src="@YSWL.MALL.Web.Components.FileHelper.GeThumbImage(Model.Items[0].ThumbnailsUrl, "T115X115_")" alt="@Model.Items[0].Name" onerror="this.onerror = ''; this.src = '/Content/themes/base/images/404/404_1.png'" />
+                                                </a>
+                                                <div class="cart_product_cell_2">
+                                                    <div class="cart_product_name">
+                                                        @Model.Items[0].Name
+                                                    </div>
+                                                    <div class="cart_product_prop">
+                                                        <div class="property_tag">
+                                                            @if (Model.Items[0].SkuValues != null && Model.Items[0].SkuValues.Length > 0)
+                                                            {
+                                                                foreach (string val in Model.Items[0].SkuValues)
+                                                                {
+                                                                    <span class="prop">
+                                                                        @val
+                                                                    </span>
+                                                                }
+                                                            }
+                                                        </div>
+                                                        <div class="pro_qua">
+                                                            x<span class="num">@Model.Items[0].Quantity</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="price_count_edit">
+                                                        <span class="shp_cart_item_price">
+                                                            ￥@Model.Items[0].AdjustedPrice.ToString("F")
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            }
+                            else
+                            {
+                                   <!--有多种商品-->
+                                <div class="pro_list">
+                                    <a href="@(ViewBag.BasePath)Order/Product">
+                                        <div class="item_l">
+                                            @for (int i=0;i< Model.Items.Count;i++)
+                                            {
+                                                <div class="p_img">
+                                                      <img src="@YSWL.MALL.Web.Components.FileHelper.GeThumbImage(Model.Items[i].ThumbnailsUrl, "T115X115_")" alt="@Model.Items[i].Name" onerror="this.onerror = ''; this.src = '/Content/themes/base/images/404/404_1.png'" />
+                                                </div>
+                                                if (i == 2) {
+                                                    break;
+                                                }
+                                            }
+                                        </div>
+                                        <div class="item_r">
+                                            共@(Model.Quantity)件
+                                        </div>
+                                        <span class="si point_icon"></span>
+                                    </a>
+                                </div>
+                            }
+                        }
+                </div>
+            </div>
+
+        </div>
+
+         <!--赠品-->
+        <div class="order_item" id="activList">
+        </div>
+        <!--赠品-->
+
+
+        <div class="order_item mt">
+            <div class="pay_deliver pd">
+
+                <!--收货地址-->
+                <div class="order_wrapper">
+                    <div class="order_addr pd" id="step-1">
+                        @Html.Action("ShowAddress", "Order")
+                    </div>
+                </div>
+               
+
+                <!--发票信息-->
+                <div  class="dsn" id="invoiceInfoItem">
+                    <a href="@(ViewBag.BasePath)Order/Invoice"  class="JumpPage" >
+                        <div class="s_item">
+                            <div class="sitem_l f15">
+                                发票信息
+                            </div>
+                            <div class="sitem_r" id="invoiceInfo-tip">
+                                不开发票
+                            </div>
+                            <span class="si point_icon"></span>
+                        </div>
+                    </a>
+                </div>
+            
+                <div class="b_item">
+                    <div class="sitem_l f15">
+                        订单备注
+                    </div>
+                    <div class="sitem_r fl">
+                        <input type="text" class="ipt" placeholder="（选填）" id="txtRemark">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--优惠券
+        <div class="order_item mt pd dsn" id="orderCouponItem" style="display:none" >
+         @Html.Action("ShowCoupon", "Order", new { cartInfo = Model })
+        </div>-->
+
+
+        <div class="order_item mt pd">
+            <div class="b_item">
+                <div class="item_wrap">
+                    <div class="sitem_l f15">
+                        商品金额
+                    </div>
+                    <div class="sitem_r">
+                        ￥@ViewBag.ProductTotal.ToString("F")
+                    </div>
+                </div>
+
+                <div class="item_wrap">
+                    <div class="sitem_l f15">
+                        + 运费
+                    </div>
+                    <div class="sitem_r" id="freightPriceId" freightPrice="0">￥@ViewBag.Freight.ToString("F")</div>
+                </div>
+                <div class="item_wrap">
+                    <div class="sitem_l f15">
+                        - 促销
+                    </div>
+                    <div class="sitem_r" id="promotionsPriceId">￥-@ViewBag.TotalPromPrice.ToString("F")</div>
+                </div>
+                <div class="item_wrap">
+                    <div class="sitem_l f15">
+                        - 优惠
+                    </div>
+                    <div class="sitem_r"  id="couponPriceId" couponPrice="0">￥-@ViewBag.TotalPromPrice.ToString("F")</div>
+                </div>
+                <div class="item_wrap">
+                    <div class="sitem_l f15">
+                        - 商城积分(我的积分账户：@ViewBag.Mygwjf.ToString())
+                    </div>
+                    <div class="sitem_r" id="couponPriceId" couponPrice="0">￥-@ViewBag.TotalGwjf.ToString()</div>
+                </div>
+                @*<div class="item_wrap">
+                    <div class="sitem_l f15">
+                        店铺编号
+                    </div>
+                    <div class="sitem_r" id="couponPriceId" couponPrice="0"><textarea id="txtwdbh" style="font-size: 14px; padding: 5px;" placeholder="无" rows="1" cols="15" onblur="checkvalidate();"></textarea></div>
+                    <div id="txtWdbhTip"></div>
+                </div>*@
+            </div>
+        </div>
+
+        <!--支付方式-->
+        <div class="potive" id="step-2">
+            @Html.Action("ShowPayAndShipV2", "Order", new { viewName = "_ShowPayAndShip" })
+        </div>
+
+        <!-- ################-->
+        <!-- END TOP MENU -->
+        <!-- ################-->
+        <div class="bottom">
+
+        </div>
+        <!--START footer-->
+
+        <div class="footer pay_bar">
+            <div class="pay_con">
+                实付款：
+                <span class="paymoney">
+                    <span class="price"  id="payPriceId" BasePrice="@ViewBag.TotalPrice">￥@ViewBag.TotalPrice.ToString("F")</span>
+                </span>
+            </div>
+            <a href="javascript:;" class="pay_btn"  id="order-submit" >提交订单</a>
+        </div>
+        <!-- END footer -->
+    </div>
+@section foot{
+    <script src="/Scripts/jquery.cookie.js" type="text/javascript"></script>
+    <script src="/Areas/MShop/Themes/MC01/Content/Scripts/Pay/SubmitOrder.js"></script>
+    <script type="text/javascript">
+        $(function() {
+            $('#body').addClass('m_home');
+            //显示记录的备注信息
+            $('#txtRemark').val($.cookie('m_so_remark'));
+
+            //跳转页面前先记录备注信息
+            $('.JumpPage').on('click', function () {
+                $.cookie('m_so_remark', $('#txtRemark').val(), { expires: 1, path: '/' }); //记录payId
+                return true;
+            });
+
+            $('#order-submit')
+                .click(function() {
+                    var addressId = $('#step-1 .step-content').attr("addressId");
+                    if (!addressId || addressId < 1) {
+                        ShowFailTip('请修改收货人信息');
+                        $('#step-1').effect('highlight', 1000);
+                        return false;
+                    }
+                    var payId = $('#step-2').find('#PaymentModeId').val();
+                    if (!payId || payId < 1) {
+                        ShowFailTip('请修改支付方式');
+                        $('#step-2').effect('highlight', 1000);
+                        return false;
+                    }
+                    var shipStr;
+                    //配送方式
+                    $(".select_ship").each(function () {
+                        var suppid = $(this).attr("SuppId");
+                        var shipId = $(this).val();
+                        if (!shipStr) {
+                            shipStr = suppid + '-' + shipId;
+                        }
+                        else {
+                            shipStr = shipStr + "|" + suppid + '-' + shipId;
+
+                        }
+
+                    }) 
+
+                    SubmitOrder(this, addressId, payId, $("#hfcoupon").val(), $('#txtRemark').val(), shipStr);
+                });
+            //是否可用优惠券
+            IsUseCoupon();
+            IsOpenInvoicesItem();
+        });
+
+        //是否可用优惠券
+        function IsUseCoupon() {
+            var useCoupon = $('#hidUseCoupon').val();
+            //不是限时抢购/团购
+            if (!$.getUrlParam('c') && !$.getUrlParam('g')) {
+                $('#orderCouponItem').show();
+                return;
+            }
+            //限时抢购/团购 开启了使用优惠劵
+            if (($.getUrlParam('c') || $.getUrlParam('g')) && useCoupon.toLocaleLowerCase() == 'true') {
+                $('#orderCouponItem').show();
+            }
+        }
+
+        //获取赠品及包邮信息
+        function GetActivList(couponPrice) {
+            $('#activList').load($YSWL.BasePath + 'Order/ActivList', { coupPrice: couponPrice });
+        }
+
+        //是否包邮
+        function IsFullFreeShipping() {
+            if ($('#hidFullFreeShipping').length > 0 &&
+                $('#hidFullFreeShipping').val() &&
+                $('#hidFullFreeShipping').val().toLocaleLowerCase() == 'true') {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        //是否开启发票项
+        function IsOpenInvoicesItem() {
+            //开启了 发票项
+            if ($('#hidIsOpenInvoicesItem').val().toLocaleLowerCase() == 'true') {
+                $('#invoiceInfoItem').show();
+                var jsonInvoice = $.parseJSON(unescape($.cookie('m_so_invoice')));
+                if (jsonInvoice == null) {
+                    return;
+                }
+                //是否已设置发票信息
+                if (jsonInvoice.IsOpen == 'true') {
+                    $('#invoiceInfo-tip').text(jsonInvoice.Name);
+                }
+            }
+        }
+    </script>
+}

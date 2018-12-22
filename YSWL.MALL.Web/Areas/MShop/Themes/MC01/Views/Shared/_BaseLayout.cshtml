@@ -1,0 +1,20 @@
+﻿@using System.Web.Mvc.Html
+@{
+    Layout = "~/Areas/MShop/Themes/MC01/Views/Shared/_SiteLayout.cshtml";
+    @*网站前台模版*@
+}
+@section headtop{
+    @RenderSection("headtop", false)
+}
+@section head{
+    @RenderSection("head", false)
+}
+<div id="bodyMainContent">
+    @RenderBody()
+</div>
+<div id="selectRegionContent"  class="main_wrapper dsn">
+    @Html.Action("SelectRegion", "Partial")
+</div>
+@section foot{
+    @RenderSection("foot", false)
+}

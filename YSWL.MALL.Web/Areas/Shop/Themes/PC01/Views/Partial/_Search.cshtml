@@ -1,0 +1,62 @@
+﻿<div class="search-innerbox clearfix">
+    <div class="selectbox" id="selectSearchBox">
+        <span class="selected">搜商品<i class="icon-down-c"></i></span>
+        <ul>
+            <li item="prod"><a href="javascript:;">商品</a></li>
+            <li item="shop"><a href="javascript:;">店铺</a></li>
+        </ul>
+    </div>
+    <input type="text" class="search-txt" placeholder="请输入您要找的商品" id="search_key">
+    <input type="submit" class="search-btn" value="搜索" id="NavBtnSearch">
+</div>
+<script type="text/javascript">
+    $(function () {
+        $('#search_key').keyup(function (event) {
+            if (event.keyCode == '13') {
+                event.preventDefault();
+                $('#NavBtnSearch').click();
+            }
+        });
+        $("#NavBtnSearch").click(function () {
+            var keyword = $("#search_key").val();
+            if (keyword == "") {
+                ShowFailTip('请输入关键字！');
+                return;
+            }
+            var item = $('#selectSearchBox .selected').attr('item');
+            if (item == 'shop') {
+                location.href = $YSWL.BasePath + "search/storelist/" + keyword;
+            } else {
+                location.href = $YSWL.BasePath + "search/0/0/default/0-0/" + keyword;
+            }          
+        });
+
+        $("#BtnSearch").click(function () {
+            var bottomKeyword = $("#bottomKeyword").val();
+            if (!bottomKeyword || bottomKeyword == "") {
+                ShowFailTip('请输入关键字！');
+                return;
+            }
+            location.href = $YSWL.BasePath + "search/0/0/default/0-0/" + bottomKeyword;
+        });
+
+        //搜商品搜店铺 选择
+        $('#selectSearchBox').unbind('hover').hover(function () {            
+            $('#selectSearchBox ul').show();
+        }, function () {
+            $('#selectSearchBox ul').hide();
+        });
+        
+        $('#selectSearchBox li').click(function () {
+            var item = $(this).attr('item');
+            if (item == 'shop') {
+                $('#selectSearchBox .selected').html('搜店铺<i class="icon-down-c"></i>').attr('item', 'shop');
+                $('#search_key').attr('placeholder', '请输入您要找的店铺');
+            } else {
+                $('#selectSearchBox .selected').html('搜商品<i class="icon-down-c"></i>').attr('item', 'prod');
+                $('#search_key').attr('placeholder', '请输入您要找的商品');
+            }
+            $('#selectSearchBox ul').hide();
+        });
+    });
+</script>

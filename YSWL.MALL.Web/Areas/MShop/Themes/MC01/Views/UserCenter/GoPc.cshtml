@@ -1,0 +1,35 @@
+﻿@{
+    Layout = "/Areas/MShop/Themes/MC01/Views/Shared/_BaseLayout.cshtml";
+}
+<link href="~/Areas/MShop/Themes/MC01/Content/Css/gopc.css" rel="stylesheet" />
+<div class="main-wrapper">
+    <!--START 头部导航栏-->
+    <header class="m_header">
+        <div class="m_header_bar_blue">
+            <a href="javascript:;" onclick="history.go(-1)">
+                <div class="m_icon_goback_white icon">
+                    <span class="word">返回</span>
+                </div>
+            </a>
+            <p class="m_header_title">在电脑上管理</p>
+        </div>
+    </header>
+    <div class="content">
+        <div class="pc-img ta-ct "><img src="~/Areas/MShop/Themes/MC01/Content/images/pc.png"></div>
+        <div class="pc-content">
+            <div class="pc-gl ta-ct ">电脑后台管理<br> 更加方便、快捷、安全！</div>
+            <div class="ta-ct cl-b2 mt3 ">电脑访问 <br/>
+                <span class="color_blue">dh.ys56.com/sp/account/login?tag=@(ViewBag.EnterpriseTag)</span>
+              </div>
+            <div class="pc-line"></div>
+            <div class="pc-jslist pc-icon">
+                <ul>
+                    <li><i class="ic1"></i><span>编辑和管理商品资料  </span></li>
+                    <li><i class="ic2"></i><span>店铺的后台配置和管理   </span></li>
+                    <li><i class="ic5"></i><span>客户订单监测及管理    </span></li>
+                    <li class="mt10">更多内容登录电脑后台......</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

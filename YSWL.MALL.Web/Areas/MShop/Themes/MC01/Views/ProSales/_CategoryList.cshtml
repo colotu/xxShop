@@ -1,0 +1,22 @@
+﻿@using Webdiyer.WebControls.Mvc
+@model List<YSWL.MALL.Model.Shop.PromoteSales.GroupBuy>
+@{
+    string cid = Request.RequestContext.RouteData.Values["cid"] != null ? Request.RequestContext.RouteData.Values["cid"].ToString() : "0";
+    string regionId = Request.RequestContext.RouteData.Values["regionId"] != null ? Request.RequestContext.RouteData.Values["regionId"].ToString() : "643";
+    string mod = Request.RequestContext.RouteData.Values["mod"] != null ? Request.RequestContext.RouteData.Values["mod"].ToString() : "default";
+}
+<ul class="saleNav" id="catelist">
+    <li class="se_current" cid="0">全部</li>
+    @if (null != Model)
+    {
+        foreach (var item in Model)
+        {
+            <li  cid="@item.CategoryId">@item.ProductCategory</li>
+        }
+    }
+</ul>
+<script type="text/javascript">
+    $("#catelist li[cid='@cid']").addClass("se_current").siblings().removeClass("se_current");
+</script>
+
+

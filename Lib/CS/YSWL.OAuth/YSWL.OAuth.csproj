@@ -1,0 +1,201 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C64AF6BA-AECD-42C0-A47C-E79CE7AC520A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>YSWL.OAuth</RootNamespace>
+    <AssemblyName>YSWL.OAuth</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;NET_2_0;NET_3_0;NET_3_5;NET_4_0;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\YSWL.OAuth.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;NET_2_0;NET_3_0;NET_3_5;NET_4_0;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\YSWL.OAuth.xml</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Collections\Specialized\NameValueCollection.cs" />
+    <Compile Include="Denglu\Denglu.cs" />
+    <Compile Include="Denglu\DengluException.cs" />
+    <Compile Include="Denglu\Parameter.cs" />
+    <Compile Include="Http\Client\ClientHttpRequestCompletedEventArgs.cs" />
+    <Compile Include="Http\Client\IClientHttpRequest.cs" />
+    <Compile Include="Http\Client\IClientHttpRequestFactory.cs" />
+    <Compile Include="Http\Client\IClientHttpResponse.cs" />
+    <Compile Include="Http\Client\Interceptor\BasicSigningRequestInterceptor.cs" />
+    <Compile Include="Http\Client\Interceptor\IClientHttpRequestAsyncExecution.cs" />
+    <Compile Include="Http\Client\Interceptor\IClientHttpRequestAsyncInterceptor.cs" />
+    <Compile Include="Http\Client\Interceptor\IClientHttpRequestBeforeInterceptor.cs" />
+    <Compile Include="Http\Client\Interceptor\IClientHttpRequestContext.cs" />
+    <Compile Include="Http\Client\Interceptor\IClientHttpRequestFactoryCreation.cs" />
+    <Compile Include="Http\Client\Interceptor\IClientHttpRequestFactoryInterceptor.cs" />
+    <Compile Include="Http\Client\Interceptor\IClientHttpRequestInterceptor.cs" />
+    <Compile Include="Http\Client\Interceptor\IClientHttpRequestSyncExecution.cs" />
+    <Compile Include="Http\Client\Interceptor\IClientHttpRequestSyncInterceptor.cs" />
+    <Compile Include="Http\Client\Interceptor\IClientHttpResponseAsyncContext.cs" />
+    <Compile Include="Http\Client\Interceptor\InterceptingClientHttpRequest.cs" />
+    <Compile Include="Http\Client\Interceptor\InterceptingClientHttpRequestFactory.cs" />
+    <Compile Include="Http\Client\WebClientHttpRequest.cs" />
+    <Compile Include="Http\Client\WebClientHttpRequestFactory.cs" />
+    <Compile Include="Http\Client\WebClientHttpResponse.cs" />
+    <Compile Include="Http\Converters\AbstractHttpMessageConverter.cs" />
+    <Compile Include="Http\Converters\ByteArrayHttpMessageConverter.cs" />
+    <Compile Include="Http\Converters\Feed\AbstractFeedHttpMessageConverter.cs" />
+    <Compile Include="Http\Converters\Feed\Atom10FeedHttpMessageConverter.cs" />
+    <Compile Include="Http\Converters\Feed\Rss20FeedHttpMessageConverter.cs" />
+    <Compile Include="Http\Converters\FileInfoHttpMessageConverter.cs" />
+    <Compile Include="Http\Converters\FormHttpMessageConverter.cs" />
+    <Compile Include="Http\Converters\HttpMessageConversionException.cs" />
+    <Compile Include="Http\Converters\HttpMessageNotReadableException.cs" />
+    <Compile Include="Http\Converters\HttpMessageNotWritableException.cs" />
+    <Compile Include="Http\Converters\IHttpMessageConverter.cs" />
+    <Compile Include="Http\Converters\Json\DataContractJsonHttpMessageConverter.cs" />
+    <Compile Include="Http\Converters\Json\JsonHttpMessageConverter.cs" />
+    <Compile Include="Http\Converters\Json\SpringJsonHttpMessageConverter.cs" />
+    <Compile Include="Http\Converters\Json\MsJsonHttpMessageConverter.cs" />
+    <Compile Include="Http\Converters\ResourceHttpMessageConverter.cs" />
+    <Compile Include="Http\Converters\StringHttpMessageConverter.cs" />
+    <Compile Include="Http\Converters\Xml\AbstractXmlHttpMessageConverter.cs" />
+    <Compile Include="Http\Converters\Xml\DataContractHttpMessageConverter.cs" />
+    <Compile Include="Http\Converters\Xml\XElementHttpMessageConverter.cs" />
+    <Compile Include="Http\Converters\Xml\XmlDocumentHttpMessageConverter.cs" />
+    <Compile Include="Http\Converters\Xml\XmlSerializableHttpMessageConverter.cs" />
+    <Compile Include="Http\Converters\Json\TextJsonHttpMessageConverter.cs" />
+    <Compile Include="Http\HttpEntity.cs" />
+    <Compile Include="Http\HttpHeaders.cs" />
+    <Compile Include="Http\HttpMethod.cs" />
+    <Compile Include="Http\HttpResponseMessage.cs" />
+    <Compile Include="Http\HttpResponseMessage`1.cs" />
+    <Compile Include="Http\HttpUtils.cs" />
+    <Compile Include="Http\IHttpInputMessage.cs" />
+    <Compile Include="Http\IHttpOutputMessage.cs" />
+    <Compile Include="Http\MediaType.cs" />
+    <Compile Include="IApiBinding.cs" />
+    <Compile Include="IO\AbstractResource.cs" />
+    <Compile Include="IO\AssemblyResource.cs" />
+    <Compile Include="IO\ByteArrayResource.cs" />
+    <Compile Include="IO\FileResource.cs" />
+    <Compile Include="IO\IResource.cs" />
+    <Compile Include="IO\StreamResource.cs" />
+    <Compile Include="IServiceProvider.cs" />
+    <Compile Include="Json\IJsonDeserializer.cs" />
+    <Compile Include="Json\IJsonSerializer.cs" />
+    <Compile Include="Json\JsonArray.cs" />
+    <Compile Include="Json\JsonException.cs" />
+    <Compile Include="Json\JsonMapper.cs" />
+    <Compile Include="Json\JsonObject.cs" />
+    <Compile Include="Json\JsonValue.cs" />
+    <Compile Include="Rest\Client\HttpClientErrorException.cs" />
+    <Compile Include="Rest\Client\HttpResponseException.cs" />
+    <Compile Include="Rest\Client\HttpServerErrorException.cs" />
+    <Compile Include="Rest\Client\IRequestCallback.cs" />
+    <Compile Include="Rest\Client\IResponseErrorHandler.cs" />
+    <Compile Include="Rest\Client\IResponseExtractor.cs" />
+    <Compile Include="Rest\Client\IRestOperations.cs" />
+    <Compile Include="Rest\Client\RestClientException.cs" />
+    <Compile Include="Rest\Client\RestOperationCanceler.cs" />
+    <Compile Include="Rest\Client\RestOperationCompletedEventArgs.cs" />
+    <Compile Include="Rest\Client\RestTemplate.cs" />
+    <Compile Include="Rest\Client\Support\AcceptHeaderRequestCallback.cs" />
+    <Compile Include="Rest\Client\Support\AllowHeaderResponseExtractor.cs" />
+    <Compile Include="Rest\Client\Support\DefaultResponseErrorHandler.cs" />
+    <Compile Include="Rest\Client\Support\HeadersResponseExtractor.cs" />
+    <Compile Include="Rest\Client\Support\HttpEntityRequestCallback.cs" />
+    <Compile Include="Rest\Client\Support\HttpMessageResponseExtractor.cs" />
+    <Compile Include="Rest\Client\Support\HttpMessageResponseExtractor`1.cs" />
+    <Compile Include="Rest\Client\Support\LocationHeaderResponseExtractor.cs" />
+    <Compile Include="Rest\Client\Support\MessageConverterResponseExtractor.cs" />
+    <Compile Include="Rest\Client\Support\RestAsyncOperationState.cs" />
+    <Compile Include="Sina\WeiboOAuth2Template.cs" />
+    <Compile Include="Sina\WeiboServiceProvider.cs" />
+    <Compile Include="Sina\WeiboTemplate.cs" />
+    <Compile Include="Sina\IWeibo.cs" />
+    <Compile Include="Tencent\QQ\IQConnect.cs" />
+    <Compile Include="Tencent\QQ\QConnectServiceProvider.cs" />
+    <Compile Include="Tencent\QQ\QConnectTemplate.cs" />
+    <Compile Include="Tencent\QQ\QConnectOAuth2Template.cs" />
+    <Compile Include="Tencent\QQ\QConnectOpenIdTemplate.cs" />
+    <Compile Include="Tencent\QQ\Converters\OpenIdJsonHttpMessageConverter.cs" />
+    <Compile Include="Tencent\Weibo\IWeibo.cs" />
+    <Compile Include="Tencent\Weibo\WeiboOAuth2Template.cs" />
+    <Compile Include="Tencent\Weibo\WeiboServiceProvider.cs" />
+    <Compile Include="Tencent\Weibo\WeiboTemplate.cs" />
+    <Compile Include="Util\ArgumentUtils.cs" />
+    <Compile Include="Util\IoUtils.cs" />
+    <Compile Include="Util\StringUtils.cs" />
+    <Compile Include="Util\UriTemplate.cs" />
+    <Compile Include="v1\AbstractOAuth1ApiBinding.cs" />
+    <Compile Include="v1\AbstractOAuth1ServiceProvider.cs" />
+    <Compile Include="v1\AuthorizedRequestToken.cs" />
+    <Compile Include="v1\IOAuth1Operations.cs" />
+    <Compile Include="v1\IOAuth1ServiceProvider.cs" />
+    <Compile Include="v1\OAuth1Parameters.cs" />
+    <Compile Include="v1\OAuth1RequestInterceptor.cs" />
+    <Compile Include="v1\OAuth1Template.cs" />
+    <Compile Include="v1\OAuth1Version.cs" />
+    <Compile Include="v1\OAuthToken.cs" />
+    <Compile Include="v1\SigningSupport.cs" />
+    <Compile Include="v2\AbstractOAuth2ApiBinding.cs" />
+    <Compile Include="v2\AbstractOAuth2ServiceProvider.cs" />
+    <Compile Include="v2\AccessGrant.cs" />
+    <Compile Include="v2\GrantType .cs" />
+    <Compile Include="v2\IOAuth2Operations.cs" />
+    <Compile Include="v2\IOAuth2ServiceProvider.cs" />
+    <Compile Include="v2\OAuth2Parameters.cs" />
+    <Compile Include="v2\OAuth2RequestInterceptor.cs" />
+    <Compile Include="v2\OAuth2Template.cs" />
+    <Compile Include="v2\OAuth2Version.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Denglu\Provider.cs" />
+    <Compile Include="SocialException.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\YSWL.JsonRpc\YSWL.Json\YSWL.Json.csproj">
+      <Project>{D107225E-370D-4805-A8F2-A2797DAE3692}</Project>
+      <Name>YSWL.Json</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy /Y $(TargetPath) $(SolutionDir)Lib
+copy /Y $(TargetPath) $(SolutionDir)..\</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

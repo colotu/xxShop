@@ -1,0 +1,15 @@
+﻿@using System.Web.Mvc.Html
+@{
+    Layout = "~/Areas/Shop/Themes/PC01/Views/Shared/_BaseLayout.cshtml";
+@*网站前台模版*@
+}
+@section head{
+    @RenderSection("head", false)
+    <link rel="stylesheet" type="text/css" href="/Areas/Shop/Themes/PC01/Content/Css/storestyle.css"/>
+}
+@Html.Action("Header", "Store", new { area = "Shop" })
+@RenderBody()
+@Html.Action("SelectRegion", "Partial", new { area = "Shop" })
+@section foot{
+    @RenderSection("foot", false)
+}

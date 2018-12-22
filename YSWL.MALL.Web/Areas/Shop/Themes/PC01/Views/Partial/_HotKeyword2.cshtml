@@ -1,0 +1,17 @@
+﻿@model List<YSWL.MALL.Model.Shop.Products.HotKeyword>
+ @if (Model != null && Model.Count > 0)
+ {
+    <div class="bs-line">
+        <div class="bs-line-key">
+            <span>您是不是要找：</span>
+        </div>
+        <div class="bs-line-value">
+            @foreach (var item in Model)
+            {
+                <a href="@(ViewBag.BasePath)search/@item.CategoryId/0/default/0-0/@item.Keywords" class="word">@item.Keywords</a>
+            }
+        </div>
+    </div>
+ }
+   
+                  

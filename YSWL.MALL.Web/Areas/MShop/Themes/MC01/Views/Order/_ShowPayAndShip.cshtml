@@ -1,0 +1,28 @@
+﻿@model YSWL.MALL.ViewModel.Shop.PayAndShip
+<a  href="@(ViewBag.BasePath)Order/Product?viewName=PayShipInfo"  class="JumpPage"   >
+    <span class="s_item">
+        <p class="pay_deliver_title f15">支付配送</p>
+        <p class="pay_deliver_way">
+            @if (Model.CurrentPaymentMode != null)
+            {
+                <span class="pay_way payment-selected">@Model.CurrentPaymentMode.Name</span>
+                <input type="hidden" id="PaymentModeId" value="@Model.CurrentPaymentMode.ModeId" />
+            }
+            <span class="deliver_way">配送方式</span>
+            @*@if (Model.CurrentShippingType != null)
+            {
+                <input type="hidden" id="ShippingTypeId" value="@Model.CurrentShippingType.ModeId" />
+            }*@
+        </p>
+    </span>
+    <span class="si point_icon"></span>
+</a>
+ 
+  <script type="text/javascript">
+        $(function () {
+            $('#freightPriceId').attr('freightPrice','@(ViewBag.Freight.ToString("F"))').text('￥@(ViewBag.Freight.ToString("F"))');
+            var totalprice = (parseFloat($('#payPriceId').attr('BasePrice')) + @(ViewBag.Freight)).toFixed(2);
+            $('#payPriceId').text('￥' + totalprice);
+            GetActivList(parseFloat($("#couponPriceId").attr('couponPrice'))); //优惠券优惠金额
+        });
+    </script>

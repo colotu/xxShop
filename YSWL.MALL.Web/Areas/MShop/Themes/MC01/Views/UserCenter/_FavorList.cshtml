@@ -1,0 +1,106 @@
+﻿@using YSWL.MALL.Model.Shop.Products
+@model Webdiyer.WebControls.Mvc.PagedList<YSWL.MALL.ViewModel.Shop.FavoProdModel>
+@if (Model != null && Model.Count > 0)
+{       
+    <div class="pro_container1_list" >
+        <ul id="pro_list">
+            @foreach (var item in Model)
+            {
+                if (item.SaleStatus == (int)ProductSaleStatus.OnSale)
+                {
+                    <li>
+                        <div class="list_item">
+                            <a href="@(ViewBag.BasePath)p/d/@item.ProductId">
+                                <div class="img_wrap pro_img">
+                                    <img title="@item.ProductName" src="@YSWL.MALL.Web.Components.FileHelper.GeThumbImage(item.ThumbnailUrl1, "T115X115_")" onerror=" this.onerror = '';this.src = '/Content/themes/base/Shop/images/none.png'">
+                                </div>
+                            </a>
+                            <div class="info_wrap pro_info">
+                                <a href="@(ViewBag.BasePath)p/d/@item.ProductId">
+                                    <div class="name">@item.ProductName</div>
+                                </a>
+                                <div class="price">
+                                    <em>￥@item.LowestSalePrice.ToString("f")</em>
+                                    <div class="cancel_btn btnDelete" itemid="@item.FavoriteId">取消收藏</div>
+                                </div>
+                                <span class="add-shop my_icon icon_shpcart" onclick="dialogShow(@item.ProductId);">
+                                </span>
+                            </div>
+                        </div>
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <div class="list_item">
+                            <a href="@(ViewBag.BasePath)p/d/@item.ProductId">
+                                <div class="img_wrap pro_img">
+                                    <img title="@item.ProductName" src="@YSWL.MALL.Web.Components.FileHelper.GeThumbImage(item.ThumbnailUrl1, "T115X115_")" onerror=" this.onerror =
+    '';this.src = '/Content/themes/base/Shop/images/none.png'">
+                                </div>
+                            </a>
+                            <div class="info_wrap pro_info">
+                                <a href="@(ViewBag.BasePath)p/d/@item.ProductId">
+                                    <div class="name">@item.ProductName</div>
+                                </a>
+                                <span class="pro_gone txt_tag">
+                                    失效
+                                </span>
+                                <div class="price">
+                                    <em>￥@item.LowestSalePrice.ToString("f")</em>
+                                    <div class="cancel_btn btnDelete" itemid="@item.FavoriteId">取消收藏</div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </li>
+                }
+            }
+        </ul>
+    </div>
+        <script type="text/javascript">
+            
+
+            $(function () {
+                pullUp.init({
+                    //Ajax请求参数
+                    AjaxOptions: {
+                        //Ajax请求参数
+                        Params:  { viewName:"_FavorListMore"},
+                        //Ajax请求URL
+                        DataURL: "@(ViewBag.BasePath)u/FavorList"
+            },
+                    //当前页码
+            CurrentPage: 2,
+                //页码参数名称
+            PageParamsName: "pageIndex",
+            //每页数量
+            PageSize: @(ViewBag.PageSize),
+            //每页数量参数名称
+            PageSizeParamsName: "pageSize",
+            //内容容器
+                ContentContainer: $("#pro_list"),
+                //正在加载提示框
+            LoadingTipBox: $("#loadingMore"),
+            //无更多数据提示框
+            NoMoreTipBox: $("#noMoreProduct"),
+            LoadFinish:false
+            });
+            $("#noMoreProduct").hide();
+
+            });
+        </script>
+        }
+        else
+        {
+        <div class="empty pro_list_empty">
+            <div class="img_wrap">
+
+                <img src="/Areas/MShop/Themes/MC01/Content/images/nopro.png" alt="暂无收藏">
+            </div>
+            <div class="txt">
+                <p>您还没有收藏商品,快去看看吧</p>
+            </div>
+        </div>
+
+        }

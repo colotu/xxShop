@@ -1,0 +1,37 @@
+﻿@using Webdiyer.WebControls.Mvc;
+@model PagedList<YSWL.MALL.Model.Members.SiteMessage>
+
+@if (Model != null && Model.Count > 0)
+{
+    foreach (var item in Model)
+    {
+
+        <div class="item">
+            <div class="item_display">
+                <a href="@(ViewBag.BasePath)u/SysInfoDetail/@item.ID" class="cell_1">
+                    <img src="/Areas/MShop/Themes/MC01/Content/images/system_mess.png" class="system_head"/>
+                    @if (!item.ReceiverIsRead)
+                    {
+                        <i class="red_hideDot"></i>
+                    }
+                </a>
+                <a href="@(ViewBag.BasePath)u/SysInfoDetail/@item.ID" >
+                <div class="cell_2">
+                    <div class="system_info">
+                        <span class="name">
+                                @item.SenderUserName
+                            </span>
+                        <div class="date">
+                            @item.SendTime.Value.ToString("yyyy-MM-dd HH:mm:ss")
+                        </div>
+                    </div>
+                    <div class="mess_con">
+                        @(string.IsNullOrEmpty(item.Title) ? "" : item.Title + ":")@item.Content
+                    </div>
+                </div>
+                    </a>
+</div>
+        </div>
+    }
+
+}

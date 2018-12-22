@@ -1,0 +1,125 @@
+﻿@{
+    Layout = "/Areas/Shop/Themes/PC01/Views/Shared/_UserCenterLayout.cshtml";
+    YSWL.MALL.Model.Members.UsersExpModel UserInfo = ViewBag.UserInfo;
+}
+<script src="~/Areas/Shop/Themes/PC01/Content/Scripts/userUpVip.js"></script>
+<input type="hidden" id="currentpage" value="message" />
+<div class="col-main">
+    <div class="user_dingdantitle">
+        升级VIP会员  需从钱包余额扣住响应的费用<div  style="float: right; margin-right:150px;">
+                                您当前的商城钱包余额:<span class="integral_a1">@UserInfo.Balance</span> &nbsp;&nbsp;&nbsp;&nbsp;<a href="@(ViewBag.BasePath)UserCenter/Recharge" class="usercenterbtn">去充值</a></div></div>
+    <div class="material_con_c" style="width: 100%;">
+        <div class="f-box" style="margin-top: 20px;">
+            <div class="f-input">
+                升级VIP会员
+            </div>
+        </div>
+        <div class="f-box" style="margin-top: 20px;">
+            <label class="f-label">
+                用户账号：</label>
+            <div class="f-input">
+                <input id="txtUseName" name="txtUseName" type="text" value="@ViewBag.userName" maxlength="40" readonly="readonly" class="f-txt f-txt-send">
+            </div>
+            <div class="f-msg">
+                <div id="UseNameTip" class="txterror tipClass">
+                </div>
+            </div>
+        </div>
+        <div class="f-box" style="margin-top: 20px;">
+            <label class="f-label">
+                姓名：
+            </label>
+            <div class="f-input">
+                <input id="txtNickName" name="txtNickName" type="text"  value="@ViewBag.Nickname" maxlength="40" class="f-txt f-txt-send">
+            </div>
+            <div class="f-msg">
+                <div id="nciknameTip" class="txterror tipClass">
+                </div>
+            </div>
+        </div>
+        <div class="f-box" style="margin-top: 20px;">
+            <label class="f-label">
+                手机号：
+            </label>
+            <div class="f-input">
+                <input id="txtTelPhone" name="txtTelPhone" type="text" maxlength="40" class="f-txt f-txt-send">
+            </div>
+            <div class="f-msg">
+                <div id="txtTelPhoneTip" class="txterror tipClass">
+                </div>
+            </div>
+        </div>
+        <div class="f-box" style="margin-top: 20px;">
+            <label class="f-label">
+                登录密码：
+            </label>
+            <div class="f-input">
+                <input id="passone" name="passone" type="password"  value="@ViewBag.passone" maxlength="40" class="f-txt f-txt-send">同商城登录密码
+            </div>
+            <div class="f-msg">
+                <div id="passoneTip" class="txterror tipClass">
+                </div>
+            </div>
+        </div>
+        <div class="f-box" style="margin-top: 20px;">
+            <label class="f-label">
+                交易密码：
+            </label>
+            <div class="f-input">
+                <input id="passtwo" name="passtwo" type="password" maxlength="40"  value="@ViewBag.passtwo" class="f-txt f-txt-send">同商城登录密码
+            </div>
+            <div class="f-msg">
+                <div id="passtwoTip" class="txterror tipClass">
+                </div>
+            </div>
+        </div>
+        <div class="f-box" style="margin-top: 20px;">
+            <label class="f-label">
+                会员等级：
+            </label>
+            <div class="f-input">
+                <select id="userLeve">
+                    <option>L2：银卡(2000)</option>
+                    <option>L3：金卡(6000)</option>
+                    <option>L4：钻卡(10000)</option>
+                    <option>L5：翡翠卡(20000)</option>
+                </select>
+            </div>
+            <div class="f-msg">
+                <div id="userLeveTip" class="txterror tipClass">
+                </div>
+            </div>
+        </div>
+        <div class="f-box" style="margin-top: 20px;">
+            <label class="f-label">
+                推荐人：
+            </label>
+            <div class="f-input">
+                <input id="txtTjrUsernmae" name="txtTjrUsernmae"  value="@ViewBag.tjrName" type="text" maxlength="40" class="f-txt f-txt-send">
+            </div>
+            <div class="f-msg">
+                <div id="TjrUsernmaeTip" class="txterror tipClass">
+                </div>
+            </div>
+        </div>
+        <div class="f-box" style="margin-top: 20px;">
+            <label class="f-label">
+                生活馆：
+            </label>
+            <div class="f-input">
+                <input id="txtshenghuoguan" name="txtshenghuoguan" value="@ViewBag.shenghuoguan" type="text" maxlength="40" class="f-txt f-txt-send">
+            </div>
+            <div class="f-msg">
+                <div id="TjrshenghuoguanTip" class="txterror tipClass">
+                </div>
+            </div>
+        </div>
+        <div class="fb f-act">
+            <div class="f-input">
+                <input class="btn btn-important-large" style="line-height: 30px; background-position: 100% -78px;
+                    padding-right: 10px; font-weight: bold;" type="button" value="升级VIP" id="btnUpdatepersonal"
+                       onclick="submit();" />
+            </div>
+        </div>
+    </div>
+</div>

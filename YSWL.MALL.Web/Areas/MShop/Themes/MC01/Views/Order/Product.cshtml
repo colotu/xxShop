@@ -1,0 +1,104 @@
+﻿@{
+    Layout = "~/Areas/MShop/Themes/MC01/Views/Shared/_BaseLayout.cshtml";
+    ViewBag.Title = "商品清单";
+}
+@section head{
+    <link href="/Areas/MShop/Themes/MC01/Content/Css/main.css" rel="stylesheet" />
+}
+@model YSWL.MALL.ViewModel.Shop.ShoppingCartModel
+ <div class="main_wrapper mb55">
+@if (Model != null && Model.AllCartInfo != null  && Model.AllCartInfo.Quantity > 0)
+{
+    <!--START HEADER-->
+    <header>
+        <div class="top_navbar fixed_header">
+            <div class="si icon_goback" id="c_back">
+            </div>
+            <p class="header_title">商品清单</p>
+            <div class="topbar_word">共计@(Model.AllCartInfo.Quantity)件</div>
+        </div>
+    </header>
+    <!-- END HEADER -->
+    <div class="top"></div>
+    <div class="shop_group">
+@if(Model.DicSuppCartItems != null)
+{
+    foreach (var dicSuppCartItem in Model.DicSuppCartItems)
+    {
+        <div class="shop_group_item pd">
+            <div class="shop_title">
+                <div class="item">
+                    <a href="javascript:void(0);">
+                        <div class="shop_title_content">
+                            <em></em>
+                            <span class="shop_title_name ">
+                                @if (dicSuppCartItem.Key <= 0)
+                                {
+                                                @:自营
+                                }
+                                else
+                                {
+                                           @(dicSuppCartItem.Value.Count > 0 ? dicSuppCartItem.Value[0].ShopName : "")
+                                }
+                            </span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <ul class="shp_cart_list">
+@foreach (YSWL.MALL.Model.Shop.Products.ShoppingCartItem item in dicSuppCartItem.Value)
+{
+                <li>
+                    <div class="items">
+                            <div class="shp_cart_item_display">
+                                <a href="javascript:void(0);" class="cart_product_cell_1">
+                                    <img src="@YSWL.MALL.Web.Components.FileHelper.GeThumbImage(item.ThumbnailsUrl, "T115X115_")" alt="@item.Name" class="cart_photo_thumb"  onerror="this.onerror = ''; this.src = '/Content/themes/base/images/404/404_1.png'" >
+                                </a>
+                                <div class="cart_product_cell_2">
+                                    <div class="cart_product_name">
+                                       @item.Name
+                                    </div>
+                                    <div class="cart_product_prop">
+                                        @if (item.SkuValues != null && item.SkuValues.Length > 0)
+                                        {
+                                           foreach (string val in item.SkuValues)
+                                           {
+                                            <span class="prop">
+                                                @val
+                                            </span>
+                                           }
+                                        }
+                                        <div class="pro_qua">
+                                            x<span class="num">@item.Quantity</span>
+                                        </div>
+                                    </div>
+                                    <div class="price_count_edit">
+                                        <span class="shp_cart_item_price">
+                                            ￥@item.AdjustedPrice.ToString("F")
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                </li>
+}
+            </ul>
+        </div>
+    }
+}
+    </div>
+}
+ 
+</div>
+@section foot{
+    <script type="text/javascript">
+    $(function () {
+        $('#body').addClass('m_home');
+
+        //返回按钮
+        $('#c_back').click(function () {
+            window.location.replace($YSWL.BasePath + "Order/SubmitOrder");
+        });
+    });
+    </script>
+}

@@ -1,0 +1,30 @@
+﻿@model List<YSWL.MALL.Model.Settings.Advertisement>
+@if (Model != null)
+{
+    <link href="~/Scripts/Swiper-2.7.6/idangerous.swiper.css" rel="stylesheet" />
+    <script src="~/Scripts/Swiper-2.7.6/idangerous.swiper.min.js"></script>
+<div class="swiper-container">
+    <div class="swiper-wrapper">
+@foreach (var item in Model)
+{
+        <div class="swiper-slide">
+            <a href="@item.NavigateUrl"   title="@item.AdvertisementName" target="_blank" >
+                <div class="banner-con" style="background: url(@item.FileUrl) center no-repeat;"></div>
+            </a>
+        </div>
+}
+    </div>
+    <div class="swiper-pagination">
+        @*<span class="swiper-pagination-switch"></span>*@
+    </div>
+</div>
+<script type="text/javascript">
+        var mySwiper = new Swiper('.swiper-container', {
+            autoplay: 5000,//可选选项，自动滑动
+            loop: true,//可选选项，开启循环
+            pagination: '.swiper-pagination',
+            paginationClickable: true,
+            createPagination:true
+        })
+</script>
+}

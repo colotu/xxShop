@@ -1,0 +1,54 @@
+﻿@model YSWL.MALL.Model.Shop.Supplier.SupplierInfo
+@{
+    Layout = "/Areas/MShop/Themes/MC01/Views/Shared/_StoreLayout.cshtml";
+}
+@{
+    Layout = "~/Areas/MShop/Themes/MC01/Views/Shared/_BaseLayout.cshtml";
+}
+@section head{
+    <link href="/Areas/MShop/Themes/MC01/Content/Css/main.css" rel="stylesheet" />
+}
+<div class="main_wrapper">
+    <!--START HEADER-->
+    <header>
+        <div class="top_navbar fixed_header">
+           <p class="header_title">商家审核</p>
+        </div>
+    </header>
+    <!-- END HEADER -->
+    <div class="top"></div>
+    <div class="pay_result_wrapper">
+        <div class="con">
+            <div class="pic_wrap">
+                <img src="/Areas/MShop/Themes/MC01/Content/images/success.png">
+                <div class="txt green f20">
+                    @(Model.Name), 您的信息正在审核中..
+                </div>
+            </div>
+            <div class="result_txt">
+                @if (!string.IsNullOrWhiteSpace(Model.ShopName))
+                {
+                    @:您的店铺名称: <strong>@(Model.ShopName)</strong>
+                }
+                <br/>
+                由于审核商家需要较长时间, 请您耐心等待。
+            </div>
+        </div>
+        <div class="btn_wrapper">
+            <a href="javascript:;" id="back"><input type="button" class="b_btn btn_green" value="返回首页"></a>
+        </div>
+    </div>
+    <!-- ################-->
+    <!-- END TOP MENU -->
+    <!-- ################-->
+
+</div>
+ 
+ <script type="text/javascript">
+    $('#back').click(function () {
+        window.location.replace($YSWL.BasePath);
+        return;
+    });
+</script>
+ 
+

@@ -1,0 +1,83 @@
+﻿@using Webdiyer.WebControls.Mvc
+@model PagedList<YSWL.MALL.Model.Shop.PromoteSales.GroupBuy>
+<div class="pro-list-wrapper">
+@if (Model != null && Model.Count > 0)
+{
+    <ul class="pro-list col5 pro-item-border clearfix">
+        @for (int i = 0; i < Model.Count; i++)
+        {
+        <li class="pro-list-item">
+            <div class="pro-item">
+                <a href="@(ViewBag.BasePath)Product/GroupBuyDetail/@Model[i].GroupBuyId">
+                    <div class="pro-pic">
+                        <img src="@YSWL.MALL.Web.Components.FileHelper.GeThumbImage(Model[i].GroupBuyImage, "T350X350_")">
+                    </div>
+                    <div class="pro-info">
+                        <div class="pro-price">
+                            <span class="price-new"><i>¥</i>99.00</span>
+                            <span class="activity-tag tag-hollow-btn">立省@((Model[i].LowestSalePrice - Model[i].Price).ToString("F"))</span>
+                        </div>
+                        <p class="pro-name">@Model[i].ProductName</p>
+                    </div>
+                    <div class="countdown txtenddate"  endDate="@((Model[i].EndDate.ToUniversalTime() - Convert.ToDateTime("1970-01-01")).TotalMilliseconds.ToString("0"))" GroupBuyId="@Model[i].GroupBuyId" id="txtenddate_@(Model[i].GroupBuyId)" >
+                        <span id="dayEnd_@(Model[i].GroupBuyId)">0</span>天
+                        <span id="hourEnd_@(Model[i].GroupBuyId)">0</span>小时
+                        <span id="minEnd_@(Model[i].GroupBuyId)">0</span>分
+                        <span id="secEnd_@(Model[i].GroupBuyId)">0</span>秒后结束
+                    </div>
+                    </a>
+</div>
+        </li>
+        }
+    </ul>
+    <!-- 分页 -->
+    <div class="pagination">
+        @Ajax.Pager(Model, new PagerOptions
+   {
+       ShowDisabledPagerItems = false,
+       AlwaysShowFirstLastPageNumber = true,
+       ShowFirstLast = false,
+       PageIndexParameterName = "pageIndex",
+       NumericPagerItemCount = 6,
+       CurrentPagerItemTemplate = "<span class=\"page-item curr\">{0}</span>",
+       PagerItemTemplate = "<span class=\"page-item\">{0}</span>",
+       MorePagerItemTemplate = "<span class=\"pn-break\">{0}</span>",
+       CssClass = "p-wrap",
+       PrevPageText = "<span class=\"pn-prev \"><i>&lt;</i>上一页</span>",
+       NextPageText = "<span class=\"pn-next \">下一页<i>&gt;</i></span>",
+   }).AjaxOptions(a => a.SetUpdateTargetId("ProductListDiv"))
+    </div>
+
+    <script type="text/javascript">
+    $(function () {
+        //限时抢购倒计时
+        $(".txtenddate").each(function () {
+            $(this).removeClass('txtenddate');
+            var endDate = $(this).attr("endDate");
+            var groupBuyId = $(this).attr("GroupBuyId");
+            var myclass = new CountDown();
+            myclass.init({
+                id: 'txtenddate_' + groupBuyId,
+                //天数
+                day_Dom: $("#dayEnd_" + groupBuyId),
+                //小时
+                hour_Dom: $("#hourEnd_" + groupBuyId),
+                //分钟
+                min_Dom: $("#minEnd_" + groupBuyId),
+                //秒
+                sec_Dom: $("#secEnd_" + groupBuyId),
+                endTime: endDate
+            });
+        });
+    });
+    </script>
+}
+else
+{
+    <div class="no_propt">
+        <i>!</i>未找到相符合的商品
+    </div>
+}
+</div>
+
+

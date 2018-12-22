@@ -1,0 +1,16 @@
+E:\ZheJiangBiYan\BYShop\Lib\CS\YSWL.OAuth\obj\Debug\YSWL.OAuth.pdb
+E:\ZheJiangBiYan\BYShop\Lib\CS\YSWL.OAuth\bin\Debug\YSWL.OAuth.xml
+E:\ZheJiangBiYan\BYShop\Lib\CS\YSWL.OAuth\obj\Debug\YSWL.OAuth.dll
+E:\ZheJiangBiYan\BYShop\Lib\CS\YSWL.OAuth\bin\Debug\YSWL.OAuth.dll
+E:\ZheJiangBiYan\BYShop\Lib\CS\YSWL.OAuth\bin\Debug\YSWL.OAuth.pdb
+E:\ZheJiangBiYan\BYShop\Lib\CS\YSWL.OAuth\bin\Debug\YSWL.Json.dll
+E:\ZheJiangBiYan\BYShop\Lib\CS\YSWL.OAuth\bin\Debug\YSWL.Json.pdb
+E:\ZheJiangBiYan\BYShop\Lib\CS\YSWL.OAuth\obj\Debug\YSWL.OAuth.csprojResolveAssemblyReference.cache
+E:\zhou\洪光顺\XXShop\Lib\CS\YSWL.OAuth\bin\Debug\YSWL.OAuth.xml
+E:\zhou\洪光顺\XXShop\Lib\CS\YSWL.OAuth\bin\Debug\YSWL.OAuth.dll
+E:\zhou\洪光顺\XXShop\Lib\CS\YSWL.OAuth\bin\Debug\YSWL.OAuth.pdb
+E:\zhou\洪光顺\XXShop\Lib\CS\YSWL.OAuth\bin\Debug\YSWL.Json.dll
+E:\zhou\洪光顺\XXShop\Lib\CS\YSWL.OAuth\bin\Debug\YSWL.Json.pdb
+E:\zhou\洪光顺\XXShop\Lib\CS\YSWL.OAuth\obj\Debug\YSWL.OAuth.csprojResolveAssemblyReference.cache
+E:\zhou\洪光顺\XXShop\Lib\CS\YSWL.OAuth\obj\Debug\YSWL.OAuth.dll
+E:\zhou\洪光顺\XXShop\Lib\CS\YSWL.OAuth\obj\Debug\YSWL.OAuth.pdb

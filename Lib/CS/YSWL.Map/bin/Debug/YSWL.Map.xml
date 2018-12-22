@@ -1,0 +1,339 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>YSWL.Map</name>
+    </assembly>
+    <members>
+        <member name="T:YSWL.Map.BLL.MapInfoManage">
+            <summary>
+            BaiduMap
+            </summary>
+            <summary>
+            BaiduMap
+            </summary>
+        </member>
+        <member name="M:YSWL.Map.BLL.MapInfoManage.GetMaxId">
+            <summary>
+            得到最大ID
+            </summary>
+        </member>
+        <member name="M:YSWL.Map.BLL.MapInfoManage.Exists(System.Int32)">
+            <summary>
+            是否存在该记录
+            </summary>
+        </member>
+        <member name="M:YSWL.Map.BLL.MapInfoManage.Add(YSWL.Map.Model.MapInfo)">
+            <summary>
+            增加一条数据
+            </summary>
+        </member>
+        <member name="M:YSWL.Map.BLL.MapInfoManage.Update(YSWL.Map.Model.MapInfo)">
+            <summary>
+            更新一条数据
+            </summary>
+        </member>
+        <member name="M:YSWL.Map.BLL.MapInfoManage.Delete(System.Int32)">
+            <summary>
+            删除一条数据
+            </summary>
+        </member>
+        <member name="M:YSWL.Map.BLL.MapInfoManage.DeleteList(System.String)">
+            <summary>
+            删除一条数据
+            </summary>
+        </member>
+        <member name="M:YSWL.Map.BLL.MapInfoManage.GetModel(System.Int32)">
+            <summary>
+            得到一个对象实体
+            </summary>
+        </member>
+        <member name="M:YSWL.Map.BLL.MapInfoManage.GetModelByCache(System.Int32)">
+            <summary>
+            得到一个对象实体，从缓存中
+            </summary>
+        </member>
+        <member name="M:YSWL.Map.BLL.MapInfoManage.GetList(System.String)">
+            <summary>
+            获得数据列表
+            </summary>
+        </member>
+        <member name="M:YSWL.Map.BLL.MapInfoManage.GetList(System.Int32,System.String,System.String)">
+            <summary>
+            获得前几行数据
+            </summary>
+        </member>
+        <member name="M:YSWL.Map.BLL.MapInfoManage.GetModelList(System.String)">
+            <summary>
+            获得数据列表
+            </summary>
+        </member>
+        <member name="M:YSWL.Map.BLL.MapInfoManage.DataTableToList(System.Data.DataTable)">
+            <summary>
+            获得数据列表
+            </summary>
+        </member>
+        <member name="M:YSWL.Map.BLL.MapInfoManage.GetAllList">
+            <summary>
+            获得数据列表
+            </summary>
+        </member>
+        <member name="M:YSWL.Map.BLL.MapInfoManage.GetRecordCount(System.String)">
+            <summary>
+            分页获取数据列表
+            </summary>
+        </member>
+        <member name="M:YSWL.Map.BLL.MapInfoManage.GetListByPage(System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            分页获取数据列表
+            </summary>
+        </member>
+        <member name="M:YSWL.Map.BLL.MapInfoManage.ExistsByDepartmentId(System.Int32)">
+            <summary>
+            是否存在该企业记录
+            </summary>
+        </member>
+        <member name="M:YSWL.Map.BLL.MapInfoManage.GetModelByDepartmentId(System.Int32)">
+            <summary>
+            得到一个对象实体
+            </summary>
+        </member>
+        <member name="T:YSWL.Map.DAL.MapInfoService">
+            <summary>
+            数据访问类:MapService
+            </summary>
+            <summary>
+            数据访问类:MapService
+            </summary>
+        </member>
+        <member name="M:YSWL.Map.DAL.MapInfoService.GetMaxId">
+            <summary>
+            得到最大ID
+            </summary>
+        </member>
+        <member name="M:YSWL.Map.DAL.MapInfoService.Exists(System.Int32)">
+            <summary>
+            是否存在该记录
+            </summary>
+        </member>
+        <member name="M:YSWL.Map.DAL.MapInfoService.Add(YSWL.Map.Model.MapInfo)">
+            <summary>
+            增加一条数据
+            </summary>
+        </member>
+        <member name="M:YSWL.Map.DAL.MapInfoService.Update(YSWL.Map.Model.MapInfo)">
+            <summary>
+            更新一条数据
+            </summary>
+        </member>
+        <member name="M:YSWL.Map.DAL.MapInfoService.Delete(System.Int32)">
+            <summary>
+            删除一条数据
+            </summary>
+        </member>
+        <member name="M:YSWL.Map.DAL.MapInfoService.DeleteList(System.String)">
+            <summary>
+            批量删除数据
+            </summary>
+        </member>
+        <member name="M:YSWL.Map.DAL.MapInfoService.GetModel(System.Int32)">
+            <summary>
+            得到一个对象实体
+            </summary>
+        </member>
+        <member name="M:YSWL.Map.DAL.MapInfoService.GetList(System.String)">
+            <summary>
+            获得数据列表
+            </summary>
+        </member>
+        <member name="M:YSWL.Map.DAL.MapInfoService.GetList(System.Int32,System.String,System.String)">
+            <summary>
+            获得前几行数据
+            </summary>
+        </member>
+        <member name="M:YSWL.Map.DAL.MapInfoService.GetRecordCount(System.String)">
+            <summary>
+            获取记录总数
+            </summary>
+        </member>
+        <member name="M:YSWL.Map.DAL.MapInfoService.GetListByPage(System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            分页获取数据列表
+            </summary>
+        </member>
+        <member name="M:YSWL.Map.DAL.MapInfoService.ExistsByDepartmentId(System.Int32)">
+            <summary>
+            是否存在该企业记录
+            </summary>
+        </member>
+        <member name="M:YSWL.Map.DAL.MapInfoService.GetModelByDepartmentId(System.Int32)">
+            <summary>
+            得到一个对象实体
+            </summary>
+        </member>
+        <member name="M:YSWL.Map.Handler.MapHandlerBase.CheckUser(System.Web.HttpContext)">
+            <summary>
+            Check是否已登录
+            </summary>
+        </member>
+        <member name="M:YSWL.Map.Handler.MapHandlerBase.ProcessAction(System.String,System.Web.HttpContext)">
+            <summary>
+            通过子类执行
+            </summary>
+        </member>
+        <member name="T:YSWL.Map.Model.MapInfo">
+            <summary>
+            MapInfo:实体类(属性说明自动提取数据库字段的描述信息)
+            </summary>
+        </member>
+        <member name="P:YSWL.Map.Model.MapInfo.MapId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:YSWL.Map.Model.MapInfo.UserId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:YSWL.Map.Model.MapInfo.DepartmentId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:YSWL.Map.Model.MapInfo.PointerLongitude">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:YSWL.Map.Model.MapInfo.PointDimension">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:YSWL.Map.Model.MapInfo.PointClass">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:YSWL.Map.Model.MapInfo.PointerType">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:YSWL.Map.Model.MapInfo.PointerTitle">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:YSWL.Map.Model.MapInfo.PointImg">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:YSWL.Map.Model.MapInfo.PointerContent">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:YSWL.Map.Model.MapInfo.SearchCity">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:YSWL.Map.Model.MapInfo.searchArea">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:YSWL.Map.Model.MapInfo.Level">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:YSWL.Map.Model.MapInfo.enableKeyboard">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:YSWL.Map.Model.MapInfo.enableScrollWheelZoom">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:YSWL.Map.Model.MapInfo.NavigationControl">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:YSWL.Map.Model.MapInfo.ScaleControl">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:YSWL.Map.Model.MapInfo.MapTypeControl">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:YSWL.Map.Model.MapInfo.MarkersLongitude">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:YSWL.Map.Model.MapInfo.MarkersDimension">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:YSWL.Map.Model.MapInfo.setAnimation">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:YSWL.Map.Model.MapInfo.LoadEvent">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:YSWL.Map.Model.MapInfo.MenuItemzoomIn">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:YSWL.Map.Model.MapInfo.MenuItemzoomOut">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:YSWL.Map.Model.MapInfo.MenuItemsetZoomTop">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:YSWL.Map.Model.MapInfo.MenuItemsetPoint">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:YSWL.Map.Model.MapInfo.MapType">
+            <summary>
+            地图类型 0:百度地图 1:Google地图
+            </summary>
+        </member>
+        <member name="P:YSWL.Map.Model.MapInfo.Other1">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:YSWL.Map.Model.MapInfo.Other2">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:YSWL.Map.Model.MapInfo.Other3">
+            <summary>
+            
+            </summary>
+        </member>
+    </members>
+</doc>

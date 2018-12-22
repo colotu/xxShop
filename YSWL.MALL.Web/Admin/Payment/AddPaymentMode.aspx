@@ -1,0 +1,359 @@
+﻿<%@ Page Title="<%$ Resources:AddPaymentMode, IDS_PageTitle %>" Language="C#" MasterPageFile="~/Admin/Basic.Master"
+    AutoEventWireup="true" CodeBehind="AddPaymentMode.aspx.cs" Inherits="YSWL.MALL.Web.Admin.AddPaymentMode" %>
+
+<%@ Register TagPrefix="YSWL" Namespace="YSWL.Controls" Assembly="YSWL.Controls" %>
+<%@ Register TagPrefix="YSWL" Namespace="YSWL.Web.Validator" Assembly="YSWL.Web.Validator" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <link rel="stylesheet" href="../js/validate/pagevalidator.css" type="text/css" />
+    <link rel="stylesheet" href="../css/YSWLv5.css" type="text/css" />
+    <script type="text/javascript" src="../js/validate/pagevalidator.js"></script>
+    <script type="text/javascript" src="../js/YSWLv5.js"></script>
+    <!-- Ben ADD ueditor START -->
+    <script type="text/javascript">
+        window.UEDITOR_HOME_URL = "/ueditor/";
+    </script>
+    <script src="/ueditor/ueditor.config.js" type="text/javascript"></script>
+    <script src="/ueditor/ueditor.all.min.js" type="text/javascript"></script>
+    <link href="/ueditor/themes/default/ueditor.css" rel="stylesheet" type="text/css" />
+    <!-- Ben ADD ueditor END -->
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <div class="newslistabout">
+        <%--   <table class="user_border" cellspacing="0" cellpadding="0" width="100%" align="center"
+        border="0" id="table1">
+        <tr>
+            <td valign="top">
+                <table class="user_box" cellspacing="0" cellpadding="5" width="100%" border="0" id="table2">
+                    <tr>
+                        <td align="left">
+                            <span style="font-size: 12pt; font-weight: bold; color: #3666AA">
+                                <img src="/admin/images/icon.gif" align="absmiddle" style="border-width: 0px;" />
+                                <asp:Literal ID="Literal3" runat="server" Text="<%$ Resources:AddPaymentMode, IDS_PageTitle %>" /></span>
+                        </td>
+                        <td align="middle">
+                            &nbsp;
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>--%>
+        <div>
+            <%--        <div class="PageTitleArea">
+            <div class="PageTitle">
+                <asp:literal id="lblPageTitle" runat="server" text="<%$ Resources:AddPaymentMode, IDS_PageTitle %>"></asp:literal>
+            </div>
+            <div style="width: 80%;">
+                <asp:literal id="lblPageDesc" runat="server" text="<%$ Resources:AddPaymentMode, IDS_PageDesc %>"></asp:literal>
+            </div>
+        </div>--%>
+            <div class="newslist_title">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="borderkuang">
+                    <tr>
+                        <td bgcolor="#FFFFFF" class="newstitle">
+                            <asp:Literal ID="lblPageTitle" runat="server" Text="<%$ Resources:AddPaymentMode, IDS_PageTitle %>"></asp:Literal>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td bgcolor="#FFFFFF" class="newstitlebody">
+                            <asp:Literal ID="lblPageDesc" runat="server" Text="<%$ Resources:AddPaymentMode, IDS_PageDesc %>"></asp:Literal>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <YSWL:StatusMessage ID="statusMessage" runat="server" Visible="False" />
+            <!-- 支付方式名称-->
+            <table style="width: 100%;padding: 20px;" cellpadding="5" cellspacing="1" class="border" >
+                <tr>
+                    <td class="tdbg">
+                        <table cellspacing="0" cellpadding="3" width="100%" border="0">
+                            <tr>
+                                <td class="td_class">
+                                    <asp:Label ID="lblName" runat="server" Text="<%$ Resources:PaymentModeView, IDS_FormField_lblName %>"></asp:Label>
+                                </td>
+                                <td class="rightTD">
+                                    <asp:TextBox ID="txtName" runat="server" Columns="40" MaxLength="200">
+                                    </asp:TextBox>
+                                </td>
+                                <td class="rightTD">
+                                    <div id="txtNameTip" runat="server">
+                                    </div>
+                                    <YSWL:ValidateTarget ID="ValidateTargetName" runat="server" Description="<%$ Resources:PaymentModeView, IDS_Message_Name_Description %>"
+                                        ControlToValidate="txtName" ContainerId="ValidatorContainer">
+                                        <Validators>
+                                            <YSWL:InputStringClientValidator ErrorMessage="<%$ Resources:PaymentModeView, IDS_Message_Name_Description %>"
+                                                LowerBound="1" UpperBound="50" />
+                                        </Validators>
+                                    </YSWL:ValidateTarget>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td_class">
+                                    <asp:Label ID="lblGateway" runat="server" Text="<%$ Resources:PaymentModeView,IDS_FormField_lblGateway %>"></asp:Label>
+                                </td>
+                                <td class="rightTD">
+                                    <YSWL:PayInterfaceDropDownList   CssClass="width207"  ID="dropPayInterface" runat="server" AllowNull="true"
+                                        NullToDisplay="<%$ Resources:PaymentModeView, IDS_FormField_nullToDisplay %>"
+                                        AutoPostBack="true">
+                                    </YSWL:PayInterfaceDropDownList>
+                                    <br />
+                                    <asp:HyperLink ID="hlinkImage" runat="server" Target="_blank">
+                                        <asp:Label ID="lblimage" runat="server"></asp:Label>
+                                    </asp:HyperLink>
+                                </td>
+                                <td class="rightTD">
+                                    <div id="dropPayInterfaceTip" runat="server">
+                                    </div>
+                                    <YSWL:ValidateTarget ID="ValidateTargetPayInterface" runat="server" ContainerId="ValidatorContainer"
+                                        Description="<%$ Resources:PaymentModeView, IDS_Message_PayInterface_Description %>"
+                                        ControlToValidate="dropPayInterface">
+                                        <Validators>
+                                            <YSWL:DropDownListClientValidator ErrorMessage="<%$ Resources:PaymentModeView, IDS_Message_PayInterface_Description %>" />
+                                        </Validators>
+                                    </YSWL:ValidateTarget>
+                                </td>
+                            </tr>
+                            <tr id="tblrMerchantCode" runat="server">
+                                <td class="td_class">
+                                    <asp:Label ID="lblMerchantCode" runat="server" Text="<%$ Resources:PaymentModeView, IDS_FormField_lblMerchantCode %>"></asp:Label>
+                                </td>
+                                <td class="rightTD">
+                                    <asp:TextBox ID="txtMerchantCode" runat="server" Columns="40" MaxLength="200">
+                                    </asp:TextBox>
+                                </td>
+                                <td class="rightTD">
+                                    <div id="txtMerchantCodeTip" runat="server">
+                                    </div>
+                                    <YSWL:ValidateTarget ID="ValidateTargetMerchantCode" runat="server" Description="<%$ Resources:PaymentModeView, IDS_Message_MerchantCode_Description %>"
+                                        ControlToValidate="txtMerchantCode" ContainerId="ValidatorContainer">
+                                        <Validators>
+                                            <YSWL:InputStringClientValidator ErrorMessage="<%$ Resources:PaymentModeView, IDS_Message_MerchantCode_Description %>"
+                                                LowerBound="1" UpperBound="300" />
+                                        </Validators>
+                                    </YSWL:ValidateTarget>
+                                </td>
+                            </tr>
+                            <!-- 显示隐藏容器 邮件地址 -->
+                            <tr id="tblrImage" runat="server">
+                                <td class="td_class">
+                                    <asp:Label ID="lblEmailAddress" runat="server" Text="收款账号："></asp:Label><%--<%$ Resources:PaymentModeView, IDS_FormField_lblEmailAddress %>--%>
+                                </td>
+                                <td class="rightTD">
+                                    <label>
+                                        <asp:TextBox ID="txtEmailAddress" runat="server" Columns="40" MaxLength="200">
+                                        </asp:TextBox>
+                                    </label>
+                                </td>
+                                <td class="rightTD">
+                                    <div id="txtEmailAddressTip" runat="server">
+                                    </div>
+                                    <YSWL:ValidateTarget ID="validatetxtEmailAddress" ContainerId="ValidatorContainer"
+                                        runat="server" ControlToValidate="txtEmailAddress" Description="长度在200字符以内"
+                                        Nullable="false"><%--<%$Resources:AddPaymentMode,ErrorEmailLength%>--%>
+                                        <Validators>
+                                            <YSWL:InputStringClientValidator ErrorMessage="请输入收款账号"
+                                                LowerBound="1" UpperBound="200"  />      <%--<%$ Resources:EmailSettings, IDS_EmailAddress_Error%>--%>
+                                        </Validators>
+                                    </YSWL:ValidateTarget>
+                                </td>
+                            </tr>
+                            <!-- 显示隐藏容器 商户密钥 -->
+                            <tr id="tblrSecretKey" runat="server">
+                                <td class="td_class">
+                                    <asp:Label ID="lblSecretKey" runat="server" Text="<%$ Resources:PaymentModeView, IDS_FormField_lblSecretKey %>"></asp:Label>
+                                </td>
+                                <td class="rightTD">
+                                    <label>
+                                        <asp:TextBox ID="txtSecretKey" runat="server" Columns="40" MaxLength="200">
+                                        </asp:TextBox>
+                                    </label>
+                                </td>
+                                <td class="rightTD">
+                                    <div class="msgNormal msgNormal-wa">
+                                        <asp:Literal ID="lblHelpSecret" runat="server" Text="<%$ Resources:PaymentModeView, IDS_PaymnetMode_SecondKey_Description %>"></asp:Literal>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- 显示隐藏容器 第二密钥 -->
+                            <tr id="tblrSecondKey" runat="server">
+                                <td class="td_class">
+                                    <asp:Label ID="lblSecondKey" runat="server" Text="<%$ Resources:PaymentModeView, IDS_FormField_lblSecondKey %>"></asp:Label>
+                                </td>
+                                <td class="rightTD">
+                                    <label>
+                                        <asp:TextBox ID="txtSecondKey" runat="server" Columns="40" MaxLength="200">
+                                        </asp:TextBox>
+                                    </label>
+                                </td>
+                                <td class="rightTD">
+                                </td>
+                            </tr>
+                            <!-- 显示隐藏容器 商户密码 -->
+                            <tr id="tblrPassword" runat="server">
+                                <td class="td_class">
+                                    <asp:Label ID="lblPassWord" runat="server" Text="<%$ Resources:PaymentModeView, IDS_FormField_lblPassWord %>"></asp:Label>
+                                </td>
+                                <td class="rightTD">
+                                    <label>
+                                        <asp:TextBox ID="txtPassword" runat="server" Columns="40" MaxLength="200" TextMode="Password">
+                                        </asp:TextBox>
+                                    </label>
+                                </td>
+                                <td class="rightTD">
+                                    <div class="msgNormal msgNormal-wa">
+                                        <asp:Literal ID="Literal1" runat="server" Text="<%$ Resources:PaymentModeView, IDS_FormField_PassWord_Description %>"></asp:Literal>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- 显示隐藏容器 合作伙伴 -->
+                            <tr id="tblrPartner" runat="server">
+                                <td class="td_class">
+                                    <asp:Label ID="lblPartner" runat="server" Text="<%$ Resources:PaymentModeView, IDS_FormField_lblPartner %>"></asp:Label>
+                                </td>
+                                <td class="rightTD">
+                                    <label>
+                                        <asp:TextBox ID="txtPartner" runat="server" Columns="40" MaxLength="200">
+                                        </asp:TextBox>
+                                    </label>
+                                </td>
+                                <td class="rightTD">
+                                </td>
+                            </tr>
+                            <tr id="tblrCurrencys" runat="server"  Visible="False">
+                                <td class="td_class">
+                                    <asp:Label ID="lblCurrencys" runat="server" Text="<%$ Resources:PaymentModeView, IDS_FormField_lblCurrencys %>"></asp:Label>
+                                </td>
+                                <td class="rightTD" style="width: 37%">
+                                    <label>
+                                        <asp:CheckBoxList ID="chkCurrencysList" runat="server" RepeatDirection="Horizontal"
+                                            RepeatColumns="4">
+                                        </asp:CheckBoxList>
+                                    </label>
+                                </td>
+                                <td class="rightTD">
+                                    <div class="msgNormal msgNormal-wa">
+                                        <asp:Literal ID="lblCurrencyHelp" runat="server" Text="<%$ Resources:PaymentModeView, IDS_FormField_lblCurrencyHelp %>"></asp:Literal>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr id="tblCharge" runat="server" Visible="False">
+                                <td class="td_class">
+                                    <asp:Label ID="lblCharge" runat="server" Text="<%$ Resources:PaymentModeView, IDS_FormField_lblCharge %>"></asp:Label>
+                                </td>
+                                <td class="rightTD">
+                                    <label>
+                                        <asp:TextBox ID="txtCharge" runat="server" Text="0">
+                                        </asp:TextBox>
+                                        <asp:CheckBox ID="chkIsPercent" runat="server" Text="<%$ Resources:PaymentModeView, IDS_FormField_chkIsPercent %>" />
+                                    </label>
+                                </td>
+                                <td class="rightTD">
+                                    <div id="txtChargeTip" runat="server">
+                                    </div>
+                                    <YSWL:ValidateTarget ID="ValidateTargetCharge" runat="server" ContainerId="ValidatorContainer"
+                                        Nullable="true" ControlToValidate="txtCharge" Description="<%$ Resources:PaymentModeView, IDS_Message_Charge_Description %>">
+                                        <Validators>
+                                            <YSWL:InputMoneyClientValidator ErrorMessage="<%$ Resources:PaymentModeView, IDS_Message_Charge_Description %>" />
+                                            <YSWL:NumberRangeClientValidator ErrorMessage="<%$ Resources:AddPaymentMode, ErrorPayFee %>" MinValue="0" MaxValue="99999999" />
+                                        </Validators>
+                                    </YSWL:ValidateTarget>
+                                </td>
+                            </tr>
+                            <tr  style="display: none;">
+                                <td class="td_class">
+                                    <asp:Label ID="Label1" runat="server" Text="<%$ Resources:AddPaymentMode, lblOnlineRecharge%>"></asp:Label>
+                                </td>
+                                <td class="rightTD">
+                                    <label>
+                                        <YSWL:YesNoRadioButtonList ID="radAllowRecharge" runat="server">
+                                        </YSWL:YesNoRadioButtonList>
+                                    </label>
+                                </td>
+                                <td class="rightTD">
+                                    <div class="msgNormal msgNormal-wa">
+                                        <asp:Literal ID="Literal2" runat="server" Text="<%$ Resources:AddPaymentMode, lblAllowRecharge%>" />
+                                    </div>
+                                </td>
+                            </tr>
+                            
+                            <tr  style="display: none;">
+                                <td class="td_class">
+                                    <asp:Label ID="Label2" runat="server" Text="接口类型"></asp:Label>
+                                </td>
+                                <td class="rightTD">
+                                    <asp:CheckBox ID="chkWeb" runat="server"  Text="电脑版"/>
+                                    <asp:CheckBox ID="chkWap" runat="server" Text="手机版"/>
+                                </td>
+                                <td class="rightTD">
+                               
+                                </td>
+                            </tr>
+                            <tr  style="display: none;">
+                                <td class="td_class">
+                                    <asp:Label ID="lblDisplaySequence" runat="server" Text="<%$ Resources:PaymentModeView, IDS_FormField_lblDisplaySequence %>"></asp:Label>
+                                </td>
+                                <td class="rightTD">
+                                    <asp:TextBox ID="txtDisplaySequence" runat="server" Text="1" Columns="5">
+                                    </asp:TextBox>
+                                </td>
+                                <td class="rightTD">
+                                    <div id="txtDisplaySequenceTip" runat="server">
+                                    </div>
+                                    <YSWL:ValidateTarget ID="ValidateTargetSequence" runat="server" ContainerId="ValidatorContainer"
+                                        ControlToValidate="txtDisplaySequence" Description="<%$ Resources:PaymentModeView, IDS_Message_DisplaySequence_Description %>">
+                                        <Validators>
+                                            <YSWL:InputNumberClientValidator ErrorMessage="<%$ Resources:PaymentModeView, IDS_Message_DisplaySequence_Description %>" />
+                                            <YSWL:NumberRangeClientValidator ErrorMessage="<%$ Resources:PaymentModeView, IDS_ErrorMessage_DisplaySequence %>"
+                                                MinValue="1" MaxValue="65535" />
+                                        </Validators>
+                                    </YSWL:ValidateTarget>
+                                </td>
+                            </tr>
+                            <tr  style="display: none;">
+                                <td class="td_class">
+                                    <asp:Label ID="lblDescription" runat="server" Text="<%$ Resources:PaymentModeView, IDS_FormField_lblDescription %>"></asp:Label>
+                                </td>
+                                <td class="rightTD" colspan="2">
+                                    <textarea id="fcContent" enableviewstate="true" cols="100" rows="8" style="width: 80%;
+                                        height: 200px; " runat="server"></textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td_class">
+                                    &nbsp;
+                                </td>
+                                <td class="rightTD" colspan="2">
+                                    <asp:Button ID="btnCancle" runat="server" CausesValidation="false" Text="<%$ Resources:Site, btnCancleText %>"
+                                        OnClientClick="javascript:history.go(-1);return false;" class="adminsubmit">
+                                    </asp:Button>
+                                    <asp:Button ID="btnCreate" runat="server" Text="<%$ Resources:Resources, IDS_Button_Add %>"
+                                        CssClass="adminsubmit" OnClientClick="return PageIsValid()" />
+                                </td>
+                            </tr>
+                        </table>
+                        </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <YSWL:ValidatorContainer runat="server" ID="ValidatorContainer" />
+        <script type="text/javascript">
+            var editor = new baidu.editor.ui.Editor({//实例化编辑器
+                iframeCssUrl: '/ueditor/themes/default/iframe.css', toolbars: [
+
+            ['fullscreen', 'source', '|', 'undo', 'redo', '|',
+                'bold', 'italic', 'underline', '|', 'forecolor', 'backcolor', '|', 'fontfamily', 'fontsize', '|',
+                'justifyleft', 'justifycenter', 'justifyright', '|', 'removeformat', '|', 'pasteplain', '|', 'link', 'unlink', '|', 'insertimage']
+                 ],
+                initialContent: '', autoHeightEnabled: false,
+                initialFrameHeight: 120,
+                pasteplain: false
+         , wordCount: false
+          , elementPathEnabled: false
+ , autoClearinitialContent: false, imagePath: "/Upload/RTF/", imageManagerPath: "/"
+            });
+            //editor.render('ctl00_ContentPlaceHolder1_fcContent'); //将编译s器渲染到容器
+        </script>
+</asp:Content>
+<asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceCheckright" runat="server">
+</asp:Content>

@@ -1,0 +1,26 @@
+﻿@model List<YSWL.MALL.Model.Shop.Products.ProductInfo> 
+<ul class="pro-list clearfix">
+    @if (Model != null && Model.Count > 0)
+    {
+        foreach (var item in Model)
+        {
+    <li class="pro-list-item">
+        <a href="@item.SeoUrl">
+            <div class="pro-item">
+                <div class="pro-pic">
+                    <img alt="@item.ProductName"  src="@YSWL.MALL.Web.Components.FileHelper.GeThumbImage(item.ThumbnailUrl1, "T350X350_")">
+                </div>
+                <div class="pro-price">
+                    <span class="price-new"><i>¥</i>@item.LowestSalePrice.ToString("F")</span>
+                    @if (item.MarketPrice.HasValue && item.MarketPrice.Value > item.LowestSalePrice)
+                    {
+                        <span class="price-origin"><del>¥@item.MarketPrice.Value.ToString("F")</del></span>
+                    }
+                </div>
+                <p class="pro-name">@item.ProductName</p>
+            </div>
+        </a>
+</li>
+        }
+    }
+</ul>

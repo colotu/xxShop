@@ -1,0 +1,96 @@
+﻿@{
+    Layout = "/Areas/MShop/Themes/MC01/Views/Shared/_StoreLayout.cshtml";
+    ViewBag.Title = "电子商务解决方案-店铺商品";
+    string suppid = Request.RequestContext.RouteData.Values["suppid"] != null ? Request.RequestContext.RouteData.Values["suppid"].ToString() : "0";
+    string cid = Request.RequestContext.RouteData.Values["cid"] != null ? Request.RequestContext.RouteData.Values["cid"].ToString() : "0";
+    string ky = Request.RequestContext.RouteData.Values["ky"] != null ? Request.RequestContext.RouteData.Values["ky"].ToString() : "";
+    //string mod = Request.RequestContext.RouteData.Values["mod"] != null ? Request.RequestContext.RouteData.Values["mod"].ToString() : "hot";
+}
+@model List<YSWL.MALL.Model.Shop.Products.ProductInfo>
+<div class="main_wrapper">
+    <input type="hidden" id="hidKeyWord" value="@ky"/>
+    <!--START HEADER-->
+    @Html.Partial("/Areas/MShop/Themes/MC01/Views/Store/_Top.cshtml")
+    <!--END HEADER-->
+    <div class="top"></div>
+        <!--店铺信息-->
+        <div class="selectWrapper">
+            <ul class="selectTab">
+                <li class="modList selected" mod="hot">销量</li>
+                <li class="modList" mod="new">新品</li>
+                <li class="modList" item="price" mod="price"  id="li_price">价格<span class="si icon_sort sort_t"></span></li>
+                <li ><span class="si switch-t1 sort_t1" id="switch"></span></li>
+            </ul>
+        </div>
+        <div id="mainProductList">
+            @{Html.RenderPartial("_ProdList", Model);}
+        </div>
+
+    <!--加载提示信息--->
+    @Html.Partial("/Areas/MShop/Themes/MC01/Views/Partial/_LoadTip.cshtml")
+</div>
+
+@section foot{
+    <script src="/Areas/MShop/Themes/MC01/Content/Scripts/pullUp.js"></script>
+    <script type="text/javascript">
+        $(function() {
+            //切换列表样式
+            $('#switch').on('click',function() {
+                        $("#bgloading,#bg").css({ height: $(window).height(), display: 'block' });
+                        if ($(this).hasClass('switch-t1')) {
+                            $(this).removeClass('switch-t1').addClass('switch-t2');
+                        }else{
+                            $(this).removeClass('switch-t2').addClass('switch-t1');
+                        }
+                        $('#mainProductList').load(getProductUrl(), function() {
+                                    $("#bgloading,#bg").hide();
+                        });
+              });
+
+            //排序方式切换
+            $('.modList').on('click', function() {
+                        if ($(this).attr('item') == "price") { //是价格
+                            if ($(this).attr('mod') != "price") {
+                                $(this)
+                                    .attr('mod', 'price')
+                                    .find('span')
+                                    .addClass('icon_sort_up')
+                                    .removeClass('icon_sort_down'); //价格升序
+                            } else {
+                                $(this)
+                                    .attr('mod', 'pricedesc')
+                                    .find('span')
+                                    .addClass('icon_sort_down')
+                                    .removeClass('icon_sort_up'); //价格降序
+                            }
+                        } else {
+                            //点击自己保持不变
+                            if ($(this).hasClass('selected')) {
+                                return;
+                            }
+                            //重置价格样式为灰色
+                            $('#li_price span').removeClass('icon_sort_down').removeClass('icon_sort_up');
+                        }
+                        $('.modList').removeClass('selected');
+                        $(this).addClass('selected');
+                        $("#bgloading,#bg").css({ height: $(window).height(), display: 'block' });
+                        $('#mainProductList')
+                            .load(getProductUrl(),
+                                function() {
+                                    $("#bgloading,#bg").hide();
+                                });
+                    });
+        });
+
+        var getProductUrl = function() {
+            var url = $YSWL.BasePath + "Store/ListV2/@suppid/@cid/{0}/@ky?{1}";//Store / ListV2 / { suppId}/{cid}/{mod}/{ky}
+            var param = "";
+            if ($('#switch').hasClass('switch-t2')) {
+                param = "ajaxVName=_ProdList2"; //列表2
+            } else {
+                param = "ajaxVName=_ProdList"; //列表1
+            }
+            return url.format($('.modList.selected').attr("mod"),param);
+        }
+    </script>
+}

@@ -1,0 +1,18 @@
+﻿@model   List<YSWL.MALL.Model.CMS.Content>
+<dl  itemname="@ViewBag.contentclassName">
+    <dt>@ViewBag.contentclassName</dt>
+  
+    @if (Model != null && Model.Count > 0)
+    {
+        foreach (var item in Model)
+        {
+            <dd>
+                <a href="@(ViewBag.BasePath)Article/Details/@item.ContentID" target="_blank">@(YSWL.Common.StringPlus.SubString(item.Title, 8, ""))  </a>
+            </dd>
+        }
+    }
+         
+</dl>
+
+
+

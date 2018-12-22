@@ -1,0 +1,20 @@
+﻿@model List<YSWL.MALL.Model.Shop.Products.BrandInfo>
+@if (Model != null && Model.Count > 0)
+{
+    <div class="filter_item brand">
+        <div class="search_head pd">
+            品牌：<span class="green" id="filter_brand_tip">全部</span>
+        </div>
+        <div class="filter_tag" id="brandlist">
+            <a href="javascript:;" BrandId="0"  class="brandValues"><span class="tag tag_a">全部</span> </a>
+            @for (int i = 0; i < Model.Count; i++)
+            {
+            <a href="javascript:;" BrandId="@Model[i].BrandId" class="brandValues">
+                <span class="tag">@Model[i].BrandName</span>
+            </a>
+            }
+        </div>
+    </div>
+}
+ 
+

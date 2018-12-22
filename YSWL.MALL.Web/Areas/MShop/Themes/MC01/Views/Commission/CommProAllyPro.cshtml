@@ -1,0 +1,67 @@
+﻿@{
+    Layout = "/Areas/MShop/Themes/MC01/Views/Shared/_BaseLayout.cshtml";
+}
+@using Webdiyer.WebControls.Mvc
+@model PagedList<YSWL.MALL.ViewModel.Shop.CommissionProStat>
+@section head{
+    <link href="/Areas/MShop/Themes/MC01/Content/Css/main.css" rel="stylesheet" />
+    <link href="/Areas/MShop/Themes/MC01/Content/Css/user.css" rel="stylesheet" />
+}
+<link href="/Scripts/vue/vux/dist/components/calendar/style.css" rel="stylesheet" />
+<script src="/Scripts/vue/vux/dist/components/calendar/index.js"></script>     
+<div class="main_wrapper mb55">
+    <!--START HEADER-->
+    <header>
+        <div class="top_navbar fixed_header">
+            <a href="@(ViewBag.BasePath)co" class="si icon_goback">
+            </a>
+            <p class="header_title">盟友贡献佣金</p>
+        </div>
+    </header>
+    <!-- END HEADER -->
+    <div class="top"></div>
+    <div id="vm" class="calendar-wrap">
+        <div class="calendar-item">
+            <calendar :value.sync="startDateVal" title="" end-date="@(DateTime.Now.ToString("yyyy-MM-dd"))"></calendar>
+        </div>
+        <span class="rule">—</span>
+        <div class="calendar-item">
+            <calendar :value.sync="endDateVal" title="" end-date="@(DateTime.Now.ToString("yyyy-MM-dd"))"></calendar>
+        </div>
+    </div>
+    <div class="warning-txt pd">总额：<span class="price" id="span_totalFee">￥@ViewBag.TotalFee.ToString("F")</span></div>
+    <div class="display-list pd" id="list">
+        @{Html.RenderPartial("_CommProList", Model);}
+    </div>
+</div>
+<!-- END MAIN WRAPPER-->
+<script src="/Scripts/vue/vue.js"></script>
+<script type="text/javascript">
+    Vue.component('calendar', vuxCalendar);
+    var vmData = {
+        startDateVal: '@ViewBag.StartDate',
+        endDateVal: '@ViewBag.EndDate'
+    };
+        vm = new Vue({
+            el: '#vm',
+            data: vmData,
+            watch: {//监听值是否改变
+                startDateVal: function (val, oldVal) {
+                    if (val != oldVal) {//值改变了
+                       loadData();//重新获取数据
+                    }
+                },
+                endDateVal: function (val, oldVal) {
+                    if (val != oldVal) {
+                        loadData();
+                    }
+                },
+          }
+        });
+        function loadData() {
+            $('#list').load($YSWL.BasePath + "Commission/CommPro?sd=" + vm.startDateVal + "&ed=" + vm.endDateVal + "&rl=2&ajaxViewName=_CommProList", function () {
+                $('#span_totalFee').text('￥' + $('#hidTotalFee').val());
+            });
+        }
+</script>
+<script src="/Areas/MShop/Themes/MC01/Content/Scripts/pullUp.js"></script>

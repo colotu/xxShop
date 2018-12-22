@@ -1,0 +1,42 @@
+﻿@{
+    Layout = "~/Areas/Shop/Themes/PC01/Views/Shared/_BaseLayout.cshtml";
+}
+<div class="order-wrapper">
+    <div class="successk">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tbody><tr>
+                       <td height="45" colspan="3" align="left">
+                           <span class="successk_title"> 您的充值存在风险，请查看充值状态或稍后重试。</span>
+                       </td>
+                   </tr>
+                <tr>
+                    <td height="35" colspan="3" align="left">充值号：@(ViewBag.RechargeId)</td>
+                </tr>
+                <tr>
+                   @* <td height="35" colspan="3" align="left"><strong><span class="ftx-01">@(ViewBag.ItemsCount)</span>件商品将发送给 @(ViewBag.ShipName)</strong></td>*@
+                </tr>
+                <tr>
+                    <td width="65%" height="60" align="left" valign="middle"><input type="button" border="none" name="" class="btn-conti" style="display: none;" value="继续支付"></td>
+                </tr>
+            </tbody></table>
+    </div>
+
+</div>
+
+
+<input type="hidden" value="@ViewBag.RechargeId" id="RechargeId"/>
+<input type="hidden" value="@ViewBag.PayStatus" id="Status"/>
+<script type="text/javascript">
+    (function () {
+        var id = $('#RechargeId').val();
+        var url;
+        if (id) {
+            url = '/pay/account' + id;
+        } else {
+            url = $YSWL.BasePath + 'UserCenter/Balance';
+        }
+        $('.btn-conti').unbind('click').bind('click', function () {
+            window.location.replace(url);
+        });
+    })();
+</script>

@@ -1,0 +1,59 @@
+﻿@using YSWL.MALL.Model.Shop.Products
+@using Webdiyer.WebControls.Mvc
+@model Webdiyer.WebControls.Mvc.PagedList<YSWL.MALL.ViewModel.Shop.FavoProdModel>
+
+
+@if (Model != null && Model.Count > 0)
+{
+        foreach (var item in Model)
+        {
+            if (item.SaleStatus == (int)ProductSaleStatus.OnSale)
+            {
+                <li>
+                    <div class="list_item">
+                        <a href="@(ViewBag.BasePath)p/d/@item.ProductId">
+                            <div class="img_wrap pro_img">
+                                <img title="@item.ProductName" src="@YSWL.MALL.Web.Components.FileHelper.GeThumbImage(item.ThumbnailUrl1, "T115X115_")" onerror=" this.onerror = '';this.src = '/Content/themes/base/Shop/images/none.png'">
+                            </div>
+                        </a>
+                        <div class="info_wrap pro_info">
+                            <a href="@(ViewBag.BasePath)p/d/@item.ProductId">
+                                <div class="name">@item.ProductName</div>
+                            </a>
+                            <div class="price">
+                                <em>￥@item.LowestSalePrice.ToString("f")</em>
+                                <div class="cancel_btn btnDelete" itemid="@item.FavoriteId">取消收藏</div>
+                            </div>
+                            <span class="add-shop my_icon icon_shpcart"  onclick="dialogShow(@item.ProductId);"  ></span>
+                        </div>
+                    </div>
+
+                </li>
+            }
+            else
+            {
+                <li>
+                    <div class="list_item">
+                        <a href="@(ViewBag.BasePath)p/d/@item.ProductId">
+                            <div class="img_wrap pro_img">
+                                <img title="@item.ProductName" src="@YSWL.MALL.Web.Components.FileHelper.GeThumbImage(item.ThumbnailUrl1, "T115X115_")" onerror=" this.onerror = '';this.src = '/Content/themes/base/Shop/images/none.png'">
+                            </div>
+                        </a>
+                        <div class="info_wrap pro_info">
+                            <a href="@(ViewBag.BasePath)p/d/@item.ProductId">
+                                <div class="name">@item.ProductName</div>
+                            </a>
+                            <span class="pro_gone txt_tag">
+                                失效
+                            </span>
+                            <div class="price">
+                                <em>￥@item.LowestSalePrice.ToString("f")</em>
+                                <div class="cancel_btn btnDelete" itemid="@item.FavoriteId">取消收藏</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </li>
+            }
+        }
+}

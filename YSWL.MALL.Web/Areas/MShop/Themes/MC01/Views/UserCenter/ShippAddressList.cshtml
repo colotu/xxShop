@@ -1,0 +1,98 @@
+﻿@{
+    Layout = "/Areas/MShop/Themes/MC01/Views/Shared/_BaseLayout.cshtml";
+    ViewBag.Title = "地址列表";
+}
+@model List<YSWL.MALL.Model.Shop.Shipping.ShippingAddress>
+<link href="/Areas/MShop/Themes/MC01/Content/Css/main.css" rel="stylesheet"/>
+
+<div class="main_wrapper">
+    <!--START HEADER-->
+    <header>
+        <div class="top_navbar fixed_header">
+            <a class="si icon_goback" href="@(ViewBag.BasePath)u/Setting">
+            </a>
+            <p class="header_title">我的收货地址</p>
+        </div>
+    </header>
+    <!-- END HEADER -->
+    <div class="top"></div>
+    <div class="address_wrap">
+
+        @foreach (var item in Model)
+        {
+            <div class="address_item">
+                <div class="addr_con">
+                    <div class="s_info">
+                        <span class="s_name">
+                            @item.ShipName
+                        </span>
+                        <span class="s_phone fr">
+                            @item.CelPhone
+                        </span>
+                    </div>
+                    <div class="s_addr">
+                        @item.RegionFullName @item.Address
+                    </div>
+                </div>
+                <div class="addr_btn">
+
+                    @if (item.IsDefault)
+                    {
+
+                        <span><i class="cart_checkbox checked"></i>默认地址</span>
+
+                    }
+                    else
+                    {
+                        <span><i class="cart_checkbox" onclick="SetDefaultAddress(@(item.ShippingId))"></i>设为默认</span>
+                    }
+
+                    <div class="fr">
+                        <span><i class="my_icon icon_revise"  onclick="window.location.href='@(ViewBag.BasePath)UserCenter/ShippAddress/@(item.ShippingId)'"></i>编辑</span>
+                        <span><i class="my_icon icon_delete" onclick="DelAddress(@(item.ShippingId))"></i>删除</span>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+    <div class="btn_wrapper">
+        <input type="submit" class="b_btn btn_green" onclick="window.location.href = '@(ViewBag.BasePath)U/ShippAddress'" value="新增收货地址">
+    </div>
+    <!-- ################-->
+    <!-- END TOP MENU -->
+    <!-- ################-->
+</div>
+@section foot{
+    <script type="text/javascript">
+        $(function() {
+            $('body').addClass('m_home');
+        });
+
+        function DelAddress(id) {
+            ShowConfirm("您确定要删除么？", function () {
+                $.post('@(ViewBag.BasePath)UserCenter/DelShippAddress/' + id,
+                function (data) {
+                    if (data == "OK") {
+                        window.location.reload();
+                    } else {
+                        ShowFailTip("服务器忙, 请稍后再试!");
+                    }
+                }
+            );
+            });
+        }
+
+        function SetDefaultAddress(id) {
+            $.post('@(ViewBag.BasePath)UserCenter/SetDefaultAddress/' + id,
+                function(data) {
+                    if (data == "OK") {
+                        window.location.reload();
+                    } else {
+                        ShowFailTip("服务器忙, 请稍后再试!");
+                    }
+                }
+            );
+        }
+    </script>
+}

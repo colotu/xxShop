@@ -1,0 +1,607 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>YSWL.Email</name>
+    </assembly>
+    <members>
+        <member name="T:YSWL.Email.BLL.EmailQueue">
+            <summary>
+            EmailQueue
+            </summary>
+        </member>
+        <member name="M:YSWL.Email.BLL.EmailQueue.Add(YSWL.Email.Model.EmailQueue)">
+            <summary>
+            增加一条数据
+            </summary>
+        </member>
+        <member name="M:YSWL.Email.BLL.EmailQueue.Update(YSWL.Email.Model.EmailQueue)">
+            <summary>
+            更新一条数据
+            </summary>
+        </member>
+        <member name="M:YSWL.Email.BLL.EmailQueue.Delete">
+            <summary>
+            删除一条数据
+            </summary>
+        </member>
+        <member name="M:YSWL.Email.BLL.EmailQueue.GetModel">
+            <summary>
+            得到一个对象实体
+            </summary>
+        </member>
+        <member name="M:YSWL.Email.BLL.EmailQueue.GetModelByCache">
+            <summary>
+            得到一个对象实体，从缓存中
+            </summary>
+        </member>
+        <member name="M:YSWL.Email.BLL.EmailQueue.GetList(System.String)">
+            <summary>
+            获得数据列表
+            </summary>
+        </member>
+        <member name="M:YSWL.Email.BLL.EmailQueue.GetList(System.Int32,System.String,System.String)">
+            <summary>
+            获得前几行数据
+            </summary>
+        </member>
+        <member name="M:YSWL.Email.BLL.EmailQueue.GetModelList(System.String)">
+            <summary>
+            获得数据列表
+            </summary>
+        </member>
+        <member name="M:YSWL.Email.BLL.EmailQueue.DataTableToList(System.Data.DataTable)">
+            <summary>
+            获得数据列表
+            </summary>
+        </member>
+        <member name="M:YSWL.Email.BLL.EmailQueue.GetAllList">
+            <summary>
+            获得数据列表
+            </summary>
+        </member>
+        <member name="M:YSWL.Email.BLL.EmailQueue.GetRecordCount(System.String)">
+            <summary>
+            分页获取数据列表
+            </summary>
+        </member>
+        <member name="M:YSWL.Email.BLL.EmailQueue.GetListByPage(System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            分页获取数据列表
+            </summary>
+        </member>
+        <member name="M:YSWL.Email.BLL.EmailQueue.PushEmailQueur(System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            将邮件加入邮件发送队列
+            </summary>
+        </member>
+        <member name="M:YSWL.Email.BLL.MailConfig.Exists(System.Int32,System.String)">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:YSWL.Email.BLL.MailConfig.Add(YSWL.Email.Model.MailConfig)">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:YSWL.Email.BLL.MailConfig.Update(YSWL.Email.Model.MailConfig)">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:YSWL.Email.BLL.MailConfig.Delete(System.Int32)">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:YSWL.Email.BLL.MailConfig.GetModel(System.Int32)">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:YSWL.Email.BLL.MailConfig.GetModel">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:YSWL.Email.BLL.MailConfig.GetModelByCache(System.Int32)">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:YSWL.Email.BLL.MailConfig.GetList(System.String)">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:YSWL.Email.BLL.MailConfig.GetList(System.Int32,System.String,System.String)">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:YSWL.Email.BLL.MailConfig.GetModelList(System.String)">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:YSWL.Email.BLL.MailConfig.DataTableToList(System.Data.DataTable)">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:YSWL.Email.BLL.MailConfig.GetAllList">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:YSWL.Email.IDAL.IEmailQueue.Add(YSWL.Email.Model.EmailQueue)">
+            <summary>
+            增加一条数据
+            </summary>
+        </member>
+        <member name="M:YSWL.Email.IDAL.IEmailQueue.Update(YSWL.Email.Model.EmailQueue)">
+            <summary>
+            更新一条数据
+            </summary>
+        </member>
+        <member name="M:YSWL.Email.IDAL.IEmailQueue.Delete">
+            <summary>
+            删除一条数据
+            </summary>
+        </member>
+        <member name="M:YSWL.Email.IDAL.IEmailQueue.GetModel">
+            <summary>
+            得到一个对象实体
+            </summary>
+        </member>
+        <member name="M:YSWL.Email.IDAL.IEmailQueue.GetList(System.String)">
+            <summary>
+            获得数据列表
+            </summary>
+        </member>
+        <member name="M:YSWL.Email.IDAL.IEmailQueue.GetList(System.Int32,System.String,System.String)">
+            <summary>
+            获得前几行数据
+            </summary>
+        </member>
+        <member name="M:YSWL.Email.IDAL.IEmailQueue.GetRecordCount(System.String)">
+            <summary>
+            获取记录总数
+            </summary>
+        </member>
+        <member name="M:YSWL.Email.IDAL.IEmailQueue.GetListByPage(System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            分页获取数据列表
+            </summary>
+        </member>
+        <member name="M:YSWL.Email.IDAL.IEmailQueue.PushEmailQueur(System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            将邮件加入邮件发送队列
+            </summary>
+        </member>
+        <member name="M:YSWL.Email.IDAL.IMailConfig.Exists(System.Int32,System.String)">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:YSWL.Email.IDAL.IMailConfig.Add(YSWL.Email.Model.MailConfig)">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:YSWL.Email.IDAL.IMailConfig.Update(YSWL.Email.Model.MailConfig)">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:YSWL.Email.IDAL.IMailConfig.Delete(System.Int32)">
+            <summary>
+            删除一条数据
+            </summary>
+        </member>
+        <member name="M:YSWL.Email.IDAL.IMailConfig.GetModel(System.Int32)">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:YSWL.Email.IDAL.IMailConfig.GetModel">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:YSWL.Email.IDAL.IMailConfig.GetList(System.String)">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:YSWL.Email.IDAL.IMailConfig.GetList(System.Int32,System.String,System.String)">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="T:YSWL.Email.SQLServerDAL.EmailQueue">
+            <summary>
+            数据访问类:EmailQueue
+            </summary>
+        </member>
+        <member name="M:YSWL.Email.SQLServerDAL.EmailQueue.Add(YSWL.Email.Model.EmailQueue)">
+            <summary>
+            增加一条数据
+            </summary>
+        </member>
+        <member name="M:YSWL.Email.SQLServerDAL.EmailQueue.Update(YSWL.Email.Model.EmailQueue)">
+            <summary>
+            更新一条数据
+            </summary>
+        </member>
+        <member name="M:YSWL.Email.SQLServerDAL.EmailQueue.Delete">
+            <summary>
+            删除一条数据
+            </summary>
+        </member>
+        <member name="M:YSWL.Email.SQLServerDAL.EmailQueue.GetModel">
+            <summary>
+            得到一个对象实体
+            </summary>
+        </member>
+        <member name="M:YSWL.Email.SQLServerDAL.EmailQueue.GetList(System.String)">
+            <summary>
+            获得数据列表
+            </summary>
+        </member>
+        <member name="M:YSWL.Email.SQLServerDAL.EmailQueue.GetList(System.Int32,System.String,System.String)">
+            <summary>
+            获得前几行数据
+            </summary>
+        </member>
+        <member name="M:YSWL.Email.SQLServerDAL.EmailQueue.GetRecordCount(System.String)">
+            <summary>
+            获取记录总数
+            </summary>
+        </member>
+        <member name="M:YSWL.Email.SQLServerDAL.EmailQueue.GetListByPage(System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            分页获取数据列表
+            </summary>
+        </member>
+        <member name="M:YSWL.Email.SQLServerDAL.EmailQueue.PushEmailQueur(System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            将邮件加入邮件发送队列
+            </summary>
+        </member>
+        <member name="T:YSWL.Email.SQLServerDAL.MailConfig">
+            <summary>
+            MailConfig
+            </summary>
+        </member>
+        <member name="M:YSWL.Email.SQLServerDAL.MailConfig.Exists(System.Int32,System.String)">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:YSWL.Email.SQLServerDAL.MailConfig.Add(YSWL.Email.Model.MailConfig)">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:YSWL.Email.SQLServerDAL.MailConfig.Update(YSWL.Email.Model.MailConfig)">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:YSWL.Email.SQLServerDAL.MailConfig.Delete(System.Int32)">
+            <summary>
+            删除一条数据
+            </summary>
+        </member>
+        <member name="M:YSWL.Email.SQLServerDAL.MailConfig.GetModel(System.Int32)">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:YSWL.Email.SQLServerDAL.MailConfig.GetModel">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:YSWL.Email.SQLServerDAL.MailConfig.GetList(System.String)">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:YSWL.Email.SQLServerDAL.MailConfig.GetList(System.Int32,System.String,System.String)">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:YSWL.Email.EmailManage.PushQueue(YSWL.Email.Model.EmailQueue)">
+            <summary>
+            加入邮件队列（单封邮件）
+            </summary>
+            <param name="model">单个邮件对象</param>
+            <returns>是否成功加入队列</returns>
+        </member>
+        <member name="M:YSWL.Email.EmailManage.PushQueue(System.Collections.Generic.List{YSWL.Email.Model.EmailQueue})">
+            <summary>
+            加入邮件队列（群发邮件）
+            </summary>
+            <param name="list">邮件对象集合</param>
+        </member>
+        <member name="M:YSWL.Email.EmailManage.PushQueue(System.String,System.String,System.String,System.String)">
+            <summary>
+            加入邮件队列（群发邮件）
+            </summary>
+            <param name="userType">群组类型，例如：会员或管理员（群发）</param>
+            <param name="emailSubject">邮件标题</param>
+            <param name="emailBody">邮件内容</param>
+            <param name="emailFrom">发件人</param>
+            <returns>是否成功加入队列</returns>
+        </member>
+        <member name="M:YSWL.Email.EmailManage.PushQueue(System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            加入邮件队列（群发邮件）
+            </summary>
+            <param name="userType">群组类型，例如：会员或管理员（群发）</param>
+            <param name="userName">收件人（用户登录账户）</param>
+            <param name="emailSubject">邮件标题</param>
+            <param name="emailBody">邮件内容</param>
+            <param name="emailFrom">发件人</param>
+            <returns>是否成功加入队列</returns>
+        </member>
+        <member name="T:YSWL.Email.Model.EmailQueue">
+            <summary>
+            EmailQueue:实体类(属性说明自动提取数据库字段的描述信息)
+            </summary>
+        </member>
+        <member name="P:YSWL.Email.Model.EmailQueue.EmailId">
+            <summary>
+            邮件ID
+            </summary>
+        </member>
+        <member name="P:YSWL.Email.Model.EmailQueue.EmailPriority">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:YSWL.Email.Model.EmailQueue.IsBodyHtml">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:YSWL.Email.Model.EmailQueue.EmailTo">
+            <summary>
+            收件人
+            </summary>
+        </member>
+        <member name="P:YSWL.Email.Model.EmailQueue.EmailCc">
+            <summary>
+            抄送人
+            </summary>
+        </member>
+        <member name="P:YSWL.Email.Model.EmailQueue.EmailBcc">
+            <summary>
+            秘送人
+            </summary>
+        </member>
+        <member name="P:YSWL.Email.Model.EmailQueue.EmailFrom">
+            <summary>
+            发件人
+            </summary>
+        </member>
+        <member name="P:YSWL.Email.Model.EmailQueue.EmailSubject">
+            <summary>
+            邮件标题
+            </summary>
+        </member>
+        <member name="P:YSWL.Email.Model.EmailQueue.EmailBody">
+            <summary>
+            邮件内容
+            </summary>
+        </member>
+        <member name="P:YSWL.Email.Model.EmailQueue.NextTryTime">
+            <summary>
+            发送失败下次发送时间
+            </summary>
+        </member>
+        <member name="P:YSWL.Email.Model.EmailQueue.NumberOfTries">
+            <summary>
+            发送失败尝试次数
+            </summary>
+        </member>
+        <member name="P:YSWL.Email.Model.EmailTemplate.EmailBody">
+            <summary>
+            邮件内容
+            </summary>
+        </member>
+        <member name="P:YSWL.Email.Model.EmailTemplate.EmailTo">
+            <summary>
+            邮件接收者
+            </summary>
+        </member>
+        <member name="P:YSWL.Email.Model.EmailTemplate.EmailDescription">
+            <summary>
+            邮件描述信息
+            </summary>
+        </member>
+        <member name="P:YSWL.Email.Model.EmailTemplate.EmailCc">
+            <summary>
+            抄送人
+            </summary>
+        </member>
+        <member name="P:YSWL.Email.Model.EmailTemplate.EmailBcc">
+            <summary>
+            秘送人
+            </summary>
+        </member>
+        <member name="P:YSWL.Email.Model.EmailTemplate.EmailID">
+            <summary>
+            邮件ID
+            </summary>
+        </member>
+        <member name="P:YSWL.Email.Model.EmailTemplate.EmailType">
+            <summary>
+            邮件类型
+            </summary>
+        </member>
+        <member name="P:YSWL.Email.Model.EmailTemplate.NumberOfTries">
+            <summary>
+            邮件发送失败尝试次数
+            </summary>
+        </member>
+        <member name="T:YSWL.Email.Model.MailConfig">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:YSWL.Email.Model.MailConfig.ID">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:YSWL.Email.Model.MailConfig.UserID">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:YSWL.Email.Model.MailConfig.Mailaddress">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:YSWL.Email.Model.MailConfig.Username">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:YSWL.Email.Model.MailConfig.Password">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:YSWL.Email.Model.MailConfig.SMTPServer">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:YSWL.Email.Model.MailConfig.SMTPPort">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:YSWL.Email.Model.MailConfig.SMTPSSL">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:YSWL.Email.Model.MailConfig.POPServer">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:YSWL.Email.Model.MailConfig.POPPort">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:YSWL.Email.Model.MailConfig.POPSSL">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="T:YSWL.Email.MySqlDAL.EmailQueue">
+            <summary>
+            数据访问类:EmailQueue
+            </summary>
+        </member>
+        <member name="M:YSWL.Email.MySqlDAL.EmailQueue.Add(YSWL.Email.Model.EmailQueue)">
+            <summary>
+            增加一条数据
+            </summary>
+        </member>
+        <member name="M:YSWL.Email.MySqlDAL.EmailQueue.Update(YSWL.Email.Model.EmailQueue)">
+            <summary>
+            更新一条数据
+            </summary>
+        </member>
+        <member name="M:YSWL.Email.MySqlDAL.EmailQueue.Delete">
+            <summary>
+            删除一条数据
+            </summary>
+        </member>
+        <member name="M:YSWL.Email.MySqlDAL.EmailQueue.GetModel">
+            <summary>
+            得到一个对象实体
+            </summary>
+        </member>
+        <member name="M:YSWL.Email.MySqlDAL.EmailQueue.GetList(System.String)">
+            <summary>
+            获得数据列表
+            </summary>
+        </member>
+        <member name="M:YSWL.Email.MySqlDAL.EmailQueue.GetList(System.Int32,System.String,System.String)">
+            <summary>
+            获得前几行数据
+            </summary>
+        </member>
+        <member name="M:YSWL.Email.MySqlDAL.EmailQueue.GetRecordCount(System.String)">
+            <summary>
+            获取记录总数
+            </summary>
+        </member>
+        <member name="M:YSWL.Email.MySqlDAL.EmailQueue.GetListByPage(System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            分页获取数据列表
+            </summary>
+        </member>
+        <member name="M:YSWL.Email.MySqlDAL.EmailQueue.PushEmailQueur(System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            将邮件加入邮件发送队列
+            </summary>
+        </member>
+        <member name="T:YSWL.Email.MySqlDAL.MailConfig">
+            <summary>
+            MailConfig
+            </summary>
+        </member>
+        <member name="M:YSWL.Email.MySqlDAL.MailConfig.Exists(System.Int32,System.String)">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:YSWL.Email.MySqlDAL.MailConfig.Add(YSWL.Email.Model.MailConfig)">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:YSWL.Email.MySqlDAL.MailConfig.Update(YSWL.Email.Model.MailConfig)">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:YSWL.Email.MySqlDAL.MailConfig.Delete(System.Int32)">
+            <summary>
+            删除一条数据
+            </summary>
+        </member>
+        <member name="M:YSWL.Email.MySqlDAL.MailConfig.GetModel(System.Int32)">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:YSWL.Email.MySqlDAL.MailConfig.GetModel">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:YSWL.Email.MySqlDAL.MailConfig.GetList(System.String)">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:YSWL.Email.MySqlDAL.MailConfig.GetList(System.Int32,System.String,System.String)">
+             <summary>
+            
+             </summary>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,14 @@
+<printer>
+  <size>228:127</size>
+  <pic>noimage</pic>
+  <kind>XXX</kind>
+  <item>
+    <name>收货人-姓名_0</name>
+    <font>Verdana</font>
+    <fontsize>12</fontsize>
+    <border>0</border>
+    <italic>0</italic>
+    <align>left</align>
+    <position>105:35:265.8:289.3</position>
+  </item>
+</printer>

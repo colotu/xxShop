@@ -1,0 +1,34 @@
+﻿@{
+    Layout = "/Areas/MShop/Themes/MC01/Views/Shared/_BaseLayout.cshtml";
+    ViewBag.Title = "系统消息";
+}
+<link href="/Areas/MShop/Themes/MC01/Content/Css/main.css" rel="stylesheet" />
+<script src="/Areas/MShop/Themes/MC01/Content/Scripts/pullUp.js"></script>
+
+
+
+<div class="main_wrapper">
+    <!--START HEADER-->
+    <header>
+        <div class="top_navbar fixed_header">
+            <a class="si icon_goback" href="@(ViewBag.BasePath)u" >
+            </a>
+            <p class="header_title">系统消息</p>
+        </div>
+    </header>
+    <!-- END HEADER -->
+    <div class="top"></div>
+    <div class="system_mess_wrap">
+        <div class="mess_list" id="LoadSysInfoList">
+            @Html.Action("SysInfoList", "UserCenter", new { Areas = "Mshop", pageSize = 20, viewName = "_SysInfoList" })
+        </div>
+    </div>
+
+    <!-- ################-->
+    <!-- END TOP MENU -->
+    <!-- ################-->
+</div>
+ <!--加载提示信息--->
+@Html.Partial("/Areas/MShop/Themes/MC01/Views/Partial/_LoadTip.cshtml")
+<!-- ################-->
+

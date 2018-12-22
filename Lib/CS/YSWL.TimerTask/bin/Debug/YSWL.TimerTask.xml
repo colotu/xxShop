@@ -1,0 +1,301 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>YSWL.TimerTask</name>
+    </assembly>
+    <members>
+        <member name="T:YSWL.TimerTask.BLL.TaskTimer">
+            <summary>
+            TaskTimers
+            </summary>
+        </member>
+        <member name="M:YSWL.TimerTask.BLL.TaskTimer.GetMaxId">
+            <summary>
+            得到最大ID
+            </summary>
+        </member>
+        <member name="M:YSWL.TimerTask.BLL.TaskTimer.Exists(System.Int32)">
+            <summary>
+            是否存在该记录
+            </summary>
+        </member>
+        <member name="M:YSWL.TimerTask.BLL.TaskTimer.Add(YSWL.TimerTask.Model.TaskTimer)">
+            <summary>
+            增加一条数据
+            </summary>
+        </member>
+        <member name="M:YSWL.TimerTask.BLL.TaskTimer.Update(YSWL.TimerTask.Model.TaskTimer)">
+            <summary>
+            更新一条数据
+            </summary>
+        </member>
+        <member name="M:YSWL.TimerTask.BLL.TaskTimer.Delete(System.Int32)">
+            <summary>
+            删除一条数据
+            </summary>
+        </member>
+        <member name="M:YSWL.TimerTask.BLL.TaskTimer.DeleteList(System.String)">
+            <summary>
+            删除一条数据
+            </summary>
+        </member>
+        <member name="M:YSWL.TimerTask.BLL.TaskTimer.GetModel(System.Int32)">
+            <summary>
+            得到一个对象实体
+            </summary>
+        </member>
+        <member name="M:YSWL.TimerTask.BLL.TaskTimer.GetModelByCache(System.Int32)">
+            <summary>
+            得到一个对象实体，从缓存中
+            </summary>
+        </member>
+        <member name="M:YSWL.TimerTask.BLL.TaskTimer.GetList(System.String)">
+            <summary>
+            获得数据列表
+            </summary>
+        </member>
+        <member name="M:YSWL.TimerTask.BLL.TaskTimer.GetList(System.Int32,System.String,System.String)">
+            <summary>
+            获得前几行数据
+            </summary>
+        </member>
+        <member name="M:YSWL.TimerTask.BLL.TaskTimer.GetModelList(System.String)">
+            <summary>
+            获得数据列表
+            </summary>
+        </member>
+        <member name="M:YSWL.TimerTask.BLL.TaskTimer.DataTableToList(System.Data.DataTable)">
+            <summary>
+            获得数据列表
+            </summary>
+        </member>
+        <member name="M:YSWL.TimerTask.BLL.TaskTimer.GetAllList">
+            <summary>
+            获得数据列表
+            </summary>
+        </member>
+        <member name="M:YSWL.TimerTask.BLL.TaskTimer.GetRecordCount(System.String)">
+            <summary>
+            分页获取数据列表
+            </summary>
+        </member>
+        <member name="M:YSWL.TimerTask.BLL.TaskTimer.GetListByPage(System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            分页获取数据列表
+            </summary>
+        </member>
+        <member name="T:YSWL.TimerTask.DAL.ITaskTimer">
+            <summary>
+            接口层TaskTimers
+            </summary>
+        </member>
+        <member name="M:YSWL.TimerTask.DAL.ITaskTimer.GetMaxId">
+            <summary>
+            得到最大ID
+            </summary>
+        </member>
+        <member name="M:YSWL.TimerTask.DAL.ITaskTimer.Exists(System.Int32)">
+            <summary>
+            是否存在该记录
+            </summary>
+        </member>
+        <member name="M:YSWL.TimerTask.DAL.ITaskTimer.Add(YSWL.TimerTask.Model.TaskTimer)">
+            <summary>
+            增加一条数据
+            </summary>
+        </member>
+        <member name="M:YSWL.TimerTask.DAL.ITaskTimer.Update(YSWL.TimerTask.Model.TaskTimer)">
+            <summary>
+            更新一条数据
+            </summary>
+        </member>
+        <member name="M:YSWL.TimerTask.DAL.ITaskTimer.Delete(System.Int32)">
+            <summary>
+            删除一条数据
+            </summary>
+        </member>
+        <member name="M:YSWL.TimerTask.DAL.ITaskTimer.GetModel(System.Int32)">
+            <summary>
+            得到一个对象实体
+            </summary>
+        </member>
+        <member name="M:YSWL.TimerTask.DAL.ITaskTimer.GetList(System.String)">
+            <summary>
+            获得数据列表
+            </summary>
+        </member>
+        <member name="M:YSWL.TimerTask.DAL.ITaskTimer.GetList(System.Int32,System.String,System.String)">
+            <summary>
+            获得前几行数据
+            </summary>
+        </member>
+        <member name="T:YSWL.TimerTask.Model.TaskTimer">
+            <summary>
+            TaskTimers:实体类(属性说明自动提取数据库字段的描述信息)
+            </summary>
+            <summary>
+            TaskTimers:实体类(属性说明自动提取数据库字段的描述信息)
+            </summary>
+        </member>
+        <member name="P:YSWL.TimerTask.Model.TaskTimer.ID">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:YSWL.TimerTask.Model.TaskTimer.ExecuteType">
+            <summary>
+            执行类
+            </summary>
+        </member>
+        <member name="P:YSWL.TimerTask.Model.TaskTimer.IsSingle">
+            <summary>
+            只执行一次
+            </summary>
+        </member>
+        <member name="P:YSWL.TimerTask.Model.TaskTimer.Interval">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:YSWL.TimerTask.Model.TaskTimer.ExecuteTime">
+            <summary>
+            执行时间
+            </summary>
+        </member>
+        <member name="P:YSWL.TimerTask.Model.TaskTimer.ExecuteNumber">
+            <summary>
+            执行次数
+            </summary>
+        </member>
+        <member name="P:YSWL.TimerTask.Model.TaskTimer.Param1">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:YSWL.TimerTask.Model.TaskTimer.Param2">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:YSWL.TimerTask.Model.TaskTimer.Param3">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:YSWL.TimerTask.Model.TaskTimer.Param4">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:YSWL.TimerTask.Model.TaskTimer.Param5">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:YSWL.TimerTask.Model.TaskTimer.Param6">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:YSWL.TimerTask.Model.TaskTimer.Param7">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:YSWL.TimerTask.Model.TaskTimer.Param8">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:YSWL.TimerTask.Model.TaskTimer.Param9">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:YSWL.TimerTask.Model.TaskTimer.Param10">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:YSWL.TimerTask.SQLServerDAL.TaskTimer">
+            <summary>
+            数据访问类:TaskTimers
+            </summary>
+        </member>
+        <member name="M:YSWL.TimerTask.SQLServerDAL.TaskTimer.GetMaxId">
+            <summary>
+            得到最大ID
+            </summary>
+        </member>
+        <member name="M:YSWL.TimerTask.SQLServerDAL.TaskTimer.Exists(System.Int32)">
+            <summary>
+            是否存在该记录
+            </summary>
+        </member>
+        <member name="M:YSWL.TimerTask.SQLServerDAL.TaskTimer.Add(YSWL.TimerTask.Model.TaskTimer)">
+            <summary>
+            增加一条数据
+            </summary>
+        </member>
+        <member name="M:YSWL.TimerTask.SQLServerDAL.TaskTimer.Update(YSWL.TimerTask.Model.TaskTimer)">
+            <summary>
+            更新一条数据
+            </summary>
+        </member>
+        <member name="M:YSWL.TimerTask.SQLServerDAL.TaskTimer.Delete(System.Int32)">
+            <summary>
+            删除一条数据
+            </summary>
+        </member>
+        <member name="M:YSWL.TimerTask.SQLServerDAL.TaskTimer.DeleteList(System.String)">
+            <summary>
+            批量删除数据
+            </summary>
+        </member>
+        <member name="M:YSWL.TimerTask.SQLServerDAL.TaskTimer.GetModel(System.Int32)">
+            <summary>
+            得到一个对象实体
+            </summary>
+        </member>
+        <member name="M:YSWL.TimerTask.SQLServerDAL.TaskTimer.DataRowToModel(System.Data.DataRow)">
+            <summary>
+            得到一个对象实体
+            </summary>
+        </member>
+        <member name="M:YSWL.TimerTask.SQLServerDAL.TaskTimer.GetList(System.String)">
+            <summary>
+            获得数据列表
+            </summary>
+        </member>
+        <member name="M:YSWL.TimerTask.SQLServerDAL.TaskTimer.GetList(System.Int32,System.String,System.String)">
+            <summary>
+            获得前几行数据
+            </summary>
+        </member>
+        <member name="M:YSWL.TimerTask.SQLServerDAL.TaskTimer.GetRecordCount(System.String)">
+            <summary>
+            获取记录总数
+            </summary>
+        </member>
+        <member name="M:YSWL.TimerTask.SQLServerDAL.TaskTimer.GetListByPage(System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            分页获取数据列表
+            </summary>
+        </member>
+        <member name="P:YSWL.TimerTask.Timer.TaskTimer">
+            <summary>
+            流水号
+            </summary>
+        </member>
+        <member name="M:YSWL.TimerTask.Timer.#ctor(YSWL.TimerTask.Model.TaskTimer,System.DateTime,System.Action{System.String[]},System.Action{YSWL.TimerTask.Model.TaskTimer},System.String[])">
+            <summary>
+            构造
+            </summary>
+            <param name="taskTimer">流水号</param>
+            <param name="executeTime">max24天</param>
+            <param name="action">方法</param>
+            <param name="callback">执行后回调</param>
+            <param name="args">参数 max10</param>
+        </member>
+    </members>
+</doc>

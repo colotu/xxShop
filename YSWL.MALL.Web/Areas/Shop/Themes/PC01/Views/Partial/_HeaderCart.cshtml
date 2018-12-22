@@ -1,0 +1,13 @@
+﻿            <!-- 购物车 -->
+<div class="header-shopcart">
+    <a href="@(ViewBag.Basepath)ShoppingCart/CartInfo" target="_blank">
+        <span class="icon-shpcart"></span>
+        <span class="txt">我的购物车</span>
+        <span class="icon-r"></span>
+        <span class="shp-count" id="hd-cart-amount">0</span>
+    </a>
+</div>
+<script type="text/javascript">
+    $('#hd-cart-amount').load($YSWL.BasePath + 'ShoppingCart/GetCartCount?timespan=' + new Date().format('yyyyMMddhhmmssS')); //Date.parse(new Date())
+</script>
+

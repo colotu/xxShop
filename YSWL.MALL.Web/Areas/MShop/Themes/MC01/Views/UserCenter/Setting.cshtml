@@ -1,0 +1,80 @@
+﻿@{
+    Layout = "/Areas/MShop/Themes/MC01/Views/Shared/_BaseLayout.cshtml";
+    ViewBag.Title = "设置";
+}
+<link href="/Areas/MShop/Themes/MC01/Content/Css/main.css" rel="stylesheet" />
+
+<div class="main_wrapper mb55">
+    <!--START HEADER-->
+    <header>
+        <div class="top_navbar fixed_header">
+            <a href="@(ViewBag.BasePath)u">
+                <div class="si icon_goback">
+                </div>
+            </a>
+            <p class="header_title">设置</p>
+        </div>
+    </header>
+    <!-- END HEADER -->
+    <div class="top"></div>
+    <div class="set_wrapper">
+        <div class="order_item mt pd">
+            <a class="b_item navigate_r" href="@(ViewBag.BasePath)u/Personal">
+                    <div class="sitem_l">
+                        个人资料
+                    </div>
+
+            </a>
+            <a class="b_item navigate_r" href="@(ViewBag.BasePath)u/ChangePassword">
+                <div class="sitem_l">
+                    修改密码
+                </div>
+            </a>
+            <a class="b_item navigate_r" href="@(ViewBag.BasePath)u/ShippAddressList">
+                <div class="sitem_l">
+                    我的地址
+                </div>
+            </a>
+        </div>
+
+        @if (!String.IsNullOrWhiteSpace(ViewBag.tel))
+        {
+            <div class="order_item mt pd">
+                <a class="b_item" href="tel:@ViewBag.tel">
+                    <div class="sitem_l">
+                        客服热线
+                    </div>
+                    <div class="sitem_r">
+                        @ViewBag.tel<span class="my_icon icon_phone"></span>
+                    </div>
+                </a>
+            </div>
+        }
+
+    </div>
+
+    <!-- ################-->
+    <!-- END TOP MENU -->
+    <!-- ################-->
+
+    <div class="btn_wrapper">
+        <a href="@(ViewBag.BasePath)account/Logout">
+            <input type="submit" class="b_btn btn_green" value="退出登录">
+        </a>
+</div>
+</div>
+
+
+
+<script>
+    $(function () {
+        $('body').addClass('m_home');
+			var windowH = $(window).height();
+			var myContent = $(".set_wrapper").height();
+			if(windowH < myContent){
+				$(".btn_wrapper").addClass('hold-fixed');
+			}else{
+				$(".btn_wrapper").removeClass('hold-fixed');
+			}
+		});
+</script>

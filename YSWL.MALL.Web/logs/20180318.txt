@@ -1,0 +1,72 @@
+发生时间：2018/3/18 13:37:01
+事件级别：Error
+事件来源：Application_Error:索引必须位于该列表的界限内。
+参数名: index
+事件操作人信息：()
+事件内容： 详细错误：   在 System.ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument argument, ExceptionResource resource)
+   在 System.Collections.Generic.List`1.Insert(Int32 index, T item)
+   在 YSWL.Payment.Handler.SendRechargeHandlerBase`2.GetGateway(String gatewayName)
+   在 YSWL.Payment.Handler.SendRechargeHandlerBase`2.ProcessRequest(HttpContext context)
+   在 System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+---------------------------------------------------------
+发生时间：2018/3/18 13:37:36
+事件级别：Error
+事件来源：Application_Error:索引必须位于该列表的界限内。
+参数名: index
+事件操作人信息：()
+事件内容： 详细错误：   在 System.ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument argument, ExceptionResource resource)
+   在 System.Collections.Generic.List`1.Insert(Int32 index, T item)
+   在 YSWL.Payment.Handler.SendRechargeHandlerBase`2.GetGateway(String gatewayName)
+   在 YSWL.Payment.Handler.SendRechargeHandlerBase`2.ProcessRequest(HttpContext context)
+   在 System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+---------------------------------------------------------
+发生时间：2018/3/18 13:47:09
+事件级别：Error
+事件来源：Application_Error:索引必须位于该列表的界限内。
+参数名: index
+事件操作人信息：()
+事件内容： 详细错误：   在 System.ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument argument, ExceptionResource resource)
+   在 System.Collections.Generic.List`1.Insert(Int32 index, T item)
+   在 YSWL.Payment.Handler.SendRechargeHandlerBase`2.GetGateway(String gatewayName)
+   在 YSWL.Payment.Handler.SendRechargeHandlerBase`2.ProcessRequest(HttpContext context)
+   在 System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+---------------------------------------------------------
+发生时间：2018/3/18 13:48:03
+事件级别：Error
+事件来源：Application_Error:索引必须位于该列表的界限内。
+参数名: index
+事件操作人信息：()
+事件内容： 详细错误：   在 System.ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument argument, ExceptionResource resource)
+   在 System.Collections.Generic.List`1.Insert(Int32 index, T item)
+   在 YSWL.Payment.Handler.SendRechargeHandlerBase`2.GetGateway(String gatewayName)
+   在 YSWL.Payment.Handler.SendRechargeHandlerBase`2.ProcessRequest(HttpContext context)
+   在 System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+---------------------------------------------------------
+发生时间：2018/3/18 13:48:35
+事件级别：Error
+事件来源：Application_Error:索引必须位于该列表的界限内。
+参数名: index
+事件操作人信息：()
+事件内容： 详细错误：   在 System.ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument argument, ExceptionResource resource)
+   在 System.Collections.Generic.List`1.Insert(Int32 index, T item)
+   在 YSWL.Payment.Handler.SendRechargeHandlerBase`2.GetGateway(String gatewayName)
+   在 YSWL.Payment.Handler.SendRechargeHandlerBase`2.ProcessRequest(HttpContext context)
+   在 System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+---------------------------------------------------------
+发生时间：2018/3/18 14:17:12
+事件级别：Error
+事件来源：Application_Error:索引必须位于该列表的界限内。
+参数名: index
+事件操作人信息：()
+事件内容： 详细错误：   在 System.ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument argument, ExceptionResource resource)
+   在 System.Collections.Generic.List`1.Insert(Int32 index, T item)
+   在 YSWL.Payment.Handler.SendRechargeHandlerBase`2.GetGateway(String gatewayName)
+   在 YSWL.Payment.Handler.SendRechargeHandlerBase`2.ProcessRequest(HttpContext context)
+   在 System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+---------------------------------------------------------

@@ -1,0 +1,53 @@
+﻿<!--footerWrap开始-->
+<div id="footerWrap">
+  <div class="footer">
+      <div class="helpList">
+                      <!--关于我们-->
+            @Html.Action("ContentList", "Partial", new { viewName = "_FooterContentList", ClassID = 12, Top = 6 })
+            <!--新手上路-->
+            @Html.Action("ContentList", "Partial", new { viewName = "_FooterContentList", ClassID = 13, Top = 6 })
+            <!--支付方式-->
+            @Html.Action("ContentList", "Partial", new { viewName = "_FooterContentList", ClassID = 14, Top = 6 })
+            <!--配送方式-->
+            @Html.Action("ContentList", "Partial", new { viewName = "_FooterContentList", ClassID = 15, Top = 6 })
+            <!--售后服务-->
+            @Html.Action("ContentList", "Partial", new { viewName = "_FooterContentList", ClassID = 16, Top = 6 })
+            
+
+          <ul class="twoCode">
+              <li class="client">
+                  <div>玺星商城公众号</div>
+                  <div><a href="javascript:;"><img width="120" height="132" id="webClient"/></a></div>
+                  <div><a href="javascript:;">玺星商城公众号</a></div>
+              </li>
+              <li class="microLetter">
+                  <div>玺星商城官方微信</div>
+                  <div><a href="javascript:;"><img width="120" height="132" id="wechatPic"/></a></div>
+                  <div><a href="javascript:;">加官方客服为微信好友</a></div>
+              </li>
+          </ul>
+                          <script type="text/javascript">
+                              $('#wechatPic').attr('src', '/Upload/QR/website.png?r=' + Math.random());
+                              $('#webClient').attr('src', '/Upload/QR/android.png?r=' + Math.random());
+
+    </script>
+      </div>
+  </div>
+  <div class="guarantee">
+        	<ul>
+            	<li class="li1">真实产品信息</li>
+                <li class="li2">10日无条件退换货</li>
+                <li class="li3">1000城市货到付款</li>
+                <li class="li4">专业服务团队</li>
+            </ul>
+        </div>
+
+        <ul class="certification">
+        	<li><a href="javascript:;"><img src="/Areas/Shop/Themes/PC01/Content/images/footerPic1.png" /></a></li>
+            <li><a href="javascript:;"><img src="/Areas/Shop/Themes/PC01/Content/images/footerPic2.png" /></a></li>
+            <li><a href="javascript:;"><img src="/Areas/Shop/Themes/PC01/Content/images/footerPic3.png" /></a></li>
+        </ul>       
+    </div>
+<script type="text/javascript">
+    $('#footerWrap .helpList dl').eq(0).append("<dd><a href=\"" + $YSWL.BasePath + "Store/apply\" target=\"_blank\">商家入驻</a></dd>");
+</script>

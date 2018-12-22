@@ -1,0 +1,318 @@
+﻿@{
+    Layout = "~/Areas/Shop/Themes/PC01/Views/Shared/_ShoppingLayout.cshtml";
+}
+@section title{
+    <b class="word">购物车</b>
+}
+@section step{
+      <!-- 搜索框 -->
+<div class="cartSearch clearfix">
+    @Html.Partial("/Areas/Shop/Themes/PC01/Views/Partial/_Search.cshtml")
+</div>
+}    
+<script type="text/javascript">
+    pagename = "cart_list";
+    var selectItem;
+    $(function () {
+        resetSelectItem();
+        $(".decrement").die("click").live("click", function () {
+            var count = parseInt($(this).next().val());
+            if (count == 1) {
+                if (confirm("您确定要删除该商品吗？")) {
+                    $(".btnDelete[ItemId='" + $(this).attr("ItemId") + "']").click();
+                }
+            } else {
+                $(this).next().val(count - 1);
+                var itemId = $(this).parent().attr("ItemId");
+                $.ajax({
+                    type: "POST",
+                    dataType: "text",
+                    async: false,
+                    url: "@(ViewBag.BasePath)ShoppingCart/UpdateItemCount?s=" + new Date().format('yyyyMMddhhmmssS'),
+                    data: { ItemId: itemId, Count: count - 1 },
+                    success: function (data) {
+                        if (data != "No") {
+                            $("#LoadCartList").load("@(ViewBag.BasePath)ShoppingCart/CartList?s=" + new Date().format('yyyyMMddhhmmssS'), function () {
+                                resetSelectItem();
+                            });
+                        } else {
+                            ShowFailTip("服务器繁忙，请稍候再试！");
+                        }
+                    }
+                });
+            }
+        });
+        $('.txtQuantity').die("blur").live("blur", function () {
+            var count = parseInt($(this).val());
+            if (count < 1) {
+                if (confirm("您确定要删除该商品吗？")) {
+                    $(".btnDelete[ItemId='" + $(this).attr("ItemId") + "']").click();
+                    return;
+                }
+                $(this).val(1);
+                return;
+            }
+            var itemId = $(this).attr("ItemId");
+            $.ajax({
+                type: "POST",
+                dataType: "text",
+                url: "@(ViewBag.BasePath)ShoppingCart/UpdateItemCount?s=" + new Date().format('yyyyMMddhhmmssS'),
+                data: { ItemId: itemId, Count: count },
+                success: function (data) {
+                    if (data != "No") {
+                        $("#LoadCartList").load("@(ViewBag.BasePath)ShoppingCart/CartList?s=" + new Date().format('yyyyMMddhhmmssS'), function () {
+                            resetSelectItem();
+                        });
+                    } else {
+                        ShowFailTip("服务器繁忙，请稍候再试！");
+                    }
+                }
+            });
+        });
+        $(".increment").die("click").live("click", function () {
+            var count = parseInt($(this).prev().val());
+             var itemId = $(this).attr("ItemId");
+            var stock = $(this).attr("stock");
+            if (stock <= 0) {
+                ShowFailTip("无货");
+                return;
+            }
+            if (stock < (count + 1)) {
+                ShowFailTip("库存不足！");
+                return;
+            }
+            $(this).prev().val(count + 1);
+
+            $.ajax({
+                type: "POST",
+                dataType: "text",
+                async: false,
+                url: "@(ViewBag.BasePath)ShoppingCart/UpdateItemCount?s=" + new Date().format('yyyyMMddhhmmssS'),
+                data: { ItemId: itemId, Count: count + 1 },
+                success: function (data) {
+                    if (data != "No") {
+                        $("#LoadCartList").load("@(ViewBag.BasePath)ShoppingCart/CartList?s=" + new Date().format('yyyyMMddhhmmssS'), function () {
+                            resetSelectItem();
+                        });
+                    } else {
+                        ShowFailTip("服务器繁忙，请稍候再试！");
+                    }
+                }
+            });
+        });
+
+        //清空购物车
+        $("#btnRemoveAll").die("click").live("click", function () {
+            if (!confirm("您确定要清空购物车吗？")) {
+                return;
+            }
+            $.ajax({
+                type: "POST",
+                dataType: "text",
+                url: "@(ViewBag.BasePath)ShoppingCart/ClearShopCart",
+                data: {},
+                success: function (data) {
+                    if (data != "No") {
+                        $("#LoadCartList").load("@(ViewBag.BasePath)ShoppingCart/CartList?s=" + new Date().format('yyyyMMddhhmmssS'), function () {
+                            resetSelectItem();
+                        });
+                    } else {
+                        ShowFailTip("服务器繁忙，请稍候再试！");
+                        setTimeout(function () {
+                            $("#LoadCartList").load("@(ViewBag.BasePath)ShoppingCart/CartList?s=" + new Date().format('yyyyMMddhhmmssS'), function () {
+                                resetSelectItem();
+                            });
+                        }, 3000);
+                    }
+                }
+            });
+        });
+
+        //全选
+        $(".btnCheckAll").die("click").live("click", function () {
+            var option;
+            if ($(this).attr("checked") == "checked") {
+                option = "check";
+            } else {
+                option = "remove";
+            }
+
+            $.ajax({
+                type: "POST",
+                dataType: "text",
+                url: "@(ViewBag.BasePath)ShoppingCart/SelectedItemAll",
+                data: { option: option },
+                success: function (data) {
+                    if (data == "OK") {
+                        $("#LoadCartList").load("@(ViewBag.BasePath)ShoppingCart/CartList?s=" + new Date().format('yyyyMMddhhmmssS'), function () {
+                            resetSelectItem();
+                        });
+                    } else {
+                        ShowFailTip("服务器繁忙，请稍候再试！");
+                        setTimeout(function () {
+                            $("#LoadCartList").load("@(ViewBag.BasePath)ShoppingCart/CartList?s=" + new Date().format('yyyyMMddhhmmssS'), function () {
+                                resetSelectItem();
+                            });
+                        }, 3000);
+                    }
+                }
+            });
+        });
+
+
+        //点击某组选中或取消选中
+        $('[id^="groupKey_"]').die("click").live("click", function () {
+            var id = $(this).attr('suppId');
+            var option;
+            if ($(this).is(':checked')) {
+                option = "check";
+            } else {
+                option = "remove";
+            }
+            $.ajax({
+                type: "POST",
+                dataType: "text",
+                url: $YSWL.BasePath + "ShoppingCart/SelectedItemSuppAll",
+                data: { option: option, suppId: id },
+                success: function (data) {
+                    if (data == "OK") {
+                        $("#LoadCartList").load($YSWL.BasePath + "ShoppingCart/CartList?s=" + new Date().format('yyyyMMddhhmmssS'), function () {
+                            resetSelectItem();
+                        });
+                    } else {
+                        ShowFailTip("服务器繁忙，请稍候再试！");
+                        return false;
+                    }
+                }
+            });
+        });
+
+
+        $(".btnDelete").die("click").live("click", function () {
+            if (!confirm("您确定要删除吗？")) {
+                return;
+            }
+            removeItem($(this).attr("ItemId"));
+        });
+
+        $(".btnCheck").die("click").live("click", function () {
+            var itemId = $(this).attr("ItemId");
+            $.ajax({
+                type: "POST",
+                dataType: "text",
+                url: "@(ViewBag.BasePath)ShoppingCart/SelectedItem",
+                data: { id: itemId },
+                success: function (data) {
+                    if (data == "OK") {
+                        $("#LoadCartList").load("@(ViewBag.BasePath)ShoppingCart/CartList?s=" + new Date().format('yyyyMMddhhmmssS'), function () {
+                            resetSelectItem();
+                        });
+                    } else {
+                        ShowFailTip("服务器繁忙，请稍候再试！");
+                        setTimeout(function () {
+                            $("#LoadCartList").load("@(ViewBag.BasePath)ShoppingCart/CartList?s=" + new Date().format('yyyyMMddhhmmssS'), function () {
+                                resetSelectItem();
+                            });
+                        }, 3000);
+                    }
+                }
+            });
+        });
+
+        //删除选中项
+        $("#btnRemoveSelect").die("click").live("click", function () {
+            if (selectItem == '') {
+                ShowFailTip("请选择要删除的商品！");
+                return;
+            }
+
+            if (!confirm("您确定要删除选中的商品吗？")) {
+                return;
+            }
+            removeItem(selectItem.join(","));
+        });
+
+        //移到我的收藏
+        $('.moveToFavo').die("click").live("click", function () {
+            if (CheckUserState()) {
+                if (!confirm("移动后选中商品将不在购物车中显示")) {
+                    return;
+                }
+                removeItem($(this).attr("ItemId"));
+                var productId = $(this).attr("productId");
+                $.ajax({
+                    type: "POST",
+                    dataType: "text",
+                    url: $YSWL.BasePath + "UserCenter/AjaxAddFav",
+                    async: false,
+                    data: { ProductId: productId },
+                    success: function (data) {
+                        if (data == "Rep" || data == "True") {
+                            $("#LoadCartList").load("@(ViewBag.BasePath)ShoppingCart/CartList?s=" + new Date().format('yyyyMMddhhmmssS'), function () {
+                                resetSelectItem();
+                            });
+                        } else{
+                            ShowFailTip('服务器繁忙，请稍候再试！');
+                        }
+                    }
+                });
+            }
+        });
+    });
+
+    //移除项
+    function removeItem(ItemIds) {
+        $.ajax({
+            type: "POST",
+            dataType: "text",
+            url: "@(ViewBag.BasePath)ShoppingCart/RemoveItem",
+            data: { ItemIds: ItemIds },
+            success: function (data) {
+                if (data != "No") {
+                    $("#LoadCartList").load("@(ViewBag.BasePath)ShoppingCart/CartList?s=" + new Date().format('yyyyMMddhhmmssS'), function () {
+                        resetSelectItem();
+                    });
+                } else {
+                    ShowFailTip("服务器繁忙，请稍候再试！");
+                    setTimeout(function () {
+                        $("#LoadCartList").load("@(ViewBag.BasePath)ShoppingCart/CartList?s=" + new Date().format('yyyyMMddhhmmssS'), function () {
+                            resetSelectItem();
+                        });
+                    }, 3000);
+                }
+            }
+        });
+    }
+
+    function resetSelectItem() {
+        selectItem = new Array();
+        //填充数组
+        $(".btnCheck[checked]").each(function () {
+            var itemId = $(this).attr("ItemId");
+            //判断选中数组中是否已存在该项
+            var index = $.inArray(itemId, selectItem);
+            if (index > -1) {
+                selectItem.splice(index, 1);
+            } else {
+                selectItem.push(itemId);
+            }
+        });
+    }
+
+</script>
+<div class="cart">
+    <div class="wrap" >
+        <div  id="LoadCartList">
+            @Html.Action("CartList", "ShoppingCart")
+        </div>
+        <div class="module">
+            @Html.Action("ProductRec", "Partial", new { Type = YSWL.MALL.Model.Shop.Products.ProductRecType.Recommend, Cid = 0, Top = 6, ViewName = "_CartInfoRec" })
+        </div>
+    </div>
+</div>
+<!--登录层-->
+@Html.Action("LoginLayer", "Partial")
+<link href="/Scripts/jqueryui/base/jquery-ui-1.9.2.min.css" rel="stylesheet" type="text/css" />
+<script src="/Scripts/jqueryui/jquery-ui-1.9.2.min.js" type="text/javascript"></script>
+<script src="~/Areas/Shop/Themes/PC01/Content/Scripts/ajaxLogin.js"></script>
+                    

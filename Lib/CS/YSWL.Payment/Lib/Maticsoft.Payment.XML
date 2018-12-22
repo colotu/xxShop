@@ -1,0 +1,797 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Maticsoft.Payment</name>
+    </assembly>
+    <members>
+        <member name="M:Maticsoft.Payment.PaymentInterface.WeChat.Globals.GetMD5(System.String,System.String)">
+            获取大写的MD5签名结果 
+        </member>
+        <member name="M:Maticsoft.Payment.PaymentInterface.WeChat.Globals.UrlEncode(System.String,System.String)">
+            对字符串进行URL编码 
+        </member>
+        <member name="M:Maticsoft.Payment.PaymentInterface.WeChat.Globals.UrlDecode(System.String,System.String)">
+            对字符串进行URL解码 
+        </member>
+        <member name="T:Maticsoft.Payment.Web.PaymentReturnTemplatedPage`1">
+            <summary>
+            支付接口回调/通知抽象基类
+            </summary>
+            <typeparam name="T">订单信息</typeparam>
+        </member>
+        <member name="M:Maticsoft.Payment.Web.PaymentReturnTemplatedPage`1.#ctor(Maticsoft.Payment.Model.IPaymentOption{`0},System.Boolean)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="_isBackRequest">是否为支付网关异步回调请求</param>
+        </member>
+        <member name="M:Maticsoft.Payment.Web.PaymentReturnTemplatedPage`1.GetPaymentMode(System.Int32)">
+            <summary>
+            根据支付ID 获取支付信息
+            </summary>
+            <param name="paymentTypeId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Maticsoft.Payment.Web.PaymentReturnTemplatedPage`1.GetOrderInfo(System.String)">
+            <summary>
+            根据订单ID 获取订单信息
+            </summary>
+            <param name="orderId">订单ID</param>
+            <returns>订单对象</returns>
+        </member>
+        <member name="M:Maticsoft.Payment.Web.PaymentReturnTemplatedPage`1.PayForOrder(`0)">
+            <summary>
+            更新订单-完成付款
+            </summary>
+            <param name="order">订单</param>
+            <returns>是否成功</returns>
+        </member>
+        <member name="T:Maticsoft.Payment.Web.RechargeReturnTemplatedController">
+            <summary>
+            支付模块回调/通知抽象基类
+            </summary>
+        </member>
+        <member name="T:Maticsoft.Payment.Web.RechargeReturnTemplatedController`1">
+            <summary>
+            支付模块回调/通知抽象基类
+            </summary>
+            <typeparam name="T">充值信息</typeparam>
+        </member>
+        <member name="M:Maticsoft.Payment.Web.RechargeReturnTemplatedController`1.DoValidate">
+            <summary>
+            子类调用方法 接收到请求后请立即调用此方法
+            </summary>
+        </member>
+        <member name="M:Maticsoft.Payment.Web.RechargeReturnTemplatedController`1.GetRechargeRequest(System.Int64)">
+            <summary>
+            获取充值信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Maticsoft.Payment.Web.RechargeReturnTemplatedController`1.PayForRechargeRequest(`0)">
+            <summary>
+            更新充值信息-完成付款
+            </summary>
+            <param name="rechargeRequest">充值对象</param>
+            <returns>是否成功</returns>
+        </member>
+        <member name="T:Maticsoft.Payment.Model.IRechargeOption">
+            <summary>
+            充值模块配置接口
+            </summary>
+        </member>
+        <member name="T:Maticsoft.Payment.Model.IRechargeOption`2">
+            <summary>
+            充值模块配置接口
+            </summary>
+        </member>
+        <member name="M:Maticsoft.Payment.Model.IRechargeOption`2.GetCurrentUser(System.Web.HttpContext)">
+            <summary>
+            获取当前登录(充值)用户
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Maticsoft.Payment.Model.IRechargeOption`2.GetRechargeRequest(System.Int64)">
+            <summary>
+            获取充值信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Maticsoft.Payment.Model.IRechargeOption`2.PayForRechargeRequest(`0)">
+            <summary>
+            更新充值信息-完成付款
+            </summary>
+            <param name="rechargeRequest">充值对象</param>
+            <returns>是否成功</returns>
+        </member>
+        <member name="P:Maticsoft.Payment.Model.IRechargeOption`2.ReturnUrl">
+            <summary>
+            网关浏览器返回地址
+            </summary>
+        </member>
+        <member name="P:Maticsoft.Payment.Model.IRechargeOption`2.NotifyUrl">
+            <summary>
+            网关异步通知回调地址
+            </summary>
+        </member>
+        <member name="T:Maticsoft.Payment.Model.DriveEnum">
+             <summary>
+             支付设备类型 0 ：全部 1：Web  2：Wap
+            </summary>
+        </member>
+        <member name="F:Maticsoft.Payment.Model.DriveEnum.ALL">
+            <summary>
+            全部
+            </summary>
+        </member>
+        <member name="F:Maticsoft.Payment.Model.DriveEnum.Web">
+            <summary>
+            Web网站
+            </summary>
+        </member>
+        <member name="F:Maticsoft.Payment.Model.DriveEnum.Wap">
+            <summary>
+            Wap网站
+            </summary>
+        </member>
+        <member name="T:Maticsoft.Payment.Handler.SendPaymentHandlerBase`1">
+            <summary>
+            支付请求接口抽象基类
+            </summary>
+            <typeparam name="T">订单信息</typeparam>
+        </member>
+        <member name="M:Maticsoft.Payment.Handler.SendPaymentHandlerBase`1.#ctor(Maticsoft.Payment.Model.IPaymentOption{`0})">
+            <summary>
+            构造支付请求接口
+            </summary>
+            <param name="option">支付网关回调URL参数</param>
+        </member>
+        <member name="M:Maticsoft.Payment.Handler.SendPaymentHandlerBase`1.GetGateway(System.String)">
+            <summary>
+            获取支付网关
+            </summary>
+        </member>
+        <member name="M:Maticsoft.Payment.Handler.SendPaymentHandlerBase`1.GetPayee(Maticsoft.Payment.Model.PaymentModeInfo)">
+            <summary>
+            获取收款人信息
+            </summary>
+        </member>
+        <member name="M:Maticsoft.Payment.Handler.SendPaymentHandlerBase`1.GetTrade(System.String,System.Decimal,`0)">
+            <summary>
+            获取交易信息
+            </summary>
+        </member>
+        <member name="M:Maticsoft.Payment.Handler.SendPaymentHandlerBase`1.GetPaymentMode(System.Int32)">
+            <summary>
+            获取支付信息
+            </summary>
+        </member>
+        <member name="M:Maticsoft.Payment.Handler.SendPaymentHandlerBase`1.GetOrderTotalMoney(System.String[],`0)">
+            <summary>
+            获取订单支付金额
+            </summary>
+            <param name="orderIds">订单ID - 合并支付使用</param>
+            <param name="orderInfo">订单信息</param>
+            <returns>支付金额</returns>
+        </member>
+        <member name="M:Maticsoft.Payment.Handler.SendPaymentHandlerBase`1.VerifySendPayment(System.Web.HttpContext)">
+            <summary>
+            验证支付请求是否合法
+            </summary>
+            <param name="context">HttpContext</param>
+            <returns>是否合法</returns>
+        </member>
+        <member name="M:Maticsoft.Payment.PaymentInterface.Tenpay.Globals.GetMD5(System.String,System.String)">
+            获取大写的MD5签名结果 
+        </member>
+        <member name="M:Maticsoft.Payment.PaymentInterface.Tenpay.Globals.UrlEncode(System.String,System.String)">
+            对字符串进行URL编码 
+        </member>
+        <member name="M:Maticsoft.Payment.PaymentInterface.Tenpay.Globals.UrlDecode(System.String,System.String)">
+            对字符串进行URL解码 
+        </member>
+        <member name="T:Maticsoft.Payment.Model.IRechargeRequest">
+            <summary>
+            充值接口
+            </summary>
+        </member>
+        <member name="P:Maticsoft.Payment.Model.IRechargeRequest.RechargeId">
+            <summary>
+            充值流水号
+            </summary>
+        </member>
+        <member name="P:Maticsoft.Payment.Model.IRechargeRequest.TradeDate">
+            <summary>
+            充值时间
+            </summary>
+        </member>
+        <member name="P:Maticsoft.Payment.Model.IRechargeRequest.PaymentTypeId">
+            <summary>
+            支付类型ID
+            </summary>
+        </member>
+        <member name="P:Maticsoft.Payment.Model.IRechargeRequest.PaymentGateway">
+            <summary>
+            支付网关
+            </summary>
+        </member>
+        <member name="P:Maticsoft.Payment.Model.IRechargeRequest.RechargeBlance">
+            <summary>
+            充值金额
+            </summary>
+        </member>
+        <member name="P:Maticsoft.Payment.Model.IRechargeRequest.UserId">
+            <summary>
+            充值用户
+            </summary>
+        </member>
+        <member name="T:Maticsoft.Payment.Web.RechargeReturnTemplatedPage`1">
+            <summary>
+            支付模块回调/通知抽象基类
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Maticsoft.Payment.Web.RechargeReturnTemplatedPage`1.GetRechargeRequest(System.Int64)">
+            <summary>
+            获取充值信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Maticsoft.Payment.Web.RechargeReturnTemplatedPage`1.PayForRechargeRequest(`0)">
+            <summary>
+            更新充值信息-完成付款
+            </summary>
+            <param name="rechargeRequest">充值对象</param>
+            <returns>是否成功</returns>
+        </member>
+        <member name="F:Maticsoft.Payment.ShoppingProcessor.OrderIdsSplitChar">
+            <summary>
+            订单ID分割符
+            </summary>
+        </member>
+        <member name="M:Maticsoft.Payment.ShoppingProcessor.GenerateOrderId(System.Int32)">
+            <summary>
+            生成多份订单ID
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Maticsoft.Payment.ShoppingProcessor.GenerateOrderId">
+            <summary>
+            生成一份订单ID
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Maticsoft.Payment.ShoppingProcessor.GetQueryStringForOrderIds(System.Web.HttpRequest)">
+            <summary>
+            从URL获取全部订单ID
+            </summary>
+            <param name="page">Page对象</param>
+        </member>
+        <member name="M:Maticsoft.Payment.ShoppingProcessor.GetQueryStringForOrderIds(System.Web.HttpRequest,System.String@)">
+            <summary>
+            从URL获取全部订单ID
+            </summary>
+            <param name="page">Page对象</param>
+            <param name="orderIdStr">订单ID字符串</param>
+        </member>
+        <member name="T:Maticsoft.Payment.Handler.RechargeReturnHandlerBase">
+            <summary>
+            支付模块回调/通知抽象基类
+            </summary>
+        </member>
+        <member name="T:Maticsoft.Payment.Handler.RechargeReturnHandlerBase`2">
+            <summary>
+            支付模块回调/通知抽象基类
+            </summary>
+        </member>
+        <member name="M:Maticsoft.Payment.Handler.RechargeReturnHandlerBase`2.#ctor(Maticsoft.Payment.Model.IRechargeOption{`0,`1},System.Boolean)">
+            <summary>
+            构造充值请求接口
+            </summary>
+            <param name="option">充值网关回调URL参数</param>
+            <param name="isNotify">是否为异步通知模式</param>
+        </member>
+        <member name="M:Maticsoft.Payment.Handler.RechargeReturnHandlerBase`2.GetPaymentMode(System.Int32)">
+            <summary>
+            根据支付ID 获取支付信息
+            </summary>
+            <param name="paymentTypeId"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Maticsoft.Payment.Handler.RechargeReturnHandlerBase`2.RechargeId">
+            <summary>
+            充值流水号
+            </summary>
+        </member>
+        <member name="P:Maticsoft.Payment.Handler.RechargeReturnHandlerBase`2.Amount">
+            <summary>
+            充值金额
+            </summary>
+        </member>
+        <member name="M:Maticsoft.Payment.Handler.RechargeReturnHandlerBase.#ctor(Maticsoft.Payment.Model.IRechargeOption{Maticsoft.Payment.Model.RechargeRequestInfo,Maticsoft.Payment.Model.UserInfo},System.Boolean)">
+            <summary>
+            构造充值请求接口
+            </summary>
+            <param name="option">充值网关回调URL参数</param>
+            <param name="isNotify">是否为异步通知模式</param>
+        </member>
+        <member name="T:Maticsoft.Payment.Core.NotifyMode">
+            <summary>
+            通知模式
+            </summary>
+        </member>
+        <member name="F:Maticsoft.Payment.Core.NotifyMode.None">
+            <summary>
+            未知
+            </summary>
+        </member>
+        <member name="F:Maticsoft.Payment.Core.NotifyMode.Callback">
+            <summary>
+            回调
+            </summary>
+        </member>
+        <member name="F:Maticsoft.Payment.Core.NotifyMode.Notify">
+            <summary>
+            通知
+            </summary>
+        </member>
+        <member name="T:Maticsoft.Payment.Model.IPaymentOption`1">
+            <summary>
+            支付模块配置接口
+            </summary>
+        </member>
+        <member name="M:Maticsoft.Payment.Model.IPaymentOption`1.GetOrderInfo(System.String)">
+            <summary>
+            根据订单ID 获取订单信息
+            </summary>
+            <param name="orderId">网关回传订单ID</param>
+            <returns>订单对象</returns>
+        </member>
+        <member name="M:Maticsoft.Payment.Model.IPaymentOption`1.PayForOrder(`0)">
+            <summary>
+            更新订单-完成付款
+            </summary>
+            <param name="order">订单</param>
+            <returns>是否成功</returns>
+        </member>
+        <member name="P:Maticsoft.Payment.Model.IPaymentOption`1.ReturnUrl">
+            <summary>
+            网关浏览器返回地址
+            </summary>
+        </member>
+        <member name="P:Maticsoft.Payment.Model.IPaymentOption`1.NotifyUrl">
+            <summary>
+            网关异步通知回调地址
+            </summary>
+        </member>
+        <member name="T:Maticsoft.Payment.Handler.SendRechargeHandlerBase">
+            <summary>
+            支付请求接口抽象基类
+            </summary> 
+        </member>
+        <member name="T:Maticsoft.Payment.Handler.SendRechargeHandlerBase`2">
+            <summary>
+            充值接口抽象基类
+            </summary>
+            <typeparam name="T">充值信息</typeparam>
+            <typeparam name="U">用户信息</typeparam>
+        </member>
+        <member name="M:Maticsoft.Payment.Handler.SendRechargeHandlerBase`2.#ctor(Maticsoft.Payment.Model.IRechargeOption{`0,`1})">
+            <summary>
+            构造充值请求接口
+            </summary>
+            <param name="option">充值网关回调URL参数</param>
+        </member>
+        <member name="M:Maticsoft.Payment.Handler.SendRechargeHandlerBase`2.GetGateway(System.String)">
+            <summary>
+            获取支付网关
+            </summary>
+        </member>
+        <member name="M:Maticsoft.Payment.Handler.SendRechargeHandlerBase`2.GetPayee(Maticsoft.Payment.Model.PaymentModeInfo)">
+            <summary>
+            获取收款人信息
+            </summary>
+        </member>
+        <member name="M:Maticsoft.Payment.Handler.SendRechargeHandlerBase`2.GetTrade(`0,System.Decimal,`1)">
+            <summary>
+            获取交易信息
+            </summary>
+            <param name="rechargeRequest">充值信息</param>
+            <param name="payCharge">支付手续费</param>
+            <param name="user">用户</param>
+        </member>
+        <member name="M:Maticsoft.Payment.Handler.SendRechargeHandlerBase.#ctor(Maticsoft.Payment.Model.IRechargeOption{Maticsoft.Payment.Model.RechargeRequestInfo,Maticsoft.Payment.Model.UserInfo})">
+            <summary>
+            构造充值请求接口
+            </summary>
+            <param name="option">充值网关回调URL参数</param>
+        </member>
+        <member name="M:Maticsoft.Payment.PaymentInterface.TenpayAssure.Globals.GetMD5(System.String,System.String)">
+            获取大写的MD5签名结果 
+        </member>
+        <member name="M:Maticsoft.Payment.PaymentInterface.TenpayAssure.Globals.UrlEncode(System.String,System.String)">
+            对字符串进行URL编码 
+        </member>
+        <member name="M:Maticsoft.Payment.PaymentInterface.TenpayAssure.Globals.UrlDecode(System.String,System.String)">
+            对字符串进行URL解码 
+        </member>
+        <member name="T:Maticsoft.Payment.OrderProcessor">
+            <summary>
+            订单辅助处理类
+            </summary>
+        </member>
+        <member name="F:Maticsoft.Payment.OrderProcessor.OrderIdsSplitChar">
+            <summary>
+            订单ID分割符
+            </summary>
+        </member>
+        <member name="M:Maticsoft.Payment.OrderProcessor.GenerateOrderId(System.Int32)">
+            <summary>
+            生成多份订单ID
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Maticsoft.Payment.OrderProcessor.GenerateOrderId">
+            <summary>
+            生成一份订单ID
+            </summary>
+            <remarks>线程安全</remarks>
+            <returns></returns>
+        </member>
+        <member name="M:Maticsoft.Payment.OrderProcessor.GetQueryString4OrderIds(System.Web.HttpRequest)">
+            <summary>
+            从URL获取全部订单ID
+            </summary>
+            <param name="request">HttpRequest对象</param>
+        </member>
+        <member name="M:Maticsoft.Payment.OrderProcessor.GetQueryString4OrderIds(System.Web.HttpRequest,System.String@)">
+            <summary>
+            从URL获取全部订单ID
+            </summary>
+            <param name="request">HttpRequest对象</param>
+            <param name="orderIdStr">订单ID字符串</param>
+        </member>
+        <member name="M:Maticsoft.Payment.OrderProcessor.CheckAction``1(``0,Maticsoft.Payment.Model.OrderActions)">
+            <summary>
+            检查订单状态是否允许当前操作
+            </summary>
+            <param name="order">订单</param>
+            <param name="action">操作</param>
+            <returns>是否允许</returns>
+        </member>
+        <member name="T:Maticsoft.Payment.Web.PaymentReturnTemplatedController`1">
+            <summary>
+            支付接口回调/通知抽象基类
+            </summary>
+            <typeparam name="T">订单信息</typeparam>
+        </member>
+        <member name="M:Maticsoft.Payment.Web.PaymentReturnTemplatedController`1.#ctor(Maticsoft.Payment.Model.IPaymentOption{`0},System.Boolean)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="option">支付网关回调URL参数</param>
+            <param name="_isBackRequest">是否为支付网关异步回调请求</param>
+        </member>
+        <member name="M:Maticsoft.Payment.Web.PaymentReturnTemplatedController`1.DoValidate">
+            <summary>
+            子类调用方法 接收到请求后请立即调用此方法
+            </summary>
+        </member>
+        <member name="M:Maticsoft.Payment.Web.PaymentReturnTemplatedController`1.GetPaymentMode(System.Int32)">
+            <summary>
+            根据支付ID 获取支付信息
+            </summary>
+            <param name="paymentTypeId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Maticsoft.Payment.Web.PaymentReturnTemplatedController`1.GetOrderInfo(System.String)">
+            <summary>
+            根据订单ID 获取订单信息
+            </summary>
+            <param name="orderId">订单ID</param>
+            <returns>订单对象</returns>
+        </member>
+        <member name="M:Maticsoft.Payment.Web.PaymentReturnTemplatedController`1.PayForOrder(`0)">
+            <summary>
+            更新订单-完成付款
+            </summary>
+            <param name="order">订单</param>
+            <returns>是否成功</returns>
+        </member>
+        <member name="M:Maticsoft.Payment.PaymentInterface.WeChat.WeChatNotify.AutoDeliverNotify">
+            <summary>
+            自动发货通知
+            </summary>
+        </member>
+        <member name="T:Maticsoft.Payment.Model.RechargeRequestInfo">
+            <summary>
+            充值信息
+            </summary>
+        </member>
+        <member name="P:Maticsoft.Payment.Model.RechargeRequestInfo.PaymentTypeId">
+            <summary>
+            支付类型ID
+            </summary>
+        </member>
+        <member name="P:Maticsoft.Payment.Model.RechargeRequestInfo.PaymentGateway">
+            <summary>
+            支付网关
+            </summary>
+        </member>
+        <member name="P:Maticsoft.Payment.Model.RechargeRequestInfo.RechargeBlance">
+            <summary>
+            充值金额
+            </summary>
+        </member>
+        <member name="P:Maticsoft.Payment.Model.RechargeRequestInfo.RechargeId">
+            <summary>
+            充值流水ID
+            </summary>
+        </member>
+        <member name="P:Maticsoft.Payment.Model.RechargeRequestInfo.TradeDate">
+            <summary>
+            充值时间
+            </summary>
+        </member>
+        <member name="P:Maticsoft.Payment.Model.RechargeRequestInfo.UserId">
+            <summary>
+            充值用户ID
+            </summary>
+        </member>
+        <member name="T:Maticsoft.Payment.Model.UserInfo">
+            <summary>
+            用户信息
+            </summary>
+        </member>
+        <member name="P:Maticsoft.Payment.Model.UserInfo.UserId">
+            <summary>
+            用户ID
+            </summary>
+        </member>
+        <member name="P:Maticsoft.Payment.Model.UserInfo.Email">
+            <summary>
+            用户Email
+            </summary>
+        </member>
+        <member name="T:Maticsoft.Payment.Configuration.WebConfigHelper">
+            <summary>
+            web.config操作类
+            Copyright (C) 动软卓越
+            </summary>
+        </member>
+        <member name="M:Maticsoft.Payment.Configuration.WebConfigHelper.GetConfigString(System.String)">
+            <summary>
+            得到AppSettings中的配置字符串信息
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Maticsoft.Payment.Configuration.WebConfigHelper.GetConfigBool(System.String)">
+            <summary>
+            得到AppSettings中的配置Bool信息
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Maticsoft.Payment.Configuration.WebConfigHelper.GetConfigDecimal(System.String)">
+            <summary>
+            得到AppSettings中的配置Decimal信息
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Maticsoft.Payment.Configuration.WebConfigHelper.GetConfigInt(System.String)">
+            <summary>
+            得到AppSettings中的配置int信息
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Maticsoft.Payment.Handler.PaymentReturnHandlerBase`1">
+            <summary>
+            支付回调/通知抽象Handler
+            </summary>
+            <typeparam name="T">订单信息</typeparam>
+        </member>
+        <member name="M:Maticsoft.Payment.Handler.PaymentReturnHandlerBase`1.#ctor(Maticsoft.Payment.Model.IPaymentOption{`0},System.Boolean)">
+            <summary>
+            构造支付回调/通知Handler
+            </summary>
+            <param name="option">支付网关回调URL参数</param>
+            <param name="isNotify">是否为支付网关异步回调请求</param>
+        </member>
+        <member name="M:Maticsoft.Payment.Handler.PaymentReturnHandlerBase`1.GetPaymentMode(System.Int32)">
+            <summary>
+            根据支付ID 获取支付信息
+            </summary>
+            <param name="paymentTypeId"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Maticsoft.Payment.Handler.PaymentReturnHandlerBase`1.Amount">
+            <summary>
+            订单金额
+            </summary>
+        </member>
+        <member name="P:Maticsoft.Payment.Handler.PaymentReturnHandlerBase`1.OrderId">
+            <summary>
+            订单ID
+            </summary>
+        </member>
+        <member name="F:Maticsoft.Payment.Core.Globals.PAYMENT_RETURN_URL">
+            <summary>
+            支付成功URL
+            </summary>
+            
+        </member>
+        <member name="F:Maticsoft.Payment.Core.Globals.PAYMENT_NOTIFY_URL">
+            <summary>
+            支付成功网关异步通知URL
+            </summary>
+        </member>
+        <member name="F:Maticsoft.Payment.Core.Globals.RECHARGE_RETURN_URL">
+            <summary>
+            充值成功URL
+            </summary>
+        </member>
+        <member name="F:Maticsoft.Payment.Core.Globals.RECHARGE_NOTIFY_URL">
+            <summary>
+            充值成功网关异步通知URL
+            </summary>
+        </member>
+        <member name="F:Maticsoft.Payment.Core.Globals.AlipayOtherParamKeys">
+            <summary>
+            Alipay支付接口扩展参数集合 - 用于自定义参数的扩展
+            </summary>
+        </member>
+        <member name="M:Maticsoft.Payment.Core.Globals.SafeEnum``1(System.String,``0)">
+            <summary>
+            将枚举数值or枚举名称 安全转换为枚举对象
+            </summary>
+            <typeparam name="T">枚举类型</typeparam>
+            <param name="value">数值or名称</param>
+            <param name="defaultValue">默认值</param>
+            <remarks>转换区分大小写</remarks>
+            <returns></returns>
+        </member>
+        <member name="M:Maticsoft.Payment.Core.Globals.SafeEnum``1(System.String,``0,System.Boolean)">
+            <summary>
+            将枚举数值or枚举名称 安全转换为枚举对象
+            </summary>
+            <typeparam name="T">枚举类型</typeparam>
+            <param name="value">数值or名称</param>
+            <param name="defaultValue">默认值</param>
+            <param name="ignoreCase">是否忽略大小写 true 不区分大小写 | false 区分大小写</param>
+            <returns></returns>
+        </member>
+        <member name="M:Maticsoft.Payment.Core.Globals.SubString(System.Object,System.Int32,System.String)">
+            <summary>
+            截取字符串
+            </summary>
+            <param name="target">内容</param>
+            <param name="subLength">截取长度</param>
+            <param name="sign">替换符号</param>
+            <returns></returns>
+        </member>
+        <member name="M:Maticsoft.Payment.Core.Globals.IsNullOrEmpty(System.Object)">
+            <summary>
+            检查字符串是否是 null 或者空白字符,不同于.net自带的string.IsNullOrEmpty，多个空格在这里也返回true。
+            </summary>
+            <param name="target"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Maticsoft.Payment.Core.Globals.DecodeData4Url(System.String)">
+            <summary>
+            从适用于URL的Base64编码字符串转换为普通字符串
+            </summary>
+        </member>
+        <member name="M:Maticsoft.Payment.Core.Globals.EncodeData4Url(System.String)">
+            <summary>
+            从普通字符串转换为适用于URL的Base64编码字符串
+            </summary>
+        </member>
+        <member name="M:Maticsoft.Payment.Core.Globals.GetAssemblyPath">
+            <summary>
+            获取Assembly的运行路径
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Maticsoft.Payment.Core.Globals.IsPaymentTestMode">
+            <summary>
+            是否测试模式 - 跳过支付网关
+            </summary>
+        </member>
+        <member name="P:Maticsoft.Payment.Core.Globals.IsRechargeTestMode">
+            <summary>
+            是否测试模式 - 跳过充值网关
+            </summary>
+        </member>
+        <member name="M:Maticsoft.Payment.PaymentInterface.AlipayWap.Globals.BuildRequest(System.String,System.String,System.String)">
+            <summary>
+            建立请求，以模拟远程HTTP的POST请求方式构造并获取支付宝的处理结果
+            </summary>
+            <returns>支付宝处理结果</returns>
+        </member>
+        <member name="M:Maticsoft.Payment.PaymentInterface.AlipayWap.Globals.ParseResponse(System.String)">
+            <summary>
+            解析远程模拟提交后返回的信息
+            </summary>
+            <param name="strText">要解析的字符串</param>
+            <returns>解析结果</returns>
+        </member>
+        <member name="T:Maticsoft.Payment.Web.RechargeReturnTemplatedPage">
+            <summary>
+            支付模块回调/通知抽象基类
+            </summary>
+        </member>
+        <member name="T:Maticsoft.Payment.Model.IOrderInfo">
+            <summary>
+            订单信息接口
+            </summary>
+        </member>
+        <member name="P:Maticsoft.Payment.Model.IOrderInfo.OrderStatus">
+            <summary>
+            订单状态
+            </summary>
+        </member>
+        <member name="P:Maticsoft.Payment.Model.IOrderInfo.RefundStatus">
+            <summary>
+            退款状态
+            </summary>
+        </member>
+        <member name="P:Maticsoft.Payment.Model.IOrderInfo.PaymentStatus">
+            <summary>
+            支付状态
+            </summary>
+        </member>
+        <member name="P:Maticsoft.Payment.Model.IOrderInfo.ShippingStatus">
+            <summary>
+            物流状态
+            </summary>
+        </member>
+        <member name="P:Maticsoft.Payment.Model.IOrderInfo.Amount">
+            <summary>
+            订单最终支付金额
+            </summary>
+        </member>
+        <member name="P:Maticsoft.Payment.Model.IOrderInfo.BuyerEmail">
+            <summary>
+            购买者Email
+            </summary>
+        </member>
+        <member name="P:Maticsoft.Payment.Model.IOrderInfo.OrderDate">
+            <summary>
+            订单日期
+            </summary>
+        </member>
+        <member name="P:Maticsoft.Payment.Model.IOrderInfo.PaymentTypeId">
+            <summary>
+            支付网关
+            </summary>
+        </member>
+        <member name="P:Maticsoft.Payment.Model.IOrderInfo.GatewayOrderId">
+            <summary>
+            支付网关订单ID
+            </summary>
+        </member>
+        <member name="T:Maticsoft.Payment.DALFactory.DataAccessBase">
+            <summary>
+            Abstract Factory base class
+            </summary>
+        </member>
+        <member name="T:Maticsoft.Payment.DALFactory.DAPayment">
+            <summary>
+            抽象工厂模式创建DAL。
+            web.config 需要加入配置：(利用工厂模式+反射机制+缓存机制,实现动态创建不同的数据层对象接口) 
+            DataCache类在导出代码的文件夹里
+            <appSettings> 
+            <add key="DAL" value="Maticsoft.SQLServerDAL.JLT" /> (这里的命名空间根据实际情况更改为自己项目的命名空间)
+            </appSettings> 
+            </summary>
+        </member>
+        <member name="M:Maticsoft.Payment.DALFactory.DAPayment.CreatePaymentModeService">
+            <summary>
+            创建PaymentModeService数据层接口。
+            </summary>
+        </member>
+    </members>
+</doc>

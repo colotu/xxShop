@@ -1,0 +1,15 @@
+﻿ @using YSWL.MALL.Model.CMS @model List<Comment>
+@foreach (Comment item in Model)
+{
+    <div class="tgoods_z">
+        <div class="tgoods_z_e"><a target="_blank" href="javascript:void(0)"><img style="width: 32px; height: 32px" src="/Areas/CMS/Themes/Default/Content/images/201210213221133.jpg" alt="游客"></a></div>
+        <div class="tgoods_z_f">
+            <div class="tgoods_z_f1">
+                <p class="tgoods_z_f11"><a target="_blank">@item.CreatedNickName</a></p>
+                <p class="tgoods_z_f12">@item.CreatedDate</p>
+            </div>
+            <div class="tgoods_z_f2">@item.Description</div>
+            <div class="tgoods_z_f3"><a href="javascript:;" class="replycomment" nickname="游客" style="display: none">回复</a></div>
+        </div>
+    </div>
+}

@@ -1,0 +1,56 @@
+﻿
+@using Webdiyer.WebControls.Mvc
+@model PagedList<YSWL.MALL.Model.Shop.Coupon.CouponInfo>
+
+
+@if (Model != null || Model.Count > 0)
+{
+    foreach (var item in Model)
+    {
+        <div class="">
+            <div class="coupons_wrap pd">
+                <div class="coupon_excellent use">
+                    <div class="mc">
+                        <div class="cou_con">
+                            <div class="cou_l">
+                                <span>优惠券</span>
+                                <p>
+                                    <i>￥</i>@item.CouponPrice.ToString("f")
+                                </p>
+                            </div>
+                            <div class="cou_r">
+                                <p class="cou_txt1">@if (item.ProductId > 0)
+                                {
+                                    @:限定商品
+                                    }
+                                else if (item.CategoryId > 0)
+                                {
+                                    @:限定分类
+                                    }
+                                else
+                                {
+                                    @:全部商品
+                                    }</p>
+                                <p class="cou_txt2"> @(item.LimitPrice == 0 ? "无限制" : "满" + item.LimitPrice.ToString("C") + "元可用") </p>
+                            </div>
+                        </div>
+                        <div class="cou_ft">
+                            <p class="c_hr"></p>
+                            <div class="line_wrap">
+                                <div class="cou_header">
+                                    优惠详情<i class="icon_down si"></i>
+                                </div>
+                                <div class="cou_time">
+                                    @item.StartDate.ToString("yyyy-MM-dd")--@item.EndDate.ToString("yyyy-MM-dd")
+                                </div>
+                            </div>
+                            <div class="cou_details showText" style="display: none;">@Html.Raw(String.Format(YSWL.MALL.BLL.Shop.Coupon.CouponInfo.GetLimitStr(item), ViewBag.BasePath))</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    }
+
+}

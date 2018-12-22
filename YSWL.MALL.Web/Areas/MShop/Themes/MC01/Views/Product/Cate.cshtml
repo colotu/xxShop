@@ -1,0 +1,103 @@
+﻿@{
+    Layout = "/Areas/MShop/Themes/MC01/Views/Shared/_BaseLayout.cshtml";
+    ViewBag.Title = "商品分类";
+    ViewBag.Keywords = "商品分类";
+    ViewBag.Description = "商品分类";
+}
+@model List<YSWL.MALL.Model.Shop.Products.CategoryInfo>
+@section head{
+<link href="/Areas/MShop/Themes/MC01/Content/Css/main.css" rel="stylesheet" />
+}
+ 
+<div class="main_wrapper">
+    <!--START HEADER-->
+    <header>
+        <div class="top_navbar fixed_header">
+            @Html.Partial("/Areas/MShop/Themes/MC01/Views/Partial/_Back.cshtml")
+            <p class="header_title">@(ViewBag.CurrentName)</p>
+             @Html.Partial("/Areas/MShop/Themes/MC01/Views/Partial/_HeaderMsg.cshtml")
+        </div>
+    </header>
+    <div class="top"></div>
+    <!-- END HEADER -->
+    <div class="floor">
+        <div class="floor_container">
+            <div class="floor_item">
+                <div class="pro_container4_list">
+@if (Model != null && Model.Count > 0)
+{
+                        <ul>
+    @foreach (var item in Model)
+    {
+        <li>
+            <a href="@(ViewBag.BasePath)p/@item.CategoryId">
+                <div class="list_item">
+                    <div class="pro_img">
+                        <img src="@item.ImageUrl" alt="@item.Name">
+                    </div>
+                    <div class="pro_info">
+                        <p class="name">@item.Name</p>
+                    </div>
+                </div>
+            </a>
+        </li>
+    }             
+                        </ul>
+}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="floor nosale-list">
+        <div class="floor_container ">
+            <div class="recommendtip">
+                <div class="title">
+                    <em></em>
+                    为您推荐
+                </div>
+            </div>
+            <div class="floor_item">
+                <div class="pro_container2_list">
+                        @Html.Action("Index", "Recommend", new { type = "rec",cid= ViewBag.CurrentCategoryId, vName = "IndexRec"})
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+ 
+@section foot{
+<script src="/Areas/MShop/Themes/MC01/Content/Scripts/pullUp.js"></script>
+    <script >
+        $(function () {
+            $('#body').addClass('m_home');
+        });
+</script>
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

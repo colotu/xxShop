@@ -1,0 +1,47 @@
+﻿@model List<YSWL.MALL.Model.Shop.Shipping.ShippingAddress>
+@if (Model != null && Model.Count > 0)
+{
+    var item = Model[0];
+    <a href="@(ViewBag.BasePath)Order/AddressInfo/@item.ShippingId"  class="JumpPage"  >
+        <input id="txtAddressCount" type="hidden" value="@Model.Count" />
+        <div class="s_info step-content"  addressId="@item.ShippingId">
+            <span class="s_name">
+                收件人：@item.ShipName
+            </span>
+            <span class="s_phone">
+                @item.CelPhone
+            </span>
+        </div>
+        <div class="s_addr">
+            收货地址：@item.Address
+           <span id="GroupRegion_Tip" style="font-weight: bold;color:Red;padding: 0;"></span>
+        </div>
+        <span class="si point_icon"></span>
+    </a>
+}
+else
+{
+    <a   href="@(ViewBag.BasePath)Order/AddressInfo"  class="JumpPage"  >
+        <input id="txtAddressCount" type="hidden" value="0" />
+        <div class="s_info step-content"   addressid="-1">
+            <span class="s_name">
+                未设置收货信息
+            </span>
+        </div>
+        <span class="si point_icon"></span>
+    </a>
+}
+<input id="hidIsGroupRegionId" type="hidden" value="@ViewBag.IsGroupRegionId"/><script type="text/javascript">
+                                                                                   $(function () {
+
+                                                                                       if ($('#GroupRegion_Tip').length > 0) {
+                                                                                           //收货地区不是团购地区
+                                                                                           if ($('#hidIsGroupRegionId').val().toLocaleLowerCase() == 'false') {
+                                                                                               $('#GroupRegion_Tip').text('该地区不是团购地区,请修改收货地区');
+                                                                                           } else {
+                                                                                               $('#GroupRegion_Tip').text('');
+                                                                                           }
+                                                                                       }
+                                                                                   });
+    </script>
+

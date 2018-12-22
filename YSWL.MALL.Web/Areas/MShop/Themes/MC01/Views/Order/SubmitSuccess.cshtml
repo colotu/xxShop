@@ -1,0 +1,58 @@
+﻿@{
+    Layout = "~/Areas/MShop/Themes/MC01/Views/Shared/_BaseLayout.cshtml";
+}
+@section head{
+    <link href="/Areas/MShop/Themes/MC01/Content/Css/main.css" rel="stylesheet" />
+}
+<div class="main_wrapper">
+    <!--START HEADER-->
+    <header>
+        <div class="top_navbar fixed_header">
+            <a href="javascript:;" class="si icon_goback" id="c_back">
+            </a>
+            <p class="header_title">提交成功</p>
+        </div>
+    </header>
+    <!-- END HEADER -->
+    <div class="top"></div>
+    <div class="pay_result_wrapper">
+        <div class="con">
+            <div class="pic_wrap">
+                <img src="/Areas/MShop/Themes/MC01/Content/images/success.png" >
+                <div class="txt green f20">
+                    订单提交成功，自动进入支付页面！
+                </div>
+            </div>
+            <div class="result_txt">
+                <div class="info">
+                    订单号：@ViewBag.OrderCode
+                </div>
+                <div class="info">
+                    应付金额：@(ViewBag.OrderAmount.ToString("F"))元
+                </div>
+            </div>
+        </div>
+        <div class="btn_wrapper  btn-impay">
+            <input type="button" class="b_btn btn_green" value="立即支付">
+        </div>
+    </div>
+    <!-- ################-->
+    <!-- END TOP MENU -->
+    <!-- ################-->
+
+</div>
+@*<script type="text/javascript">
+    $('.btn-impay').unbind('click').bind('click', function () {
+        window.location.replace("/pay/certification@(ViewBag.OrderId)/@(ViewBag.CurrentArea)");
+        return;
+    });
+
+    //返回按钮
+    $('#c_back').click(function () {
+        window.location.replace($YSWL.BasePath + "sc/ci");
+    });
+</script>*@
+<script type="text/javascript">
+   window.location.replace("/pay/certification@(ViewBag.OrderId)/@(ViewBag.CurrentArea)");
+</script>
+ 

@@ -1,0 +1,40 @@
+﻿@{
+    Layout = "/Areas/MShop/Themes/MC01/Views/Shared/_BaseLayout.cshtml";
+    ViewBag.Title = "我的积分";
+}
+@using Webdiyer.WebControls.Mvc
+@model PagedList<YSWL.MALL.Model.Members.PointsDetail>
+<link href="/Areas/MShop/Themes/MC01/Content/Css/main.css" rel="stylesheet" />
+<script src="/Areas/MShop/Themes/MC01/Content/Scripts/pullUp.js"></script>
+<link href="/Areas/MShop/Themes/MC01/Content/Css/user.css" rel="stylesheet" />
+
+<div class="main_wrapper">
+    <!--START HEADER-->
+    <header class="fixed_header main_wrapper">
+        <a class="si icon_goback" href="@(ViewBag.BasePath)u">
+        </a>
+        <h2>我的积分</h2>
+        
+    </header>
+    <!--END HEADER-->
+    <div class="contentWrapper main_wrapper">
+        <div class="integralWrapper">
+            <p><strong>@ViewBag.UserInfo</strong>分
+            </p>
+            <p>积分兑换商品，快来获取更多积分吧！</p>
+        </div>
+        @*<div class="integralBox clearfix">
+            <div class="integralContent"  onclick="window.location.href='@(ViewBag.BasePath)u/exchanges'">
+                <span class="fl pxx" ></span><span class="fl">兑换</span>
+            </div>
+        </div>*@
+        <div class="integralShow" id="LoadPointsList">
+            <p>积分明细</p>
+            @Html.Action("PointsDetailList", "UserCenter", new { Areas = "Mshop", pageSize = 8, viewName = "_PointsDetail" })
+        </div>
+            <!--加载提示信息--->
+            @Html.Partial("/Areas/MShop/Themes/MC01/Views/Partial/_LoadTip.cshtml")
+            <!-- ################-->
+        </div>
+</div>
+

@@ -1,0 +1,24 @@
+﻿@model List<YSWL.MALL.Model.Shop.Products.AttributeValue>
+@if (Model != null && Model.Count > 0)
+{
+    <ul>
+        <li>
+            <a anchor="Filter" href="javascript:;" attrId="@Model[0].AttributeId" valueid="0" title="不限" class="attrvalue">
+                不限
+            </a>
+        </li>
+        @for(int i=0;i<Model.Count;i++)
+        {
+            <li class="@(i>12?"hidden expanditem":"")">
+                <a class="attrvalue" anchor="Filter" href="javascript:;" attrId="@Model[i].AttributeId" valueid="@Model[i].ValueId" title="@Model[i].ValueStr" >@Model[i].ValueStr</a>
+            </li>
+        }
+    </ul>
+
+    if (Model.Count > 13)
+    {
+        <div class="more-sl expandMore">
+            <a href="javascript:;" class="s-btn-hollow price-confirm">更多<span class="icon-r"></span></a>
+        </div>
+    }
+}

@@ -1,0 +1,26 @@
+﻿@model    List<YSWL.Payment.Model.PaymentModeInfo>
+    <ul id="paylist"> 
+        @if (Model != null)
+        {
+            foreach (var item in Model)
+            {
+                <li class="payment" payid="@item.ModeId">
+                    <a href="javascript:;">
+                        <div class="pay_name">
+                            @item.Name
+                        </div>
+                    </a>
+                </li>
+            }
+        }
+        else
+        {
+            <li class="payment" payid="">
+                <a href="javascript:;">
+                    <div class="pay_name">
+                        该网站未设置支付方式
+                    </div>
+                </a>
+            </li>
+        }
+    </ul>

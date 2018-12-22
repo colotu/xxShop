@@ -1,0 +1,52 @@
+﻿@{
+    Layout = "/Areas/Shop/Themes/PC01/Views/Shared/_BaseLayout.cshtml";
+}
+@using Webdiyer.WebControls.Mvc
+@model  PagedList<YSWL.MALL.Model.Shop.Supplier.SupplierInfo>
+<div class="searchResult">
+    <div class="wrap"  id="ProductListDiv">
+        @{Html.RenderPartial("_StoreList", Model);}
+    </div>
+</div>
+<script type="text/javascript">
+    $('#selectSearchBox .selected').html('搜店铺<i class="icon-down-c"></i>').attr('item', 'shop');
+    $('#search_key').attr('placeholder', '请输入您要找的店铺');
+    $(function () {
+        $('.storeFav').die().bind('click',function(){
+            var _self=$(this);
+            if (_self.hasClass('collected')) {//已收藏
+                return;
+            }
+            var suppId=_self.attr('suppid');
+            if (CheckUserState()) {
+                $.ajax({
+                    type: "POST",
+                    dataType: "text",
+                    url: $YSWL.BasePath + "UserCenter/AjaxAddStoreFav",
+                    async: false,
+                    data: { suppId: suppId },
+                    success: function (data) {
+                        if (data == "Rep") {
+                            _self.addClass('collected');
+                            _self.text('已收藏');
+                            ShowSuccessTip('已收藏，请不要重复收藏');
+                        } else if (data == "True") {
+                            $('#favCount_' + suppId).text(parseInt($('#favCount_' + suppId).text()) + 1);
+                            _self.text('已收藏');
+                            _self.addClass('collected');
+                        } else {
+                            ShowFailTip('服务器繁忙，请稍候再试！');
+                        }
+                    }
+                });
+            }
+        });
+    });
+</script>
+<!--登陆层-->
+@Html.Action("LoginLayer", "Partial")
+<!--登陆层-->
+<link href="/Scripts/jqueryui/base/jquery-ui-1.9.2.min.css" rel="stylesheet" type="text/css" />
+<script src="/Scripts/jqueryui/jquery-ui-1.9.2.custom.js" type="text/javascript"></script>
+<script src="~/Areas/Shop/Themes/PC01/Content/Scripts/ajaxLogin.js"></script>
+<script src="/scripts/MvcPager-1.8.js" type="text/javascript"></script>

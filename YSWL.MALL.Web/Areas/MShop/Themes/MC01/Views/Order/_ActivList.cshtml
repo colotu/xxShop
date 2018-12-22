@@ -1,0 +1,126 @@
+﻿ @model  YSWL.MALL.ViewModel.Shop.ActicityGiveList 
+
+<script type="text/javascript">
+    $(function () {
+        var freightPrice = parseFloat($('#freightPriceId').attr('freightPrice')); //运费
+        var couponPrice = parseFloat($("#couponPriceId").attr('couponPrice')); //优惠券优惠金额
+        //原运费
+        //支付运费
+        var adjustedFreight =parseFloat($('#hidAdjustedFreight').val());
+        if (!isNaN(adjustedFreight)) {
+            //调整后运费
+            $('#freightPriceId').text('￥' + adjustedFreight.toFixed(2));
+            var totalprice = (parseFloat($('#payPriceId').attr('BasePrice')) + adjustedFreight).toFixed(2);
+            var payprice = (totalprice - couponPrice) > 0 ? (totalprice - couponPrice) : 0;
+            $('#payPriceId').text('￥' + payprice.toFixed(2));
+        } else {
+            //实际运费
+            $('#freightPriceId').text('￥' + freightPrice.toFixed(2));
+            var totalprice = (parseFloat($('#payPriceId').attr('BasePrice')) + freightPrice).toFixed(2);
+            var payprice = (totalprice - couponPrice) > 0 ? (totalprice - couponPrice) : 0;
+            $('#payPriceId').text('￥' + payprice.toFixed(2));
+        }
+    });
+</script>
+<input  type="hidden" id="hidAdjustedFreight" value="@ViewBag.AdjustedFreight"/>
+ 
+ 
+ @if (Model != null)
+ {
+
+    <ul class="gift_wrap col2 pd">
+        <!--赠品-->
+        @if (Model.ActProdList != null && Model.ActProdList.Count > 0)
+        {
+            <li>
+                <div class="sitem sitem_l">
+                    <div class="gift">
+                        赠品
+                    </div>
+                </div>
+                <div class="sitem sitem_r">
+@foreach (var item in Model.ActProdList)
+{
+                    <div class="line">
+                        <a href="@(ViewBag.BasePath)p/d/@item.ProductId">
+                            <div class="name">
+                                @item.ProductName
+                            </div>
+                            <div class="pro_qua">
+                                x<span class="num">@item.Count</span>
+                            </div>
+                            </a>
+                   </div>
+}
+                </div>
+            </li>
+        }
+
+        @if (Model.ActCouponList != null && Model.ActCouponList.Count > 0)
+        {
+        <li>
+            <div class="sitem sitem_l">
+                <div class="gift">
+                    赠优惠券
+                </div>
+            </div>
+            <div class="sitem sitem_r">
+                @if (ViewBag.IsMerge)
+                {
+                    foreach (var item in Model.ActCouponList)
+                    {
+                        <div class="line">
+                            <div class="name">
+                                @(item.Name)面值：￥@((item.CouponPrice * item.SendCount).ToString("F"))
+                            </div>
+                            <div class="pro_qua">
+                                x<span class="num">1</span>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    foreach (var item in Model.ActCouponList)
+                    {
+                  <div class="line">
+                    <div class="name">
+                        @(item.Name)面值：￥@item.CouponPrice.ToString("F")
+                    </div>
+                    <div class="pro_qua">
+                        x<span class="num">@(item.SendCount)</span>
+                    </div>
+                </div>
+                    }
+                }
+            </div>
+        </li>
+        }
+
+        @if (Model.NotStockActProdList != null && Model.NotStockActProdList.Count > 0)
+        {
+            <li>
+                <div class="sitem sitem_l">
+                    <div class="gift">
+                        赠品被抢光了
+                    </div>
+                </div>
+                <div class="sitem sitem_r">
+                    @foreach (var item in Model.NotStockActProdList)
+                    {
+                        <div class="line">
+                                <div class="name">
+                                    @item.ProductName
+                                </div>
+                                <div class="pro_qua">
+                                    x<span class="num">@item.Count</span>
+                                </div>
+                        </div>
+                    }
+                </div>
+            </li>
+ 
+        }
+    </ul>
+ }
+        <!--赠品-->

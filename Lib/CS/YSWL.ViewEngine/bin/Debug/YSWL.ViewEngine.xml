@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>YSWL.ViewEngine</name>
+    </assembly>
+    <members>
+        <member name="T:YSWL.ViewEngine.ThemeViewEngine">
+            <summary>
+            模版引擎
+            </summary>
+            <remarks>仅Area使用模版引擎</remarks>
+        </member>
+        <member name="F:YSWL.ViewEngine.ThemeViewEngine.MainThemeName">
+            <summary>
+            主模版名称
+            </summary>
+        </member>
+        <member name="F:YSWL.ViewEngine.ThemeViewEngine.SubAreaViewEngine">
+            <summary>
+            子模版引擎
+            </summary>
+        </member>
+        <member name="M:YSWL.ViewEngine.ThemeViewEngine.#ctor(System.String,YSWL.ViewEngine.ISubAreaViewEngine)">
+            <summary>
+            构造模版引擎
+            </summary>
+        </member>
+        <member name="T:YSWL.ViewEngine.DefaultSubAreaViewEngine">
+            <summary>
+            默认子模版引擎
+            </summary>
+        </member>
+        <member name="T:YSWL.ViewEngine.ISubAreaViewEngine">
+            <summary>
+            子区域模版引擎
+            </summary>
+        </member>
+        <member name="P:YSWL.ViewEngine.ISubAreaViewEngine.SubEngineMap">
+            <summary>
+            子引擎Map
+            </summary>
+            <remarks>
+            key:AreaRoute
+            value: 实际路径 Func(容器, 模版原始format)
+            </remarks>
+        </member>
+        <member name="M:YSWL.ViewEngine.ISubAreaViewEngine.GetTagString(YSWL.Web.AreaRoute,System.Web.Mvc.ControllerContext)">
+            <summary>
+            获取标识内容
+            </summary>
+        </member>
+    </members>
+</doc>

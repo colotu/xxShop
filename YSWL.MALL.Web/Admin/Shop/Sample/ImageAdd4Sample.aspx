@@ -1,0 +1,123 @@
+﻿<%@ Page Language="C#" MasterPageFile="~/Admin/Basic.Master" AutoEventWireup="true"
+    CodeBehind="ImageAdd4Sample.aspx.cs" Inherits=" YSWL.Web.Admin.Shop.Sample.ImageAdd4Sample" Title="新增电子样本图片" %>
+
+<%@ Register Src="~/Controls/UCDroplistPermission.ascx" TagName="UCDroplistPermission"
+    TagPrefix="uc2" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+       <link href="/admin/css/tab.css" rel="stylesheet" type="text/css" charset="utf-8" />
+    <script src="/admin/js/tab.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="/admin/js/validate/pagevalidator.css" type="text/css" />
+    <script type="text/javascript" src="/admin/js/validate/pagevalidator.js"></script>
+    <link href="/admin/css/gridviewstyle.css" rel="stylesheet" type="text/css" />
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <div class="newslistabout">
+        <div class="newslist_title">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="borderkuang">
+                <tr>
+                    <td bgcolor="#FFFFFF" class="newstitle">
+                        <asp:Literal ID="Literal2" runat="server" Text="新增电子样本图片" />
+                    </td>
+                </tr>
+                <tr>
+                    <td bgcolor="#FFFFFF" class="newstitlebody">
+                        <asp:Literal ID="Literal3" runat="server" Text="您可以根据您的需求新增不同的图片" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+           <div class="newslist_title">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="borderkuang">
+               <tr>
+                            <td class="td_class">
+                            </td>
+                            <td height="25">
+                                     <asp:Button ID="goback" runat="server" Text="返回"
+                                    class="adminsubmit_short" CausesValidation="False" onclick="goback_Click"></asp:Button>
+                                <asp:Button ID="btnSave" runat="server" Text="<%$ Resources:Site, btnSaveText %>"
+                                    class="adminsubmit_short" OnClick="btnSave_Click"></asp:Button>
+                                    
+                                      <asp:Button ID="Button1" runat="server" Text="保存及新增"
+                                    class="adminsubmit" OnClick="btnSave_Click"></asp:Button>
+                                    
+                                    
+                                       
+                                <%--<asp:Button ID="btnCancle" runat="server" Text="<%$ Resources:Site, btnCancleText %>"
+                                    class="adminsubmit_short"  CausesValidation="False" OnClick="btnCancle_Click"></asp:Button>--%>
+                            </td>
+                        </tr>
+            </table>
+        </div>
+        
+        <div class="nTab4">
+            <div class="TabTitle">
+                <ul id="myTab1">
+                    <li class="active" onclick="nTabs(this,0);"><a href="javascript:void(0);">基本信息</a></li>
+          
+                </ul>
+            </div>
+        </div>
+        
+          <div class="TabContent formitem">
+            <div id="myTab1_Content0" tabindex="0">
+        <table style="width: 100%;" cellpadding="2" cellspacing="1" class="border">
+            <tr>
+                <td class="tdbg">
+                    <table cellspacing="0" cellpadding="0" width="100%" border="0">
+                        
+                        
+                          
+                        <tr>
+                            <td class="td_class" valign="top">
+                                电子样本 ：
+                            </td>
+                            <td height="25">
+                                <asp:DropDownList ID="ddrSampleList" runat="server">
+                                </asp:DropDownList>
+                            </td>
+                            
+                        </tr>
+                        
+
+                        <tr>
+                            <td class="td_class">
+                                页面信息 ：
+                            </td>
+                            <td height="25">
+                                <asp:TextBox ID="txtTitle" runat="server" Width="200px" MaxLength="50"></asp:TextBox>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="必填信息" ControlToValidate="txtTitle"></asp:RequiredFieldValidator>
+                              </td>
+                        </tr>
+                      
+                        
+                        
+                        
+                        <tr>
+                            <td class="td_class" valign="top">
+                                页面图片 ：
+                            </td>
+                            <td height="25">
+                                <asp:FileUpload ID="uploadJPGCover" runat="server" Width="235px" />
+                                <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="uploadJPGCover" runat="server" ErrorMessage="请选择正确的JPG格式" ValidationExpression="^(([a-zA-Z]:)|(\\{2}\w+)\$?)(\\(\w[\w].*))(.jpg|.JPG)$"></asp:RegularExpressionValidator>
+                            </td>
+                            
+                        </tr>
+                        
+                        
+                        
+                        
+                        
+                    </table>
+                </td>
+            </tr>
+        </table>
+        </div>
+        
+        
+        </div>
+    </div>
+    <br />
+</asp:Content>
+<asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceCheckright" runat="server">
+</asp:Content>

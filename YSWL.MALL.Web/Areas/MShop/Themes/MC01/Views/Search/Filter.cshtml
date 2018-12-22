@@ -1,0 +1,61 @@
+﻿
+    <input id="hfBrand" type="hidden" value="0" /> 
+    @*<input id="hfCateId" type="hidden" value="@ViewBag.Cid" />*@<!--使用主页面的分类id--->
+ <div class="popCover" id="pop1">
+    <div class="top_navbar fixed_header">
+        <div class="si icon_goback" id="filter-back">
+        </div>
+        <p class="header_title">筛选</p>
+    </div>
+    <div class="cover-wrap">
+        <div class="top"></div>
+        <div class="floor pop_content">
+            <div class="floor_container">
+                <div class="filter_wrap">
+                    <div class="filter_item">
+                        <div class="search_head pd">
+                            价格区间
+                        </div>
+                        <div class="between_price pd">
+                            <input type="number" class="ipt" placeholder="最低价" id="txtPrice1">
+                            <span>—</span>
+                            <input type="number" class="ipt" placeholder="最高价" id="txtPrice2">
+                        </div>
+                    </div>
+                    <div class="filter_item" id="all_into" style="cursor: pointer;">
+                            <div class="search_head pd">
+                                <div class="wrap">
+                                    全部分类
+                                    <div class="fr" id="cateSelect-Tip">全部</div>
+                                    <span class="si point_icon"></span>
+                                </div>
+                            </div>
+                      </div>
+                    @Html.Action("BrandList", "Product", new { Cid = ViewBag.Cid, Top = -1 })
+                </div>
+            </div>
+        </div>
+        <div class="tc"><a href="javascript:;" class="btn_reset">重置</a></div>
+    </div>
+    <div class="btn_wrapper">
+        <input type="submit" class="b_btn btn_green" value="确定" id="btn-goset">
+    </div>
+</div>
+
+<div class="popCover" id="pop2">
+    <div class="top_navbar fixed_header">
+        <div class="si icon_goback">
+        </div>
+        <p class="header_title">全部分类</p>
+    </div>
+    <div class="top"></div>
+    <!--分类-->
+    <div class="floor pop_content">
+        <div class="floor_container">
+            <div class="filter_wrap">
+                @Html.Action("ProductCategory", new { Top = -1, Cid=0, ViewName = "_CategoryList" })
+            </div>
+        </div>
+    </div>
+</div>
+ 

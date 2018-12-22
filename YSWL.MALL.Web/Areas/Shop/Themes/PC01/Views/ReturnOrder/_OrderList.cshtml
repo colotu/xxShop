@@ -1,0 +1,177 @@
+﻿@using YSWL.MALL.Model.Shop.Order
+@using Webdiyer.WebControls.Mvc
+@model PagedList<OrderInfo>
+     <script type="text/javascript">
+         $(function () {
+             $('.Apply').each(function () {
+                 var _self = $(this);
+                 var oi = _self.attr("oi");
+                 var os = _self.attr("os");
+                 $.ajax({
+                     type: "POST",
+                     dataType: "text",
+                     timeout: 0,
+                     url: "@(ViewBag.BasePath)ReturnOrder/AjaxRetuOrder",
+                     data: { oi: oi, os: os },
+                     success: function (data) {
+                         if (data == "True") {
+                             _self.show();
+                         } else {
+                             _self.parents('tr').css('backgroundColor', 'rgb(250, 250, 250)').attr('title', '已申请');
+                             _self.remove();
+                         }
+                     }
+                 });
+             });
+
+
+             resizeImg('.img-box', 50, 50);
+         });
+              </script>
+
+  <div class="user_rechargedetial user_detialclear">
+    <a href="javascript:;" class="curr">申请退货</a>
+    <a href="@(ViewBag.BasePath)ReturnOrder/Return" >查看退货记录</a>                                                       
+</div>
+    @if (Model != null)
+    {
+    <table width="100%" border="0" class="user_dingdan" cellspacing="0" cellpadding="0">
+    <tr>
+        <th>订单号</th>
+        <th>订单商品</th>
+        <th>收货人</th>
+        <th>订单金额</th>
+        <th>创建时间</th>
+        <th>订单状态</th>
+        <th>操作</th>
+    </tr>
+        @foreach (var item in Model)
+        {
+            //是否拆单模式
+            if (item.HasChildren && (item.PaymentStatus > 1 || (item.PaymentGateway == "cod" || item.PaymentGateway == "bank")))
+            {
+                for (int i = 0; i < item.SubOrders.Count; i++)
+                {
+            <tr>
+                        @if (i == 0)
+                        {
+                            <td height="40" style="width: 88px"  class="bor" OrderId="@item.OrderId" rowspan="@item.SubOrders.Count">
+                                @item.OrderCode
+                            </td>
+                        }
+                        <td style="width: 220px;"  class="bor">
+                            @if (item.SubOrders[i].OrderItems != null && item.SubOrders[i].OrderItems.Count > 0)
+                            {
+                                foreach (var orderItem in item.SubOrders[i].OrderItems)
+                                {
+                                    <a href="@(ViewBag.BasePath)Product/Detail/@orderItem.ProductId"  class="img-box" clstag="click|keycount|orderinfo|order_product" target="_blank">
+                                        <img title="@orderItem.Name" src="@YSWL.MALL.Web.Components.FileHelper.GeThumbImage(orderItem.ThumbnailsUrl, "T50X65_")" width="50" height="65"  onerror=" this.onerror = '';this.src = '/Content/themes/base/Shop/images/none.png' " >
+                                    </a>
+                                }
+                            }
+                        </td>
+                        @if (i == 0)
+                        {
+                            <td style="width: 88px"  class="bor" rowspan="@item.SubOrders.Count">
+                                @item.ShipName
+                            </td>
+                            <td style="width: 88px"  class="bor" rowspan="@item.SubOrders.Count">
+                                ￥@item.Amount.ToString("F")<br />
+                                @item.PaymentTypeName
+                            </td>
+                            <td style="width: 88px"  class="bor" rowspan="@item.SubOrders.Count">
+                                @item.CreatedDate.ToString("yyyy-MM-dd HH:mm:ss")
+                            </td>
+                        }
+                <td height="40" style="width: 88px"  class="bor">
+                            @YSWL.MALL.Web.Areas.Shop.Controllers.UserCenterController.GetOrderType(item.SubOrders[i].PaymentGateway, item.SubOrders[i].OrderStatus, item.SubOrders[i].PaymentStatus, item.SubOrders[i].ShippingStatus)
+                        </td>
+                        <td style="width: 50px"  class="bor">
+                            @switch (item.SubOrders[i].OrderStatus)
+                            {
+                                    case (int)YSWL.MALL.Model.Shop.Order.EnumHelper.OrderStatus.Complete: //已完成
+                                     <a href="@(ViewBag.BasePath)ReturnOrder/Apply/@item.SubOrders[i].OrderId"    oi="@item.SubOrders[i].OrderId"  os="@(item.SubOrders[i].OrderStatus)"  class="Apply color_"  style="display:none;color: #1859a5;">退货</a>                      
+                                    break;
+                                    default:
+                                    break;
+                            }
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td height="40" style="width: 88px"  class="bor" OrderId="@item.OrderId" >
+                    @item.OrderCode
+                </td>
+                <td style="width: 220px;"  class="bor">
+                    @if (item.OrderItems != null && item.OrderItems.Count > 0)
+                    {
+                        foreach (var orderItem in item.OrderItems)
+                        {    
+                            <a href="@(ViewBag.BasePath)Product/Detail/@orderItem.ProductId"  class="img-box" clstag="click|keycount|orderinfo|order_product" target="_blank">
+                                <img title="@orderItem.Name" src="@YSWL.MALL.Web.Components.FileHelper.GeThumbImage(orderItem.ThumbnailsUrl, "T50X65_")" width="50" height="65"  onerror="this.onerror='';this.src='/Content/themes/base/Shop/images/none.png'" >
+                            </a>
+                        }
+                    }
+                </td>
+                <td style="width: 88px"  class="bor">
+                    @item.ShipName
+                </td>
+                <td style="width: 88px"  class="bor">
+                    ￥@item.Amount.ToString("F")<br />
+                    @item.PaymentTypeName
+                </td>
+                <td style="width: 88px"  class="bor">
+                    @item.CreatedDate.ToString("yyyy-MM-dd HH:mm:ss")
+                </td>
+                <td style="width: 88px"  class="bor">
+                    @YSWL.MALL.Web.Areas.Shop.Controllers.UserCenterController.GetOrderType(item.PaymentGateway, item.OrderStatus, item.PaymentStatus, item.ShippingStatus)
+                </td>
+                <td style="width: 50px"  class="bor">
+                @switch (item.OrderStatus)
+                { 
+                      case (int)YSWL.MALL.Model.Shop.Order.EnumHelper.OrderStatus.Complete: //已完成
+                                     <a href="@(ViewBag.BasePath)ReturnOrder/Apply/@item.OrderId" class="Apply color_"  oi="@item.OrderId" os="@(item.OrderStatus)"  style="display:none;">退货</a>                      
+                                                                                 break;
+                      default:
+                                                                                 break;
+                }
+                </td>
+            </tr>
+
+            }
+        }
+        </table>
+
+
+                                <!-- 分页 -->
+        <div class="pagination">
+            @Ajax.Pager(Model, new PagerOptions
+       {
+           ShowDisabledPagerItems = false,
+           AlwaysShowFirstLastPageNumber = true,
+           ShowFirstLast = false,
+           PageIndexParameterName = "pageIndex",
+           NumericPagerItemCount = 6,
+           CurrentPagerItemTemplate = "<span class=\"page-item curr\">{0}</span>",
+           PagerItemTemplate = "<span class=\"page-item\">{0}</span>",
+           MorePagerItemTemplate = "<span class=\"pn-break\">{0}</span>",
+           CssClass = "p-wrap",
+           PrevPageText = "<span class=\"pn-prev \"><i>&lt;</i>上一页</span>",
+           NextPageText = "<span class=\"pn-next \">下一页<i>&gt;</i></span>",
+       }).AjaxOptions(a => a.SetUpdateTargetId("LoadOrderList"))
+        </div>
+    }
+    else
+    {
+        <div class="no_propt">
+            <i>!</i>亲，您暂时还没有订单哦
+        </div>
+  
+    }
+
+        
+       
+

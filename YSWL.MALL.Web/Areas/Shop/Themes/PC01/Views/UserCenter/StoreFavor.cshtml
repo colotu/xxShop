@@ -1,0 +1,12 @@
+﻿@{
+    Layout = "/Areas/Shop/Themes/PC01/Views/Shared/_UserCenterLayout.cshtml";
+}
+<input type="hidden" id="currentpage" value="favsotre" />
+<div class="col-main">
+    <!-- 用户信息 E -->
+    <div class="user_dingdantitle">我收藏的店铺</div>
+    <div id="FavorList">
+    @Html.Action("StoreFavorList", "UserCenter", new { Areas = "Shop", pageSize =15})
+    </div>
+</div>
+<script src="/scripts/MvcPager-1.8.js" type="text/javascript"></script>

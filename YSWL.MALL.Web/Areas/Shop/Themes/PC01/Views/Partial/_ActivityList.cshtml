@@ -1,0 +1,68 @@
+﻿ @model  YSWL.MALL.ViewModel.Shop.ActivityModel 
+ @if (Model != null)
+ {
+     if ((Model.Full != null && Model.Full.Count > 0) || (Model.First != null && Model.First.Count > 0) || (Model.Coupon != null && Model.Coupon.Count > 0)
+         || (Model.FreeShipping != null && Model.FreeShipping.Count > 0))
+     {
+        <div class="s-panel summary-promotion" id="activityListPanel">
+            <div class="dt">促销</div>
+            <div class="dd">
+                <div class="activityTip-list">
+                    @if (Model.First != null && Model.First.Count > 0)
+                    {
+                        <em class="act-tag">首单</em>
+                    }
+                    @if (Model.Full != null && Model.Full.Count > 0)
+                    {
+                        <em class="act-tag">满额</em>
+                    }
+                    @if (Model.Coupon != null && Model.Coupon.Count > 0)
+                    {
+                        <em class="act-tag">赠券</em>
+                    }
+                    @if (Model.FreeShipping != null && Model.FreeShipping.Count > 0)
+                    {
+                        <em class="act-tag">包邮</em>
+                    }
+                    <span class="showTiptxt hidden">可享受以下促销活动</span>
+                    <span class="icon-r fr" id="activity_Expand"></span>
+                </div>
+                <div class="module listItem  hidden">
+                    @if (Model.First != null && Model.First.Count > 0)
+                    {
+                        foreach (YSWL.MALL.Model.Shop.Activity.ActivityInfo item in Model.First)
+                        {
+                            @Html.Partial("_ActivityListSub", item)
+                        }
+                    }
+                    @if (Model.Full != null && Model.Full.Count > 0)
+                    {
+                        foreach (YSWL.MALL.Model.Shop.Activity.ActivityInfo item in Model.Full)
+                        {
+                            @Html.Partial("_ActivityListSub", item)
+                        }
+                    }
+                    @if (Model.Coupon != null && Model.Coupon.Count > 0)
+                    {
+                        foreach (YSWL.MALL.Model.Shop.Activity.ActivityInfo item in Model.Coupon)
+                        {
+                            @Html.Partial("_ActivityListSub", item)
+                        }
+                    }
+                    @if (Model.FreeShipping != null && Model.FreeShipping.Count > 0)
+                    {
+                        foreach (YSWL.MALL.Model.Shop.Activity.ActivityInfo item in Model.FreeShipping)
+                        {
+                            @Html.Partial("_ActivityListSub", item)
+                        }
+                    }
+                </div>
+                </div>
+        </div>
+ 
+     }
+
+
+
+ }
+

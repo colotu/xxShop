@@ -1,0 +1,141 @@
+﻿@{
+    Layout = "/Areas/MShop/Themes/MC01/Views/Shared/_BaseLayout.cshtml";
+    ViewBag.Title = "订单";
+}
+<link href="/Areas/MShop/Themes/MC01/Content/Css/main.css" rel="stylesheet" />
+<script src="/Areas/MShop/Themes/MC01/Content/Scripts/pullUp.js"></script>
+
+
+<div class="main_wrapper">
+<!--START HEADER-->
+<header>
+    <div class="top_navbar fixed_header">
+        <a class="si icon_goback" href="@(ViewBag.BasePath)u"></a>
+        <p class="header_title">我的订单</p>
+    </div>
+</header>
+<!-- END HEADER -->
+<div class="top"></div>
+<div class="order_tabs">
+<ul class="tabs tab-js">
+    <li class="current" data-code="0">全部订单</li>
+    <li class="" data-code="1">待付款</li>
+    <li class="" data-code="2">待发货</li>
+    <li class="" data-code="3">待收货</li>
+    <li class="" data-code="4">已完成</li>
+</ul>
+<div class="tabs_content">
+<div class="tabs_item" style="display: block;">
+    <div class="shop_group" id="LoadOrderList">
+        @Html.Action("OrderList", "UserCenter", new { Areas = "Mshop", pageSize = 10 })
+    </div>
+</div>
+
+</div>
+</div>
+
+</div>
+<!--加载提示信息--->
+@Html.Partial("/Areas/MShop/Themes/MC01/Views/Partial/_LoadTip.cshtml")
+<!-- ################-->
+
+<script>
+
+
+    $(function () {
+        //与url地址相对应
+        var url = window.location.search;
+        if (url.indexOf('?state=') != -1) {
+            var code = url.split('?state=')[1];
+            $('.tab-js li').removeClass();
+            $('.tab-js li').each(function () {
+                var _this = $(this);
+                if (code ==_this.attr('data-code')) {
+                    _this.addClass('current');
+                }
+            });
+        }
+        
+        
+        $('body').addClass('m_home');
+        var windowH = $(window).height();
+        var myContent = $(".set_wrapper").height();
+        if(windowH < myContent){
+            $(".btn_wrapper").addClass('hold-fixed');
+        }else{
+            $(".btn_wrapper").removeClass('hold-fixed');
+        }
+
+        var $li = $('.tabs li');
+        $('.tab-js li').click(function () {
+            var $this = $(this);
+            $li.removeClass();
+            $this.addClass('current');
+            var code = $this.attr('data-code');
+            $('#LoadOrderList').load($YSWL.BasePath + "u/OrderList", { "state": code });
+            history.pushState("", "", "Orders?state="+code);
+        });
+    });
+    $(".order_tabs .btn_wrap .btn_default").click(function () {
+        $(this).addClass("btn_green2");
+    });
+    
+    //支付
+    $("#LoadOrderList").off('click', '.btnPayOrder').on('click', '.btnPayOrder',function() {
+        var id = $(this).attr("itemid");
+        if (id) {
+            window.location = '/pay/certification' + id + '/' + $YSWL.CurrentArea;
+        }
+    });
+    //取消订单
+    $("#LoadOrderList").off('click', '.btnOrderCancel').on('click', '.btnOrderCancel',function() {
+        var _self = $(this);
+        var orderId = _self.attr("itemid");
+        var r = confirm("您确认取消订单吗？");
+        if (r == true) {
+            $.ajax({
+                type: "POST",
+                dataType: "text",
+                timeout: 0,
+                url: $YSWL.BasePath+"UserCenter/CancelOrder",
+                data: { OrderId: orderId },
+                success: function (data) {
+                    if (data == "True") {
+                        _self.parent().prev().find('strong').text("取消订单");
+                        _self.parent().find('.btnPayOrder').remove();
+                        _self.remove();
+                        location.reload();
+                    } else {
+                        ShowFailTip("取消失败，请您刷新一下再试！");
+                    }
+                }
+            });
+        }
+    });
+    //完成订单
+    $("#LoadOrderList").off('click', '.btnOrderComplete').on('click', '.btnOrderComplete',function() {
+        var _self = $(this);
+        var orderId = _self.attr("itemid");
+        if (confirm("您确认完成订单吗？")) {
+            $.ajax({
+                type: "POST",
+                dataType: "text",
+                timeout: 0,
+                url: "@(ViewBag.BasePath)UserCenter/CompleteOrder",
+                data: { OrderId: orderId },
+                success: function (data) {
+                    if (data == "True") {
+                        _self.parent().prev().find('strong').text("已完成");
+                        _self.remove();
+                    } else {
+                        ShowFailTip("操作失败，请您刷新一下再试！");
+                    }
+                }
+            });
+        }
+    });
+
+
+            
+</script>
+

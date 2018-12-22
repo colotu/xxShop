@@ -1,0 +1,58 @@
+﻿@{
+    ViewBag.Title = "找回密码";
+    Layout = "/Areas/Shop/Themes/PC01/Views/Shared/_BaseLayout.cshtml";
+}
+<script type="text/javascript">
+    $(function () {
+        $("#btnSend").click(function () {
+            $.ajax({
+                url: $YSWL.BasePath + "Account/SendEmail",
+                type: 'post', dataType: 'text', timeout: 10000,
+                data: { Action: "post", Email: '@ViewBag.Email', Type: 1 },
+                success: function (resultData) {
+                    if (resultData == "success") {
+                        ShowSuccessTip("重新发送邮件成功！");
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    ShowFailTip("发送邮件失败：" + errorThrown);
+                }
+            });
+        });
+        $("#guide_2").mouseover(function () { $("#category").show(); }).mouseout(function () { $("#category").hide(); });
+
+    });
+</script>
+<div class="contentWrap">
+    <div class="findpass_centent boxbg">
+        <h3  class="from-sm-title">
+            发送邮件</h3>
+        <div class="findpass_tip">
+            <div class="successk" style="border: 1px solid #e4e4e4">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tbody>
+                        <tr>
+                            <td width="1%" rowspan="5" align="center">
+                                <img src="/Areas/Shop/Themes/PC01/Content/images/success.png" width="180" height="133">
+                            </td>
+                            <td height="45" align="left">
+                                <span class="successk_tip">已成功发送邮件，请登录邮箱进行处理</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td height="35" colspan="2" align="left">
+                                已发送邮件到 @ViewBag.Email ,请点击邮件中的“找回密码链接”来完成密码重置。
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="60%" height="60" colspan="2" align="left" valign="middle">
+                                <a href="@ViewBag.EmailUrl" style="color: #1859a5">登录邮箱</a>
+                                 <a href="javascript:void(0)" id="btnSend" style="color: #1859a5">重新发送</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

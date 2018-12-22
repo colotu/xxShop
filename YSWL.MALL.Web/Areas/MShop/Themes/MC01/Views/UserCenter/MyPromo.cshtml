@@ -1,0 +1,107 @@
+﻿@{
+    Layout = "/Areas/MShop/Themes/MC01/Views/Shared/_BaseLayout.cshtml";
+    ViewBag.Title = "个人中心-我的佣金";
+}
+@using Webdiyer.WebControls.Mvc
+@model PagedList<YSWL.MALL.Model.Shop.Commission.CommissionDetail>
+@section head{
+    <link href="/Areas/MShop/Themes/MC01/Content/Css/main.css" rel="stylesheet" />
+    <link href="/Areas/MShop/Themes/MC01/Content/Css/user.css" rel="stylesheet" />
+}
+<div class="main_wrapper mb55">
+    <!--START HEADER-->
+    <header>
+        <div class="top_navbar fixed_header">
+            <a   href="@(ViewBag.BasePath)co" class="si icon_goback">
+            </a>
+            <p class="header_title">我的佣金</p>
+        </div>
+    </header>
+    <!-- END HEADER -->
+    <div class="top"></div>
+    <div class="warning-txt pd">您当前的推广佣金：<span class="price">￥@ViewBag.AllFee.ToString("F")</span></div>
+    <div class="display-list pd"  id="list">
+        @if (Model != null)
+        {
+            foreach (var item in Model)
+            {
+          <div class="list-item">
+            <div class="text-wrap">
+                <div class="list-line">
+                    日期：
+                    <span class="intro">@item.TradeDate.ToString("yyyy-MM-dd HH:mm:ss")</span>
+                </div>
+                <div class="list-line">
+                    规则：
+                    <span class="intro">@item.RuleName</span>
+                </div>
+                <div class="list-line">
+                    佣金：
+                    @if (item.TradeType == 1)
+                    {
+                        <span class="intro price">+@item.Fee.ToString("F")</span>
+                    }
+                    else
+                    {
+                        <span class="intro price">-@item.Fee.ToString("F")</span>
+                    }
+                </div>
+                <div class="list-line">
+                    说明：
+                    <span class="intro">@item.Remark 推广商品【<a class="color-666" href="@(ViewBag.BasePath)Product/Detail/@item.ProductId">@item.Name</a>】</span>
+                </div>
+            </div>
+        </div>
+            }
+        }
+        else
+        {
+            <div class="empty pro_list_empty">
+                <div class="img_wrap">
+                    <img src="/Areas/MShop/Themes/MC01/Content/images/nopro.png" >
+                </div>
+                <div class="txt">
+                    <p>没找到相关数据</p>
+                </div>
+            </div>
+        }
+    </div>
+    <!--加载提示信息--->
+    @Html.Partial("/Areas/MShop/Themes/MC01/Views/Partial/_LoadTip.cshtml")
+</div>
+ 
+@if (Model != null && Model.Count > 0)
+{
+    <script src="/Areas/MShop/Themes/MC01/Content/Scripts/pullUp.js"></script>
+    <script type="text/javascript">
+    $(function () {
+        pullUp.init({
+            //Ajax请求参数
+            AjaxOptions: {
+                //Ajax请求参数
+                Params: $.extend({ ajaxViewName:"_PromoListMore"}),
+                //Params:@Html.Raw(ViewBag.DataParam),
+                //Ajax请求URL
+                DataURL: "@(ViewBag.BasePath)u/MyPromo"
+            },
+
+            //当前页码
+            CurrentPage: 2,
+            //页码参数名称
+            PageParamsName: "pageIndex",
+            //每页数量
+            PageSize: @(ViewBag.PageSize),
+            //每页数量参数名称
+            PageSizeParamsName: "pageSize",
+            //内容容器
+            ContentContainer: $("#list"),
+            //正在加载提示框
+            LoadingTipBox: $("#loadingMore"),
+            //无更多数据提示框
+            NoMoreTipBox: $("#noMoreProduct"),
+            LoadFinish:false
+        });
+        $("#noMoreProduct").hide();
+    });
+    </script>
+}

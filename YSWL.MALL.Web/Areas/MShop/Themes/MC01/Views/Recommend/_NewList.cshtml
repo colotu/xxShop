@@ -1,0 +1,77 @@
+﻿@model List<YSWL.MALL.Model.Shop.Products.ProductInfo>
+@if (Model != null && Model.Count > 0)
+{
+    <div class="floor_container">
+        <div class="floor_item">
+            <div class="pro_container2_list">
+                <ul id="pro_list">
+                    @foreach (var item in Model)
+                    {
+                        <li>
+                            <a href="@(ViewBag.BasePath)p/d/@item.ProductId" title="@item.ProductName">
+                                <div class="list_item">
+                                    <div class="pro_img">
+                                        <img src="@YSWL.MALL.Web.Components.FileHelper.GeThumbImage(item.ThumbnailUrl1, "T420X420_")" alt="@item.ProductName" onerror="this.onerror = ''; this.src = '/Content/themes/base/images/404/404_1.png'">
+                                    </div>
+                                    <div class="pro_info">
+                                        <p class="name">@item.ProductName</p>
+                                        <p class="price">
+                                            <span class="new_price f14">尝新价</span><strong>￥@item.LowestSalePrice.ToString("F")</strong>
+                                        </p>
+                                    </div>
+                                    <div class="pro_bar new_pro">
+                                        <span>马上抢</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(function() {
+            $("#noMoreProduct").hide();
+            pullUp.init({
+                //Ajax请求参数
+                AjaxOptions: {
+                    //Ajax请求参数
+                    Params: $.extend(@Html.Raw(ViewBag.DataParam), { ajaxVName: "_NewListMore" }),
+                    //Ajax请求URL
+                    DataURL: "@(ViewBag.BasePath)Recommend/Index"
+                },
+
+                //当前页码
+                CurrentPage: 2,
+                //页码参数名称
+                PageParamsName: "pageIndex",
+                //每页数量
+                PageSize: @(ViewBag.PageSize),
+                //每页数量参数名称
+                PageSizeParamsName: "pageSize",
+                //内容容器
+                ContentContainer: $("#pro_list"),
+                //正在加载提示框
+                LoadingTipBox: $("#loadingMore"),
+                //无更多数据提示框
+                NoMoreTipBox: $("#noMoreProduct"),
+                LoadFinish: false
+            });
+        });
+    </script>
+}
+else
+{
+    <div class="empty pro_list_empty">
+        <div class="img_wrap">
+            <img src="/Areas/MShop/Themes/MC01/Content/images/nopro.png" alt="">
+        </div>
+        <div class="txt">
+            <p>没找到合适商品</p>
+        </div>
+    </div>
+}
+
+
+

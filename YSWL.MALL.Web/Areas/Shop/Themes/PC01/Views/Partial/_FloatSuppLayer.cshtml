@@ -1,0 +1,116 @@
+﻿@model  YSWL.MALL.Model.Shop.Supplier.SupplierInfo
+            @if (Model != null)
+            {
+
+                <div class="storeInfo">
+                    <div class="store-box">
+                        <h3 class="hd">@Model.ShopName</h3>
+                        <div class="bd">
+                            <a href="@(ViewBag.BasePath)Store/@Model.SupplierId" target="_blank" class="store-btn"><span class="icon icon-store"></span>进店逛逛</a>
+                            <a href="javascript:;" class="store-btn"  id="btn-fav-supp"><span class="icon icon-hollow-favor"></span><em>收藏店铺</em></a>
+                        </div>
+                    </div>
+                    <div class="store-box">
+                        <h3 class="hd">店内搜索</h3>
+                        <div class="bd">
+                            <div class="search-form">
+                                <div class="s-form-item item-keyword">
+                                    <span class="txt">关键字：</span>
+                                    <input type="text" class="input-txt" id="inputKeyword">
+                                </div>
+                                <div class="s-form-item item-price">
+                                    <span class="txt">价格：</span>
+                                    <input type="text" class="input-txt" id="txtPrice1">到
+                                    <input type="text" class="input-txt" id="txtPrice2">
+                                </div>
+                                <div class="s-form-item item-btn">
+                                    <input type="submit" class="s-btn-hollow" value="搜索" id="supp_butsearch">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @*@if (Model.QQArr != null)
+                {
+                    <dl id="online-service" style="display: block;">
+                        <dt style="margin-bottom: 10px;">在线咨询：</dt>
+                        @for (int i = 0; i < Model.QQArr.Length; i++)
+                        {
+                            <dd @if (i > 0) { @: style="padding-top:3px;"
+                                                                            }>
+                                <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=@(Model.QQArr[i])&site=qq&menu=yes">
+                                    <img border="0" src="http://wpa.qq.com/pa?p=2:@(Model.QQArr[i]):41" onerror="this.onerror='';$(this).parents('dd').hide();" />
+                                </a>
+                            </dd>
+                        }
+                    </dl>
+                }
+                <dl id="pop-company"><dt>公司名称：</dt><dd>@Model.Name</dd></dl>
+                <dl id="pop-address"><dt>所&nbsp;在&nbsp;地：</dt><dd>@Model.Address</dd></dl>
+                                <dl id="hotline">
+                                    <dt>联系电话：</dt>
+                                    <dd>@Model.ServicePhone</dd>
+                                </dl>
+                                <div id="enter-shop">
+                                    <a target="_blank" href="@(ViewBag.BasePath)Store/@Model.SupplierId">进入卖家店铺</a>
+                                </div>*@
+                <script  type="text/javascript">
+                    $(function () {
+                        $("#txtPrice1").OnlyNum();
+                        $("#txtPrice2").OnlyNum();
+                        //搜索按钮
+                        $("#supp_butsearch").click(function () {
+                            price1 = parseInt($("#txtPrice1").val());
+                            price2 = parseInt($("#txtPrice2").val());
+                            if (isNaN(price1)) {
+                                price1 = 0;
+                            }
+                            if (isNaN(price2)) {
+                                price2 = 0;
+                            }
+                            if (price1 > price2 && price1 > 0 && price2 > 0) {
+                                var sw = price1;
+                                price1 = price2;
+                                price2 = sw;
+                                $("#txtPrice1").val(price1);
+                                $("#txtPrice2").val(price2);
+                            }
+                            location.href = $YSWL.BasePath + "Store/list/@Model.SupplierId/0/hot/" + price1 + "-" + price2 + "/" + $('#inputKeyword').val();
+                        });
+
+
+                        //收藏店铺操作
+                        $("#btn-fav-supp").click(function () {
+                            if ($('#btn-fav-supp span').hasClass('icon-collect')) {//已收藏
+                                return;
+                            }
+                            if (CheckUserState()) {
+                                $.ajax({
+                                    type: "POST",
+                                    dataType: "text",
+                                    url: $YSWL.BasePath + "UserCenter/AjaxAddStoreFav",
+                                    async: false,
+                                    data: { suppId: @(Model.SupplierId)  },
+                                    success: function (data) {
+                                        if (data == "Rep") {
+                                            $('#btn-fav-supp span').removeClass('icon-hollow-favor').addClass('icon-collect');
+                                            $('#btn-fav-supp em').text('已收藏');
+                                            ShowSuccessTip('已收藏，请不要重复收藏');
+                                        } else if (data == "True") {
+                                            $('#btn-fav-supp em').text('已收藏');
+                                            $('#btn-fav-supp span').removeClass('icon-hollow-favor').addClass('icon-collect');
+                                        } else {
+                                            ShowFailTip('服务器繁忙，请稍候再试！');
+                                        }
+                                    }
+                                });
+                            }
+                        });
+                    });
+
+                    //检测店铺是否已加入收藏
+                    IsAddedFav('#btn-fav-supp',@(Model.SupplierId),2);
+                </script>
+            }
+

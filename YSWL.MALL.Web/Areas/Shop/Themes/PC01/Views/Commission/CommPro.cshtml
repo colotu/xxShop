@@ -1,0 +1,73 @@
+﻿@{
+    Layout = "/Areas/Shop//Themes/PC01/Views/Shared/_UserCenterLayout.cshtml";
+
+}
+        <link href="/Scripts/jqueryui/jquery-ui-1.8.19.custom.css" rel="stylesheet" type="text/css" />
+        <script src="/Scripts/jqueryui/jquery-ui-1.8.19.custom.min.js" type="text/javascript"></script>
+        <script src="/admin/js/jqueryui/JqueryDataPicker4CN.js" type="text/javascript"></script>
+        <script src="/Scripts/Highcharts/highcharts.js" type="text/javascript"></script>
+        <script src="/Scripts/Highcharts/themes/gray.js" type="text/javascript"></script>
+      <script type="text/javascript">
+            $(document).ready(function () {
+                $.datepicker.setDefaults($.datepicker.regional['zh-CN']);
+                $('#txtFrom').prop("readonly", true).datepicker({
+                    changeMonth: true,
+                    dateFormat: "yy-mm-dd",
+                    maxDate: new Date(),
+                    onClose: function (selectedDate) {
+                        $('#txtTo').datepicker("option", "minDate", selectedDate);
+                    }
+                });
+
+                $('#txtTo').prop("readonly", true).datepicker({
+                    changeMonth: true,
+                    dateFormat: "yy-mm-dd",
+                    maxDate: new Date(),
+                    onClose: function (selectedDate) {
+                        $('#txtFrom').datepicker("option", "maxDate", selectedDate);
+                        $('#txtTo').val($(this).val());
+                    }
+                });
+            });
+        </script>
+   
+    <div class="col-main">
+        <input type="hidden" id="currentpage" value="comsta" />
+        <div class="user_dingdantitle">
+           佣金统计
+        </div>
+       <div style="height: 29px; line-height: 29px;      padding: 8px 20px;">
+           时间：
+           <input type="text" id="txtFrom" style="width:90px;" value="@ViewBag.StartDate"  class="f-txt-b f-txt"/>--<input type="text" id="txtTo"  value="@ViewBag.EndDate"  style="width:90px;" class="f-txt-b f-txt" />
+           &#12288;
+           <button id="btnReStatistic" class="usercenterbtn">统计</button>
+           <span style=" float: right;">总额：<span class="red" id="span_totalFee"></span></span>
+       </div>
+      <div id="div_list">
+           @Html.Action("CommProList", "Commission", new { startDate = ViewBag.StartDate, endDate = ViewBag.EndDate, ruleLevel = 1 })
+
+      </div>
+
+    </div>
+<script type="text/javascript">
+    $(function () {
+        $('#btnReStatistic').click(function () {
+            var start = $('#txtFrom').val();
+            var end = $('#txtTo').val();
+            if (txtFrom == "") {
+                ShowFailTip("请选择开始时间");
+                return;
+            }
+            if (txtTo == "") {
+                ShowFailTip("请选择结束时间");
+                return;
+            }
+            $('#div_list').load($YSWL.BasePath + "Commission/CommProList?startDate=" + start + "&endDate=" + end, function () {
+                $("[data-pagerid='Webdiyer.MvcPager']").initMvcPagers();//调用ajax分页方法
+            });
+
+        });
+    });
+
+</script>
+<script src="/scripts/MvcPager-1.8.js" type="text/javascript"></script>

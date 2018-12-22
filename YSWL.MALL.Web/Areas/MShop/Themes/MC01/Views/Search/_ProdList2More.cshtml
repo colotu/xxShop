@@ -1,0 +1,22 @@
+﻿@using Webdiyer.WebControls.Mvc
+@model YSWL.MALL.ViewModel.Shop.ProductListModel
+    @if (Model.ProductPagedList != null)
+    {
+            foreach (var item in Model.ProductPagedList)
+            {
+                <li>
+                    <a href="@(ViewBag.BasePath)p/d/@item.ProductId">
+                        <div class="list_item">
+                            <div class="pro_img">
+                                <img src="@YSWL.MALL.Web.Components.FileHelper.GeThumbImage(item.ThumbnailUrl1, "T420X420_")" alt="@item.ProductName"  onerror="this.onerror = ''; this.src = '/Content/themes/base/images/404/404_1.png'" >
+                            </div>
+                            <div class="pro_info">
+                                <p class="name">@item.ProductName</p>
+                                <p class="price">￥@item.LowestSalePrice.ToString("F")</p>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+            }
+    }
+

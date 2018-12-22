@@ -1,0 +1,43 @@
+﻿@{
+    Layout = "/Areas/Shop/Themes/PC01/Views/Shared/_UserCenterLayout.cshtml";
+    YSWL.MALL.Model.Members.UsersExpModel UserInfo = ViewBag.UserInfo;
+}
+<script src="~/Areas/Shop/Themes/PC01/Content/Scripts/sendPoint.js"></script>
+
+<input type="hidden" id="currentpage" value="message" />
+<div class="col-main">
+    <div class="user_dingdantitle">
+        积分转送<div  style="float: right; margin-right:50px;">
+                                您当前的商城积分:<span class="integral_a1">@UserInfo.Points</span></div></div>
+    <div class="material_con_c" style="width: 100%;">
+        <div class="f-box" style="margin-top: 20px;">
+            <label class="f-label">
+                接收人：</label>
+            <div class="f-input">
+                <input id="txtNickName" name="txtNickName" type="text" maxlength="40" class="f-txt f-txt-send">
+            </div>
+            <div class="f-msg">
+                <div id="nciknameTip">
+                </div>
+            </div>
+        </div>
+        <div class="f-box">
+            <label class="f-label">
+                积分数量：</label>
+            <div class="f-input">
+                <input id="txtTitle" name="txtTitle" type="text" maxlength="40" class="f-txt f-txt-send">
+            </div>
+            <div class="f-msg">
+                <div id="titleTip">
+                </div>
+            </div>
+        </div>
+        <div class="fb f-act">
+            <div class="f-input">
+                <input class="btn btn-important-large" style="line-height: 30px; background-position: 100% -78px;
+                    padding-right: 10px; font-weight: bold;" type="button" value="发送积分" id="btnUpdatepersonal"
+                    onclick="submit();" />
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,16 @@
+﻿
+[assembly: System.Reflection.AssemblyVersion("2.7.0.0")]
+[assembly: System.Runtime.InteropServices.Guid("c9f02e38-4bf1-4e9d-b3d2-61bc4564e5a6")]
+[assembly: System.Runtime.CompilerServices.RuntimeCompatibility(WrapNonExceptionThrows=true)]
+[assembly: System.Reflection.AssemblyTitle("YSWL.​Web.​Validator")]
+[assembly: System.Runtime.InteropServices.ComVisible(false)]
+[assembly: System.Reflection.AssemblyCompany("云商未来（北京）科技有限公司")]
+[assembly: System.Reflection.AssemblyCopyright("Copyright(C)2005-2012 YS56. All Rights Reserved.")]
+[assembly: System.Reflection.AssemblyProduct("YSWL.​Web.​Validator")]
+[assembly: System.Reflection.AssemblyInformationalVersion("2.7")]
+[assembly: System.Reflection.AssemblyTrademark("YSWL")]
+[assembly: System.Reflection.AssemblyDescription("20120701")]
+[assembly: System.CLSCompliant(true)]
+[assembly: System.Diagnostics.Debuggable(System.Diagnostics.DebuggableAttribute.DebuggingModes.IgnoreSymbolStoreSequencePoints)]
+[assembly: System.Runtime.CompilerServices.CompilationRelaxations(8)]
+

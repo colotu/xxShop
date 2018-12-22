@@ -1,0 +1,100 @@
+﻿
+    <!--START HEADER-->
+    <header class="fixed_header no_bb main_wrapper">
+        <h2 class="se_address">所在地区</h2>
+        <a href="javascript:;" class="topbar_mess address_close my_icon" id="close_selectRegion"></a>
+    </header>
+    <!--END HEADER-->
+        <div class="top"></div>
+        <div class="addressWrapper main_wrapper" id="addressWrapper">
+            <script src="/Scripts/jquery/jquery.guid.js"></script>
+            <input type="hidden" id="hfSelectedRegion" value="@ViewBag.RegionId" />
+            <script src="/Areas/MShop/Themes/MC01/Content/Scripts/selectRegion.js" isnull="false"></script>
+            <ul class="addressTab" id="baseTitle"></ul>
+            @*<ul class="addressTab">
+                <li>北京市</li>
+                <li>朝阳区</li>
+                <li class="sel_address">请选择</li>
+            </ul>
+           <ol class="province dsn">
+                <li>北京</li>
+                <li>上海</li>
+            </ol>
+            <ol class="city dsn">
+                <li>北京</li>
+                <li>北京</li>
+                <li>上海</li>
+            </ol>
+            <ol class="area">
+                <li class="selected">三环到四环之间</li>
+                <li>四环到五环之间</li>
+                <li>五环到六环之间</li>
+                <li></li>
+            </ol>*@
+        </div>
+<script src="/Scripts/jquery.cookie.js"></script>
+<script type="text/javascript">
+    $(function () {
+        var regionId = parseInt($('#hfSelectedRegion').val());
+        if (isNaN(regionId) ||   regionId<= 0) {//未设置地区，则显示设置地区页面
+            $('#selectRegionContent').show();
+            $('#bodyMainContent').hide();
+        }
+
+        //标题切换
+        $(document).on('click', '#baseTitle li', function () {
+            $(this).addClass('sel_address').siblings().removeClass('sel_address');
+            $('#addressWrapper ol').eq($(this).index()).show().siblings('ol').hide();
+        });
+
+        $('#close_selectRegion').on('click', function () {
+            $('#selectRegionContent').hide();
+            $('#bodyMainContent').show();
+        });
+
+
+        $('#showSelectRegion').on('click', function () {
+            $('#selectRegionContent').show();
+            $('#bodyMainContent').hide();
+        });
+    });
+    
+    //完成设置地区
+    function completeSetRegion(regionId) {
+        //把地区id写入cookie
+        setDeliveryAreas(regionId);
+        //关闭层
+        $('#selectRegionContent').hide();
+        $('#bodyMainContent').show();
+    }
+
+    //设置地区
+    function setDeliveryAreas(regoinId) {
+        //记录regionId
+        $.cookie('deliveryareas_regionId', regoinId, { expires: 1, path: '/' });//分仓地区
+        $.cookie('groupbuy_regionId', regoinId, { expires: 1, path: '/' });//团购地区
+
+        //地区全名称
+        var regionFullName = "";//显示最后一级地区名
+        $("#baseTitle li").each(function () {
+            regionFullName += $(this).text();
+        });
+        //去除重复名
+        if (regionFullName.indexOf('北京北京') != -1) {
+            regionFullName = regionFullName.replace('北京北京', '北京');
+        } else if (regionFullName.indexOf('上海上海') != -1) {
+            regionFullName = regionFullName.replace('上海上海', '上海');
+        } else if (regionFullName.indexOf('重庆重庆') != -1) {
+            regionFullName = regionFullName.replace('重庆重庆', '重庆');
+        } else if (regionFullName.indexOf('天津天津') != -1) {
+            regionFullName = regionFullName.replace('天津天津', '天津');
+        }
+        var lastRegionName=$("#baseTitle li:last").text();
+        //全称
+        $.cookie('deliveryareas_regionname', regionFullName, { expires: 1, path: '/' });
+
+        //最后一级名称
+        $.cookie('deliveryareas_lastRegionName', lastRegionName, { expires: 1, path: '/' });
+        $('#l_regionName').text(lastRegionName);
+    }
+</script>

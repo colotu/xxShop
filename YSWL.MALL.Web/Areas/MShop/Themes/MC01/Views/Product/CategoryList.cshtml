@@ -1,0 +1,117 @@
+﻿@{
+    Layout = "/Areas/MShop/Themes/MC01/Views/Shared/_BaseLayout.cshtml";
+    ViewBag.Title = "商品分类";
+    ViewBag.Keywords = "商品分类";
+    ViewBag.Description = "商品分类";
+}
+@model List<YSWL.MALL.Model.Shop.Products.CategoryInfo>
+@section head{
+<link href="/Areas/MShop/Themes/MC01/Content/Css/categories.css" rel="stylesheet" />
+<link href="/Areas/MShop/Themes/MC01/Content/Css/main.css" rel="stylesheet" />
+}
+
+<div class="main_wrapper"  id="main_page">
+    <!--START HEADER-->
+    <header class="fixed_header main_wrapper">
+        <div class="top_navbar">
+            <div class="top_search">
+               @Html.Partial("/Areas/MShop/Themes/MC01/Views/Partial/_HeaderSearch.cshtml")
+            </div>
+            @Html.Partial("/Areas/MShop/Themes/MC01/Views/Partial/_HeaderMsg.cshtml")
+        </div>
+    </header>
+    <!-- END HEADER -->
+    <!--START CONTENT-->
+    <div class="hidden"></div>
+        <div class="content clearfix">
+@if (Model != null && Model.Count > 0)
+{
+            <div id="cate1" class="content_left fl">
+                <ul class="content-tab">
+                    @for (int i=0;i<Model.Count;i++)
+                    {
+                        <li><a cid="@Model[i].CategoryId" class="@(i==0?"active":"")" href="javascript:;">@Model[i].Name</a></li>
+                    }
+                </ul>
+            </div>
+            <div class="content_right fr" >
+                <ol id="subcatelist_@(Model[0].CategoryId)" isload="true">
+                    @Html.Action("CategoryList", "Product", new { parentId = Model[0].CategoryId, viewName = "_TwoCate" })
+                </ol>
+            @for (int i =1; i < Model.Count; i++)
+            {
+                <ol id="subcatelist_@(Model[i].CategoryId)" class="dsn" isload="false">
+                </ol>
+            }                         
+</div>
+}
+        </div>
+
+    <!--加载提示信息--->
+    @Html.Partial("/Areas/MShop/Themes/MC01/Views/Partial/_LoadTip.cshtml")
+    <!-- END CONTENT -->
+    <div class="bottom">
+    </div>
+    @Html.Partial("/Areas/MShop/Themes/MC01/Views/Partial/_FooterNav.cshtml")
+</div>
+@Html.Partial("/Areas/MShop/Themes/MC01/Views/Partial/_SearchLayer.cshtml")
+
+
+@section foot{
+<script>
+    $('#body').addClass('m_home');
+
+
+    $(".content-tab li a").on("click", function () {
+        var i = $(this).parent().index(); 
+        $(this).addClass('active');
+        $(this).parent().siblings().children().removeClass('active');
+        var hh = (i) * 60;
+        $("#cate1").animate({ scrollTop: hh }, 1000);
+
+        var cid = $(this).attr('cid');
+        var $subcate_el = $('#subcatelist_' + cid);//子分类列表
+        if ($subcate_el.attr('isload') != "false") {
+            //已加载过  直接显示
+            $subcate_el.siblings('ol').hide();
+            $subcate_el.show();
+        } else {
+            //显示 loading刷新
+            $("#bgloading,#bg").css({ height: $(window).height(), display: 'block' });
+            $subcate_el.load($YSWL.BasePath + 'p/c/' + cid + "?viewName=_TwoCate", function () {
+                $("#bgloading,#bg").hide();
+                $subcate_el.attr('isload', true).siblings('ol').hide();
+                $subcate_el.show();
+            });
+        }
+    });
+    $(document).ready(function () {
+        var aa = $('#subcatelist_62').height();
+        var bb = $('.content_right').height();
+       if (aa < bb) {
+            $('.content_right').css({ height: aa, "overflow-y": "hidden" });
+        } else {
+            $(".content_right").css({
+                height: "auto",
+                "overflow-y": "auto"
+            });
+        }
+    });
+    $(".content").css({
+        "overflow-y": "hidden"
+    });
+ 
+</script>
+}
+
+
+
+
+
+
+
+
+
+
+
+

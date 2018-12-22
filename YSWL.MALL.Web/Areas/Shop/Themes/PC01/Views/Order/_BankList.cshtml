@@ -1,0 +1,74 @@
+﻿
+@model List<YSWL.MALL.ViewModel.Shop.BankType>
+
+    <div class="bw-tab-content" data-widget="tab-content" id="normalPayCardDiv">
+        @if (Model != null)
+        {
+            <div class="payment-list j_eBankList" id="ebankPaymentListDiv">
+                <ul class="pl-wrap">
+                    @foreach (var item in Model)
+                {
+                        <li class="pl-item" clstag="payment|keycount|bank" code="@item.Code">
+                            <span class="bank-logo">@item.BankName</span>
+                            <input type="hidden" id="success-icbc" value="@item.BankName" autocomplete="off">
+                        </li>
+                    }
+                </ul>
+            </div>
+        }
+    </div>
+
+    <script type="text/javascript">
+                       $(function () {
+                           $("#ebankPaymentListDiv .pl-item").each(function () {
+                               var code = $(this).attr("code");
+                               switch (code) {
+                                   case "BOCB2C":
+                                       $(this).find(".bank-logo").css("background-position", "0 -840px");
+                                       break;
+                                   case "ICBCB2C":
+                                       $(this).find(".bank-logo").css("background-position", "0 -140px");
+                                       break;
+                                   case "CMB":
+                                       $(this).find(".bank-logo").css("background-position", "0 -784px");
+                                       break;
+                                   case "CCB":
+                                       $(this).find(".bank-logo").css("background-position", "0 -336px");
+                                       break;
+                                   case "ABC":
+                                       $(this).find(".bank-logo").css("background-position", "0 -532px");
+                                       break;
+                                   case "SPDB":
+                                       $(this).find(".bank-logo").css("background-position", "0 -588px");
+                                       break;
+                                   case "CIB":
+                                       $(this).find(".bank-logo").css("background-position", "0 -756px");
+                                       break;
+                                   case "GDB":
+                                       $(this).find(".bank-logo").css("background-position", "0 -196px");
+                                       break;
+                                   case "FDB":
+                                       $(this).find(".bank-logo").css("background-position", "0 -110px");
+                                       break;
+                                   case "HZCBB2C":
+                                       $(this).find(".bank-logo").css("background-position", "0 -252px");
+                                       break;
+                                   case "SHBANK":
+                                       $(this).find(".bank-logo").css("background-position", "0 -672px");
+                                       break;
+                                   case "NBBANK":
+                                       $(this).find(".bank-logo").css("background-position", "0 -504px");
+                                       break;
+                                   case "SPABANK":
+                                       $(this).find(".bank-logo").css("background-position", "0 -560px");
+                                       break;
+                                   case "POSTGC":
+                                       $(this).find(".bank-logo").css("background-position", "0 -868px");
+                                       break;
+                                   default:
+
+                                       break;
+                               }
+                           });
+                       });
+    </script>

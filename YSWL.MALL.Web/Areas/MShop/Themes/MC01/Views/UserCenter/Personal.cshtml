@@ -1,0 +1,144 @@
+﻿@{
+    Layout = "/Areas/MShop/Themes/MC01/Views/Shared/_BaseLayout.cshtml";
+    ViewBag.Title = "订单";
+}
+@section head{
+    <link href="/Areas/MShop/Themes/MC01/Content/Css/main.css" rel="stylesheet" />
+<script src="/Areas/MShop/Themes/MC01/Content/Scripts/UserCenter/updateuserinfo.js"></script>
+}
+
+@model YSWL.MALL.Model.Members.UsersExpModel  
+
+
+<div class="main_wrapper">
+    <!--START HEADER-->
+    <header>
+        <div class="top_navbar fixed_header">
+            @Html.Partial("/Areas/MShop/Themes/MC01/Views/Partial/_Back.cshtml")
+            <p class="header_title">个人资料</p>
+        </div>
+    </header>
+    <!-- END HEADER -->
+    <div class="top"></div>
+    <div class="personal_wrapper">
+        @if (Model != null)
+        {
+            <div class="order_item pd">
+                <div class="b_item">
+                    <div class="sitem_l">
+                        用户名
+                    </div>
+                    <div class="sitem_r">
+                        <label class="c-grey">@Model.UserName</label>
+                    </div>
+                </div>
+                <div class="b_item">
+                    <div class="sitem_l">
+                        昵称
+                    </div>
+                    <div class="sitem_r">
+                        <input type="text" class="ipt" id ="txtNickName" value="@Model.NickName">
+                    </div>
+                </div>
+
+                <div class="b_item" id="personal_sex">
+                    <div class="sitem_l">
+                        性别
+                    </div>
+                    <div class="sitem_r">
+                        <!-- <input type="text" class="ipt" value="女"> -->
+                        @if (!string.IsNullOrWhiteSpace(Model.Sex)&& Model.Sex== "0")
+                        {
+                            <span>女</span>
+                        }
+                        else
+                        {
+                            <span>男</span>
+                        }
+
+                    </div>
+                </div>
+                <div class="b_item">
+                    <div class="sitem_l">
+                        出生日期
+                    </div>
+                    <div class="sitem_r">
+                        @if (Model.Birthday.HasValue)
+                        {
+                            <input type="text" class="ipt" id="txtBirthday" value="@Model.Birthday.Value.ToString("yyyy-MM-dd")">
+                        }
+                        else
+                        {
+                            <input type="text" class="ipt" id="txtBirthday" value="">
+                        }
+
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div class="btn_wrapper">
+            <input type="submit" class="b_btn btn_green" onclick="submit()" value="确定">
+        </div>
+    </div>
+    <!-- ################-->
+    <!-- END TOP MENU -->
+    <!-- ################-->
+</div>
+<!-- 性别选择弹出框 -->
+<div id="dialog" class="sex_dialog">
+    <div class="dialog_header">
+        性别
+    </div>
+    <div class="dialog_con">
+        <div class="input_line active">男</div>
+        <div class="input_line">女</div>
+    </div>
+</div>
+<div id="fade" class="black_overlay"></div>
+@section foot{
+<link href="/Scripts/mobiscroll-2.6.2/css/mobiscroll.custom-2.6.2.min.css" rel="stylesheet" />
+<script src="/Scripts/mobiscroll-2.6.2/js/mobiscroll.custom-2.6.2.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var opt = {
+                preset: 'date', //日期
+                theme: 'android-ics light', //皮肤样式   mobiscroll  android-ics light
+                display: 'modal', //显示方式
+                mode: 'scroller', //日期选择模式  clickpick     scroller
+                dateFormat: 'yy-mm-dd', // 日期格式
+                setText: '确定', //确认按钮名称
+                cancelText: '取消', //取消按钮名称
+                dateOrder: 'yymmdd', //面板中日期排列格式
+                dayText: '日', monthText: '月', yearText: '年', //面板中年月日文字
+                maxDate: new Date()//最大日期
+            };
+            $("#txtBirthday").mobiscroll(opt);
+                $("#personal_sex").click(function(e) {
+                        var e = window.event || event;
+                        if (e.stopPropagation) {
+                            e.stopPropagation();
+                        } else {
+                            e.cancelBubble = true;
+                        }
+                        $("#fade,#dialog").fadeIn("fast");
+                    });
+                $("#fade")
+                    .click(function() {
+                        $("#fade,#dialog").fadeOut("fast");
+                    });
+                $(".sex_dialog .input_line")
+                    .click(function() {
+                        $("#fade,#dialog").fadeOut("fast");
+                    });
+
+                $('.dialog_con div')
+                    .click(function() {
+                        var _this = $(this);
+                        $('.dialog_con .input_line').removeClass('active');
+                        _this.addClass('active');
+                        $('#personal_sex').find('span').text(_this.text());
+                    });
+            });
+    </script>
+}

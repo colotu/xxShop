@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{07C90A14-0E00-4C76-9E23-076B3FB2D309}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>YSWL.MALL.ViewModel</RootNamespace>
+    <AssemblyName>YSWL.MALL.ViewModel</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System.Web.Mvc, Version=3.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Webdiyer.MvcPager">
+      <HintPath>..\Lib\Webdiyer.MvcPager.dll</HintPath>
+    </Reference>
+    <Reference Include="YSWL.Accounts">
+      <HintPath>..\Lib\YSWL.Accounts.dll</HintPath>
+    </Reference>
+    <Reference Include="YSWL.Common">
+      <HintPath>..\Lib\YSWL.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="YSWL.Json">
+      <HintPath>..\Lib\YSWL.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="YSWL.Payment">
+      <HintPath>..\Lib\YSWL.Payment.dll</HintPath>
+    </Reference>
+    <Reference Include="YSWL.ShoppingCart">
+      <HintPath>..\Lib\YSWL.ShoppingCart.dll</HintPath>
+    </Reference>
+    <Reference Include="YSWL.WeChat">
+      <HintPath>..\Lib\YSWL.WeChat.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AdvertisePositionVm.cs" />
+    <Compile Include="CMS\AccountModels.cs" />
+    <Compile Include="CMS\Photo.cs" />
+    <Compile Include="ERP\AccountInfo.cs" />
+    <Compile Include="ERP\ResultModel.cs" />
+    <Compile Include="Member\AccountModel.cs" />
+    <Compile Include="Member\PointsRuleExt.cs" />
+    <Compile Include="Member\UserCount.cs" />
+    <Compile Include="Member\UserPosition.cs" />
+    <Compile Include="Order\FreightVm.cs" />
+    <Compile Include="Order\OrderCount.cs" />
+    <Compile Include="Order\OrderInfoExPage.cs" />
+    <Compile Include="Order\OrderRequestVm.cs" />
+    <Compile Include="Order\OrderSubmitVm.cs" />
+    <Compile Include="Order\SalesOrderCount.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SaleData.cs" />
+    <Compile Include="Shop\AccountInfo.cs" />
+    <Compile Include="Shop\CommissionModel.cs" />
+    <Compile Include="Shop\AccountModels.cs" />
+    <Compile Include="Shop\Activity.cs" />
+    <Compile Include="Shop\BankType.cs" />
+    <Compile Include="Shop\Commission.cs" />
+    <Compile Include="Shop\ExpressModel.cs" />
+    <Compile Include="Shop\FavoProdModel.cs" />
+    <Compile Include="Shop\FavoStoreModel.cs" />
+    <Compile Include="Shop\GetShoppingCartVm.cs" />
+    <Compile Include="Shop\InvoiceModel.cs" />
+    <Compile Include="Shop\OrderDetailModel.cs" />
+    <Compile Include="Shop\PayAndShip.cs" />
+    <Compile Include="Shop\ProdCompareModel.cs" />
+    <Compile Include="Shop\ProductAccessorie.cs" />
+    <Compile Include="Shop\ProductComment.cs" />
+    <Compile Include="Shop\ProductListModel.cs" />
+    <Compile Include="Shop\ProductModel.cs" />
+    <Compile Include="Shop\ResultModel.cs" />
+    <Compile Include="Shop\ReturnOrderDetailModel.cs" />
+    <Compile Include="Shop\RuleProductVm.cs" />
+    <Compile Include="Shop\SaleRecord.cs" />
+    <Compile Include="Shop\ProductSKUModel.cs" />
+    <Compile Include="Shop\SalesRuleVm.cs" />
+    <Compile Include="Shop\ShippingAddressModel.cs" />
+    <Compile Include="Shop\ShipTypeModel.cs" />
+    <Compile Include="Shop\ShoppingCartModel.cs" />
+    <Compile Include="Shop\FavoBuyProdModel.cs" />
+    <Compile Include="Supplier\CommandAction.cs" />
+    <Compile Include="Supplier\ProductsStationMode.cs" />
+    <Compile Include="Supplier\RuleKeyValue.cs" />
+    <Compile Include="Supplier\SupplierAdP.cs" />
+    <Compile Include="Supplier\WeChatCusMsg.cs" />
+    <Compile Include="Supplier\WeChatMenu.cs" />
+    <Compile Include="Supplier\WeChatUser.cs" />
+    <Compile Include="UserCenter\AddressRequestVm.cs" />
+    <Compile Include="UserCenter\UserBind.cs" />
+    <Compile Include="ViewModelBase.cs" />
+    <Compile Include="WeChat\AddMenuVm.cs" />
+    <Compile Include="WeChat\MenuListVm.cs" />
+    <Compile Include="WeChat\Scene.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="SysManage\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\YSWL.MALL.Model\YSWL.MALL.Model.csproj">
+      <Project>{400f9ebc-f979-4f92-8efc-69a98377dd25}</Project>
+      <Name>YSWL.MALL.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

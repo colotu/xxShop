@@ -1,0 +1,22 @@
+﻿  @model List<YSWL.MALL.Model.Shop.Supplier.SupplierAD>
+@if (Model != null && Model.Count > 0)
+{
+    <div class="goodshopWrapper">
+        <div class="store-multi-img floor">
+            <div class="multi2">
+                <a href="@Model[0].NavigateUrl"><img src="@Model[0].FileUrl"/></a>
+            </div>
+            <div class="multi2">
+                @for (int i = 1; i < Model.Count; i++)
+                {
+                    <div class="multi-tb">
+                        <a href="@Model[i].NavigateUrl">
+                            <img src="@Model[i].FileUrl" alt="@Model[i].Name">
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+}
+

@@ -1,0 +1,3564 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>YSWL.DBUtility</name>
+    </assembly>
+    <members>
+        <member name="T:YSWL.DBUtility.BaseSqlMapDao">
+            <summary>
+            基于IBatisNet的数据访问基类 
+            </summary>
+        </member>
+        <member name="M:YSWL.DBUtility.BaseSqlMapDao.ExecuteQueryForList``1(System.String,System.Object)">
+            <summary>
+            得到列表
+            </summary>
+            <typeparam name="T">实体类型</typeparam>
+            <param name="statementName">操作名称，对应xml中的Statement的id</param>
+            <param name="parameterObject">参数</param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.DBUtility.BaseSqlMapDao.ExecuteQueryForList``1(System.String,System.Object,System.Int32,System.Int32)">
+            <summary>
+            得到指定数量的记录数
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="statementName"></param>
+            <param name="parameterObject">参数</param>
+            <param name="skipResults">跳过的记录数</param>
+            <param name="maxResults">最大返回的记录数</param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.DBUtility.BaseSqlMapDao.ExecuteQueryForPaginatedList(System.String,System.Object,System.Int32)">
+            <summary>
+            得到分页的列表
+            </summary>
+            <param name="statementName">操作名称</param>
+            <param name="parameterObject">参数</param>
+            <param name="pageSize">每页记录数</param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.DBUtility.BaseSqlMapDao.ExecuteQueryForObject``1(System.String,System.Object)">
+            <summary>
+            查询得到对象的一个实例
+            </summary>
+            <typeparam name="T">对象type</typeparam>
+            <param name="statementName">操作名</param>
+            <param name="parameterObject">参数</param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.DBUtility.BaseSqlMapDao.ExecuteInsert(System.String,System.Object)">
+            <summary>
+            执行添加
+            </summary>
+            <param name="statementName">操作名</param>
+            <param name="parameterObject">参数</param>
+        </member>
+        <member name="M:YSWL.DBUtility.BaseSqlMapDao.ExecuteUpdate(System.String,System.Object)">
+            <summary>
+            执行修改
+            </summary>
+            <param name="statementName">操作名</param>
+            <param name="parameterObject">参数</param>
+        </member>
+        <member name="M:YSWL.DBUtility.BaseSqlMapDao.ExecuteDelete(System.String,System.Object)">
+            <summary>
+            执行删除
+            </summary>
+            <param name="statementName">操作名</param>
+            <param name="parameterObject">参数</param>
+        </member>
+        <member name="F:YSWL.DBUtility.EffentNextType.None">
+            <summary>
+            对其他语句无任何影响 
+            </summary>
+        </member>
+        <member name="F:YSWL.DBUtility.EffentNextType.WhenHaveContine">
+            <summary>
+            当前语句必须为"select count(1) from .."格式，如果存在则继续执行，不存在回滚事务
+            </summary>
+        </member>
+        <member name="F:YSWL.DBUtility.EffentNextType.WhenNoHaveContine">
+            <summary>
+            当前语句必须为"select count(1) from .."格式，如果不存在则继续执行，存在回滚事务
+            </summary>
+        </member>
+        <member name="F:YSWL.DBUtility.EffentNextType.ExcuteEffectRows">
+            <summary>
+            当前语句影响到的行数必须大于0，否则回滚事务
+            </summary>
+        </member>
+        <member name="F:YSWL.DBUtility.EffentNextType.SolicitationEvent">
+            <summary>
+            引发事件-当前语句必须为"select count(1) from .."格式，如果不存在则继续执行，存在回滚事务
+            </summary>
+        </member>
+        <member name="T:YSWL.DBUtility.ConnectionStrManage">
+            <summary>
+            链接字符串管理
+            </summary>
+        </member>
+        <member name="F:YSWL.DBUtility.ConnectionStrManage.obj">
+            <summary>
+            锁的对象
+            </summary>
+        </member>
+        <member name="F:YSWL.DBUtility.ConnectionStrManage.KEY_AUTOCONNECTION">
+            <summary>
+            是否开启自动连接标识key，通过配置文件获取
+            </summary>
+        </member>
+        <member name="F:YSWL.DBUtility.ConnectionStrManage.KEY_BASECONNECTION">
+            <summary>
+            SAAS基础连接字符串
+            </summary>
+        </member>
+        <member name="F:YSWL.DBUtility.ConnectionStrManage.KEY_SYSTEM_FLAG">
+            <summary>
+            系统标识key，从配置文件中获取系统标识
+            </summary>
+        </member>
+        <member name="P:YSWL.DBUtility.ConnectionStrManage.isAutoConn">
+            <summary>
+            是否开启动态连接数据库
+            </summary>
+        </member>
+        <member name="M:YSWL.DBUtility.ConnectionStrManage.#cctor">
+            <summary>
+            初始化集合字典
+            </summary>
+        </member>
+        <member name="M:YSWL.DBUtility.ConnectionStrManage.GetConnectionStr">
+            <summary>
+            获取数据库链接串
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:YSWL.DBUtility.ConnectionStrManage.BaseDBStr">
+            <summary>
+            企业的数据库配置数据库链接串
+            </summary>
+        </member>
+        <member name="M:YSWL.DBUtility.ConnectionStrManage.GetApplicationId">
+            <summary>
+            获取应用Id
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.DBUtility.ConnectionStrManage.GetSystemFlag">
+            <summary>
+            获取系统的标识
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.DBUtility.ConnectionStrManage.GetBusinnessConStr(System.String)">
+            <summary>
+            获取企业的数据库配置信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.DBUtility.ConnectionStrManage.IsDBExists">
+            <summary>
+            
+            </summary>
+            <param name="message"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.DBUtility.ConnectionStrManage.Query(System.String,System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            查询企业数据库配置
+            </summary>
+            <param name="SQLString"></param>
+            <param name="cmdParms"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.DBUtility.ConnectionStrManage.GetSingle(System.String)">
+            <summary>
+            执行一条计算查询结果语句，返回查询结果（object）。
+            </summary>
+            <param name="SQLString">计算查询结果语句</param>
+            <returns>查询结果（object）</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.ConnectionStrManage.ExecuteSqlTran4Indentity(System.Collections.Generic.List{YSWL.DBUtility.CommandInfo},System.Data.SqlClient.SqlTransaction)">
+            <summary>
+            执行多条SQL语句，实现数据库事务。
+            </summary>
+            <param name="cmdList">SQL语句的CommandInfo</param>
+            <param name="trans">外部事务对象</param>
+            <remarks>警告:内部不触发事务的提交和回滚</remarks>
+            <remarks>只使用了CommandInfo-EffentNextType.ExcuteEffectRows, 其它项暂不支持</remarks>
+        </member>
+        <member name="M:YSWL.DBUtility.ConnectionStrManage.PrepareCommand(System.Data.SqlClient.SqlCommand,System.Data.SqlClient.SqlConnection,System.Data.SqlClient.SqlTransaction,System.String,System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            组织参数
+            </summary>
+            <param name="cmd"></param>
+            <param name="conn"></param>
+            <param name="trans"></param>
+            <param name="cmdText"></param>
+            <param name="cmdParms"></param>
+        </member>
+        <member name="M:YSWL.DBUtility.ConnectionStrManage.GetApplicationId(System.String)">
+            <summary>
+            获取应用ID
+            </summary>
+            <param name="tag"></param>
+            <returns></returns>
+        </member>
+        <member name="T:YSWL.DBUtility.DBBase">
+            <summary>
+            数据库基类（所有具体实现数据库必须继承该类）
+            </summary>
+        </member>
+        <member name="P:YSWL.DBUtility.DBBase.GetConnection">
+            <summary>
+            获取Connection链接
+            </summary>
+        </member>
+        <member name="M:YSWL.DBUtility.DBBase.GetConnectionStr">
+            <summary>
+            获取链接字符串
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBBase.ColumnExists(System.String,System.String)">
+            <summary>
+            判断是否存在某表的某个字段
+            </summary>
+            <param name="tableName">表名称</param>
+            <param name="columnName">列名称</param>
+            <returns>是否存在</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBBase.TabExists(System.String)">
+            <summary>
+            表是否存在
+            </summary>
+            <param name="TableName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBBase.ExecuteSql(System.String)">
+            <summary>
+            执行SQL语句，返回影响的记录数
+            </summary>
+            <param name="SQLString">SQL语句</param>
+            <returns>影响的记录数</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBBase.ExecuteSqlTran(System.Collections.Generic.List{YSWL.DBUtility.CommandInfo},System.Collections.Generic.List{YSWL.DBUtility.CommandInfo})">
+            <summary>
+            执行Sql和Oracle滴混合事务
+            </summary>
+            <param name="list">SQL命令行列表</param>
+            <param name="oracleCmdSqlList">Oracle命令行列表</param>
+            <returns>执行结果 0-由于SQL造成事务失败 -1 由于Oracle造成事务失败 1-整体事务执行成功</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBBase.ExecuteSqlTran(System.Collections.Generic.List{System.String})">
+            <summary>
+            执行多条SQL语句，实现数据库事务。
+            </summary>
+            <param name="SQLStringList">多条SQL语句</param>		
+        </member>
+        <member name="M:YSWL.DBUtility.DBBase.ExecuteSql(System.String,System.String)">
+            <summary>
+            执行带一个存储过程参数的的SQL语句。
+            </summary>
+            <param name="SQLString">SQL语句</param>
+            <param name="content">参数内容,比如一个字段是格式复杂的文章，有特殊符号，可以通过这个方式添加</param>
+            <returns>影响的记录数</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBBase.ExecuteSqlGet(System.String,System.String)">
+            <summary>
+            执行带一个存储过程参数的的SQL语句。
+            </summary>
+            <param name="SQLString">SQL语句</param>
+            <param name="content">参数内容,比如一个字段是格式复杂的文章，有特殊符号，可以通过这个方式添加</param>
+            <returns>影响的记录数</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBBase.ExecuteSqlInsertImg(System.String,System.Byte[])">
+            <summary>
+            向数据库里插入图像格式的字段(和上面情况类似的另一种实例)
+            </summary>
+            <param name="strSQL">SQL语句</param>
+            <param name="fs">图像字节,数据库的字段类型为image的情况</param>
+            <returns>影响的记录数</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBBase.GetSingle(System.String)">
+            <summary>
+            执行一条计算查询结果语句，返回查询结果（object）。
+            </summary>
+            <param name="SQLString">计算查询结果语句</param>
+            <returns>查询结果（object）</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBBase.ExecuteReader(System.String)">
+            <summary>
+            执行查询语句，返回SqlDataReader ( 注意：调用该方法后，一定要对SqlDataReader进行Close )
+            </summary>
+            <param name="strSQL">查询语句</param>
+            <returns>SqlDataReader</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBBase.Query(System.String)">
+            <summary>
+            执行查询语句，返回DataSet
+            </summary>
+            <param name="SQLString">查询语句</param>
+            <returns>DataSet</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBBase.ExecuteSql(System.String,System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            执行SQL语句，返回影响的记录数
+            </summary>
+            <param name="SQLString">SQL语句</param>
+            <returns>影响的记录数</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBBase.ExecuteSqlTran(System.Collections.Hashtable)">
+            <summary>
+            执行多条SQL语句，实现数据库事务。
+            </summary>
+            <param name="SQLStringList">SQL语句的哈希表（key为sql语句，value是该语句的SqlParameter[]）</param>
+        </member>
+        <member name="M:YSWL.DBUtility.DBBase.ExecuteSqlTran(System.Collections.Generic.List{YSWL.DBUtility.CommandInfo})">
+            <summary>
+            执行多条SQL语句，实现数据库事务。
+            </summary>
+            <param name="SQLStringList">SQL语句的哈希表（key为sql语句，value是该语句的SqlParameter[]）</param>
+        </member>
+        <member name="M:YSWL.DBUtility.DBBase.ExecuteSqlTran4Indentity(System.Collections.Generic.List{YSWL.DBUtility.CommandInfo})">
+            <summary>
+            执行多条SQL语句，实现数据库事务。
+            </summary>
+            <param name="cmdList">SQL语句的CommandInfo</param>
+            <remarks>只使用了CommandInfo-EffentNextType.ExcuteEffectRows, 其它项暂不支持</remarks>
+        </member>
+        <member name="M:YSWL.DBUtility.DBBase.ExecuteSqlTran4Indentity(System.Collections.Generic.List{YSWL.DBUtility.CommandInfo},System.Data.SqlClient.SqlTransaction)">
+            <summary>
+            执行多条SQL语句，实现数据库事务。
+            </summary>
+            <param name="cmdList">SQL语句的CommandInfo</param>
+            <param name="trans">外部事务对象</param>
+            <remarks>警告:内部不触发事务的提交和回滚</remarks>
+            <remarks>只使用了CommandInfo-EffentNextType.ExcuteEffectRows, 其它项暂不支持</remarks>
+        </member>
+        <member name="M:YSWL.DBUtility.DBBase.ExecuteSqlTranWithIndentity(System.Collections.Generic.List{YSWL.DBUtility.CommandInfo})">
+            <summary>
+            执行多条SQL语句，实现数据库事务。[已过时, 请使用ExecuteSqlTran4Indentity]
+            </summary>
+            <param name="SQLStringList">SQL语句的哈希表（key为sql语句，value是该语句的SqlParameter[]）</param>
+        </member>
+        <member name="M:YSWL.DBUtility.DBBase.ExecuteSqlTranWithIndentity(System.Collections.Hashtable)">
+            <summary>
+            执行多条SQL语句，实现数据库事务。
+            </summary>
+            <param name="SQLStringList">SQL语句的哈希表（key为sql语句，value是该语句的SqlParameter[]）</param>
+        </member>
+        <member name="M:YSWL.DBUtility.DBBase.GetSingle(System.String,System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            执行一条计算查询结果语句，返回查询结果（object）。
+            </summary>
+            <param name="SQLString">计算查询结果语句</param>
+            <returns>查询结果（object）</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBBase.GetSingle4Trans(YSWL.DBUtility.CommandInfo,System.Data.SqlClient.SqlTransaction)">
+            <summary>
+            执行一条计算查询结果语句，返回查询结果（object）。
+            </summary>
+            <param name="commandInfo">SQL语句的CommandInfo</param>
+            <param name="trans">外部事务对象</param>
+            <remarks>警告: 内部无异常处理和using语句, 请务必在外部实现</remarks>
+            <returns>查询结果（object）</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBBase.ExecuteReader(System.String,System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            执行查询语句，返回SqlDataReader ( 注意：调用该方法后，一定要对SqlDataReader进行Close )
+            </summary>
+            <param name="strSQL">查询语句</param>
+            <returns>SqlDataReader</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBBase.Query(System.String,System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            执行查询语句，返回DataSet
+            </summary>
+            <param name="SQLString">查询语句</param>
+            <returns>DataSet</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBBase.RunProcedure(System.String,System.Data.IDataParameter[])">
+            <summary>
+            执行存储过程，返回SqlDataReader ( 注意：调用该方法后，一定要对SqlDataReader进行Close )
+            </summary>
+            <param name="storedProcName">存储过程名</param>
+            <param name="parameters">存储过程参数</param>
+            <returns>SqlDataReader</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBBase.RunProcedure(System.String,System.Data.IDataParameter[],System.String)">
+            <summary>
+            执行存储过程
+            </summary>
+            <param name="storedProcName">存储过程名</param>
+            <param name="parameters">存储过程参数</param>
+            <param name="tableName">DataSet结果中的表名</param>
+            <returns>DataSet</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBBase.RunProcedure(System.String,System.Data.IDataParameter[],System.String,System.Int32@)">
+            <summary>
+            执行存储过程
+            </summary>
+            <param name="storedProcName">存储过程名</param>
+            <param name="parameters">存储过程参数</param>
+            <param name="tableName">DataSet结果中的表名</param>
+            <returns>DataSet</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBBase.RunProcedure(System.String,System.Data.IDataParameter[],System.Int32@)">
+            <summary>
+            执行存储过程，返回影响的行数		
+            </summary>
+            <param name="storedProcName">存储过程名</param>
+            <param name="parameters">存储过程参数</param>
+            <param name="rowsAffected">影响的行数</param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBBase.ExecuteSql(System.String,System.String,System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            执行SQL语句，返回影响的记录数
+            </summary>
+            <param name="SQLString">SQL语句</param>
+            <param name="strConnectionString">连接字符串</param>
+            <returns>影响的记录数</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBBase.Query(System.String,System.String)">
+            <summary>
+            执行查询语句，返回DataSet
+            </summary>
+            <param name="SQLString">查询语句</param>
+            <param name="strConnectionString">连接字符串</param>
+            <returns>DataSet</returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:YSWL.DBUtility.DBBase.CreateInParam(System.String,System.Data.SqlDbType,System.Int32,System.Object)" -->
+        <member name="M:YSWL.DBUtility.DBBase.CreateOutParam(System.String,System.Data.SqlDbType,System.Int32)">
+            <summary>
+            创建输出类型参数
+            </summary>
+            <param name="ParamName">参数名称</param>
+            <param name="DbType">参数类型</param>
+            <param name="Size">参数大小</param>
+            <returns>新的 parameter 对象</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBBase.CreateInputOutParam(System.String,System.Data.SqlDbType,System.Int32,System.Object)">
+            <summary>
+            创建输出类型参数
+            </summary>
+            <param name="ParamName">参数名称</param>
+            <param name="DbType">参数类型</param>
+            <param name="Size">参数大小</param>
+            <returns>新的 parameter 对象</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBBase.CreateReturnParam(System.String,System.Data.SqlDbType,System.Int32)">
+            <summary>
+            创建返回类型参数
+            </summary>
+            <param name="ParamName">参数名称</param>
+            <param name="DbType">参数类型</param>
+            <param name="Size">参数大小</param>
+            <returns>新的 parameter 对象</returns>
+        </member>
+        <member name="T:YSWL.DBUtility.DBFactory">
+            <summary>
+            数据库工厂（根据配置创建具体数据库对象）
+            </summary>
+        </member>
+        <member name="F:YSWL.DBUtility.DBFactory.dbObjects">
+            <summary>
+            具体链接对象内存字典
+            </summary>
+        </member>
+        <member name="M:YSWL.DBUtility.DBFactory.InitDBFactory">
+            <summary>
+            初始化字典
+            </summary>
+        </member>
+        <member name="M:YSWL.DBUtility.DBFactory.CreateDBObject(System.String)">
+            <summary>
+            根据配置获取具体操作底层数据库对象
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="T:YSWL.DBUtility.DBHelper">
+            <summary>
+            数据库辅助类（所有操作库的地方全部通过DBHelper）
+            </summary>
+        </member>
+        <member name="F:YSWL.DBUtility.DBHelper.dbObjectKey">
+            <summary>
+            具体目标数据操作层程序集配置信息
+            </summary>
+        </member>
+        <member name="P:YSWL.DBUtility.DBHelper.DefaultDBHelper">
+            <summary>
+            全局的DBHelper辅助类
+            </summary>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelper.GetDBObject">
+            <summary>
+            获取具体的数据库操作对象
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelper.ColumnExists(System.String,System.String)">
+            <summary>
+            判断是否存在某表的某个字段
+            </summary>
+            <param name="tableName">表名称</param>
+            <param name="columnName">列名称</param>
+            <returns>是否存在</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelper.TabExists(System.String)">
+            <summary>
+            表是否存在
+            </summary>
+            <param name="TableName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelper.ExecuteSql(System.String)">
+            <summary>
+            执行SQL语句，返回影响的记录数
+            </summary>
+            <param name="SQLString">SQL语句</param>
+            <returns>影响的记录数</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelper.ExecuteSqlTran(System.Collections.Generic.List{YSWL.DBUtility.CommandInfo},System.Collections.Generic.List{YSWL.DBUtility.CommandInfo})">
+            <summary>
+            执行Sql和Oracle滴混合事务
+            </summary>
+            <param name="list">SQL命令行列表</param>
+            <param name="oracleCmdSqlList">Oracle命令行列表</param>
+            <returns>执行结果 0-由于SQL造成事务失败 -1 由于Oracle造成事务失败 1-整体事务执行成功</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelper.ExecuteSqlTran(System.Collections.Generic.List{System.String})">
+            <summary>
+            执行多条SQL语句，实现数据库事务。
+            </summary>
+            <param name="SQLStringList">多条SQL语句</param>		
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelper.ExecuteSql(System.String,System.String)">
+            <summary>
+            执行带一个存储过程参数的的SQL语句。
+            </summary>
+            <param name="SQLString">SQL语句</param>
+            <param name="content">参数内容,比如一个字段是格式复杂的文章，有特殊符号，可以通过这个方式添加</param>
+            <returns>影响的记录数</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelper.ExecuteSqlGet(System.String,System.String)">
+            <summary>
+            执行带一个存储过程参数的的SQL语句。
+            </summary>
+            <param name="SQLString">SQL语句</param>
+            <param name="content">参数内容,比如一个字段是格式复杂的文章，有特殊符号，可以通过这个方式添加</param>
+            <returns>影响的记录数</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelper.ExecuteSqlInsertImg(System.String,System.Byte[])">
+            <summary>
+            向数据库里插入图像格式的字段(和上面情况类似的另一种实例)
+            </summary>
+            <param name="strSQL">SQL语句</param>
+            <param name="fs">图像字节,数据库的字段类型为image的情况</param>
+            <returns>影响的记录数</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelper.GetSingle(System.String)">
+            <summary>
+            执行一条计算查询结果语句，返回查询结果（object）。
+            </summary>
+            <param name="SQLString">计算查询结果语句</param>
+            <returns>查询结果（object）</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelper.ExecuteReader(System.String)">
+            <summary>
+            执行查询语句，返回SqlDataReader ( 注意：调用该方法后，一定要对SqlDataReader进行Close )
+            </summary>
+            <param name="strSQL">查询语句</param>
+            <returns>SqlDataReader</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelper.Query(System.String)">
+            <summary>
+            执行查询语句，返回DataSet
+            </summary>
+            <param name="SQLString">查询语句</param>
+            <returns>DataSet</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelper.ExecuteSql(System.String,System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            执行SQL语句，返回影响的记录数
+            </summary>
+            <param name="SQLString">SQL语句</param>
+            <returns>影响的记录数</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelper.ExecuteSqlTran(System.Collections.Hashtable)">
+            <summary>
+            执行多条SQL语句，实现数据库事务。
+            </summary>
+            <param name="SQLStringList">SQL语句的哈希表（key为sql语句，value是该语句的SqlParameter[]）</param>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelper.ExecuteSqlTran(System.Collections.Generic.List{YSWL.DBUtility.CommandInfo})">
+            <summary>
+            执行多条SQL语句，实现数据库事务。
+            </summary>
+            <param name="SQLStringList">SQL语句的哈希表（key为sql语句，value是该语句的SqlParameter[]）</param>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelper.ExecuteSqlTran4Indentity(System.Collections.Generic.List{YSWL.DBUtility.CommandInfo})">
+            <summary>
+            执行多条SQL语句，实现数据库事务。
+            </summary>
+            <param name="cmdList">SQL语句的CommandInfo</param>
+            <remarks>只使用了CommandInfo-EffentNextType.ExcuteEffectRows, 其它项暂不支持</remarks>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelper.ExecuteSqlTran4Indentity(System.Collections.Generic.List{YSWL.DBUtility.CommandInfo},System.Data.SqlClient.SqlTransaction)">
+            <summary>
+            执行多条SQL语句，实现数据库事务。
+            </summary>
+            <param name="cmdList">SQL语句的CommandInfo</param>
+            <param name="trans">外部事务对象</param>
+            <remarks>警告:内部不触发事务的提交和回滚</remarks>
+            <remarks>只使用了CommandInfo-EffentNextType.ExcuteEffectRows, 其它项暂不支持</remarks>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelper.ExecuteSqlTranWithIndentity(System.Collections.Generic.List{YSWL.DBUtility.CommandInfo})">
+            <summary>
+            执行多条SQL语句，实现数据库事务。[已过时, 请使用ExecuteSqlTran4Indentity]
+            </summary>
+            <param name="SQLStringList">SQL语句的哈希表（key为sql语句，value是该语句的SqlParameter[]）</param>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelper.ExecuteSqlTranWithIndentity(System.Collections.Hashtable)">
+            <summary>
+            执行多条SQL语句，实现数据库事务。
+            </summary>
+            <param name="SQLStringList">SQL语句的哈希表（key为sql语句，value是该语句的SqlParameter[]）</param>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelper.GetSingle(System.String,System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            执行一条计算查询结果语句，返回查询结果（object）。
+            </summary>
+            <param name="SQLString">计算查询结果语句</param>
+            <returns>查询结果（object）</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelper.GetSingle4Trans(YSWL.DBUtility.CommandInfo,System.Data.SqlClient.SqlTransaction)">
+            <summary>
+            执行一条计算查询结果语句，返回查询结果（object）。
+            </summary>
+            <param name="commandInfo">SQL语句的CommandInfo</param>
+            <param name="trans">外部事务对象</param>
+            <remarks>警告: 内部无异常处理和using语句, 请务必在外部实现</remarks>
+            <returns>查询结果（object）</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelper.ExecuteReader(System.String,System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            执行查询语句，返回SqlDataReader ( 注意：调用该方法后，一定要对SqlDataReader进行Close )
+            </summary>
+            <param name="strSQL">查询语句</param>
+            <returns>SqlDataReader</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelper.Query(System.String,System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            执行查询语句，返回DataSet
+            </summary>
+            <param name="SQLString">查询语句</param>
+            <returns>DataSet</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelper.RunProcedure(System.String,System.Data.IDataParameter[])">
+            <summary>
+            执行存储过程，返回SqlDataReader ( 注意：调用该方法后，一定要对SqlDataReader进行Close )
+            </summary>
+            <param name="storedProcName">存储过程名</param>
+            <param name="parameters">存储过程参数</param>
+            <returns>SqlDataReader</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelper.RunProcedure(System.String,System.Data.IDataParameter[],System.String)">
+            <summary>
+            执行存储过程
+            </summary>
+            <param name="storedProcName">存储过程名</param>
+            <param name="parameters">存储过程参数</param>
+            <param name="tableName">DataSet结果中的表名</param>
+            <returns>DataSet</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelper.RunProcedure(System.String,System.Data.IDataParameter[],System.String,System.Int32@)">
+            <summary>
+            执行存储过程
+            </summary>
+            <param name="storedProcName">存储过程名</param>
+            <param name="parameters">存储过程参数</param>
+            <param name="tableName">DataSet结果中的表名</param>
+            <returns>DataSet</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelper.RunProcedure(System.String,System.Data.IDataParameter[],System.Data.DataSet,System.String)">
+            <summary>
+            执行存储过程，将结果集添加到现有的DataSet中。
+            Takes an -existing- dataset and fills the given table name with the results
+            of the stored procedure.
+            </summary>
+            <param name="storedProcName"></param>
+            <param name="parameters"></param>
+            <param name="dataSet"></param>
+            <param name="tableName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelper.RunProcedure(System.String,System.Data.IDataParameter[],System.Int32@)">
+            <summary>
+            执行存储过程，返回影响的行数		
+            </summary>
+            <param name="storedProcName">存储过程名</param>
+            <param name="parameters">存储过程参数</param>
+            <param name="rowsAffected">影响的行数</param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelper.ExecuteSql(System.String,System.String,System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            执行SQL语句，返回影响的记录数
+            </summary>
+            <param name="SQLString">SQL语句</param>
+            <param name="strConnectionString">连接字符串</param>
+            <returns>影响的记录数</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelper.Query(System.String,System.String)">
+            <summary>
+            执行查询语句，返回DataSet
+            </summary>
+            <param name="SQLString">查询语句</param>
+            <param name="strConnectionString">连接字符串</param>
+            <returns>DataSet</returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:YSWL.DBUtility.DBHelper.CreateInParam(System.String,System.Data.SqlDbType,System.Int32,System.Object)" -->
+        <member name="M:YSWL.DBUtility.DBHelper.CreateOutParam(System.String,System.Data.SqlDbType,System.Int32)">
+            <summary>
+            创建输出类型参数
+            </summary>
+            <param name="ParamName">参数名称</param>
+            <param name="DbType">参数类型</param>
+            <param name="Size">参数大小</param>
+            <returns>新的 parameter 对象</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelper.CreateInputOutParam(System.String,System.Data.SqlDbType,System.Int32,System.Object)">
+            <summary>
+            创建输出类型参数
+            </summary>
+            <param name="ParamName">参数名称</param>
+            <param name="DbType">参数类型</param>
+            <param name="Size">参数大小</param>
+            <returns>新的 parameter 对象</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelper.CreateReturnParam(System.String,System.Data.SqlDbType,System.Int32)">
+            <summary>
+            创建返回类型参数
+            </summary>
+            <param name="ParamName">参数名称</param>
+            <param name="DbType">参数类型</param>
+            <param name="Size">参数大小</param>
+            <returns>新的 parameter 对象</returns>
+        </member>
+        <member name="T:YSWL.DBUtility.DBHelperByMall">
+            <summary>
+             add by zzy
+            </summary>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelperByMall.AttachParameters(System.Data.SqlClient.SqlCommand,System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            将SqlParameter参数数组(参数值)分配给SqlCommand命令.
+            这个方法将给任何一个参数分配DBNull.Value;
+            该操作将阻止默认值的使用.
+            </summary>
+            <param name="command">命令名</param>
+            <param name="commandParameters">SqlParameters数组</param>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelperByMall.AssignParameterValues(System.Data.SqlClient.SqlParameter[],System.Data.DataRow)">
+            <summary>
+            将DataRow类型的列值分配到SqlParameter参数数组.
+            </summary>
+            <param name="commandParameters">要分配值的SqlParameter参数数组</param>
+            <param name="dataRow">将要分配给存储过程参数的DataRow</param>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelperByMall.AssignParameterValues(System.Data.SqlClient.SqlParameter[],System.Object[])">
+            <summary>
+            将一个对象数组分配给SqlParameter参数数组.
+            </summary>
+            <param name="commandParameters">要分配值的SqlParameter参数数组</param>
+            <param name="parameterValues">将要分配给存储过程参数的对象数组</param>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelperByMall.PrepareCommand(System.Data.SqlClient.SqlCommand,System.Data.SqlClient.SqlConnection,System.Data.SqlClient.SqlTransaction,System.Data.CommandType,System.String,System.Data.SqlClient.SqlParameter[],System.Boolean@)">
+            <summary>
+            预处理用户提供的命令,数据库连接/事务/命令类型/参数
+            </summary>
+            <param name="command">要处理的SqlCommand</param>
+            <param name="connection">数据库连接</param>
+            <param name="transaction">一个有效的事务或者是null值</param>
+            <param name="commandType">命令类型 (存储过程,命令文本, 其它.)</param>
+            <param name="commandText">存储过程名或都T-SQL命令文本</param>
+            <param name="commandParameters">和命令相关联的SqlParameter参数数组,如果没有参数为'null'</param>
+            <param name="mustCloseConnection"><c>true</c> 如果连接是打开的,则为true,其它情况下为false.</param>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelperByMall.ExecuteNonQuery(System.String,System.Data.CommandType,System.String)">
+            <summary>
+            执行指定连接字符串,类型的SqlCommand.
+            </summary>
+            <remarks>
+            示例:  
+             int result = ExecuteNonQuery(connString, CommandType.StoredProcedure, "PublishOrders");
+            </remarks>
+            <param name="connectionString">一个有效的数据库连接字符串</param>
+            <param name="commandType">命令类型 (存储过程,命令文本, 其它.)</param>
+            <param name="commandText">存储过程名称或SQL语句</param>
+            <returns>返回命令影响的行数</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelperByMall.ExecuteNonQuery(System.String,System.Data.CommandType,System.String,System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            执行指定连接字符串,类型的SqlCommand.如果没有提供参数,不返回结果.
+            </summary>
+            <remarks>
+            示例:  
+             int result = ExecuteNonQuery(connString, CommandType.StoredProcedure, "PublishOrders", new SqlParameter("@prodid", 24));
+            </remarks>
+            <param name="connectionString">一个有效的数据库连接字符串</param>
+            <param name="commandType">命令类型 (存储过程,命令文本, 其它.)</param>
+            <param name="commandText">存储过程名称或SQL语句</param>
+            <param name="commandParameters">SqlParameter参数数组</param>
+            <returns>返回命令影响的行数</returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:YSWL.DBUtility.DBHelperByMall.ExecuteNonQuery(System.String,System.String,System.Object[])" -->
+        <member name="M:YSWL.DBUtility.DBHelperByMall.ExecuteNonQuery(System.Data.SqlClient.SqlConnection,System.Data.CommandType,System.String)">
+            <summary>
+            执行指定数据库连接对象的命令 
+            </summary>
+            <remarks>
+            示例:  
+             int result = ExecuteNonQuery(conn, CommandType.StoredProcedure, "PublishOrders");
+            </remarks>
+            <param name="connection">一个有效的数据库连接对象</param>
+            <param name="commandType">命令类型(存储过程,命令文本或其它.)</param>
+            <param name="commandText">存储过程名称或T-SQL语句</param>
+            <returns>返回影响的行数</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelperByMall.ExecuteNonQuery(System.Data.SqlClient.SqlConnection,System.Data.CommandType,System.String,System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            执行指定数据库连接对象的命令
+            </summary>
+            <remarks>
+            示例:  
+             int result = ExecuteNonQuery(conn, CommandType.StoredProcedure, "PublishOrders", new SqlParameter("@prodid", 24));
+            </remarks>
+            <param name="connection">一个有效的数据库连接对象</param>
+            <param name="commandType">命令类型(存储过程,命令文本或其它.)</param>
+            <param name="commandText">T存储过程名称或T-SQL语句</param>
+            <param name="commandParameters">SqlParamter参数数组</param>
+            <returns>返回影响的行数</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelperByMall.ExecuteNonQuery(System.Data.SqlClient.SqlConnection,System.String,System.Object[])">
+            <summary>
+            执行指定数据库连接对象的命令,将对象数组的值赋给存储过程参数.
+            </summary>
+            <remarks>
+            此方法不提供访问存储过程输出参数和返回值
+            示例:  
+             int result = ExecuteNonQuery(conn, "PublishOrders", 24, 36);
+            </remarks>
+            <param name="connection">一个有效的数据库连接对象</param>
+            <param name="spName">存储过程名</param>
+            <param name="parameterValues">分配给存储过程输入参数的对象数组</param>
+            <returns>返回影响的行数</returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:YSWL.DBUtility.DBHelperByMall.ExecuteNonQuery(System.Data.SqlClient.SqlTransaction,System.Data.CommandType,System.String)" -->
+        <member name="M:YSWL.DBUtility.DBHelperByMall.ExecuteNonQuery(System.Data.SqlClient.SqlTransaction,System.Data.CommandType,System.String,System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            执行带事务的SqlCommand(指定参数).
+            </summary>
+            <remarks>
+            示例:  
+             int result = ExecuteNonQuery(trans, CommandType.StoredProcedure, "GetOrders", new SqlParameter("@prodid", 24));
+            </remarks>
+            <param name="transaction">一个有效的数据库连接对象</param>
+            <param name="commandType">命令类型(存储过程,命令文本或其它.)</param>
+            <param name="commandText">存储过程名称或T-SQL语句</param>
+            <param name="commandParameters">SqlParamter参数数组</param>
+            <returns>返回影响的行数</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelperByMall.ExecuteNonQuery(System.Data.SqlClient.SqlTransaction,System.String,System.Object[])">
+            <summary>
+            执行带事务的SqlCommand(指定参数值).
+            </summary>
+            <remarks>
+            此方法不提供访问存储过程输出参数和返回值
+            示例:  
+             int result = ExecuteNonQuery(conn, trans, "PublishOrders", 24, 36);
+            </remarks>
+            <param name="transaction">一个有效的数据库连接对象</param>
+            <param name="spName">存储过程名</param>
+            <param name="parameterValues">分配给存储过程输入参数的对象数组</param>
+            <returns>返回受影响的行数</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelperByMall.ExecuteDataset(System.String,System.Data.CommandType,System.String)">
+            <summary>
+            执行指定数据库连接字符串的命令,返回DataSet.
+            </summary>
+            <remarks>
+            示例:  
+             DataSet ds = ExecuteDataset(connString, CommandType.StoredProcedure, "GetOrders");
+            </remarks>
+            <param name="connectionString">一个有效的数据库连接字符串</param>
+            <param name="commandType">命令类型 (存储过程,命令文本或其它)</param>
+            <param name="commandText">存储过程名称或T-SQL语句</param>
+            <returns>返回一个包含结果集的DataSet</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelperByMall.ExecuteDataset(System.String,System.Data.CommandType,System.String,System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            执行指定数据库连接字符串的命令,返回DataSet.
+            </summary>
+            <remarks>
+            示例: 
+             DataSet ds = ExecuteDataset(connString, CommandType.StoredProcedure, "GetOrders", new SqlParameter("@prodid", 24));
+            </remarks>
+            <param name="connectionString">一个有效的数据库连接字符串</param>
+            <param name="commandType">命令类型 (存储过程,命令文本或其它)</param>
+            <param name="commandText">存储过程名称或T-SQL语句</param>
+            <param name="commandParameters">SqlParamters参数数组</param>
+            <returns>返回一个包含结果集的DataSet</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelperByMall.ExecuteDataset(System.String,System.String,System.Object[])">
+            <summary>
+            执行指定数据库连接字符串的命令,直接提供参数值,返回DataSet.
+            </summary>
+            <remarks>
+            此方法不提供访问存储过程输出参数和返回值.
+            示例: 
+             DataSet ds = ExecuteDataset(connString, "GetOrders", 24, 36);
+            </remarks>
+            <param name="connectionString">一个有效的数据库连接字符串</param>
+            <param name="spName">存储过程名</param>
+            <param name="parameterValues">分配给存储过程输入参数的对象数组</param>
+            <returns>返回一个包含结果集的DataSet</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelperByMall.ExecuteDataset(System.Data.SqlClient.SqlConnection,System.Data.CommandType,System.String)">
+            <summary>
+            执行指定数据库连接对象的命令,返回DataSet.
+            </summary>
+            <remarks>
+            示例:  
+             DataSet ds = ExecuteDataset(conn, CommandType.StoredProcedure, "GetOrders");
+            </remarks>
+            <param name="connection">一个有效的数据库连接对象</param>
+            <param name="commandType">命令类型 (存储过程,命令文本或其它)</param>
+            <param name="commandText">存储过程名或T-SQL语句</param>
+            <returns>返回一个包含结果集的DataSet</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelperByMall.ExecuteDataset(System.Data.SqlClient.SqlConnection,System.Data.CommandType,System.String,System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            执行指定数据库连接对象的命令,指定存储过程参数,返回DataSet.
+            </summary>
+            <remarks>
+            示例:  
+             DataSet ds = ExecuteDataset(conn, CommandType.StoredProcedure, "GetOrders", new SqlParameter("@prodid", 24));
+            </remarks>
+            <param name="connection">一个有效的数据库连接对象</param>
+            <param name="commandType">命令类型 (存储过程,命令文本或其它)</param>
+            <param name="commandText">存储过程名或T-SQL语句</param>
+            <param name="commandParameters">SqlParamter参数数组</param>
+            <returns>返回一个包含结果集的DataSet</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelperByMall.ExecuteDataset(System.Data.SqlClient.SqlConnection,System.String,System.Object[])">
+            <summary>
+            执行指定数据库连接对象的命令,指定参数值,返回DataSet.
+            </summary>
+            <remarks>
+            此方法不提供访问存储过程输入参数和返回值.
+            示例.:  
+             DataSet ds = ExecuteDataset(conn, "GetOrders", 24, 36);
+            </remarks>
+            <param name="connection">一个有效的数据库连接对象</param>
+            <param name="spName">存储过程名</param>
+            <param name="parameterValues">分配给存储过程输入参数的对象数组</param>
+            <returns>返回一个包含结果集的DataSet</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelperByMall.ExecuteDataset(System.Data.SqlClient.SqlTransaction,System.Data.CommandType,System.String)">
+            <summary>
+            执行指定事务的命令,返回DataSet.
+            </summary>
+            <remarks>
+            示例:  
+             DataSet ds = ExecuteDataset(trans, CommandType.StoredProcedure, "GetOrders");
+            </remarks>
+            <param name="transaction">事务</param>
+            <param name="commandType">命令类型 (存储过程,命令文本或其它)</param>
+            <param name="commandText">存储过程名或T-SQL语句</param>
+            <returns>返回一个包含结果集的DataSet</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelperByMall.ExecuteDataset(System.Data.SqlClient.SqlTransaction,System.Data.CommandType,System.String,System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            执行指定事务的命令,指定参数,返回DataSet.
+            </summary>
+            <remarks>
+            示例:  
+             DataSet ds = ExecuteDataset(trans, CommandType.StoredProcedure, "GetOrders", new SqlParameter("@prodid", 24));
+            </remarks>
+            <param name="transaction">事务</param>
+            <param name="commandType">命令类型 (存储过程,命令文本或其它)</param>
+            <param name="commandText">存储过程名或T-SQL语句</param>
+            <param name="commandParameters">SqlParamter参数数组</param>
+            <returns>返回一个包含结果集的DataSet</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelperByMall.ExecuteDataset(System.Data.SqlClient.SqlTransaction,System.String,System.Object[])">
+            <summary>
+            执行指定事务的命令,指定参数值,返回DataSet.
+            </summary>
+            <remarks>
+            此方法不提供访问存储过程输入参数和返回值.
+            示例.:  
+             DataSet ds = ExecuteDataset(trans, "GetOrders", 24, 36);
+            </remarks>
+            <param name="transaction">事务</param>
+            <param name="spName">存储过程名</param>
+            <param name="parameterValues">分配给存储过程输入参数的对象数组</param>
+            <returns>返回一个包含结果集的DataSet</returns>
+        </member>
+        <member name="T:YSWL.DBUtility.DBHelperByMall.SqlConnectionOwnership">
+            <summary>
+            枚举,标识数据库连接是由DBHelperByMall提供还是由调用者提供
+            </summary>
+        </member>
+        <member name="F:YSWL.DBUtility.DBHelperByMall.SqlConnectionOwnership.Internal">
+            <summary>由DBHelperByMall提供连接</summary>
+        </member>
+        <member name="F:YSWL.DBUtility.DBHelperByMall.SqlConnectionOwnership.External">
+            <summary>由调用者提供连接</summary>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelperByMall.ExecuteReader(System.Data.SqlClient.SqlConnection,System.Data.SqlClient.SqlTransaction,System.Data.CommandType,System.String,System.Data.SqlClient.SqlParameter[],YSWL.DBUtility.DBHelperByMall.SqlConnectionOwnership)">
+            <summary>
+            执行指定数据库连接对象的数据阅读器.
+            </summary>
+            <remarks>
+            如果是DBHelperByMall打开连接,当连接关闭DataReader也将关闭.
+            如果是调用都打开连接,DataReader由调用都管理.
+            </remarks>
+            <param name="connection">一个有效的数据库连接对象</param>
+            <param name="transaction">一个有效的事务,或者为 'null'</param>
+            <param name="commandType">命令类型 (存储过程,命令文本或其它)</param>
+            <param name="commandText">存储过程名或T-SQL语句</param>
+            <param name="commandParameters">SqlParameters参数数组,如果没有参数则为'null'</param>
+            <param name="connectionOwnership">标识数据库连接对象是由调用者提供还是由DBHelperByMall提供</param>
+            <returns>返回包含结果集的SqlDataReader</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelperByMall.ExecuteReader(System.String,System.Data.CommandType,System.String)">
+            <summary>
+            执行指定数据库连接字符串的数据阅读器.
+            </summary>
+            <remarks>
+            示例:  
+             SqlDataReader dr = ExecuteReader(connString, CommandType.StoredProcedure, "GetOrders");
+            </remarks>
+            <param name="connectionString">一个有效的数据库连接字符串</param>
+            <param name="commandType">命令类型 (存储过程,命令文本或其它)</param>
+            <param name="commandText">存储过程名或T-SQL语句</param>
+            <returns>返回包含结果集的SqlDataReader</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelperByMall.ExecuteReader(System.String,System.Data.CommandType,System.String,System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            执行指定数据库连接字符串的数据阅读器,指定参数.
+            </summary>
+            <remarks>
+            示例:  
+             SqlDataReader dr = ExecuteReader(connString, CommandType.StoredProcedure, "GetOrders", new SqlParameter("@prodid", 24));
+            </remarks>
+            <param name="connectionString">一个有效的数据库连接字符串</param>
+            <param name="commandType">命令类型 (存储过程,命令文本或其它)</param>
+            <param name="commandText">存储过程名或T-SQL语句</param>
+            <param name="commandParameters">SqlParamter参数数组(new SqlParameter("@prodid", 24))</param>
+            <returns>返回包含结果集的SqlDataReader</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelperByMall.ExecuteReader(System.String,System.String,System.Object[])">
+            <summary>
+            执行指定数据库连接字符串的数据阅读器,指定参数值.
+            </summary>
+            <remarks>
+            此方法不提供访问存储过程输出参数和返回值参数.
+            示例:  
+             SqlDataReader dr = ExecuteReader(connString, "GetOrders", 24, 36);
+            </remarks>
+            <param name="connectionString">一个有效的数据库连接字符串</param>
+            <param name="spName">存储过程名</param>
+            <param name="parameterValues">分配给存储过程输入参数的对象数组</param>
+            <returns>返回包含结果集的SqlDataReader</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelperByMall.ExecuteReader(System.Data.SqlClient.SqlConnection,System.Data.CommandType,System.String)">
+            <summary>
+            执行指定数据库连接对象的数据阅读器.
+            </summary>
+            <remarks>
+            示例:  
+             SqlDataReader dr = ExecuteReader(conn, CommandType.StoredProcedure, "GetOrders");
+            </remarks>
+            <param name="connection">一个有效的数据库连接对象</param>
+            <param name="commandType">命令类型 (存储过程,命令文本或其它)</param>
+            <param name="commandText">存储过程名或T-SQL语句</param>
+            <returns>返回包含结果集的SqlDataReader</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelperByMall.ExecuteReader(System.Data.SqlClient.SqlConnection,System.Data.CommandType,System.String,System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            [调用者方式]执行指定数据库连接对象的数据阅读器,指定参数.
+            </summary>
+            <remarks>
+            示例:  
+             SqlDataReader dr = ExecuteReader(conn, CommandType.StoredProcedure, "GetOrders", new SqlParameter("@prodid", 24));
+            </remarks>
+            <param name="connection">一个有效的数据库连接对象</param>
+            <param name="commandType">命令类型 (存储过程,命令文本或其它)</param>
+            <param name="commandText">命令类型 (存储过程,命令文本或其它)</param>
+            <param name="commandParameters">SqlParamter参数数组</param>
+            <returns>返回包含结果集的SqlDataReader</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelperByMall.ExecuteReader(System.Data.SqlClient.SqlConnection,System.String,System.Object[])">
+            <summary>
+            [调用者方式]执行指定数据库连接对象的数据阅读器,指定参数值.
+            </summary>
+            <remarks>
+            此方法不提供访问存储过程输出参数和返回值参数.
+            示例:  
+             SqlDataReader dr = ExecuteReader(conn, "GetOrders", 24, 36);
+            </remarks>
+            <param name="connection">一个有效的数据库连接对象</param>
+            <param name="spName">T存储过程名</param>
+            <param name="parameterValues">分配给存储过程输入参数的对象数组</param>
+            <returns>返回包含结果集的SqlDataReader</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelperByMall.ExecuteReader(System.Data.SqlClient.SqlTransaction,System.Data.CommandType,System.String)">
+            <summary>
+            [调用者方式]执行指定数据库事务的数据阅读器,指定参数值.
+            </summary>
+            <remarks>
+            示例:  
+             SqlDataReader dr = ExecuteReader(trans, CommandType.StoredProcedure, "GetOrders");
+            </remarks>
+            <param name="transaction">一个有效的连接事务</param>
+            <param name="commandType">命令类型 (存储过程,命令文本或其它)</param>
+            <param name="commandText">存储过程名称或T-SQL语句</param>
+            <returns>返回包含结果集的SqlDataReader</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelperByMall.ExecuteReader(System.Data.SqlClient.SqlTransaction,System.Data.CommandType,System.String,System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            [调用者方式]执行指定数据库事务的数据阅读器,指定参数.
+            </summary>
+            <remarks>
+            示例:  
+              SqlDataReader dr = ExecuteReader(trans, CommandType.StoredProcedure, "GetOrders", new SqlParameter("@prodid", 24));
+            </remarks>
+            <param name="transaction">一个有效的连接事务</param>
+            <param name="commandType">命令类型 (存储过程,命令文本或其它)</param>
+            <param name="commandText">存储过程名称或T-SQL语句</param>
+            <param name="commandParameters">分配给命令的SqlParamter参数数组</param>
+            <returns>返回包含结果集的SqlDataReader</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelperByMall.ExecuteReader(System.Data.SqlClient.SqlTransaction,System.String,System.Object[])">
+            <summary>
+            [调用者方式]执行指定数据库事务的数据阅读器,指定参数值.
+            </summary>
+            <remarks>
+            此方法不提供访问存储过程输出参数和返回值参数.
+            
+            示例:  
+             SqlDataReader dr = ExecuteReader(trans, "GetOrders", 24, 36);
+            </remarks>
+            <param name="transaction">一个有效的连接事务</param>
+            <param name="spName">存储过程名称</param>
+            <param name="parameterValues">分配给存储过程输入参数的对象数组</param>
+            <returns>返回包含结果集的SqlDataReader</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelperByMall.ExecuteScalar(System.String,System.Data.CommandType,System.String)">
+            <summary>
+            执行指定数据库连接字符串的命令,返回结果集中的第一行第一列.
+            </summary>
+            <remarks>
+            示例:  
+             int orderCount = (int)ExecuteScalar(connString, CommandType.StoredProcedure, "GetOrderCount");
+            </remarks>
+            <param name="connectionString">一个有效的数据库连接字符串</param>
+            <param name="commandType">命令类型 (存储过程,命令文本或其它)</param>
+            <param name="commandText">存储过程名称或T-SQL语句</param>
+            <returns>返回结果集中的第一行第一列</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelperByMall.ExecuteScalar(System.String,System.Data.CommandType,System.String,System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            执行指定数据库连接字符串的命令,指定参数,返回结果集中的第一行第一列.
+            </summary>
+            <remarks>
+            示例:  
+             int orderCount = (int)ExecuteScalar(connString, CommandType.StoredProcedure, "GetOrderCount", new SqlParameter("@prodid", 24));
+            </remarks>
+            <param name="connectionString">一个有效的数据库连接字符串</param>
+            <param name="commandType">命令类型 (存储过程,命令文本或其它)</param>
+            <param name="commandText">存储过程名称或T-SQL语句</param>
+            <param name="commandParameters">分配给命令的SqlParamter参数数组</param>
+            <returns>返回结果集中的第一行第一列</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelperByMall.ExecuteScalar(System.String,System.String,System.Object[])">
+            <summary>
+            执行指定数据库连接字符串的命令,指定参数值,返回结果集中的第一行第一列.
+            </summary>
+            <remarks>
+            此方法不提供访问存储过程输出参数和返回值参数.
+            
+            示例:  
+             int orderCount = (int)ExecuteScalar(connString, "GetOrderCount", 24, 36);
+            </remarks>
+            <param name="connectionString">一个有效的数据库连接字符串</param>
+            <param name="spName">存储过程名称</param>
+            <param name="parameterValues">分配给存储过程输入参数的对象数组</param>
+            <returns>返回结果集中的第一行第一列</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelperByMall.ExecuteScalar(System.Data.SqlClient.SqlConnection,System.Data.CommandType,System.String)">
+            <summary>
+            执行指定数据库连接对象的命令,返回结果集中的第一行第一列.
+            </summary>
+            <remarks>
+            示例:  
+             int orderCount = (int)ExecuteScalar(conn, CommandType.StoredProcedure, "GetOrderCount");
+            </remarks>
+            <param name="connection">一个有效的数据库连接对象</param>
+            <param name="commandType">命令类型 (存储过程,命令文本或其它)</param>
+            <param name="commandText">存储过程名称或T-SQL语句</param>
+            <returns>返回结果集中的第一行第一列</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelperByMall.ExecuteScalar(System.Data.SqlClient.SqlConnection,System.Data.CommandType,System.String,System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            执行指定数据库连接对象的命令,指定参数,返回结果集中的第一行第一列.
+            </summary>
+            <remarks>
+            示例:  
+             int orderCount = (int)ExecuteScalar(conn, CommandType.StoredProcedure, "GetOrderCount", new SqlParameter("@prodid", 24));
+            </remarks>
+            <param name="connection">一个有效的数据库连接对象</param>
+            <param name="commandType">命令类型 (存储过程,命令文本或其它)</param>
+            <param name="commandText">存储过程名称或T-SQL语句</param>
+            <param name="commandParameters">分配给命令的SqlParamter参数数组</param>
+            <returns>返回结果集中的第一行第一列</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelperByMall.ExecuteScalar(System.Data.SqlClient.SqlConnection,System.String,System.Object[])">
+            <summary>
+            执行指定数据库连接对象的命令,指定参数值,返回结果集中的第一行第一列.
+            </summary>
+            <remarks>
+            此方法不提供访问存储过程输出参数和返回值参数.
+            
+            示例:  
+             int orderCount = (int)ExecuteScalar(conn, "GetOrderCount", 24, 36);
+            </remarks>
+            <param name="connection">一个有效的数据库连接对象</param>
+            <param name="spName">存储过程名称</param>
+            <param name="parameterValues">分配给存储过程输入参数的对象数组</param>
+            <returns>返回结果集中的第一行第一列</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelperByMall.ExecuteScalar(System.Data.SqlClient.SqlTransaction,System.Data.CommandType,System.String)">
+            <summary>
+            执行指定数据库事务的命令,返回结果集中的第一行第一列.
+            </summary>
+            <remarks>
+            示例:  
+             int orderCount = (int)ExecuteScalar(trans, CommandType.StoredProcedure, "GetOrderCount");
+            </remarks>
+            <param name="transaction">一个有效的连接事务</param>
+            <param name="commandType">命令类型 (存储过程,命令文本或其它)</param>
+            <param name="commandText">存储过程名称或T-SQL语句</param>
+            <returns>返回结果集中的第一行第一列</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelperByMall.ExecuteScalar(System.Data.SqlClient.SqlTransaction,System.Data.CommandType,System.String,System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            执行指定数据库事务的命令,指定参数,返回结果集中的第一行第一列.
+            </summary>
+            <remarks>
+            示例:  
+             int orderCount = (int)ExecuteScalar(trans, CommandType.StoredProcedure, "GetOrderCount", new SqlParameter("@prodid", 24));
+            </remarks>
+            <param name="transaction">一个有效的连接事务</param>
+            <param name="commandType">命令类型 (存储过程,命令文本或其它)</param>
+            <param name="commandText">存储过程名称或T-SQL语句</param>
+            <param name="commandParameters">分配给命令的SqlParamter参数数组</param>
+            <returns>返回结果集中的第一行第一列</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelperByMall.ExecuteScalar(System.Data.SqlClient.SqlTransaction,System.String,System.Object[])">
+            <summary>
+            执行指定数据库事务的命令,指定参数值,返回结果集中的第一行第一列.
+            </summary>
+            <remarks>
+            此方法不提供访问存储过程输出参数和返回值参数.
+            
+            示例:  
+             int orderCount = (int)ExecuteScalar(trans, "GetOrderCount", 24, 36);
+            </remarks>
+            <param name="transaction">一个有效的连接事务</param>
+            <param name="spName">存储过程名称</param>
+            <param name="parameterValues">分配给存储过程输入参数的对象数组</param>
+            <returns>返回结果集中的第一行第一列</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelperByMall.ExecuteXmlReader(System.Data.SqlClient.SqlConnection,System.Data.CommandType,System.String)">
+            <summary>
+            执行指定数据库连接对象的SqlCommand命令,并产生一个XmlReader对象做为结果集返回.
+            </summary>
+            <remarks>
+            示例:  
+             XmlReader r = ExecuteXmlReader(conn, CommandType.StoredProcedure, "GetOrders");
+            </remarks>
+            <param name="connection">一个有效的数据库连接对象</param>
+            <param name="commandType">命令类型 (存储过程,命令文本或其它)</param>
+            <param name="commandText">存储过程名称或T-SQL语句 using "FOR XML AUTO"</param>
+            <returns>返回XmlReader结果集对象.</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelperByMall.ExecuteXmlReader(System.Data.SqlClient.SqlConnection,System.Data.CommandType,System.String,System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            执行指定数据库连接对象的SqlCommand命令,并产生一个XmlReader对象做为结果集返回,指定参数.
+            </summary>
+            <remarks>
+            示例:  
+             XmlReader r = ExecuteXmlReader(conn, CommandType.StoredProcedure, "GetOrders", new SqlParameter("@prodid", 24));
+            </remarks>
+            <param name="connection">一个有效的数据库连接对象</param>
+            <param name="commandType">命令类型 (存储过程,命令文本或其它)</param>
+            <param name="commandText">存储过程名称或T-SQL语句 using "FOR XML AUTO"</param>
+            <param name="commandParameters">分配给命令的SqlParamter参数数组</param>
+            <returns>返回XmlReader结果集对象.</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelperByMall.ExecuteXmlReader(System.Data.SqlClient.SqlConnection,System.String,System.Object[])">
+            <summary>
+            执行指定数据库连接对象的SqlCommand命令,并产生一个XmlReader对象做为结果集返回,指定参数值.
+            </summary>
+            <remarks>
+            此方法不提供访问存储过程输出参数和返回值参数.
+            
+            示例:  
+             XmlReader r = ExecuteXmlReader(conn, "GetOrders", 24, 36);
+            </remarks>
+            <param name="connection">一个有效的数据库连接对象</param>
+            <param name="spName">存储过程名称 using "FOR XML AUTO"</param>
+            <param name="parameterValues">分配给存储过程输入参数的对象数组</param>
+            <returns>返回XmlReader结果集对象.</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelperByMall.ExecuteXmlReader(System.Data.SqlClient.SqlTransaction,System.Data.CommandType,System.String)">
+            <summary>
+            执行指定数据库事务的SqlCommand命令,并产生一个XmlReader对象做为结果集返回.
+            </summary>
+            <remarks>
+            示例:  
+             XmlReader r = ExecuteXmlReader(trans, CommandType.StoredProcedure, "GetOrders");
+            </remarks>
+            <param name="transaction">一个有效的连接事务</param>
+            <param name="commandType">命令类型 (存储过程,命令文本或其它)</param>
+            <param name="commandText">存储过程名称或T-SQL语句 using "FOR XML AUTO"</param>
+            <returns>返回XmlReader结果集对象.</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelperByMall.ExecuteXmlReader(System.Data.SqlClient.SqlTransaction,System.Data.CommandType,System.String,System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            执行指定数据库事务的SqlCommand命令,并产生一个XmlReader对象做为结果集返回,指定参数.
+            </summary>
+            <remarks>
+            示例:  
+             XmlReader r = ExecuteXmlReader(trans, CommandType.StoredProcedure, "GetOrders", new SqlParameter("@prodid", 24));
+            </remarks>
+            <param name="transaction">一个有效的连接事务</param>
+            <param name="commandType">命令类型 (存储过程,命令文本或其它)</param>
+            <param name="commandText">存储过程名称或T-SQL语句 using "FOR XML AUTO"</param>
+            <param name="commandParameters">分配给命令的SqlParamter参数数组</param>
+            <returns>返回XmlReader结果集对象.</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelperByMall.ExecuteXmlReader(System.Data.SqlClient.SqlTransaction,System.String,System.Object[])">
+            <summary>
+            执行指定数据库事务的SqlCommand命令,并产生一个XmlReader对象做为结果集返回,指定参数值.
+            </summary>
+            <remarks>
+            此方法不提供访问存储过程输出参数和返回值参数.
+            
+            示例:  
+             XmlReader r = ExecuteXmlReader(trans, "GetOrders", 24, 36);
+            </remarks>
+            <param name="transaction">一个有效的连接事务</param>
+            <param name="spName">存储过程名称</param>
+            <param name="parameterValues">分配给存储过程输入参数的对象数组</param>
+            <returns>返回一个包含结果集的DataSet.</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelperByMall.FillDataset(System.String,System.Data.CommandType,System.String,System.Data.DataSet,System.String[])">
+            <summary>
+            执行指定数据库连接字符串的命令,映射数据表并填充数据集.
+            </summary>
+            <remarks>
+            示例:  
+             FillDataset(connString, CommandType.StoredProcedure, "GetOrders", ds, new string[] {"orders"});
+            </remarks>
+            <param name="connectionString">一个有效的数据库连接字符串</param>
+            <param name="commandType">命令类型 (存储过程,命令文本或其它)</param>
+            <param name="commandText">存储过程名称或T-SQL语句</param>
+            <param name="dataSet">要填充结果集的DataSet实例</param>
+            <param name="tableNames">表映射的数据表数组
+            用户定义的表名 (可有是实际的表名.)</param>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelperByMall.FillDataset(System.String,System.Data.CommandType,System.String,System.Data.DataSet,System.String[],System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            执行指定数据库连接字符串的命令,映射数据表并填充数据集.指定命令参数.
+            </summary>
+            <remarks>
+            示例:  
+             FillDataset(connString, CommandType.StoredProcedure, "GetOrders", ds, new string[] {"orders"}, new SqlParameter("@prodid", 24));
+            </remarks>
+            <param name="connectionString">一个有效的数据库连接字符串</param>
+            <param name="commandType">命令类型 (存储过程,命令文本或其它)</param>
+            <param name="commandText">存储过程名称或T-SQL语句</param>
+            <param name="commandParameters">分配给命令的SqlParamter参数数组</param>
+            <param name="dataSet">要填充结果集的DataSet实例</param>
+            <param name="tableNames">表映射的数据表数组
+            用户定义的表名 (可有是实际的表名.)
+            </param>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelperByMall.FillDataset(System.String,System.String,System.Data.DataSet,System.String[],System.Object[])">
+            <summary>
+            执行指定数据库连接字符串的命令,映射数据表并填充数据集,指定存储过程参数值.
+            </summary>
+            <remarks>
+            此方法不提供访问存储过程输出参数和返回值参数.
+            
+            示例:  
+             FillDataset(connString, CommandType.StoredProcedure, "GetOrders", ds, new string[] {"orders"}, 24);
+            </remarks>
+            <param name="connectionString">一个有效的数据库连接字符串</param>
+            <param name="spName">存储过程名称</param>
+            <param name="dataSet">要填充结果集的DataSet实例</param>
+            <param name="tableNames">表映射的数据表数组
+            用户定义的表名 (可有是实际的表名.)
+            </param>    
+            <param name="parameterValues">分配给存储过程输入参数的对象数组</param>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelperByMall.FillDataset(System.Data.SqlClient.SqlConnection,System.Data.CommandType,System.String,System.Data.DataSet,System.String[])">
+            <summary>
+            执行指定数据库连接对象的命令,映射数据表并填充数据集.
+            </summary>
+            <remarks>
+            示例:  
+             FillDataset(conn, CommandType.StoredProcedure, "GetOrders", ds, new string[] {"orders"});
+            </remarks>
+            <param name="connection">一个有效的数据库连接对象</param>
+            <param name="commandType">命令类型 (存储过程,命令文本或其它)</param>
+            <param name="commandText">存储过程名称或T-SQL语句</param>
+            <param name="dataSet">要填充结果集的DataSet实例</param>
+            <param name="tableNames">表映射的数据表数组
+            用户定义的表名 (可有是实际的表名.)
+            </param>    
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelperByMall.FillDataset(System.Data.SqlClient.SqlConnection,System.Data.CommandType,System.String,System.Data.DataSet,System.String[],System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            执行指定数据库连接对象的命令,映射数据表并填充数据集,指定参数.
+            </summary>
+            <remarks>
+            示例:  
+             FillDataset(conn, CommandType.StoredProcedure, "GetOrders", ds, new string[] {"orders"}, new SqlParameter("@prodid", 24));
+            </remarks>
+            <param name="connection">一个有效的数据库连接对象</param>
+            <param name="commandType">命令类型 (存储过程,命令文本或其它)</param>
+            <param name="commandText">存储过程名称或T-SQL语句</param>
+            <param name="dataSet">要填充结果集的DataSet实例</param>
+            <param name="tableNames">表映射的数据表数组
+            用户定义的表名 (可有是实际的表名.)
+            </param>
+            <param name="commandParameters">分配给命令的SqlParamter参数数组</param>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelperByMall.FillDataset(System.Data.SqlClient.SqlConnection,System.String,System.Data.DataSet,System.String[],System.Object[])">
+            <summary>
+            执行指定数据库连接对象的命令,映射数据表并填充数据集,指定存储过程参数值.
+            </summary>
+            <remarks>
+            此方法不提供访问存储过程输出参数和返回值参数.
+            
+            示例:  
+             FillDataset(conn, "GetOrders", ds, new string[] {"orders"}, 24, 36);
+            </remarks>
+            <param name="connection">一个有效的数据库连接对象</param>
+            <param name="spName">存储过程名称</param>
+            <param name="dataSet">要填充结果集的DataSet实例</param>
+            <param name="tableNames">表映射的数据表数组
+            用户定义的表名 (可有是实际的表名.)
+            </param>
+            <param name="parameterValues">分配给存储过程输入参数的对象数组</param>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelperByMall.FillDataset(System.Data.SqlClient.SqlTransaction,System.Data.CommandType,System.String,System.Data.DataSet,System.String[])">
+            <summary>
+            执行指定数据库事务的命令,映射数据表并填充数据集.
+            </summary>
+            <remarks>
+            示例:  
+             FillDataset(trans, CommandType.StoredProcedure, "GetOrders", ds, new string[] {"orders"});
+            </remarks>
+            <param name="transaction">一个有效的连接事务</param>
+            <param name="commandType">命令类型 (存储过程,命令文本或其它)</param>
+            <param name="commandText">存储过程名称或T-SQL语句</param>
+            <param name="dataSet">要填充结果集的DataSet实例</param>
+            <param name="tableNames">表映射的数据表数组
+            用户定义的表名 (可有是实际的表名.)
+            </param>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelperByMall.FillDataset(System.Data.SqlClient.SqlTransaction,System.Data.CommandType,System.String,System.Data.DataSet,System.String[],System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            执行指定数据库事务的命令,映射数据表并填充数据集,指定参数.
+            </summary>
+            <remarks>
+            示例:  
+             FillDataset(trans, CommandType.StoredProcedure, "GetOrders", ds, new string[] {"orders"}, new SqlParameter("@prodid", 24));
+            </remarks>
+            <param name="transaction">一个有效的连接事务</param>
+            <param name="commandType">命令类型 (存储过程,命令文本或其它)</param>
+            <param name="commandText">存储过程名称或T-SQL语句</param>
+            <param name="dataSet">要填充结果集的DataSet实例</param>
+            <param name="tableNames">表映射的数据表数组
+            用户定义的表名 (可有是实际的表名.)
+            </param>
+            <param name="commandParameters">分配给命令的SqlParamter参数数组</param>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelperByMall.FillDataset(System.Data.SqlClient.SqlTransaction,System.String,System.Data.DataSet,System.String[],System.Object[])">
+            <summary>
+            执行指定数据库事务的命令,映射数据表并填充数据集,指定存储过程参数值.
+            </summary>
+            <remarks>
+            此方法不提供访问存储过程输出参数和返回值参数.
+            
+            示例:  
+             FillDataset(trans, "GetOrders", ds, new string[]{"orders"}, 24, 36);
+            </remarks>
+            <param name="transaction">一个有效的连接事务</param>
+            <param name="spName">存储过程名称</param>
+            <param name="dataSet">要填充结果集的DataSet实例</param>
+            <param name="tableNames">表映射的数据表数组
+            用户定义的表名 (可有是实际的表名.)
+            </param>
+            <param name="parameterValues">分配给存储过程输入参数的对象数组</param>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelperByMall.FillDataset(System.Data.SqlClient.SqlConnection,System.Data.SqlClient.SqlTransaction,System.Data.CommandType,System.String,System.Data.DataSet,System.String[],System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            [私有方法][内部调用]执行指定数据库连接对象/事务的命令,映射数据表并填充数据集,DataSet/TableNames/SqlParameters.
+            </summary>
+            <remarks>
+            示例:  
+             FillDataset(conn, trans, CommandType.StoredProcedure, "GetOrders", ds, new string[] {"orders"}, new SqlParameter("@prodid", 24));
+            </remarks>
+            <param name="connection">一个有效的数据库连接对象</param>
+            <param name="transaction">一个有效的连接事务</param>
+            <param name="commandType">命令类型 (存储过程,命令文本或其它)</param>
+            <param name="commandText">存储过程名称或T-SQL语句</param>
+            <param name="dataSet">要填充结果集的DataSet实例</param>
+            <param name="tableNames">表映射的数据表数组
+            用户定义的表名 (可有是实际的表名.)
+            </param>
+            <param name="commandParameters">分配给命令的SqlParamter参数数组</param>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelperByMall.UpdateDataset(System.Data.SqlClient.SqlCommand,System.Data.SqlClient.SqlCommand,System.Data.SqlClient.SqlCommand,System.Data.DataSet,System.String)">
+            <summary>
+            执行数据集更新到数据库,指定inserted, updated, or deleted命令.
+            </summary>
+            <remarks>
+            示例:  
+             UpdateDataset(conn, insertCommand, deleteCommand, updateCommand, dataSet, "Order");
+            </remarks>
+            <param name="insertCommand">[追加记录]一个有效的T-SQL语句或存储过程</param>
+            <param name="deleteCommand">[删除记录]一个有效的T-SQL语句或存储过程</param>
+            <param name="updateCommand">[更新记录]一个有效的T-SQL语句或存储过程</param>
+            <param name="dataSet">要更新到数据库的DataSet</param>
+            <param name="tableName">要更新到数据库的DataTable</param>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelperByMall.CreateCommand(System.Data.SqlClient.SqlConnection,System.String,System.String[])">
+            <summary>
+            创建SqlCommand命令,指定数据库连接对象,存储过程名和参数.
+            </summary>
+            <remarks>
+            示例:  
+             SqlCommand command = CreateCommand(conn, "AddCustomer", "CustomerID", "CustomerName");
+            </remarks>
+            <param name="connection">一个有效的数据库连接对象</param>
+            <param name="spName">存储过程名称</param>
+            <param name="sourceColumns">源表的列名称数组</param>
+            <returns>返回SqlCommand命令</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelperByMall.ExecuteNonQueryTypedParams(System.String,System.String,System.Data.DataRow)">
+            <summary>
+            执行指定连接数据库连接字符串的存储过程,使用DataRow做为参数值,返回受影响的行数.
+            </summary>
+            <param name="connectionString">一个有效的数据库连接字符串</param>
+            <param name="spName">存储过程名称</param>
+            <param name="dataRow">使用DataRow作为参数值</param>
+            <returns>返回影响的行数</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelperByMall.ExecuteNonQueryTypedParams(System.Data.SqlClient.SqlConnection,System.String,System.Data.DataRow)">
+            <summary>
+            执行指定连接数据库连接对象的存储过程,使用DataRow做为参数值,返回受影响的行数.
+            </summary>
+            <param name="connection">一个有效的数据库连接对象</param>
+            <param name="spName">存储过程名称</param>
+            <param name="dataRow">使用DataRow作为参数值</param>
+            <returns>返回影响的行数</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelperByMall.ExecuteNonQueryTypedParams(System.Data.SqlClient.SqlTransaction,System.String,System.Data.DataRow)">
+            <summary>
+            执行指定连接数据库事物的存储过程,使用DataRow做为参数值,返回受影响的行数.
+            </summary>
+            <param name="transaction">一个有效的连接事务 object</param>
+            <param name="spName">存储过程名称</param>
+            <param name="dataRow">使用DataRow作为参数值</param>
+            <returns>返回影响的行数</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelperByMall.ExecuteDatasetTypedParams(System.String,System.String,System.Data.DataRow)">
+            <summary>
+            执行指定连接数据库连接字符串的存储过程,使用DataRow做为参数值,返回DataSet.
+            </summary>
+            <param name="connectionString">一个有效的数据库连接字符串</param>
+            <param name="spName">存储过程名称</param>
+            <param name="dataRow">使用DataRow作为参数值</param>
+            <returns>返回一个包含结果集的DataSet.</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelperByMall.ExecuteDatasetTypedParams(System.Data.SqlClient.SqlConnection,System.String,System.Data.DataRow)">
+            <summary>
+            执行指定连接数据库连接对象的存储过程,使用DataRow做为参数值,返回DataSet.
+            </summary>
+            <param name="connection">一个有效的数据库连接对象</param>
+            <param name="spName">存储过程名称</param>
+            <param name="dataRow">使用DataRow作为参数值</param>
+            <returns>返回一个包含结果集的DataSet.</returns>
+            
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelperByMall.ExecuteDatasetTypedParams(System.Data.SqlClient.SqlTransaction,System.String,System.Data.DataRow)">
+            <summary>
+            执行指定连接数据库事务的存储过程,使用DataRow做为参数值,返回DataSet.
+            </summary>
+            <param name="transaction">一个有效的连接事务 object</param>
+            <param name="spName">存储过程名称</param>
+            <param name="dataRow">使用DataRow作为参数值</param>
+            <returns>返回一个包含结果集的DataSet.</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelperByMall.ExecuteReaderTypedParams(System.String,System.String,System.Data.DataRow)">
+            <summary>
+            执行指定连接数据库连接字符串的存储过程,使用DataRow做为参数值,返回DataReader.
+            </summary>
+            <param name="connectionString">一个有效的数据库连接字符串</param>
+            <param name="spName">存储过程名称</param>
+            <param name="dataRow">使用DataRow作为参数值</param>
+            <returns>返回包含结果集的SqlDataReader</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelperByMall.ExecuteReaderTypedParams(System.Data.SqlClient.SqlConnection,System.String,System.Data.DataRow)">
+            <summary>
+            执行指定连接数据库连接对象的存储过程,使用DataRow做为参数值,返回DataReader.
+            </summary>
+            <param name="connection">一个有效的数据库连接对象</param>
+            <param name="spName">存储过程名称</param>
+            <param name="dataRow">使用DataRow作为参数值</param>
+            <returns>返回包含结果集的SqlDataReader</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelperByMall.ExecuteReaderTypedParams(System.Data.SqlClient.SqlTransaction,System.String,System.Data.DataRow)">
+            <summary>
+            执行指定连接数据库事物的存储过程,使用DataRow做为参数值,返回DataReader.
+            </summary>
+            <param name="transaction">一个有效的连接事务 object</param>
+            <param name="spName">存储过程名称</param>
+            <param name="dataRow">使用DataRow作为参数值</param>
+            <returns>返回包含结果集的SqlDataReader</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelperByMall.ExecuteScalarTypedParams(System.String,System.String,System.Data.DataRow)">
+            <summary>
+            执行指定连接数据库连接字符串的存储过程,使用DataRow做为参数值,返回结果集中的第一行第一列.
+            </summary>
+            <param name="connectionString">一个有效的数据库连接字符串</param>
+            <param name="spName">存储过程名称</param>
+            <param name="dataRow">使用DataRow作为参数值</param>
+            <returns>返回结果集中的第一行第一列</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelperByMall.ExecuteScalarTypedParams(System.Data.SqlClient.SqlConnection,System.String,System.Data.DataRow)">
+            <summary>
+            执行指定连接数据库连接对象的存储过程,使用DataRow做为参数值,返回结果集中的第一行第一列.
+            </summary>
+            <param name="connection">一个有效的数据库连接对象</param>
+            <param name="spName">存储过程名称</param>
+            <param name="dataRow">使用DataRow作为参数值</param>
+            <returns>返回结果集中的第一行第一列</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelperByMall.ExecuteScalarTypedParams(System.Data.SqlClient.SqlTransaction,System.String,System.Data.DataRow)">
+            <summary>
+            执行指定连接数据库事务的存储过程,使用DataRow做为参数值,返回结果集中的第一行第一列.
+            </summary>
+            <param name="transaction">一个有效的连接事务 object</param>
+            <param name="spName">存储过程名称</param>
+            <param name="dataRow">使用DataRow作为参数值</param>
+            <returns>返回结果集中的第一行第一列</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelperByMall.ExecuteXmlReaderTypedParams(System.Data.SqlClient.SqlConnection,System.String,System.Data.DataRow)">
+            <summary>
+            执行指定连接数据库连接对象的存储过程,使用DataRow做为参数值,返回XmlReader类型的结果集.
+            </summary>
+            <param name="connection">一个有效的数据库连接对象</param>
+            <param name="spName">存储过程名称</param>
+            <param name="dataRow">使用DataRow作为参数值</param>
+            <returns>返回XmlReader结果集对象.</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelperByMall.ExecuteXmlReaderTypedParams(System.Data.SqlClient.SqlTransaction,System.String,System.Data.DataRow)">
+            <summary>
+            执行指定连接数据库事务的存储过程,使用DataRow做为参数值,返回XmlReader类型的结果集.
+            </summary>
+            <param name="transaction">一个有效的连接事务 object</param>
+            <param name="spName">存储过程名称</param>
+            <param name="dataRow">使用DataRow作为参数值</param>
+            <returns>返回XmlReader结果集对象.</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelperByMall.CreateParam(System.String,System.Data.SqlDbType,System.Int32,System.Data.ParameterDirection,System.Object)">
+            <summary>
+            创建参数
+            </summary>
+            <param name="ParamName">存储过程名称</param>
+            <param name="DbType">参数类型</param>
+            <param name="Size">参数大小</param>
+            <param name="Direction">参数方向</param>
+            <param name="Value">参数值</param>
+            <returns>新的 parameter 对象</returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:YSWL.DBUtility.DBHelperByMall.CreateInParam(System.String,System.Data.SqlDbType,System.Int32,System.Object)" -->
+        <member name="M:YSWL.DBUtility.DBHelperByMall.CreateOutParam(System.String,System.Data.SqlDbType,System.Int32)">
+            <summary>
+            创建输出类型参数
+            </summary>
+            <param name="ParamName">存储过程名称</param>
+            <param name="DbType">参数类型</param>
+            <param name="Size">参数大小</param>
+            <returns>新的 parameter 对象</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelperByMall.CreateInputOutParam(System.String,System.Data.SqlDbType,System.Int32,System.Object)">
+            <summary>
+            创建输出类型参数
+            </summary>
+            <param name="ParamName">存储过程名称</param>
+            <param name="DbType">参数类型</param>
+            <param name="Size">参数大小</param>
+            <returns>新的 parameter 对象</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DBHelperByMall.CreateReturnParam(System.String,System.Data.SqlDbType,System.Int32)">
+            <summary>
+            创建返回类型参数
+            </summary>
+            <param name="ParamName">存储过程名称</param>
+            <param name="DbType">参数类型</param>
+            <param name="Size">参数大小</param>
+            <returns>新的 parameter 对象</returns>
+        </member>
+        <member name="T:YSWL.DBUtility.SqlHelperParameterCache">
+            <summary>
+            SqlHelperParameterCache提供缓存存储过程参数,并能够在运行时从存储过程中探索参数.
+            </summary>
+        </member>
+        <member name="M:YSWL.DBUtility.SqlHelperParameterCache.DiscoverSpParameterSet(System.Data.SqlClient.SqlConnection,System.String,System.Boolean)">
+            <summary>
+            探索运行时的存储过程,返回SqlParameter参数数组.
+            初始化参数值为 DBNull.Value.
+            </summary>
+            <param name="connection">一个有效的数据库连接</param>
+            <param name="spName">存储过程名称</param>
+            <param name="includeReturnValueParameter">是否包含返回值参数</param>
+            <returns>返回SqlParameter参数数组</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.SqlHelperParameterCache.CloneParameters(System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            SqlParameter参数数组的深层拷贝.
+            </summary>
+            <param name="originalParameters">原始参数数组</param>
+            <returns>返回一个同样的参数数组</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.SqlHelperParameterCache.CacheParameterSet(System.String,System.String,System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            追加参数数组到缓存.
+            </summary>
+            <param name="connectionString">一个有效的数据库连接字符串</param>
+            <param name="commandText">存储过程名或SQL语句</param>
+            <param name="commandParameters">要缓存的参数数组</param>
+        </member>
+        <member name="M:YSWL.DBUtility.SqlHelperParameterCache.GetCachedParameterSet(System.String,System.String)">
+            <summary>
+            从缓存中获取参数数组.
+            </summary>
+            <param name="connectionString">一个有效的数据库连接字符</param>
+            <param name="commandText">存储过程名或SQL语句</param>
+            <returns>参数数组</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.SqlHelperParameterCache.GetSpParameterSet(System.String,System.String)">
+            <summary>
+            返回指定的存储过程的参数集
+            </summary>
+            <remarks>
+            这个方法将查询数据库,并将信息存储到缓存.
+            </remarks>
+            <param name="connectionString">一个有效的数据库连接字符</param>
+            <param name="spName">存储过程名</param>
+            <returns>返回SqlParameter参数数组</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.SqlHelperParameterCache.GetSpParameterSet(System.String,System.String,System.Boolean)">
+            <summary>
+            返回指定的存储过程的参数集
+            </summary>
+            <remarks>
+            这个方法将查询数据库,并将信息存储到缓存.
+            </remarks>
+            <param name="connectionString">一个有效的数据库连接字符.</param>
+            <param name="spName">存储过程名</param>
+            <param name="includeReturnValueParameter">是否包含返回值参数</param>
+            <returns>返回SqlParameter参数数组</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.SqlHelperParameterCache.GetSpParameterSet(System.Data.SqlClient.SqlConnection,System.String)">
+            <summary>
+            [内部]返回指定的存储过程的参数集(使用连接对象).
+            </summary>
+            <remarks>
+            这个方法将查询数据库,并将信息存储到缓存.
+            </remarks>
+            <param name="connection">一个有效的数据库连接字符</param>
+            <param name="spName">存储过程名</param>
+            <returns>返回SqlParameter参数数组</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.SqlHelperParameterCache.GetSpParameterSet(System.Data.SqlClient.SqlConnection,System.String,System.Boolean)">
+            <summary>
+            [内部]返回指定的存储过程的参数集(使用连接对象)
+            </summary>
+            <remarks>
+            这个方法将查询数据库,并将信息存储到缓存.
+            </remarks>
+            <param name="connection">一个有效的数据库连接对象</param>
+            <param name="spName">存储过程名</param>
+            <param name="includeReturnValueParameter">
+            是否包含返回值参数
+            </param>
+            <returns>返回SqlParameter参数数组</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.SqlHelperParameterCache.GetSpParameterSetInternal(System.Data.SqlClient.SqlConnection,System.String,System.Boolean)">
+            <summary>
+            [私有]返回指定的存储过程的参数集(使用连接对象)
+            </summary>
+            <param name="connection">一个有效的数据库连接对象</param>
+            <param name="spName">存储过程名</param>
+            <param name="includeReturnValueParameter">是否包含返回值参数</param>
+            <returns>返回SqlParameter参数数组</returns>
+        </member>
+        <member name="T:YSWL.DBUtility.DbHelperMySQL">
+            <summary>
+            数据访问基础类(基于MySQL)
+            Copyright (C) 2004-2012 By YSWL
+            </summary>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperMySQL.ExecuteSql(System.String)">
+            <summary>
+            执行SQL语句，返回影响的记录数
+            </summary>
+            <param name="SQLString">SQL语句</param>
+            <returns>影响的记录数</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperMySQL.ExecuteSqlTran(System.Collections.Generic.List{YSWL.DBUtility.CommandInfo},System.Collections.Generic.List{YSWL.DBUtility.CommandInfo})">
+            <summary>
+            执行Sql和Oracle滴混合事务
+            </summary>
+            <param name="list">SQL命令行列表</param>
+            <param name="oracleCmdSqlList">Oracle命令行列表</param>
+            <returns>执行结果 0-由于SQL造成事务失败 -1 由于Oracle造成事务失败 1-整体事务执行成功</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperMySQL.ExecuteSqlTran(System.Collections.Generic.List{System.String})">
+            <summary>
+            执行多条SQL语句，实现数据库事务。
+            </summary>
+            <param name="SQLStringList">多条SQL语句</param>		
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperMySQL.ExecuteSql(System.String,System.String)">
+            <summary>
+            执行带一个存储过程参数的的SQL语句。
+            </summary>
+            <param name="SQLString">SQL语句</param>
+            <param name="content">参数内容,比如一个字段是格式复杂的文章，有特殊符号，可以通过这个方式添加</param>
+            <returns>影响的记录数</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperMySQL.ExecuteSqlGet(System.String,System.String)">
+            <summary>
+            执行带一个存储过程参数的的SQL语句。
+            </summary>
+            <param name="SQLString">SQL语句</param>
+            <param name="content">参数内容,比如一个字段是格式复杂的文章，有特殊符号，可以通过这个方式添加</param>
+            <returns>影响的记录数</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperMySQL.ExecuteSqlInsertImg(System.String,System.Byte[])">
+            <summary>
+            向数据库里插入图像格式的字段(和上面情况类似的另一种实例)
+            </summary>
+            <param name="strSQL">SQL语句</param>
+            <param name="fs">图像字节,数据库的字段类型为image的情况</param>
+            <returns>影响的记录数</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperMySQL.GetSingle(System.String)">
+            <summary>
+            执行一条计算查询结果语句，返回查询结果（object）。
+            </summary>
+            <param name="SQLString">计算查询结果语句</param>
+            <returns>查询结果（object）</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperMySQL.ExecuteReader(System.String)">
+            <summary>
+            执行查询语句，返回MySqlDataReader ( 注意：调用该方法后，一定要对MySqlDataReader进行Close )
+            </summary>
+            <param name="strSQL">查询语句</param>
+            <returns>MySqlDataReader</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperMySQL.Query(System.String)">
+            <summary>
+            执行查询语句，返回DataSet
+            </summary>
+            <param name="SQLString">查询语句</param>
+            <returns>DataSet</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperMySQL.ExecuteSql(System.String,System.Data.Common.DbParameter[])">
+            <summary>
+            执行SQL语句，返回影响的记录数
+            </summary>
+            <param name="SQLString">SQL语句</param>
+            <returns>影响的记录数</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperMySQL.ExecuteSqlTran(System.Collections.Hashtable)">
+            <summary>
+            执行多条SQL语句，实现数据库事务。
+            </summary>
+            <param name="SQLStringList">SQL语句的哈希表（key为sql语句，value是该语句的MySqlParameter[]）</param>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperMySQL.ExecuteSqlTran(System.Collections.Generic.List{YSWL.DBUtility.CommandInfo})">
+            <summary>
+            执行多条SQL语句，实现数据库事务。
+            </summary>
+            <param name="SQLStringList">SQL语句的哈希表（key为sql语句，value是该语句的MySqlParameter[]）</param>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperMySQL.ExecuteSqlTran4Indentity(System.Collections.Generic.List{YSWL.DBUtility.CommandInfo})">
+            <summary>
+            执行多条SQL语句，实现数据库事务。
+            </summary>
+            <param name="cmdList">SQL语句的CommandInfo</param>
+            <remarks>只使用了CommandInfo-EffentNextType.ExcuteEffectRows, 其它项暂不支持</remarks>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperMySQL.ExecuteSqlTran4Indentity(System.Collections.Generic.List{YSWL.DBUtility.CommandInfo},MySql.Data.MySqlClient.MySqlTransaction)">
+            <summary>
+            执行多条SQL语句，实现数据库事务。
+            </summary>
+            <param name="cmdList">SQL语句的CommandInfo</param>
+            <param name="trans">外部事务对象</param>
+            <exception cref="T:MySql.Data.MySqlClient.MySqlException"></exception>
+            <remarks>警告:内部不触发事务的提交和回滚</remarks>
+            <remarks>只使用了CommandInfo-EffentNextType.ExcuteEffectRows, 其它项暂不支持</remarks>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperMySQL.ExecuteSqlTranWithIndentity(System.Collections.Generic.List{YSWL.DBUtility.CommandInfo})">
+            <summary>
+            执行多条SQL语句，实现数据库事务。[已过时, 请使用ExecuteSqlTran4Indentity]
+            </summary>
+            <param name="SQLStringList">SQL语句的哈希表（key为sql语句，value是该语句的SqlParameter[]）</param>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperMySQL.ExecuteSqlTranWithIndentity(System.Collections.Hashtable)">
+            <summary>
+            执行多条SQL语句，实现数据库事务。
+            </summary>
+            <param name="SQLStringList">SQL语句的哈希表（key为sql语句，value是该语句的MySqlParameter[]）</param>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperMySQL.GetSingle(System.String,System.Data.Common.DbParameter[])">
+            <summary>
+            执行一条计算查询结果语句，返回查询结果（object）。
+            </summary>
+            <param name="SQLString">计算查询结果语句</param>
+            <returns>查询结果（object）</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperMySQL.GetSingle4Trans(YSWL.DBUtility.CommandInfo,MySql.Data.MySqlClient.MySqlTransaction)">
+            <summary>
+            执行一条计算查询结果语句，返回查询结果（object）。
+            </summary>
+            <param name="commandInfo">SQL语句的CommandInfo</param>
+            <param name="trans">外部事务对象</param>
+            <remarks>警告: 内部无异常处理和using语句, 请务必在外部实现</remarks>
+            <returns>查询结果（object）</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperMySQL.ExecuteReader(System.String,System.Data.Common.DbParameter[])">
+            <summary>
+            执行查询语句，返回SqlDataReader ( 注意：调用该方法后，一定要对SqlDataReader进行Close )
+            </summary>
+            <param name="strSQL">查询语句</param>
+            <returns>MySqlDataReader</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperMySQL.Query(System.String,System.Data.Common.DbParameter[])">
+            <summary>
+            执行查询语句，返回DataSet
+            </summary>
+            <param name="SQLString">查询语句</param>
+            <returns>DataSet</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperMySQL.RunProcedure(System.String,System.Data.IDataParameter[])">
+            <summary>
+            执行存储过程，返回SqlDataReader ( 注意：调用该方法后，一定要对SqlDataReader进行Close )
+            </summary>
+            <param name="storedProcName">存储过程名</param>
+            <param name="parameters">存储过程参数</param>
+            <returns>MySqlDataReader</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperMySQL.RunProcedure(System.String,System.Data.IDataParameter[],System.String)">
+            <summary>
+            执行存储过程
+            </summary>
+            <param name="storedProcName">存储过程名</param>
+            <param name="parameters">存储过程参数</param>
+            <param name="tableName">DataSet结果中的表名</param>
+            <returns>DataSet</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperMySQL.RunProcedure(System.String,System.Data.IDataParameter[],System.String,System.Int32@)">
+            <summary>
+            执行存储过程
+            </summary>
+            <param name="storedProcName">存储过程名</param>
+            <param name="parameters">存储过程参数</param>
+            <param name="tableName">DataSet结果中的表名</param>
+            <returns>DataSet</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperMySQL.BuildQueryCommand(MySql.Data.MySqlClient.MySqlConnection,System.String,System.Data.IDataParameter[])">
+            <summary>
+            构建 MySqlCommand 对象(用来返回一个结果集，而不是一个整数值)
+            </summary>
+            <param name="connection">数据库连接</param>
+            <param name="storedProcName">存储过程名</param>
+            <param name="parameters">存储过程参数</param>
+            <returns>MySqlCommand</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperMySQL.RunProcedure(System.String,System.Data.IDataParameter[],System.Int32@)">
+            <summary>
+            执行存储过程，返回影响的行数		
+            </summary>
+            <param name="storedProcName">存储过程名</param>
+            <param name="parameters">存储过程参数</param>
+            <param name="rowsAffected">影响的行数</param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperMySQL.RunProcedure(System.String,System.Data.IDataParameter[],System.Data.DataSet,System.String)">
+            <summary>
+            执行存储过程，将结果集添加到现有的DataSet中。
+            Takes an -existing- dataset and fills the given table name with the results
+            of the stored procedure.
+            </summary>
+            <param name="storedProcName"></param>
+            <param name="parameters"></param>
+            <param name="dataSet"></param>
+            <param name="tableName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperMySQL.ExecuteSql(System.String,System.String,System.Data.Common.DbParameter[])">
+            <summary>
+            执行SQL语句，返回影响的记录数
+            </summary>
+            <param name="SQLString">SQL语句</param>
+            <param name="strConnectionString">连接字符串</param>
+            <returns>影响的记录数</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperMySQL.Query(System.String,System.String)">
+            <summary>
+            执行查询语句，返回DataSet
+            </summary>
+            <param name="SQLString">查询语句</param>
+            <param name="strConnectionString">连接字符串</param>
+            <returns>DataSet</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperMySQL.CreateParam(System.String,MySql.Data.MySqlClient.MySqlDbType,System.Int32,System.Data.ParameterDirection,System.Object)">
+            <summary>
+            创建参数
+            </summary>
+            <param name="ParamName">参数名称</param>
+            <param name="DbType">参数类型</param>
+            <param name="Size">参数大小</param>
+            <param name="Direction">参数方向</param>
+            <param name="Value">参数值</param>
+            <returns>新的 parameter 对象</returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:YSWL.DBUtility.DbHelperMySQL.CreateInParam(System.String,MySql.Data.MySqlClient.MySqlDbType,System.Int32,System.Object)" -->
+        <member name="M:YSWL.DBUtility.DbHelperMySQL.CreateOutParam(System.String,MySql.Data.MySqlClient.MySqlDbType,System.Int32)">
+            <summary>
+            创建输出类型参数
+            </summary>
+            <param name="ParamName">参数名称</param>
+            <param name="DbType">参数类型</param>
+            <param name="Size">参数大小</param>
+            <returns>新的 parameter 对象</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperMySQL.CreateInputOutParam(System.String,MySql.Data.MySqlClient.MySqlDbType,System.Int32,System.Object)">
+            <summary>
+            创建输出类型参数
+            </summary>
+            <param name="ParamName">参数名称</param>
+            <param name="DbType">参数类型</param>
+            <param name="Size">参数大小</param>
+            <returns>新的 parameter 对象</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperMySQL.CreateReturnParam(System.String,MySql.Data.MySqlClient.MySqlDbType,System.Int32)">
+            <summary>
+            创建返回类型参数
+            </summary>
+            <param name="ParamName">参数名称</param>
+            <param name="DbType">参数类型</param>
+            <param name="Size">参数大小</param>
+            <returns>新的 parameter 对象</returns>
+        </member>
+        <member name="T:YSWL.DBUtility.DbHelperOleDb">
+            <summary>
+            数据访问基础类(基于OleDb) 
+            Copyright (C) 2004-2011 YSWL
+            </summary>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperOleDb.ExecuteSql(System.String)">
+            <summary>
+            执行SQL语句，返回影响的记录数
+            </summary>
+            <param name="SQLString">SQL语句</param>
+            <returns>影响的记录数</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperOleDb.ExecuteSqlTran(System.Collections.ArrayList)">
+            <summary>
+            执行多条SQL语句，实现数据库事务。
+            </summary>
+            <param name="SQLStringList">多条SQL语句</param>		
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperOleDb.ExecuteSql(System.String,System.String)">
+            <summary>
+            执行带一个存储过程参数的的SQL语句。
+            </summary>
+            <param name="SQLString">SQL语句</param>
+            <param name="content">参数内容,比如一个字段是格式复杂的文章，有特殊符号，可以通过这个方式添加</param>
+            <returns>影响的记录数</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperOleDb.ExecuteSqlInsertImg(System.String,System.Byte[])">
+            <summary>
+            向数据库里插入图像格式的字段(和上面情况类似的另一种实例)
+            </summary>
+            <param name="strSQL">SQL语句</param>
+            <param name="fs">图像字节,数据库的字段类型为image的情况</param>
+            <returns>影响的记录数</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperOleDb.GetSingle(System.String)">
+            <summary>
+            执行一条计算查询结果语句，返回查询结果（object）。
+            </summary>
+            <param name="SQLString">计算查询结果语句</param>
+            <returns>查询结果（object）</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperOleDb.ExecuteReader(System.String)">
+            <summary>
+            执行查询语句，返回OleDbDataReader
+            </summary>
+            <param name="strSQL">查询语句</param>
+            <returns>OleDbDataReader</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperOleDb.Query(System.String)">
+            <summary>
+            执行查询语句，返回DataSet
+            </summary>
+            <param name="SQLString">查询语句</param>
+            <returns>DataSet</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperOleDb.ExecuteSql(System.String,System.Data.OleDb.OleDbParameter[])">
+            <summary>
+            执行SQL语句，返回影响的记录数
+            </summary>
+            <param name="SQLString">SQL语句</param>
+            <returns>影响的记录数</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperOleDb.ExecuteSqlTran(System.Collections.Hashtable)">
+            <summary>
+            执行多条SQL语句，实现数据库事务。
+            </summary>
+            <param name="SQLStringList">SQL语句的哈希表（key为sql语句，value是该语句的OleDbParameter[]）</param>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperOleDb.GetSingle(System.String,System.Data.OleDb.OleDbParameter[])">
+            <summary>
+            执行一条计算查询结果语句，返回查询结果（object）。
+            </summary>
+            <param name="SQLString">计算查询结果语句</param>
+            <returns>查询结果（object）</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperOleDb.ExecuteReader(System.String,System.Data.OleDb.OleDbParameter[])">
+            <summary>
+            执行查询语句，返回OleDbDataReader
+            </summary>
+            <param name="strSQL">查询语句</param>
+            <returns>OleDbDataReader</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperOleDb.Query(System.String,System.Data.OleDb.OleDbParameter[])">
+            <summary>
+            执行查询语句，返回DataSet
+            </summary>
+            <param name="SQLString">查询语句</param>
+            <returns>DataSet</returns>
+        </member>
+        <member name="T:YSWL.DBUtility.DbHelperSQL">
+            <summary>
+            数据访问基础类(基于SQLServer)
+            Copyright (C) 2004-2012 By YSWL
+            </summary>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQL.ColumnExists(System.String,System.String)">
+            <summary>
+            判断是否存在某表的某个字段
+            </summary>
+            <param name="tableName">表名称</param>
+            <param name="columnName">列名称</param>
+            <returns>是否存在</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQL.TabExists(System.String)">
+            <summary>
+            表是否存在
+            </summary>
+            <param name="TableName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQL.ExecuteSql(System.String)">
+            <summary>
+            执行SQL语句，返回影响的记录数
+            </summary>
+            <param name="SQLString">SQL语句</param>
+            <returns>影响的记录数</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQL.ExecuteSqlTran(System.Collections.Generic.List{YSWL.DBUtility.CommandInfo},System.Collections.Generic.List{YSWL.DBUtility.CommandInfo})">
+            <summary>
+            执行Sql和Oracle滴混合事务
+            </summary>
+            <param name="list">SQL命令行列表</param>
+            <param name="oracleCmdSqlList">Oracle命令行列表</param>
+            <returns>执行结果 0-由于SQL造成事务失败 -1 由于Oracle造成事务失败 1-整体事务执行成功</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQL.ExecuteSqlTran(System.Collections.Generic.List{System.String})">
+            <summary>
+            执行多条SQL语句，实现数据库事务。
+            </summary>
+            <param name="SQLStringList">多条SQL语句</param>		
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQL.ExecuteSql(System.String,System.String)">
+            <summary>
+            执行带一个存储过程参数的的SQL语句。
+            </summary>
+            <param name="SQLString">SQL语句</param>
+            <param name="content">参数内容,比如一个字段是格式复杂的文章，有特殊符号，可以通过这个方式添加</param>
+            <returns>影响的记录数</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQL.ExecuteSqlGet(System.String,System.String)">
+            <summary>
+            执行带一个存储过程参数的的SQL语句。
+            </summary>
+            <param name="SQLString">SQL语句</param>
+            <param name="content">参数内容,比如一个字段是格式复杂的文章，有特殊符号，可以通过这个方式添加</param>
+            <returns>影响的记录数</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQL.ExecuteSqlInsertImg(System.String,System.Byte[])">
+            <summary>
+            向数据库里插入图像格式的字段(和上面情况类似的另一种实例)
+            </summary>
+            <param name="strSQL">SQL语句</param>
+            <param name="fs">图像字节,数据库的字段类型为image的情况</param>
+            <returns>影响的记录数</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQL.GetSingle(System.String)">
+            <summary>
+            执行一条计算查询结果语句，返回查询结果（object）。
+            </summary>
+            <param name="SQLString">计算查询结果语句</param>
+            <returns>查询结果（object）</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQL.ExecuteReader(System.String)">
+            <summary>
+            执行查询语句，返回SqlDataReader ( 注意：调用该方法后，一定要对SqlDataReader进行Close )
+            </summary>
+            <param name="strSQL">查询语句</param>
+            <returns>SqlDataReader</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQL.Query(System.String)">
+            <summary>
+            执行查询语句，返回DataSet
+            </summary>
+            <param name="SQLString">查询语句</param>
+            <returns>DataSet</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQL.ExecuteSql(System.String,System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            执行SQL语句，返回影响的记录数
+            </summary>
+            <param name="SQLString">SQL语句</param>
+            <returns>影响的记录数</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQL.ExecuteSqlTran(System.Collections.Hashtable)">
+            <summary>
+            执行多条SQL语句，实现数据库事务。
+            </summary>
+            <param name="SQLStringList">SQL语句的哈希表（key为sql语句，value是该语句的SqlParameter[]）</param>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQL.ExecuteSqlTran(System.Collections.Generic.List{YSWL.DBUtility.CommandInfo})">
+            <summary>
+            执行多条SQL语句，实现数据库事务。
+            </summary>
+            <param name="SQLStringList">SQL语句的哈希表（key为sql语句，value是该语句的SqlParameter[]）</param>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQL.ExecuteSqlTran4Indentity(System.Collections.Generic.List{YSWL.DBUtility.CommandInfo})">
+            <summary>
+            执行多条SQL语句，实现数据库事务。
+            </summary>
+            <param name="cmdList">SQL语句的CommandInfo</param>
+            <remarks>只使用了CommandInfo-EffentNextType.ExcuteEffectRows, 其它项暂不支持</remarks>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQL.ExecuteSqlTran4Indentity(System.Collections.Generic.List{YSWL.DBUtility.CommandInfo},System.Data.SqlClient.SqlTransaction)">
+            <summary>
+            执行多条SQL语句，实现数据库事务。
+            </summary>
+            <param name="cmdList">SQL语句的CommandInfo</param>
+            <param name="trans">外部事务对象</param>
+            <remarks>警告:内部不触发事务的提交和回滚</remarks>
+            <remarks>只使用了CommandInfo-EffentNextType.ExcuteEffectRows, 其它项暂不支持</remarks>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQL.ExecuteSqlTranWithIndentity(System.Collections.Generic.List{YSWL.DBUtility.CommandInfo})">
+            <summary>
+            执行多条SQL语句，实现数据库事务。[已过时, 请使用ExecuteSqlTran4Indentity]
+            </summary>
+            <param name="SQLStringList">SQL语句的哈希表（key为sql语句，value是该语句的SqlParameter[]）</param>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQL.ExecuteSqlTranWithIndentity(System.Collections.Hashtable)">
+            <summary>
+            执行多条SQL语句，实现数据库事务。
+            </summary>
+            <param name="SQLStringList">SQL语句的哈希表（key为sql语句，value是该语句的SqlParameter[]）</param>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQL.GetSingle(System.String,System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            执行一条计算查询结果语句，返回查询结果（object）。
+            </summary>
+            <param name="SQLString">计算查询结果语句</param>
+            <returns>查询结果（object）</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQL.GetSingle4Trans(YSWL.DBUtility.CommandInfo,System.Data.SqlClient.SqlTransaction)">
+            <summary>
+            执行一条计算查询结果语句，返回查询结果（object）。
+            </summary>
+            <param name="commandInfo">SQL语句的CommandInfo</param>
+            <param name="trans">外部事务对象</param>
+            <remarks>警告: 内部无异常处理和using语句, 请务必在外部实现</remarks>
+            <returns>查询结果（object）</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQL.ExecuteReader(System.String,System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            执行查询语句，返回SqlDataReader ( 注意：调用该方法后，一定要对SqlDataReader进行Close )
+            </summary>
+            <param name="strSQL">查询语句</param>
+            <returns>SqlDataReader</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQL.Query(System.String,System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            执行查询语句，返回DataSet
+            </summary>
+            <param name="SQLString">查询语句</param>
+            <returns>DataSet</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQL.RunProcedure(System.String,System.Data.IDataParameter[])">
+            <summary>
+            执行存储过程，返回SqlDataReader ( 注意：调用该方法后，一定要对SqlDataReader进行Close )
+            </summary>
+            <param name="storedProcName">存储过程名</param>
+            <param name="parameters">存储过程参数</param>
+            <returns>SqlDataReader</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQL.RunProcedure(System.String,System.Data.IDataParameter[],System.String)">
+            <summary>
+            执行存储过程
+            </summary>
+            <param name="storedProcName">存储过程名</param>
+            <param name="parameters">存储过程参数</param>
+            <param name="tableName">DataSet结果中的表名</param>
+            <returns>DataSet</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQL.RunProcedure(System.String,System.Data.IDataParameter[],System.String,System.Int32@)">
+            <summary>
+            执行存储过程
+            </summary>
+            <param name="storedProcName">存储过程名</param>
+            <param name="parameters">存储过程参数</param>
+            <param name="tableName">DataSet结果中的表名</param>
+            <returns>DataSet</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQL.BuildQueryCommand(System.Data.SqlClient.SqlConnection,System.String,System.Data.IDataParameter[])">
+            <summary>
+            构建 SqlCommand 对象(用来返回一个结果集，而不是一个整数值)
+            </summary>
+            <param name="connection">数据库连接</param>
+            <param name="storedProcName">存储过程名</param>
+            <param name="parameters">存储过程参数</param>
+            <returns>SqlCommand</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQL.RunProcedure(System.String,System.Data.IDataParameter[],System.Int32@)">
+            <summary>
+            执行存储过程，返回影响的行数		
+            </summary>
+            <param name="storedProcName">存储过程名</param>
+            <param name="parameters">存储过程参数</param>
+            <param name="rowsAffected">影响的行数</param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQL.BuildIntCommand(System.Data.SqlClient.SqlConnection,System.String,System.Data.IDataParameter[])">
+            <summary>
+            创建 SqlCommand 对象实例(用来返回一个整数值)	
+            </summary>
+            <param name="storedProcName">存储过程名</param>
+            <param name="parameters">存储过程参数</param>
+            <returns>SqlCommand 对象实例</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQL.ExecuteSql(System.String,System.String,System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            执行SQL语句，返回影响的记录数
+            </summary>
+            <param name="SQLString">SQL语句</param>
+            <param name="strConnectionString">连接字符串</param>
+            <returns>影响的记录数</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQL.Query(System.String,System.String)">
+            <summary>
+            执行查询语句，返回DataSet
+            </summary>
+            <param name="SQLString">查询语句</param>
+            <param name="strConnectionString">连接字符串</param>
+            <returns>DataSet</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQL.CreateParam(System.String,System.Data.SqlDbType,System.Int32,System.Data.ParameterDirection,System.Object)">
+            <summary>
+            创建参数
+            </summary>
+            <param name="ParamName">参数名称</param>
+            <param name="DbType">参数类型</param>
+            <param name="Size">参数大小</param>
+            <param name="Direction">参数方向</param>
+            <param name="Value">参数值</param>
+            <returns>新的 parameter 对象</returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:YSWL.DBUtility.DbHelperSQL.CreateInParam(System.String,System.Data.SqlDbType,System.Int32,System.Object)" -->
+        <member name="M:YSWL.DBUtility.DbHelperSQL.CreateOutParam(System.String,System.Data.SqlDbType,System.Int32)">
+            <summary>
+            创建输出类型参数
+            </summary>
+            <param name="ParamName">参数名称</param>
+            <param name="DbType">参数类型</param>
+            <param name="Size">参数大小</param>
+            <returns>新的 parameter 对象</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQL.CreateInputOutParam(System.String,System.Data.SqlDbType,System.Int32,System.Object)">
+            <summary>
+            创建输出类型参数
+            </summary>
+            <param name="ParamName">参数名称</param>
+            <param name="DbType">参数类型</param>
+            <param name="Size">参数大小</param>
+            <returns>新的 parameter 对象</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQL.CreateReturnParam(System.String,System.Data.SqlDbType,System.Int32)">
+            <summary>
+            创建返回类型参数
+            </summary>
+            <param name="ParamName">参数名称</param>
+            <param name="DbType">参数类型</param>
+            <param name="Size">参数大小</param>
+            <returns>新的 parameter 对象</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQL.RunProcedure(System.String,System.Data.IDataParameter[],System.Data.DataSet,System.String)">
+            <summary>
+            执行存储过程，将结果集添加到现有的DataSet中。
+            Takes an -existing- dataset and fills the given table name with the results
+            of the stored procedure.
+            </summary>
+            <param name="storedProcName"></param>
+            <param name="parameters"></param>
+            <param name="dataSet"></param>
+            <param name="tableName"></param>
+            <returns></returns>
+        </member>
+        <member name="T:YSWL.DBUtility.DbHelperSQLA">
+            <summary>
+            数据访问基础类(基于SQLServer)
+            Copyright (C) 2004-2012 By YSWL
+            </summary>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLA.ColumnExists(System.String,System.String)">
+            <summary>
+            判断是否存在某表的某个字段
+            </summary>
+            <param name="tableName">表名称</param>
+            <param name="columnName">列名称</param>
+            <returns>是否存在</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLA.TabExists(System.String)">
+            <summary>
+            表是否存在
+            </summary>
+            <param name="TableName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLA.ExecuteSql(System.String)">
+            <summary>
+            执行SQL语句，返回影响的记录数
+            </summary>
+            <param name="SQLString">SQL语句</param>
+            <returns>影响的记录数</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLA.ExecuteSqlTran(System.Collections.Generic.List{YSWL.DBUtility.CommandInfo},System.Collections.Generic.List{YSWL.DBUtility.CommandInfo})">
+            <summary>
+            执行Sql和Oracle滴混合事务
+            </summary>
+            <param name="list">SQL命令行列表</param>
+            <param name="oracleCmdSqlList">Oracle命令行列表</param>
+            <returns>执行结果 0-由于SQL造成事务失败 -1 由于Oracle造成事务失败 1-整体事务执行成功</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLA.ExecuteSqlTran(System.Collections.Generic.List{System.String})">
+            <summary>
+            执行多条SQL语句，实现数据库事务。
+            </summary>
+            <param name="SQLStringList">多条SQL语句</param>		
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLA.ExecuteSql(System.String,System.String)">
+            <summary>
+            执行带一个存储过程参数的的SQL语句。
+            </summary>
+            <param name="SQLString">SQL语句</param>
+            <param name="content">参数内容,比如一个字段是格式复杂的文章，有特殊符号，可以通过这个方式添加</param>
+            <returns>影响的记录数</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLA.ExecuteSqlGet(System.String,System.String)">
+            <summary>
+            执行带一个存储过程参数的的SQL语句。
+            </summary>
+            <param name="SQLString">SQL语句</param>
+            <param name="content">参数内容,比如一个字段是格式复杂的文章，有特殊符号，可以通过这个方式添加</param>
+            <returns>影响的记录数</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLA.ExecuteSqlInsertImg(System.String,System.Byte[])">
+            <summary>
+            向数据库里插入图像格式的字段(和上面情况类似的另一种实例)
+            </summary>
+            <param name="strSQL">SQL语句</param>
+            <param name="fs">图像字节,数据库的字段类型为image的情况</param>
+            <returns>影响的记录数</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLA.GetSingle(System.String)">
+            <summary>
+            执行一条计算查询结果语句，返回查询结果（object）。
+            </summary>
+            <param name="SQLString">计算查询结果语句</param>
+            <returns>查询结果（object）</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLA.ExecuteReader(System.String)">
+            <summary>
+            执行查询语句，返回SqlDataReader ( 注意：调用该方法后，一定要对SqlDataReader进行Close )
+            </summary>
+            <param name="strSQL">查询语句</param>
+            <returns>SqlDataReader</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLA.Query(System.String)">
+            <summary>
+            执行查询语句，返回DataSet
+            </summary>
+            <param name="SQLString">查询语句</param>
+            <returns>DataSet</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLA.ExecuteSql(System.String,System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            执行SQL语句，返回影响的记录数
+            </summary>
+            <param name="SQLString">SQL语句</param>
+            <returns>影响的记录数</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLA.ExecuteSqlTran(System.Collections.Hashtable)">
+            <summary>
+            执行多条SQL语句，实现数据库事务。
+            </summary>
+            <param name="SQLStringList">SQL语句的哈希表（key为sql语句，value是该语句的SqlParameter[]）</param>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLA.ExecuteSqlTran(System.Collections.Generic.List{YSWL.DBUtility.CommandInfo})">
+            <summary>
+            执行多条SQL语句，实现数据库事务。
+            </summary>
+            <param name="SQLStringList">SQL语句的哈希表（key为sql语句，value是该语句的SqlParameter[]）</param>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLA.ExecuteSqlTran4Indentity(System.Collections.Generic.List{YSWL.DBUtility.CommandInfo})">
+            <summary>
+            执行多条SQL语句，实现数据库事务。
+            </summary>
+            <param name="cmdList">SQL语句的CommandInfo</param>
+            <remarks>只使用了CommandInfo-EffentNextType.ExcuteEffectRows, 其它项暂不支持</remarks>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLA.ExecuteSqlTran4Indentity(System.Collections.Generic.List{YSWL.DBUtility.CommandInfo},System.Data.SqlClient.SqlTransaction)">
+            <summary>
+            执行多条SQL语句，实现数据库事务。
+            </summary>
+            <param name="cmdList">SQL语句的CommandInfo</param>
+            <param name="trans">外部事务对象</param>
+            <remarks>警告:内部不触发事务的提交和回滚</remarks>
+            <remarks>只使用了CommandInfo-EffentNextType.ExcuteEffectRows, 其它项暂不支持</remarks>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLA.ExecuteSqlTranWithIndentity(System.Collections.Generic.List{YSWL.DBUtility.CommandInfo})">
+            <summary>
+            执行多条SQL语句，实现数据库事务。[已过时, 请使用ExecuteSqlTran4Indentity]
+            </summary>
+            <param name="SQLStringList">SQL语句的哈希表（key为sql语句，value是该语句的SqlParameter[]）</param>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLA.ExecuteSqlTranWithIndentity(System.Collections.Hashtable)">
+            <summary>
+            执行多条SQL语句，实现数据库事务。
+            </summary>
+            <param name="SQLStringList">SQL语句的哈希表（key为sql语句，value是该语句的SqlParameter[]）</param>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLA.GetSingle(System.String,System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            执行一条计算查询结果语句，返回查询结果（object）。
+            </summary>
+            <param name="SQLString">计算查询结果语句</param>
+            <returns>查询结果（object）</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLA.GetSingle4Trans(YSWL.DBUtility.CommandInfo,System.Data.SqlClient.SqlTransaction)">
+            <summary>
+            执行一条计算查询结果语句，返回查询结果（object）。
+            </summary>
+            <param name="commandInfo">SQL语句的CommandInfo</param>
+            <param name="trans">外部事务对象</param>
+            <remarks>警告: 内部无异常处理和using语句, 请务必在外部实现</remarks>
+            <returns>查询结果（object）</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLA.ExecuteReader(System.String,System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            执行查询语句，返回SqlDataReader ( 注意：调用该方法后，一定要对SqlDataReader进行Close )
+            </summary>
+            <param name="strSQL">查询语句</param>
+            <returns>SqlDataReader</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLA.Query(System.String,System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            执行查询语句，返回DataSet
+            </summary>
+            <param name="SQLString">查询语句</param>
+            <returns>DataSet</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLA.RunProcedure(System.String,System.Data.IDataParameter[])">
+            <summary>
+            执行存储过程，返回SqlDataReader ( 注意：调用该方法后，一定要对SqlDataReader进行Close )
+            </summary>
+            <param name="storedProcName">存储过程名</param>
+            <param name="parameters">存储过程参数</param>
+            <returns>SqlDataReader</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLA.RunProcedure(System.String,System.Data.IDataParameter[],System.Data.DataSet,System.String)">
+            <summary>
+            执行存储过程，将结果集添加到现有的DataSet中。
+            Takes an -existing- dataset and fills the given table name with the results
+            of the stored procedure.
+            </summary>
+            <param name="storedProcName"></param>
+            <param name="parameters"></param>
+            <param name="dataSet"></param>
+            <param name="tableName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLA.RunProcedure(System.String,System.Data.IDataParameter[],System.String)">
+            <summary>
+            执行存储过程
+            </summary>
+            <param name="storedProcName">存储过程名</param>
+            <param name="parameters">存储过程参数</param>
+            <param name="tableName">DataSet结果中的表名</param>
+            <returns>DataSet</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLA.RunProcedure(System.String,System.Data.IDataParameter[],System.String,System.Int32@)">
+            <summary>
+            执行存储过程
+            </summary>
+            <param name="storedProcName">存储过程名</param>
+            <param name="parameters">存储过程参数</param>
+            <param name="tableName">DataSet结果中的表名</param>
+            <returns>DataSet</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLA.BuildQueryCommand(System.Data.SqlClient.SqlConnection,System.String,System.Data.IDataParameter[])">
+            <summary>
+            构建 SqlCommand 对象(用来返回一个结果集，而不是一个整数值)
+            </summary>
+            <param name="connection">数据库连接</param>
+            <param name="storedProcName">存储过程名</param>
+            <param name="parameters">存储过程参数</param>
+            <returns>SqlCommand</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLA.RunProcedure(System.String,System.Data.IDataParameter[],System.Int32@)">
+            <summary>
+            执行存储过程，返回影响的行数		
+            </summary>
+            <param name="storedProcName">存储过程名</param>
+            <param name="parameters">存储过程参数</param>
+            <param name="rowsAffected">影响的行数</param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLA.BuildIntCommand(System.Data.SqlClient.SqlConnection,System.String,System.Data.IDataParameter[])">
+            <summary>
+            创建 SqlCommand 对象实例(用来返回一个整数值)	
+            </summary>
+            <param name="storedProcName">存储过程名</param>
+            <param name="parameters">存储过程参数</param>
+            <returns>SqlCommand 对象实例</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLA.ExecuteSql(System.String,System.String,System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            执行SQL语句，返回影响的记录数
+            </summary>
+            <param name="SQLString">SQL语句</param>
+            <param name="strConnectionString">连接字符串</param>
+            <returns>影响的记录数</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLA.Query(System.String,System.String)">
+            <summary>
+            执行查询语句，返回DataSet
+            </summary>
+            <param name="SQLString">查询语句</param>
+            <param name="strConnectionString">连接字符串</param>
+            <returns>DataSet</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLA.CreateParam(System.String,System.Data.SqlDbType,System.Int32,System.Data.ParameterDirection,System.Object)">
+            <summary>
+            创建参数
+            </summary>
+            <param name="ParamName">参数名称</param>
+            <param name="DbType">参数类型</param>
+            <param name="Size">参数大小</param>
+            <param name="Direction">参数方向</param>
+            <param name="Value">参数值</param>
+            <returns>新的 parameter 对象</returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:YSWL.DBUtility.DbHelperSQLA.CreateInParam(System.String,System.Data.SqlDbType,System.Int32,System.Object)" -->
+        <member name="M:YSWL.DBUtility.DbHelperSQLA.CreateOutParam(System.String,System.Data.SqlDbType,System.Int32)">
+            <summary>
+            创建输出类型参数
+            </summary>
+            <param name="ParamName">参数名称</param>
+            <param name="DbType">参数类型</param>
+            <param name="Size">参数大小</param>
+            <returns>新的 parameter 对象</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLA.CreateInputOutParam(System.String,System.Data.SqlDbType,System.Int32,System.Object)">
+            <summary>
+            创建输出类型参数
+            </summary>
+            <param name="ParamName">参数名称</param>
+            <param name="DbType">参数类型</param>
+            <param name="Size">参数大小</param>
+            <returns>新的 parameter 对象</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLA.CreateReturnParam(System.String,System.Data.SqlDbType,System.Int32)">
+            <summary>
+            创建返回类型参数
+            </summary>
+            <param name="ParamName">参数名称</param>
+            <param name="DbType">参数类型</param>
+            <param name="Size">参数大小</param>
+            <returns>新的 parameter 对象</returns>
+        </member>
+        <member name="T:YSWL.DBUtility.DbHelperSQLP">
+            <summary>
+            数据访问类(基于SQLServer)，可用于访问不同数据库
+            通过构造不同的连接字符串，实例化不同的数据库连接。
+            Copyright (C) 2004-2011 By YSWL
+            </summary>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLP.ColumnExists(System.String,System.String)">
+            <summary>
+            判断是否存在某表的某个字段
+            </summary>
+            <param name="tableName">表名称</param>
+            <param name="columnName">列名称</param> 
+            <returns>是否存在</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLP.TabExists(System.String)">
+            <summary>
+            表是否存在
+            </summary>
+            <param name="TableName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLP.ExecuteSql(System.String)">
+            <summary>
+            执行SQL语句，返回影响的记录数
+            </summary>
+            <param name="SQLString">SQL语句</param>
+            <returns>影响的记录数</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLP.ExecuteSqlTran(System.Collections.Generic.List{YSWL.DBUtility.CommandInfo},System.Collections.Generic.List{YSWL.DBUtility.CommandInfo})">
+            <summary>
+            执行Sql和Oracle滴混合事务
+            </summary>
+            <param name="list">SQL命令行列表</param>
+            <param name="oracleCmdSqlList">Oracle命令行列表</param>
+            <returns>执行结果 0-由于SQL造成事务失败 -1 由于Oracle造成事务失败 1-整体事务执行成功</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLP.ExecuteSqlTran(System.Collections.Generic.List{System.String})">
+            <summary>
+            执行多条SQL语句，实现数据库事务。
+            </summary>
+            <param name="SQLStringList">多条SQL语句</param>		
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLP.ExecuteSql(System.String,System.String)">
+            <summary>
+            执行带一个存储过程参数的的SQL语句。
+            </summary>
+            <param name="SQLString">SQL语句</param>
+            <param name="content">参数内容,比如一个字段是格式复杂的文章，有特殊符号，可以通过这个方式添加</param>
+            <returns>影响的记录数</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLP.ExecuteSqlGet(System.String,System.String)">
+            <summary>
+            执行带一个存储过程参数的的SQL语句。
+            </summary>
+            <param name="SQLString">SQL语句</param>
+            <param name="content">参数内容,比如一个字段是格式复杂的文章，有特殊符号，可以通过这个方式添加</param>
+            <returns>影响的记录数</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLP.ExecuteSqlInsertImg(System.String,System.Byte[])">
+            <summary>
+            向数据库里插入图像格式的字段(和上面情况类似的另一种实例)
+            </summary>
+            <param name="strSQL">SQL语句</param>
+            <param name="fs">图像字节,数据库的字段类型为image的情况</param>
+            <returns>影响的记录数</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLP.GetSingle(System.String)">
+            <summary>
+            执行一条计算查询结果语句，返回查询结果（object）。
+            </summary>
+            <param name="SQLString">计算查询结果语句</param>
+            <returns>查询结果（object）</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLP.ExecuteReader(System.String)">
+            <summary>
+            执行查询语句，返回SqlDataReader ( 注意：调用该方法后，一定要对SqlDataReader进行Close )
+            </summary>
+            <param name="strSQL">查询语句</param>
+            <returns>SqlDataReader</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLP.Query(System.String)">
+            <summary>
+            执行查询语句，返回DataSet
+            </summary>
+            <param name="SQLString">查询语句</param>
+            <returns>DataSet</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLP.ExecuteSql(System.String,System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            执行SQL语句，返回影响的记录数
+            </summary>
+            <param name="SQLString">SQL语句</param>
+            <returns>影响的记录数</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLP.ExecuteSqlTran(System.Collections.Hashtable)">
+            <summary>
+            执行多条SQL语句，实现数据库事务。
+            </summary>
+            <param name="SQLStringList">SQL语句的哈希表（key为sql语句，value是该语句的SqlParameter[]）</param>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLP.ExecuteSqlTran(System.Collections.Generic.List{YSWL.DBUtility.CommandInfo})">
+            <summary>
+            执行多条SQL语句，实现数据库事务。
+            </summary>
+            <param name="SQLStringList">SQL语句的哈希表（key为sql语句，value是该语句的SqlParameter[]）</param>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLP.ExecuteSqlTranWithIndentity(System.Collections.Generic.List{YSWL.DBUtility.CommandInfo})">
+            <summary>
+            执行多条SQL语句，实现数据库事务。
+            </summary>
+            <param name="SQLStringList">SQL语句的哈希表（key为sql语句，value是该语句的SqlParameter[]）</param>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLP.ExecuteSqlTranWithIndentity(System.Collections.Hashtable)">
+            <summary>
+            执行多条SQL语句，实现数据库事务。
+            </summary>
+            <param name="SQLStringList">SQL语句的哈希表（key为sql语句，value是该语句的SqlParameter[]）</param>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLP.GetSingle(System.String,System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            执行一条计算查询结果语句，返回查询结果（object）。
+            </summary>
+            <param name="SQLString">计算查询结果语句</param>
+            <returns>查询结果（object）</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLP.ExecuteReader(System.String,System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            执行查询语句，返回SqlDataReader ( 注意：调用该方法后，一定要对SqlDataReader进行Close )
+            </summary>
+            <param name="strSQL">查询语句</param>
+            <returns>SqlDataReader</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLP.Query(System.String,System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            执行查询语句，返回DataSet
+            </summary>
+            <param name="SQLString">查询语句</param>
+            <returns>DataSet</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLP.RunProcedure(System.String,System.Data.IDataParameter[])">
+            <summary>
+            执行存储过程，返回SqlDataReader  ( 注意：调用该方法后，一定要对SqlDataReader进行Close )
+            </summary>
+            <param name="storedProcName">存储过程名</param>
+            <param name="parameters">存储过程参数</param>
+            <returns>SqlDataReader</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLP.RunProcedure(System.String,System.Data.IDataParameter[],System.String)">
+            <summary>
+            执行存储过程
+            </summary>
+            <param name="storedProcName">存储过程名</param>
+            <param name="parameters">存储过程参数</param>
+            <param name="tableName">DataSet结果中的表名</param>
+            <returns>DataSet</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLP.BuildQueryCommand(System.Data.SqlClient.SqlConnection,System.String,System.Data.IDataParameter[])">
+            <summary>
+            构建 SqlCommand 对象(用来返回一个结果集，而不是一个整数值)
+            </summary>
+            <param name="connection">数据库连接</param>
+            <param name="storedProcName">存储过程名</param>
+            <param name="parameters">存储过程参数</param>
+            <returns>SqlCommand</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLP.RunProcedure(System.String,System.Data.IDataParameter[],System.Int32@)">
+            <summary>
+            执行存储过程，返回影响的行数		
+            </summary>
+            <param name="storedProcName">存储过程名</param>
+            <param name="parameters">存储过程参数</param>
+            <param name="rowsAffected">影响的行数</param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLP.ExecProcedures(System.Data.SqlClient.SqlCommand)">
+            <summary>
+            执行存储过程，返回对象数组； NetPage 分页用,20091207 闫 添加
+            </summary>
+            <param name="cmd"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLP.BuildIntCommand(System.Data.SqlClient.SqlConnection,System.String,System.Data.IDataParameter[])">
+            <summary>
+            创建 SqlCommand 对象实例(用来返回一个整数值)	
+            </summary>
+            <param name="storedProcName">存储过程名</param>
+            <param name="parameters">存储过程参数</param>
+            <returns>SqlCommand 对象实例</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLP.CreateParam(System.String,System.Data.SqlDbType,System.Int32,System.Data.ParameterDirection,System.Object)">
+            <summary>
+            创建参数
+            </summary>
+            <param name="ParamName">存储过程名称</param>
+            <param name="DbType">参数类型</param>
+            <param name="Size">参数大小</param>
+            <param name="Direction">参数方向</param>
+            <param name="Value">参数值</param>
+            <returns>新的 parameter 对象</returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:YSWL.DBUtility.DbHelperSQLP.CreateInParam(System.String,System.Data.SqlDbType,System.Int32,System.Object)" -->
+        <member name="M:YSWL.DBUtility.DbHelperSQLP.CreateOutParam(System.String,System.Data.SqlDbType,System.Int32)">
+            <summary>
+            创建输出类型参数
+            </summary>
+            <param name="ParamName">存储过程名称</param>
+            <param name="DbType">参数类型</param>
+            <param name="Size">参数大小</param>
+            <returns>新的 parameter 对象</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLP.CreateInputOutParam(System.String,System.Data.SqlDbType,System.Int32,System.Object)">
+            <summary>
+            创建输出类型参数
+            </summary>
+            <param name="ParamName">存储过程名称</param>
+            <param name="DbType">参数类型</param>
+            <param name="Size">参数大小</param>
+            <returns>新的 parameter 对象</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLP.CreateReturnParam(System.String,System.Data.SqlDbType,System.Int32)">
+            <summary>
+            创建返回类型参数
+            </summary>
+            <param name="ParamName">存储过程名称</param>
+            <param name="DbType">参数类型</param>
+            <param name="Size">参数大小</param>
+            <returns>新的 parameter 对象</returns>
+        </member>
+        <member name="T:YSWL.DBUtility.DbHelperSQLPA">
+            <summary>
+            数据访问类(基于SQLServer)，可用于访问不同数据库
+            通过构造不同的连接字符串，实例化不同的数据库连接。
+            Copyright (C) 2004-2011 By YSWL
+            </summary>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLPA.ColumnExists(System.String,System.String)">
+            <summary>
+            判断是否存在某表的某个字段
+            </summary>
+            <param name="tableName">表名称</param>
+            <param name="columnName">列名称</param> 
+            <returns>是否存在</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLPA.TabExists(System.String)">
+            <summary>
+            表是否存在
+            </summary>
+            <param name="TableName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLPA.ExecuteSql(System.String)">
+            <summary>
+            执行SQL语句，返回影响的记录数
+            </summary>
+            <param name="SQLString">SQL语句</param>
+            <returns>影响的记录数</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLPA.ExecuteSqlTran(System.Collections.Generic.List{YSWL.DBUtility.CommandInfo},System.Collections.Generic.List{YSWL.DBUtility.CommandInfo})">
+            <summary>
+            执行Sql和Oracle滴混合事务
+            </summary>
+            <param name="list">SQL命令行列表</param>
+            <param name="oracleCmdSqlList">Oracle命令行列表</param>
+            <returns>执行结果 0-由于SQL造成事务失败 -1 由于Oracle造成事务失败 1-整体事务执行成功</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLPA.ExecuteSqlTran(System.Collections.Generic.List{System.String})">
+            <summary>
+            执行多条SQL语句，实现数据库事务。
+            </summary>
+            <param name="SQLStringList">多条SQL语句</param>		
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLPA.ExecuteSql(System.String,System.String)">
+            <summary>
+            执行带一个存储过程参数的的SQL语句。
+            </summary>
+            <param name="SQLString">SQL语句</param>
+            <param name="content">参数内容,比如一个字段是格式复杂的文章，有特殊符号，可以通过这个方式添加</param>
+            <returns>影响的记录数</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLPA.ExecuteSqlGet(System.String,System.String)">
+            <summary>
+            执行带一个存储过程参数的的SQL语句。
+            </summary>
+            <param name="SQLString">SQL语句</param>
+            <param name="content">参数内容,比如一个字段是格式复杂的文章，有特殊符号，可以通过这个方式添加</param>
+            <returns>影响的记录数</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLPA.ExecuteSqlInsertImg(System.String,System.Byte[])">
+            <summary>
+            向数据库里插入图像格式的字段(和上面情况类似的另一种实例)
+            </summary>
+            <param name="strSQL">SQL语句</param>
+            <param name="fs">图像字节,数据库的字段类型为image的情况</param>
+            <returns>影响的记录数</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLPA.GetSingle(System.String)">
+            <summary>
+            执行一条计算查询结果语句，返回查询结果（object）。
+            </summary>
+            <param name="SQLString">计算查询结果语句</param>
+            <returns>查询结果（object）</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLPA.ExecuteReader(System.String)">
+            <summary>
+            执行查询语句，返回SqlDataReader ( 注意：调用该方法后，一定要对SqlDataReader进行Close )
+            </summary>
+            <param name="strSQL">查询语句</param>
+            <returns>SqlDataReader</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLPA.Query(System.String)">
+            <summary>
+            执行查询语句，返回DataSet
+            </summary>
+            <param name="SQLString">查询语句</param>
+            <returns>DataSet</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLPA.ExecuteSql(System.String,System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            执行SQL语句，返回影响的记录数
+            </summary>
+            <param name="SQLString">SQL语句</param>
+            <returns>影响的记录数</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLPA.ExecuteSqlTran(System.Collections.Hashtable)">
+            <summary>
+            执行多条SQL语句，实现数据库事务。
+            </summary>
+            <param name="SQLStringList">SQL语句的哈希表（key为sql语句，value是该语句的SqlParameter[]）</param>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLPA.ExecuteSqlTran(System.Collections.Generic.List{YSWL.DBUtility.CommandInfo})">
+            <summary>
+            执行多条SQL语句，实现数据库事务。
+            </summary>
+            <param name="SQLStringList">SQL语句的哈希表（key为sql语句，value是该语句的SqlParameter[]）</param>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLPA.ExecuteSqlTranWithIndentity(System.Collections.Generic.List{YSWL.DBUtility.CommandInfo})">
+            <summary>
+            执行多条SQL语句，实现数据库事务。
+            </summary>
+            <param name="SQLStringList">SQL语句的哈希表（key为sql语句，value是该语句的SqlParameter[]）</param>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLPA.ExecuteSqlTranWithIndentity(System.Collections.Hashtable)">
+            <summary>
+            执行多条SQL语句，实现数据库事务。
+            </summary>
+            <param name="SQLStringList">SQL语句的哈希表（key为sql语句，value是该语句的SqlParameter[]）</param>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLPA.GetSingle(System.String,System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            执行一条计算查询结果语句，返回查询结果（object）。
+            </summary>
+            <param name="SQLString">计算查询结果语句</param>
+            <returns>查询结果（object）</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLPA.ExecuteReader(System.String,System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            执行查询语句，返回SqlDataReader ( 注意：调用该方法后，一定要对SqlDataReader进行Close )
+            </summary>
+            <param name="strSQL">查询语句</param>
+            <returns>SqlDataReader</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLPA.Query(System.String,System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            执行查询语句，返回DataSet
+            </summary>
+            <param name="SQLString">查询语句</param>
+            <returns>DataSet</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLPA.RunProcedure(System.String,System.Data.IDataParameter[])">
+            <summary>
+            执行存储过程，返回SqlDataReader  ( 注意：调用该方法后，一定要对SqlDataReader进行Close )
+            </summary>
+            <param name="storedProcName">存储过程名</param>
+            <param name="parameters">存储过程参数</param>
+            <returns>SqlDataReader</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLPA.RunProcedure(System.String,System.Data.IDataParameter[],System.String)">
+            <summary>
+            执行存储过程
+            </summary>
+            <param name="storedProcName">存储过程名</param>
+            <param name="parameters">存储过程参数</param>
+            <param name="tableName">DataSet结果中的表名</param>
+            <returns>DataSet</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLPA.BuildQueryCommand(System.Data.SqlClient.SqlConnection,System.String,System.Data.IDataParameter[])">
+            <summary>
+            构建 SqlCommand 对象(用来返回一个结果集，而不是一个整数值)
+            </summary>
+            <param name="connection">数据库连接</param>
+            <param name="storedProcName">存储过程名</param>
+            <param name="parameters">存储过程参数</param>
+            <returns>SqlCommand</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLPA.RunProcedure(System.String,System.Data.IDataParameter[],System.Int32@)">
+            <summary>
+            执行存储过程，返回影响的行数		
+            </summary>
+            <param name="storedProcName">存储过程名</param>
+            <param name="parameters">存储过程参数</param>
+            <param name="rowsAffected">影响的行数</param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLPA.ExecProcedures(System.Data.SqlClient.SqlCommand)">
+            <summary>
+            执行存储过程，返回对象数组； NetPage 分页用,20091207 闫 添加
+            </summary>
+            <param name="cmd"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLPA.BuildIntCommand(System.Data.SqlClient.SqlConnection,System.String,System.Data.IDataParameter[])">
+            <summary>
+            创建 SqlCommand 对象实例(用来返回一个整数值)	
+            </summary>
+            <param name="storedProcName">存储过程名</param>
+            <param name="parameters">存储过程参数</param>
+            <returns>SqlCommand 对象实例</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLPA.CreateParam(System.String,System.Data.SqlDbType,System.Int32,System.Data.ParameterDirection,System.Object)">
+            <summary>
+            创建参数
+            </summary>
+            <param name="ParamName">存储过程名称</param>
+            <param name="DbType">参数类型</param>
+            <param name="Size">参数大小</param>
+            <param name="Direction">参数方向</param>
+            <param name="Value">参数值</param>
+            <returns>新的 parameter 对象</returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:YSWL.DBUtility.DbHelperSQLPA.CreateInParam(System.String,System.Data.SqlDbType,System.Int32,System.Object)" -->
+        <member name="M:YSWL.DBUtility.DbHelperSQLPA.CreateOutParam(System.String,System.Data.SqlDbType,System.Int32)">
+            <summary>
+            创建输出类型参数
+            </summary>
+            <param name="ParamName">存储过程名称</param>
+            <param name="DbType">参数类型</param>
+            <param name="Size">参数大小</param>
+            <returns>新的 parameter 对象</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLPA.CreateInputOutParam(System.String,System.Data.SqlDbType,System.Int32,System.Object)">
+            <summary>
+            创建输出类型参数
+            </summary>
+            <param name="ParamName">存储过程名称</param>
+            <param name="DbType">参数类型</param>
+            <param name="Size">参数大小</param>
+            <returns>新的 parameter 对象</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DbHelperSQLPA.CreateReturnParam(System.String,System.Data.SqlDbType,System.Int32)">
+            <summary>
+            创建返回类型参数
+            </summary>
+            <param name="ParamName">存储过程名称</param>
+            <param name="DbType">参数类型</param>
+            <param name="Size">参数大小</param>
+            <returns>新的 parameter 对象</returns>
+        </member>
+        <member name="T:YSWL.DBUtility.DESEncrypt">
+            <summary>
+            DES加密/解密类。
+            </summary>
+        </member>
+        <member name="M:YSWL.DBUtility.DESEncrypt.Encrypt(System.String)">
+            <summary>
+            加密
+            </summary>
+            <param name="Text"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DESEncrypt.Encrypt(System.String,System.String)">
+            <summary> 
+            加密数据 
+            </summary> 
+            <param name="Text"></param> 
+            <param name="sKey"></param> 
+            <returns></returns> 
+        </member>
+        <member name="M:YSWL.DBUtility.DESEncrypt.Decrypt(System.String)">
+            <summary>
+            解密
+            </summary>
+            <param name="Text"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.DBUtility.DESEncrypt.Decrypt(System.String,System.String)">
+            <summary> 
+            解密数据 
+            </summary> 
+            <param name="Text"></param> 
+            <param name="sKey"></param> 
+            <returns></returns> 
+        </member>
+        <member name="T:YSWL.DBUtility.PubConstant">
+            <summary>
+            公共工具类
+            </summary>
+        </member>
+        <member name="P:YSWL.DBUtility.PubConstant.ConnectionString">
+            <summary>
+            获取固定连接字符串
+            </summary>
+        </member>
+        <member name="M:YSWL.DBUtility.PubConstant.GetConnectionString(System.String)">
+            <summary>
+            动态得到web.config里配置项的数据库连接字符串。
+            </summary>
+            <param name="configName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.DBUtility.PubConstant.GetConfigString(System.String)">
+            <summary>
+            从缓存中得到AppSettings中的配置字符串信息
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.DBUtility.PubConstant.GetCache(System.String)">
+            <summary>
+            获取当前应用程序指定CacheKey的Cache值
+            </summary>
+            <param name="CacheKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.DBUtility.PubConstant.SetCache(System.String,System.Object,System.DateTime,System.TimeSpan)">
+            <summary>
+            设置当前应用程序指定CacheKey的Cache值
+            </summary>
+            <param name="CacheKey"></param>
+            <param name="objObject"></param>
+        </member>
+        <member name="F:YSWL.DBUtility.SAASInfo.obj">
+            <summary>
+            锁的对象
+            </summary>
+        </member>
+        <member name="F:YSWL.DBUtility.SAASInfo.KEY_AUTOCONNECTION">
+            <summary>
+            是否开启自动连接标识key，通过配置文件获取
+            </summary>
+        </member>
+        <member name="F:YSWL.DBUtility.SAASInfo.KEY_SYSTEM_FLAG">
+            <summary>
+            系统标识key，从配置文件中获取系统标识
+            </summary>
+        </member>
+        <member name="F:YSWL.DBUtility.SAASInfo.BaseDBStr">
+            <summary> 
+            企业的数据库配置数据库链接串
+            </summary>
+        </member>
+        <member name="M:YSWL.DBUtility.SAASInfo.UpdateUser(System.String,System.Byte[],System.String,System.String,System.Int64,System.Boolean)">
+            <summary>
+            更新SAAS用户信息
+            </summary>
+            <param name="userName"></param>
+            <param name="trueName"></param>
+            <param name="phone"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.DBUtility.SAASInfo.AppIsOpenCache(System.String,System.Int32)">
+            <summary>
+            APP 是否开通应用
+            </summary>
+            <param name="tag"></param>
+            <param name="enterpeiseId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.DBUtility.SAASInfo.IsCanAddCust(System.Int64,System.String)">
+            <summary>
+            是否可以增加客户 
+            </summary>
+            <param name="usertype">用户类型 1：客户类型 2：管理员类型  3：业务员类型</param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.DBUtility.SAASInfo.GetCacheCusts(System.Int64)">
+            <summary>
+            获取企业客户数 (Redis 缓存)
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.DBUtility.SAASInfo.ClearCacheCusts(System.Int64)">
+            <summary>
+            清除客户缓存数
+            </summary>
+            <param name="enterpriseId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.DBUtility.SAASInfo.GetCacheSales(System.Int64)">
+            <summary>
+            获取企业员工数(Redis 缓存)
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.DBUtility.SAASInfo.ClearCacheSales(System.Int64)">
+            <summary>
+            清除员工缓存数
+            </summary>
+            <param name="enterpriseId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.DBUtility.SAASInfo.GetUserCounts(System.Int32,System.Int64)">
+            <summary>
+            获取用户数量
+            </summary>
+            <param name="usertype"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.DBUtility.SAASInfo.IsExpired(System.Int32,System.Int64)">
+            <summary>
+            购买的应用是否过期
+            </summary>
+            <param name="appTag"></param>
+            <param name="enterpriseId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.DBUtility.SAASInfo.DeleteExpiredCache(System.Int32,System.Int64)">
+            <summary>
+            清空过期缓存
+            </summary>
+            <param name="applicationId"></param>
+            <param name="enterpriseId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.DBUtility.SAASInfo.IsBuy(System.Int32,System.Int64)">
+            <summary>
+            应用是否购买
+            </summary>
+            <param name="applicationId"></param>
+            <param name="enterpriseId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.DBUtility.SAASInfo.SetBuyCache(System.Int32,System.Int64)">
+            <summary>
+            设置购买状态缓存
+            </summary>
+            <param name="applicationId"></param>
+            <param name="enterpriseId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.DBUtility.SAASInfo.GetFreeCusts">
+            <summary>
+            免费的客户数
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.DBUtility.SAASInfo.GetFreeSalses">
+            <summary>
+            免费的员工数 （业务员数）
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:YSWL.DBUtility.SqlHelper">
+            <summary>
+            The SqlHelper class is intended to encapsulate high performance, 
+            scalable best practices for common uses of SqlClient.
+            </summary>
+        </member>
+        <member name="M:YSWL.DBUtility.SqlHelper.ExecuteNonQuery(System.String,System.Data.CommandType,System.String,System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            Execute a SqlCommand (that returns no resultset) against the database specified in the connection string 
+            using the provided parameters.
+            </summary>
+            <remarks>
+            e.g.:  
+             int result = ExecuteNonQuery(connString, CommandType.StoredProcedure, "PublishOrders", new SqlParameter("@prodid", 24));
+            </remarks>
+            <param name="connectionString">a valid connection string for a SqlConnection</param>
+            <param name="commandType">the CommandType (stored procedure, text, etc.)</param>
+            <param name="commandText">the stored procedure name or T-SQL command</param>
+            <param name="commandParameters">an array of SqlParamters used to execute the command</param>
+            <returns>an int representing the number of rows affected by the command</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.SqlHelper.ExecuteNonQuery(System.Data.SqlClient.SqlConnection,System.Data.CommandType,System.String,System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            Execute a SqlCommand (that returns no resultset) against an existing database connection 
+            using the provided parameters.
+            </summary>
+            <remarks>
+            e.g.:  
+             int result = ExecuteNonQuery(connString, CommandType.StoredProcedure, "PublishOrders", new SqlParameter("@prodid", 24));
+            </remarks>
+            <param name="conn">an existing database connection</param>
+            <param name="commandType">the CommandType (stored procedure, text, etc.)</param>
+            <param name="commandText">the stored procedure name or T-SQL command</param>
+            <param name="commandParameters">an array of SqlParamters used to execute the command</param>
+            <returns>an int representing the number of rows affected by the command</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.SqlHelper.ExecuteNonQuery(System.Data.SqlClient.SqlTransaction,System.Data.CommandType,System.String,System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            Execute a SqlCommand (that returns no resultset) using an existing SQL Transaction 
+            using the provided parameters.
+            </summary>
+            <remarks>
+            e.g.:  
+             int result = ExecuteNonQuery(connString, CommandType.StoredProcedure, "PublishOrders", new SqlParameter("@prodid", 24));
+            </remarks>
+            <param name="trans">an existing sql transaction</param>
+            <param name="commandType">the CommandType (stored procedure, text, etc.)</param>
+            <param name="commandText">the stored procedure name or T-SQL command</param>
+            <param name="commandParameters">an array of SqlParamters used to execute the command</param>
+            <returns>an int representing the number of rows affected by the command</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.SqlHelper.ExecuteReader(System.String,System.Data.CommandType,System.String,System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            Execute a SqlCommand that returns a resultset against the database specified in the connection string 
+            using the provided parameters.
+            </summary>
+            <remarks>
+            e.g.:  
+             SqlDataReader r = ExecuteReader(connString, CommandType.StoredProcedure, "PublishOrders", new SqlParameter("@prodid", 24));
+            </remarks>
+            <param name="connectionString">a valid connection string for a SqlConnection</param>
+            <param name="commandType">the CommandType (stored procedure, text, etc.)</param>
+            <param name="commandText">the stored procedure name or T-SQL command</param>
+            <param name="commandParameters">an array of SqlParamters used to execute the command</param>
+            <returns>A SqlDataReader containing the results</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.SqlHelper.ExecuteScalar(System.String,System.Data.CommandType,System.String,System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            Execute a SqlCommand that returns the first column of the first record against the database specified in the connection string 
+            using the provided parameters.
+            </summary>
+            <remarks>
+            e.g.:  
+             Object obj = ExecuteScalar(connString, CommandType.StoredProcedure, "PublishOrders", new SqlParameter("@prodid", 24));
+            </remarks>
+            <param name="connectionString">a valid connection string for a SqlConnection</param>
+            <param name="commandType">the CommandType (stored procedure, text, etc.)</param>
+            <param name="commandText">the stored procedure name or T-SQL command</param>
+            <param name="commandParameters">an array of SqlParamters used to execute the command</param>
+            <returns>An object that should be converted to the expected type using Convert.To{Type}</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.SqlHelper.ExecuteScalar(System.Data.SqlClient.SqlConnection,System.Data.CommandType,System.String,System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            Execute a SqlCommand that returns the first column of the first record against an existing database connection 
+            using the provided parameters.
+            </summary>
+            <remarks>
+            e.g.:  
+             Object obj = ExecuteScalar(connString, CommandType.StoredProcedure, "PublishOrders", new SqlParameter("@prodid", 24));
+            </remarks>
+            <param name="conn">an existing database connection</param>
+            <param name="commandType">the CommandType (stored procedure, text, etc.)</param>
+            <param name="commandText">the stored procedure name or T-SQL command</param>
+            <param name="commandParameters">an array of SqlParamters used to execute the command</param>
+            <returns>An object that should be converted to the expected type using Convert.To{Type}</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.SqlHelper.CacheParameters(System.String,System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            add parameter array to the cache
+            </summary>
+            <param name="cacheKey">Key to the parameter cache</param>
+            <param name="cmdParms">an array of SqlParamters to be cached</param>
+        </member>
+        <member name="M:YSWL.DBUtility.SqlHelper.GetCachedParameters(System.String)">
+            <summary>
+            Retrieve cached parameters
+            </summary>
+            <param name="cacheKey">key used to lookup parameters</param>
+            <returns>Cached SqlParamters array</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.SqlHelper.PrepareCommand(System.Data.SqlClient.SqlCommand,System.Data.SqlClient.SqlConnection,System.Data.SqlClient.SqlTransaction,System.Data.CommandType,System.String,System.Data.SqlClient.SqlParameter[])">
+            <summary>
+            Prepare a command for execution
+            </summary>
+            <param name="cmd">SqlCommand object</param>
+            <param name="conn">SqlConnection object</param>
+            <param name="trans">SqlTransaction object</param>
+            <param name="cmdType">Cmd type e.g. stored procedure or text</param>
+            <param name="cmdText">Command text, e.g. Select * from Products</param>
+            <param name="cmdParms">SqlParameters to use in the command</param>
+        </member>
+        <member name="M:YSWL.DBUtility.SystemInfo.GetDataConn(System.Int32)">
+            <summary>
+            设置企业数据流向
+            </summary>
+            <param name="enterpriseId"></param>
+            <returns></returns>
+        </member>
+        <member name="T:YSWL.DBUtility.TestSQLHelper">
+            <summary>
+            测试底层数据库
+            </summary>
+        </member>
+        <member name="M:YSWL.DBUtility.TestSQLHelper.BuildQueryCommand(System.Data.SqlClient.SqlConnection,System.String,System.Data.IDataParameter[])">
+            <summary>
+            构建 SqlCommand 对象(用来返回一个结果集，而不是一个整数值)
+            </summary>
+            <param name="connection">数据库连接</param>
+            <param name="storedProcName">存储过程名</param>
+            <param name="parameters">存储过程参数</param>
+            <returns>SqlCommand</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.TestSQLHelper.BuildIntCommand(System.Data.SqlClient.SqlConnection,System.String,System.Data.IDataParameter[])">
+            <summary>
+            创建 SqlCommand 对象实例(用来返回一个整数值)	
+            </summary>
+            <param name="storedProcName">存储过程名</param>
+            <param name="parameters">存储过程参数</param>
+            <returns>SqlCommand 对象实例</returns>
+        </member>
+        <member name="M:YSWL.DBUtility.TestSQLHelper.CreateParam(System.String,System.Data.SqlDbType,System.Int32,System.Data.ParameterDirection,System.Object)">
+            <summary>
+            创建参数
+            </summary>
+            <param name="ParamName">参数名称</param>
+            <param name="DbType">参数类型</param>
+            <param name="Size">参数大小</param>
+            <param name="Direction">参数方向</param>
+            <param name="Value">参数值</param>
+            <returns>新的 parameter 对象</returns>
+        </member>
+    </members>
+</doc>

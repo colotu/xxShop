@@ -1,0 +1,47 @@
+﻿@{
+    Layout = "/Areas/MShop/Themes/MC01/Views/Shared/_BaseLayout.cshtml";
+    ViewBag.Title = "配送信息";
+}
+@model  YSWL.MALL.Model.Shop.Order.OrderInfo
+<link href="/Areas/MShop/Themes/MC01/Content/Css/main.css" rel="stylesheet" />
+<div class="main_wrapper">
+    <!--START HEADER-->
+    <header>
+        <div class="top_navbar fixed_header">
+             @Html.Partial("/Areas/MShop/Themes/MC01/Views/Partial/_Back.cshtml")
+            <p class="header_title">配送信息</p>
+        </div>
+    </header>
+    <!-- END HEADER -->
+    <div class="top"></div>
+    <div class="logis_wrapper pd">
+        <div class="logis_info">
+            <div class="b_item">
+                <div class="title">配送信息<span class="status"></span></div>
+                <div class="info">
+                    <span class="t">配送方式</span>
+                    <span class="c">@Model.RealShippingModeName</span>
+                </div>    
+                <div class="info">
+                    <span class="t">物流单号</span>
+                    <span class="c">@(string.IsNullOrWhiteSpace(Model.ShipOrderNumber) ? "无" : Model.ShipOrderNumber)</span>
+                </div>
+            </div>
+        </div>
+
+        @if (!String.IsNullOrWhiteSpace(Model.ShipOrderNumber))
+        {
+            <div class="logis_detail">
+                <div class="title">物流跟踪</div>
+            <div id="div_ExpressList">
+                @Html.Action("ExpressList", "Order", new { OrderId = Model.OrderId })
+            </div>
+
+            </div>
+        }
+
+    </div>
+    <!-- ################-->
+    <!-- END TOP MENU -->
+    <!-- ################-->
+</div>

@@ -1,0 +1,57 @@
+using System;
+using System.Collections.Generic;
+using YSWL.TaoBao.Response;
+using YSWL.TaoBao.Util;
+
+namespace YSWL.TaoBao.Request
+{
+    /// <summary>
+    /// TOP API: taobao.ump.promotion.get
+    /// </summary>
+    public class UmpPromotionGetRequest : ITopRequest<UmpPromotionGetResponse>
+    {
+        /// <summary>
+        /// 渠道来源，第三方站点
+        /// </summary>
+        public string ChannelKey { get; set; }
+
+        /// <summary>
+        /// 商品id
+        /// </summary>
+        public Nullable<long> ItemId { get; set; }
+
+        private IDictionary<string, string> otherParameters;
+
+        #region ITopRequest Members
+
+        public string GetApiName()
+        {
+            return "taobao.ump.promotion.get";
+        }
+
+        public IDictionary<string, string> GetParameters()
+        {
+            TopDictionary parameters = new TopDictionary();
+            parameters.Add("channel_key", this.ChannelKey);
+            parameters.Add("item_id", this.ItemId);
+            parameters.AddAll(this.otherParameters);
+            return parameters;
+        }
+
+        public void Validate()
+        {
+            RequestValidator.ValidateRequired("item_id", this.ItemId);
+        }
+
+        #endregion
+
+        public void AddOtherParameter(string key, string value)
+        {
+            if (this.otherParameters == null)
+            {
+                this.otherParameters = new TopDictionary();
+            }
+            this.otherParameters.Add(key, value);
+        }
+    }
+}

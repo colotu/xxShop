@@ -1,0 +1,117 @@
+﻿@{
+    Layout = "~/Areas/Shop/Themes/PC01/Views/Shared/_UserCenterLayOut.cshtml";
+}
+@using Webdiyer.WebControls.Mvc
+@model PagedList<YSWL.MALL.Model.Shop.Coupon.CouponInfo>
+<script src="/Scripts/jquery/maticsoft.jquery.min.js" type="text/javascript"></script>
+
+<input type="hidden" id="currentpage" value="coupon"/>
+<div class="col-main">
+    <div class="user_dingdantitle">
+        我的优惠券<div style="float: right; margin-right: 50px;">
+                </div>
+    </div>
+<div class="mt" >
+            <div class="tab"  style="margin: 3px 3px 3px 0;border-bottom: none;padding-left: 0; ">
+                <ul>
+                    <li class="coupon " status="-1"><s></s><b></b><a href="@(ViewBag.BasePath)UserCenter/MyCoupon?Status=-1">冻结优惠券</a></li>
+                    <li class="coupon" status="1"><s></s><b></b><a href="@(ViewBag.BasePath)UserCenter/MyCoupon?Status=1">未使用优惠券</a></li>
+                    <li class="coupon" status="2"><s></s><b></b><a href="@(ViewBag.BasePath)UserCenter/MyCoupon?Status=2">已使用优惠券</a></li>
+                </ul>
+                <div class="extra">
+                    <span id="schoolcoupon"></span><s></s>
+                </div>
+            </div>
+        </div>    
+              
+    <table width="100%" border="0" class="user_dingdan" cellspacing="0" cellpadding="0">
+        <tr>
+            <th>
+                优惠券
+            </th>
+            <th>
+                类别
+            </th>
+            <th>
+                面值
+            </th>
+            <th>
+                所需消费金额
+            </th>
+            <th>
+                有效期
+            </th>
+             <th>
+                使用限制
+            </th>
+        </tr>
+          @if (Model != null)
+        {
+            foreach (var item in Model)
+            {
+            <tr align="center">
+                <td height="40" class="bor" style="padding: 0 0 0 0;width: 150px">
+                    @item.CouponCode
+                </td>
+                <td class="bor">
+                    @item.ClassName
+                </td>
+                <td class="bor">
+                    @item.CouponPrice.ToString("C")
+                </td>
+                <td class="bor">
+                    @(item.LimitPrice==0?"无限制":item.LimitPrice.ToString("C"))
+                </td>
+                <td class="bor">
+                    @(item.EndDate.ToString("yyyy-MM-dd").StartsWith("9999-") ? item.StartDate.ToString("yyyy-MM-dd HH:mm") + "开始" : (item.StartDate.ToString("yyyy-MM-dd") + "至" + item.EndDate.ToString("yyyy-MM-dd")))
+                </td>
+                 <td class="bor" style="text-align: left;padding-left: 2px;width: 200px;">
+                    @Html.Raw(String.Format(YSWL.MALL.BLL.Shop.Coupon.CouponInfo.GetLimitStr(item), ViewBag.BasePath))
+                </td>
+            </tr>
+            }
+            }
+    </table>
+@if (Model != null)
+{
+    <div class="pagination">
+        @Html.Pager(Model, new PagerOptions
+   {
+       ShowDisabledPagerItems = false,
+       AlwaysShowFirstLastPageNumber = true,
+       ShowFirstLast = false,
+       PageIndexParameterName = "pageIndex",
+       NumericPagerItemCount = 6,
+       CurrentPagerItemTemplate = "<span class=\"page-item curr\">{0}</span>",
+       PagerItemTemplate = "<span class=\"page-item\">{0}</span>",
+       MorePagerItemTemplate = "<span class=\"pn-break\">{0}</span>",
+       CssClass = "p-wrap",
+       PrevPageText = "<span class=\"pn-prev \"><i>&lt;</i>上一页</span>",
+       NextPageText = "<span class=\"pn-next \">下一页<i>&gt;</i></span>",
+   })
+    </div>
+}
+     <div class="kuang" id="div_coupon_kuang" style="display:none;">
+					<div class="mt"><h3>冻结优惠劵相关说明</h3></div>
+				    <div class="mc">
+                        1. 购物时赠送的优惠劵最初为冻结状态，当您的订单完成以后相关的优惠劵便会恢复正常。
+					</div>
+				    </div>
+</div>
+<script type="text/javascript">
+    $(function() {
+        var status = $.getUrlParam("Status");
+        if (!status) {
+            status = "1";
+        }
+        $(".coupon").each(function() {
+            var value = $(this).attr("status");
+            if (value == status) {
+                $(this).addClass("curr");
+                if (status == "-1" && $('#div_coupon_kuang').length > 0) {
+                    $('#div_coupon_kuang').show();
+                }
+            }
+        });
+    });
+</script>

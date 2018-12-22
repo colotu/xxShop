@@ -1,0 +1,39 @@
+﻿@using System.Web.Mvc.Html
+@{
+    Layout = "~/Areas/Shop/Themes/PC01/Views/Shared/_SiteLayout.cshtml";
+@*网站前台模版*@
+}
+@section head{
+    @RenderSection("head", false)
+}
+@Html.Action("Header", "Partial", new { area = "Shop" })
+<!-- 头部 -->
+<header class="header-wrap">
+    <div class="wrap">
+        <div class="headerLayout clearfix">
+            <!-- logo -->
+            <div class="headerLogo">
+                <h1  class="headerLogo-bg">
+                    @Html.Action("Header", "Partial", new { area = "Shop", ViewName = "_HeaderLogo" })
+                </h1>
+            </div>
+            <!-- 搜索框 -->
+            <div class="mallSearch clearfix">
+                @Html.Partial("/Areas/Shop/Themes/PC01/Views/Partial/_Search.cshtml")
+                @Html.Action("HotKeyword", "Partial", new { Cid = 0, Top = 12 })
+            </div>
+            <!-- 购物车 -->
+            @Html.Partial("/Areas/Shop/Themes/PC01/Views/Partial/_HeaderCart.cshtml")
+        </div>
+    </div>
+</header>
+@*@Html.Action("Search", "Partial", new { area = "Shop" })*@
+    @Html.Action("Navigation", "Partial", new { area = "Shop", Theme = "PC01" })
+    @Html.Action("CategoryList", "Partial", new { Cid = 0, Top = 8, viewName = "_CateAll" })
+    @RenderBody()
+    @Html.Action("Footer", "Partial", new { area = "Shop" })
+@Html.Action("SelectRegion", "Partial", new { area = "Shop" })
+    @section foot{
+        @RenderSection("foot", false)
+    }
+

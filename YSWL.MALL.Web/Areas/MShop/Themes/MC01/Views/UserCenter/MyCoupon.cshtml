@@ -1,0 +1,81 @@
+﻿@{
+    Layout = "/Areas/MShop/Themes/MC01/Views/Shared/_BaseLayout.cshtml";
+    ViewBag.Title = "我的优惠券";
+}
+<link href="/Areas/MShop/Themes/MC01/Content/Css/main.css" rel="stylesheet" />
+<script src="/Areas/MShop/Themes/MC01/Content/Scripts/pullUp.js"></script>
+
+
+<div class="main_wrapper">
+    <!--START HEADER-->
+    <header>
+        <div class="top_navbar fixed_header">
+            @Html.Partial("/Areas/MShop/Themes/MC01/Views/Partial/_Back.cshtml")
+            <p class="header_title">我的优惠券</p>
+
+        </div>
+    </header>
+    <!-- END HEADER -->
+    <div class="top"></div>
+    <div class="coupons_tabs">
+        <ul class="tabs tab-js ">
+
+            <li class="current"  data-code="1">未使用</li>
+            <li class=""   data-code="2">已使用</li>
+            <li class="" data-code="4">已过期</li>
+            <li class=""  data-code="-1">冻结</li>
+        </ul>
+        <div class="tabs_content" id="LoadCouponList">
+            @Html.Action("CouponList", "UserCenter", new { Areas = "Mshop", pageSize = 10 })
+            
+        </div>
+    </div>
+</div>
+
+
+<!--加载提示信息--->
+@Html.Partial("/Areas/MShop/Themes/MC01/Views/Partial/_LoadTip.cshtml")
+<!-- ################-->
+
+
+<script>
+		$(function(){
+			window.onload = function()
+			{
+				var $li = $('.coupons_tabs .tabs li');
+				var $con = $('.coupons_tabs .tabs_item');
+				
+
+				//$li.mouseover(function(){
+				//	var $this = $(this);
+				//	var $t = $this.index();
+				//	$li.removeClass();
+				//	$this.addClass('current');
+				//	$con.css('display','none');
+				//	$con.eq($t).css('display','block');
+				//});
+				//$toggle_btn.click(function(){ 
+				//	var $this = $(this);
+				//	$this.children(".si").toggleClass("icon_up");
+				//	$this.parent(".line_wrap").siblings(".showText").slideToggle("fast");
+				//});
+			}
+
+
+			$('#LoadCouponList').on('click', '.cou_header',function() {
+			    var $this = $(this);
+			    $this.children(".si").toggleClass("icon_up");
+			    $this.parent(".line_wrap").siblings(".showText").slideToggle("fast");
+			});
+
+			var $li = $('.tabs li');
+			$('.tab-js li').click(function () {
+			    var $this = $(this);
+			    $li.removeClass();
+			    $this.addClass('current');
+			    var code = $this.attr('data-code');
+			    $('#LoadCouponList').load($YSWL.BasePath + "u/CouponList", { "state": code });
+			});
+		});
+
+</script>

@@ -1,0 +1,183 @@
+﻿@using Webdiyer.WebControls.Mvc
+<script src="/Areas/MShop/Themes/MC01/Content/Scripts/historySearch.js"></script>
+<!-- END MAIN WRAPPER-->
+    <div class="m_home search dsn"  id="search_page">
+        <!--START HEADER-->
+        <header>
+            <div class="searchTop" >
+                <input type="hidden" id="hidsearchType" value="product" />
+                <span id="product"  onclick="selectProduct();">商品</span><span id="store" onclick="selectStore();">店铺</span>
+            </div>
+            <!--<span class="search_uparrow"></span>-->
+            <i class="kx-arrow kx-arrow-down">
+                <em></em>
+                <span></span>
+            </i>
+            <div class="top_navbar">
+                <div class="si icon_goback search_back" id="search_back" onclick="backMainPage();">
+                </div>
+                <div class="top_search search_pl search_pr">
+                    <div  class="searchInput searchInput1">
+                        <i class="si icon_search"></i>
+                        <input type="text" placeholder="请输入您要搜索的商品" class="search_ipt " id="txtKeyWord">
+                    </div>
+                </div>
+                <span class="search_word" id="btnSearch">
+                    搜索
+                </span>
+            </div>
+        </header>
+        <!-- END HEADER -->
+        <div class="floor mt1">
+            <div class="floor_container">
+                <div class="search_hot_word pd">
+                    <div class="search_head">
+                        热门搜索
+                    </div>
+                    @Html.Action("HotKeyword", "Partial", new { Top=0,ViewName = "_HotKeyword" })
+                </div>
+                <div class="search_history"> 
+                    <div class="search_head pd">
+                        历史搜索
+                        <span class="si icon_dele" onclick="clearList();"></span>
+                    </div>
+                    <ul class="list pd" id="historyList"></ul>
+                </div>
+            </div>
+        </div>
+        <!-- ################-->
+        <!-- END TOP MENU -->
+        <!-- ################-->
+    </div>
+<script type="text/javascript">
+    $(function () {
+        var sh = new History("his");
+        var list = sh.getList();
+        if (list != null) {
+            for (var i = list.length - 1; i >= 0; i--) {
+                appendTo(list[i].link);
+            }
+        }
+
+        $("#btnSearch").on('click', function () {
+            var keyword = $("#txtKeyWord").val();
+            if (keyword == "") {
+                ShowFailTip('请输入关键字！');
+                return;
+            } 
+            var type = $('#hidsearchType').val();
+            if (type == "product") {
+                sh.add(keyword);
+                //搜索商品
+                location.href = $YSWL.BasePath + "s/0/0/hot/0-0/" + keyword;
+            } else {
+                //搜索店铺
+                location.href = $YSWL.BasePath + "s/sl/" + keyword;
+            }
+        });
+
+        //手机键盘确认键
+        $("#txtKeyWord").keydown(function (event) {
+            if (event.keyCode === 13) {
+                event.stopPropagation();//阻止事件冒泡
+                var keyword = $("#txtKeyWord").val();
+                if (keyword === "") {
+                    ShowFailTip('请输入关键字！');
+                    return false;
+                }
+                var type = $('#hidsearchType').val();
+                if (type == "product") {
+                    sh.add(keyword);
+                    //搜索商品
+                    location.href = $YSWL.BasePath + "s/0/0/hot/0-0/" + keyword;
+                } else {
+                    //搜索店铺
+                    location.href = $YSWL.BasePath + "s/sl/" + keyword;
+                }
+                return false;
+            }
+       });
+ 
+      
+
+        //默认光标定位到搜索框
+        window.onload = function () {
+            if (document.readyState == "complete") {
+                document.getElementById("txtKeyWord").focus();
+            }
+        }
+        //出现搜索页面
+        $("#showSearch").on('click', function () {
+            showSearchPage();
+            //selectProduct();
+        });
+
+        //出现搜索页面默认选中店铺
+        $("#showSearch-Store").on('click', function () {
+            showSearchPage();
+            selectStore();
+        });
+
+    });
+
+    //显示搜索页面
+    function showSearchPage() {
+        if ($('#se_keyword').length > 0){ //已有的关键词带到搜索框中
+            $('#txtKeyWord').val($('#se_keyword').text());
+        }else{
+            $("#txtKeyWord").eq(0).focus();
+        }
+        $("#search_page").addClass('dsb');
+        $('#main_page').addClass('dsn').removeClass('dsb');
+    }
+
+    //选中商品
+    function selectProduct() {
+        $('#hidsearchType').val('product');
+        $('#txtKeyWord').attr('placeholder', '请输入您要搜索的商品');
+        $('#product').addClass('color-g').siblings().removeClass('color-g');
+        $("i.kx-arrow-down span").css({
+            left: '6em'
+        });
+    }
+
+    //选中店铺
+    function selectStore() {
+        $('#hidsearchType').val('store');
+        $('#txtKeyWord').attr('placeholder', '请输入您要搜索的店铺');
+        $('#store').addClass('color-g').siblings().removeClass('color-g');
+        var windowLen = $(window).width();
+        if (windowLen >= 414) {
+            $("i.kx-arrow-down span").css({
+                left: '13.5em'
+            });
+        } else {
+            $("i.kx-arrow-down span").css({
+                left: '13em'
+            });
+        }
+    }
+
+    //返回主页面
+    function backMainPage() {
+        $("#main_page").addClass('dsb');
+        $('#search_page').addClass('dsn').removeClass('dsb');
+    }
+
+    //添加元素
+    function appendTo(text) {
+        $("#historyList").prepend('<li><a href="' + $YSWL.BasePath + "s/0/0/hot/0-0/" + text + '">' + text + '</a></li>')
+    }
+    function clearList() {
+        delCookie("his");
+        $("#historyList").empty();
+    }
+    function delCookie(name) {
+        var date = new Date();
+        date.setTime(date.getTime() - 10000);
+        document.cookie = name + "=a; expires=" + date.toGMTString();
+    }
+
+    
+</script>
+ 

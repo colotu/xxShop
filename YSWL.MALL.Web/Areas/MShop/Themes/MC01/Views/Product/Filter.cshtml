@@ -1,0 +1,92 @@
+﻿ @{
+    string cid = Request.RequestContext.RouteData.Values["id"] != null ? Request.RequestContext.RouteData.Values["id"].ToString() : "0";
+}
+<script type="text/javascript">
+    $(function () {
+        //重置筛选条件
+        $(".btn_reset").on('click',function () {
+            $("#hfAttrValue").val("");
+            $("#hfBrand").val("0");
+            $('#txtPrice1').val('');
+            $('#txtPrice2').val('');
+            $(".valueList span.tag_a").removeClass("tag_a");
+            $(".valueList[valueId='0'] span").addClass("tag_a");
+            $("#brandlist .brandValues span.tag_a").removeClass("tag_a");
+            $("#brandlist a[BrandId='0'] span").addClass("tag_a");
+            $('#filter_brand_tip').text("全部");
+            $('[id^="filter_attr_tip"]').text("全部");
+        });
+        //选中品牌值
+        $(".brandValues").on('click',function () {
+            $("#brandlist").find("span.tag_a").removeClass("tag_a");
+            $(this).find("span").addClass("tag_a");
+            $('#filter_brand_tip').text($(this).find("span").text());
+            $("#hfBrand").val($(this).attr("BrandId"));
+        });
+        //选中属性值
+        $(".valueList").on('click',function () {
+            var _self = $(this);
+            var attrId = _self.attr("AttrId")
+            $("#Attr_" + attrId).find("span.tag_a").removeClass("tag_a");
+            $(this).find("span").addClass("tag_a");
+            //重新形成属性值字符串
+            var value_arr = new Array();
+            $(".valueList span.tag_a").each(function () {
+                var valueId =parseInt( $(this).attr("valueId"));
+                if (valueId > 0) {
+                    value_arr.push(valueId);
+                }
+            });
+            $("#hfAttrValue").val(value_arr.join("-"));
+            $("#filter_attr_tip" + attrId).text($(this).find("span").text());
+        });
+
+
+        //应用本次筛选条件
+        $("#btn-goset").on('click', function () {
+            closeFilter();
+            $('#mainProductList').load(getProductUrl(), function () {
+                $('#mainProductList').show();
+                $('#loading').hide();
+            });
+        });
+
+    })
+</script>
+ 
+    <input id="hfBrand" type="hidden" value="0" />
+    <input id="hfAttrValue" type="hidden" />
+<div class="popCover" id="pop1">
+    <div class="top_navbar fixed_header">
+        <div class="si icon_goback" id="filter-back">
+        </div>
+        <p class="header_title">筛选</p>
+    </div>
+    <div class="cover-wrap">
+        <div class="top"></div>
+        <div class="floor pop_content">
+            <div class="floor_container">
+                <div class="filter_wrap">
+                    <div class="filter_item">
+                        <div class="search_head pd">
+                            价格区间
+                        </div>
+                        <div class="between_price pd">
+                            <input type="number" class="ipt" placeholder="最低价" id="txtPrice1" >
+                            <span>—</span>
+                            <input type="number" class="ipt" placeholder="最高价" id="txtPrice2" >
+                        </div>
+                    </div>
+                    @Html.Action("BrandList", new { Cid = cid, Top = -1 })
+                    @Html.Action("AttrList", new { cid = cid, ViewName = "_AttrList", top = -1 })
+                </div>
+            </div>
+        </div>
+        <div class="tc">
+            <a href="javascript:;" class="btn_reset">重置</a>
+        </div>  
+    </div>
+    <div class="btn_wrapper">
+        <input type="submit" class="b_btn btn_green" value="确定"  id="btn-goset" >
+    </div>
+</div>

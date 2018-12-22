@@ -1,0 +1,14 @@
+﻿@model List<YSWL.MALL.Model.Shop.Products.BrandInfo>
+
+    @if (Model != null && Model.Count > 0)
+    {
+        <div class="brandWrap">
+              @foreach (var item in Model)
+        {
+            <dl class="brand1">
+                <dt><a href="@(ViewBag.BasePath)product/@ViewBag.Cid/@item.BrandId"><img src="@item.Logo" alt="@item.BrandName" width="82" height="46"/></a></dt>
+                <dd><a href="@(ViewBag.BasePath)product/@ViewBag.Cid/@item.BrandId">@YSWL.Common.StringPlus.SubString(item.BrandName,7,"...") </a></dd>
+            </dl>
+}
+        </div>
+    }

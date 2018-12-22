@@ -1,0 +1,10 @@
+E:\ZheJiangBiYan\BYShop\Lib\CS\YSWL.JsonRpc\YSWL.Json.RPC.Sandbox\obj\Debug\YSWL.Json.RPC.Sandbox.csprojResolveAssemblyReference.cache
+E:\ZheJiangBiYan\BYShop\Lib\CS\YSWL.JsonRpc\bin\net-4.0\debug\YSWL.Json.RPC.Sandbox.dll
+E:\ZheJiangBiYan\BYShop\Lib\CS\YSWL.JsonRpc\bin\net-4.0\debug\YSWL.Json.RPC.Sandbox.pdb
+E:\ZheJiangBiYan\BYShop\Lib\CS\YSWL.JsonRpc\YSWL.Json.RPC.Sandbox\obj\Debug\YSWL.Json.RPC.Sandbox.dll
+E:\ZheJiangBiYan\BYShop\Lib\CS\YSWL.JsonRpc\YSWL.Json.RPC.Sandbox\obj\Debug\YSWL.Json.RPC.Sandbox.pdb
+E:\zhou\洪光顺\XXShop\Lib\CS\YSWL.JsonRpc\bin\net-4.0\debug\YSWL.Json.RPC.Sandbox.dll
+E:\zhou\洪光顺\XXShop\Lib\CS\YSWL.JsonRpc\bin\net-4.0\debug\YSWL.Json.RPC.Sandbox.pdb
+E:\zhou\洪光顺\XXShop\Lib\CS\YSWL.JsonRpc\YSWL.Json.RPC.Sandbox\obj\Debug\YSWL.Json.RPC.Sandbox.csprojResolveAssemblyReference.cache
+E:\zhou\洪光顺\XXShop\Lib\CS\YSWL.JsonRpc\YSWL.Json.RPC.Sandbox\obj\Debug\YSWL.Json.RPC.Sandbox.dll
+E:\zhou\洪光顺\XXShop\Lib\CS\YSWL.JsonRpc\YSWL.Json.RPC.Sandbox\obj\Debug\YSWL.Json.RPC.Sandbox.pdb

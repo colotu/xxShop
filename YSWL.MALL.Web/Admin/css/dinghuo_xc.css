@@ -1,0 +1,52 @@
+/*订货商家后台*/
+.saas_dinghuo_content1{
+	width: 100%;
+	overflow: hidden;
+}
+.table_item{
+	text-align: center;
+	border-collapse: collapse;
+	border: 1px solid #e6e6e6;
+	color: #999;
+}
+.table_item th,
+.table_item td{
+	width: 200px;
+	padding: 5px;
+	border: 1px solid #e6e6e6;
+	font-weight: normal;
+    font-size:16px;
+}
+.table_item th{
+	color: #666;
+}
+.dinghuo_table{
+	margin-right: 5px;
+}
+.table_item tr:hover{
+	background-color: #DEF4FD;
+}
+.saas_ydh_content3 .table_item{
+	width: 100%;
+}
+.saas_title{
+	width: 100%;
+	background-color: #e6e6e6;
+	height: 40px;
+	line-height: 40px;
+	position: relative;
+	border-bottom: 1px solid #ccc;
+}
+.saas_title_h2{
+	font-size: 16px;
+	margin-left: 25px;
+}
+.color_grey{
+	color: #666;
+	font-size: 16px;
+}
+.saas_chart{
+	padding-top: 35px;
+	padding-left: 25px;
+	padding-bottom: 25px;
+}

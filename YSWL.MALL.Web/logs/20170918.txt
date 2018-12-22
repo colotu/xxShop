@@ -1,0 +1,48 @@
+发生时间：2017/9/18 1:05:44
+事件级别：Error
+事件来源：Application_Error:未找到路径“/Areas/Shop/Themes/PC01/Views/Account/Login.cshtml”。
+事件操作人信息：()
+事件内容： 详细错误：   在 System.Web.HttpNotFoundHandler.ProcessRequest(HttpContext context)
+   在 System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+---------------------------------------------------------
+发生时间：2017/9/18 16:16:56
+事件级别：Error
+事件来源：Application_Error:未找到路径“/Areas/MShop/Themes/MC01/Views/Account/Login.cshtml”。
+事件操作人信息：()
+事件内容： 详细错误：   在 System.Web.HttpNotFoundHandler.ProcessRequest(HttpContext context)
+   在 System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+---------------------------------------------------------
+发生时间：2017/9/18 16:56:24
+事件级别：Error
+事件来源：Application_Error:未找到路径“/Areas/Shop/Themes/PC01/Views/UserCenter/Index.cshtml”。
+事件操作人信息：()
+事件内容： 详细错误：   在 System.Web.HttpNotFoundHandler.ProcessRequest(HttpContext context)
+   在 System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+---------------------------------------------------------
+发生时间：2017/9/18 17:23:20
+事件级别：Error
+事件来源：Application_Error:未找到路径“/Areas/MShop/Themes/MC01/Views/UserCenter/Index.cshtml”。
+事件操作人信息：()
+事件内容： 详细错误：   在 System.Web.HttpNotFoundHandler.ProcessRequest(HttpContext context)
+   在 System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+---------------------------------------------------------
+发生时间：2017/9/18 23:46:56
+事件级别：Error
+事件来源：Application_Error:未找到路径“/Areas/MShop/Themes/MC01/Views/Order/SubmitOrder.cshtml”。
+事件操作人信息：()
+事件内容： 详细错误：   在 System.Web.HttpNotFoundHandler.ProcessRequest(HttpContext context)
+   在 System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+---------------------------------------------------------
+发生时间：2017/9/18 23:50:44
+事件级别：Error
+事件来源：Application_Error:未找到路径“/Areas/MShop/Themes/MC01/Views/Order/SubmitOrder.cshtml”。
+事件操作人信息：()
+事件内容： 详细错误：   在 System.Web.HttpNotFoundHandler.ProcessRequest(HttpContext context)
+   在 System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+---------------------------------------------------------

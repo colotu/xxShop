@@ -1,0 +1,11 @@
+﻿ @model List<YSWL.MALL.Model.Shop.Products.CategoryInfo>
+<ul class="saleNav" id="catelist">
+    <li class="se_current" cid="0">全部</li>
+   @if (Model != null && Model.Count > 0)
+   {
+       foreach (var item in Model)
+       {
+            <li cid="@item.CategoryId">@item.Name</li>
+        }
+    }
+</ul>

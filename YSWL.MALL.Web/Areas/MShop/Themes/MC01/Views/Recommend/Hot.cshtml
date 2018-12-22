@@ -1,0 +1,75 @@
+﻿@{
+    Layout = "/Areas/MShop/Themes/MC01/Views/Shared/_BaseLayout.cshtml";
+    ViewBag.Title = "畅销商品";
+}
+@section headtop{
+    <!--swiper-->
+    <link href="/Scripts/Swiper-3.3.1/css/swiper.min.css" rel="stylesheet" />
+    <!--swiper-->
+}
+@section head{
+    <link href="/Areas/MShop/Themes/MC01/Content/Css/main.css" rel="stylesheet" />
+    <link href="/Areas/MShop/Themes/MC01/Content/Css/sale.css" rel="stylesheet" />
+}
+@model List<YSWL.MALL.Model.Shop.Products.ProductInfo>
+<div class="main_wrapper">
+    <!--START HEADER-->
+    <header class="fixed_header main_wrapper">
+        <a href="@(ViewBag.BasePath)" class="si icon_goback"></a>
+        <h2>畅销商品</h2>
+        @Html.Partial("/Areas/MShop/Themes/MC01/Views/Partial/_HeaderMsg.cshtml")
+    </header>
+    <!--END HEADER-->
+    <div class="contentWrapper main_wrapper">
+        <!--START BANNER-->
+        <div class="top"></div>
+        <div class=" swiper-container">
+            <div class="swiper-wrapper">
+                @Html.Action("AdDetail", "Partial", new { id = 92, ViewName = "_AdBanner" })
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+        <!--END BANNER-->
+        <div class="saleNavWrapper hotShop">
+             @Html.Action("CategoryList", "Product", new { parentId = 0, ViewName = "/Areas/MShop/Themes/MC01/Views/Recommend/_CateList.cshtml" })
+        </div>
+        <div class="floor  nosale-list" id="mainCont">
+            @{Html.RenderPartial("_HotList", Model);}
+            <!--加载提示信息--->
+            @Html.Partial("/Areas/MShop/Themes/MC01/Views/Partial/_LoadTip.cshtml")
+        </div>
+    </div>
+</div>
+@section foot{
+    <script src="/Areas/MShop/Themes/MC01/Content/Scripts/pullUp.js"></script>
+    <!--swiper-->
+    <script src="/Scripts/Swiper-3.3.1/js/swiper.min.js"></script>
+    <!--swiper-->
+<script type="text/javascript">
+    $(function () {
+        $('#body').addClass('m_home');
+        var mySwiper = new Swiper('.swiper-container',
+        {
+            direction: 'horizontal',
+            loop: true,
+            pagination: '.swiper-pagination',
+            autoplay: 5000
+        });
+
+        //新品推荐 导航 滑动
+        $(".saleNav li").on("click", function () {
+            var dd = ($(this).width());
+            var num = $(".saleNav li").index(this);
+            $(".saleNav").animate({ scrollLeft: 60 * num }, 1000);
+            $(this).addClass('se_current');
+            $(this).siblings().removeClass('se_current');
+            var cid = $(this).attr('cid');
+            //显示 loading刷新
+            $("#bgloading,#bg").css({ height: $(window).height(), display: 'block' });
+            $('#mainCont').load($YSWL.BasePath + 'rec/hot/'+cid + "/1/30/hot/_HotList", function () {
+                $("#bgloading,#bg").hide();//隐藏loading
+            });
+        });
+    });
+</script>
+}

@@ -1,0 +1,25 @@
+﻿@{
+    Layout = "/Areas/Shop/Themes/PC01/Views/Shared/_UserCenterLayout.cshtml";
+}
+<link href="/Areas/Shop/Themes/PC01/Content/Css/returnorder.css" rel="stylesheet" type="text/css" /> 
+    <script src="/Scripts/jquery/maticsoft.img.min.js" type="text/javascript"></script>
+ 
+ 
+<input type="hidden" id="currentpage" value="returnorder"/>
+
+    <div class="col-main">
+        <!-- 用户信息 E -->
+       <div class="user_dingdantitle">退货</div>
+        <div id="LoadOrderList">
+            @Html.Action("OrderList","ReturnOrder")
+        </div>
+        <div class="returnorder" >
+					<div class="mt" ><h3 >退货申请常见问题</h3></div>
+				    <div class="mc" >
+						1. 若不显示"退货"按钮，可能是因为订单尚未完成;<br />
+                        2. 若背景为灰色，可能是因为该订单正在退货中或已申请过退货;<br />
+					</div>
+				    </div> 
+    </div>
+<script src="/scripts/MvcPager-1.8.js" type="text/javascript"></script>
+    

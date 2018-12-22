@@ -1,0 +1,47 @@
+﻿@{
+    Layout = "~/Areas/MShop/Themes/MC01/Views/Shared/_BaseLayout.cshtml";
+}
+@section head{
+    <link href="/Areas/MShop/Themes/MC01/Content/Css/main.css" rel="stylesheet" />
+}
+ <div class="main_wrapper">
+    <!--START HEADER-->
+    <header>
+        <div class="top_navbar fixed_header">
+            <a href="javascript:;" class="si icon_goback" id="c_back">
+            </a>
+            <p class="header_title">支付失败</p>
+        </div>
+    </header>
+    <!-- END HEADER -->
+    <div class="top"></div>
+    <div class="pay_result_wrapper">
+        <div class="con">
+            <div class="pic_wrap">
+                <img src="/Areas/MShop/Themes/MC01/Content/images/fail.png">
+                <div class="txt red f20">
+                    您的订单存在风险，请查看订单状态或稍后重试。
+                </div>
+            </div>
+            <div class="result_txt">
+                <div class="info">
+                    订单号：@(ViewBag.OrderCode)
+                </div>
+           </div>
+        </div>
+    </div>
+    <!-- ################-->
+    <!-- END TOP MENU -->
+    <!-- ################-->
+</div>
+ 
+<input type="hidden" value="@ViewBag.OrderId" id="OrderId"/>
+<input type="hidden" value="@ViewBag.PayStatus" id="Status"/>
+<script type="text/javascript">
+    $(function () {
+        //返回按钮
+        $('#c_back').click(function () {
+            window.location.replace($YSWL.BasePath + "O/oi/@ViewBag.OrderId");
+        });
+    });
+</script>

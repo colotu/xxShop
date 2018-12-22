@@ -1,0 +1,62 @@
+﻿@using Webdiyer.WebControls.Mvc
+@model PagedList<YSWL.MALL.ViewModel.Shop.CommissionStat>
+@if (Model != null && Model.Count>0)
+{
+    foreach (var item in Model)
+    {
+        <div class="list-item">
+            <div class="text-wrap">
+                <div class="list-line">
+                    盟友：
+                    <span class="intro">@item.NickName</span>
+                </div>
+                <div class="list-line">
+                    佣金：
+                    <span class="intro price">￥@item.TotalFee.ToString("F")</span>
+                </div>
+            </div>
+        </div>
+    }
+    <script type="text/javascript">
+    $(function () {
+        pullUp.init({
+            //Ajax请求参数
+            AjaxOptions: {
+                //Ajax请求参数
+                Params: $.extend(@Html.Raw(ViewBag.DataParam), { ajaxViewName:"_AllyRankingListMore"}),
+                //Params:@Html.Raw(ViewBag.DataParam),
+                //Ajax请求URL
+                DataURL: "@(ViewBag.BasePath)Commission/AllyRanking"
+            },
+
+            //当前页码
+            CurrentPage: 2,
+            //页码参数名称
+            PageParamsName: "pageIndex",
+            //每页数量
+            PageSize: @(ViewBag.PageSize),
+            //每页数量参数名称
+            PageSizeParamsName: "pageSize",
+            //内容容器
+            ContentContainer: $("#list"),
+            //正在加载提示框
+            LoadingTipBox: $("#loadingMore"),
+            //无更多数据提示框
+            NoMoreTipBox: $("#noMoreProduct"),
+            LoadFinish:false
+        });
+        $("#noMoreProduct").hide();
+    });
+    </script>
+}
+else
+{
+    <div class="empty pro_list_empty">
+        <div class="img_wrap">
+            <img src="/Areas/MShop/Themes/mc02/Content/images/nopro.png" alt="">
+        </div>
+        <div class="txt">
+            <p>没找到相关数据</p>
+        </div>
+    </div>
+}

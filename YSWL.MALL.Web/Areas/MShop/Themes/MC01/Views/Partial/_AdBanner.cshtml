@@ -1,0 +1,9 @@
+﻿  @model List<YSWL.MALL.Model.Settings.Advertisement>
+@if (Model != null && Model.Count > 0)
+{
+        foreach (var item in Model)
+        { 
+            <a  class="swiper-slide"   href="@item.NavigateUrl"><img src="@item.FileUrl" alt="@item.AdvertisementName"></a>
+        }
+}
+

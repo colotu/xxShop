@@ -1,0 +1,6 @@
+发生时间：2018/11/23 17:13:14
+事件级别：Error
+事件来源：另一个 SqlParameterCollection 中已包含 SqlParameter。__0
+事件操作人信息：()
+事件内容：cmdText：  UPDATE  Accounts_Users  SET UserType='UU' WHERE DepartmentID=@SupplierId  —参数：@SupplierId:4
+---------------------------------------------------------

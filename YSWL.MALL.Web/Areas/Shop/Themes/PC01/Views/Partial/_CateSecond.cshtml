@@ -1,0 +1,16 @@
+﻿  @model List<YSWL.MALL.Model.Shop.Products.CategoryInfo>
+@if (Model != null && Model.Count > 0)
+{
+    foreach (var item in Model)
+    {
+<dl class="cate-detail-item">
+    <dt class="cate-detail-tit">
+        <a href="@(ViewBag.BasePath)product/@item.CategoryId" target="_blank" class="cate-detail-tit-lk">@item.Name&gt;</a>
+    </dt>
+    <dd class="cate-detail-con">
+        @Html.Action("CategoryList", "Partial", new { Cid = item.CategoryId, Top = 0, viewName = "_CateThree" })
+    </dd>
+</dl>
+    }
+}
+		                  

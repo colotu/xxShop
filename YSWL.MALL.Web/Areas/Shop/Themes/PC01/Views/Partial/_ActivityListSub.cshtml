@@ -1,0 +1,57 @@
+﻿@model YSWL.MALL.Model.Shop.Activity.ActivityInfo    
+           @if (Model != null)
+           {
+            <div class="prom-item">
+                @switch (Model.RuleId)
+                {
+                    case 1:
+                        <em  class="act-tag">首单</em>
+                        break;
+                    case 2:
+                        <em  class="act-tag">满额</em>
+                        break;
+                    case 3:
+                        <em  class="act-tag">赠券</em>
+                        break;
+                    case 4:
+                        <em  class="act-tag">包邮</em>
+                        break;
+                }
+                @if (Model.BuyProductId.HasValue && Model.BuyProductId.Value > 0)
+                {
+                    <span  class="prom-txt">
+                        购买&#12288;<a href="@(ViewBag.BasePath)Product/Detail/@Model.BuyProductId.Value" target="_blank"  class="pro-lk">@Model.BuyProductName</a>&#12288;@(Model.BuyCount > 0 ? ("满" + Model.BuyCount + "件") : "")
+                    </span>
+                }
+                else if (Model.BuyCategoryId > 0)
+                {
+                    <span  class="prom-txt">
+                        购买&#12288;分类<a  href="@(ViewBag.BasePath)product/@Model.BuyCategoryId" target="_blank"  class="pro-lk">@Model.BuyCategoryName</a>中的商品&#12288;@(Model.BuyCount > 0 ? ("满" + Model.BuyCount + "件") : "")
+                    </span>
+                }
+                
+                    @if (Model.LimitPrice > 0 || Model.LimitMaxPrice.HasValue)
+                    {
+                        <span class="prom-txt">
+                     消费金额范围 <em class="em_price">@(Model.LimitPrice > 0 ? Model.LimitPrice.ToString("F") : "无限制")-@(Model.LimitMaxPrice.HasValue ? Model.LimitMaxPrice.Value.ToString("F") : "无限制")</em>
+</span>
+                    }             
+                @switch (Model.RuleId)
+                {
+                    case 1:
+                    case 2:
+                        @:送 <a  class="pro-lk" href="@(ViewBag.BasePath)Product/Detail/@Model.ProductId" target="_blank">@Model.ProductName</a>
+                           break;
+                    case 3:
+                        @:送 <span  class="subjectcolor" >@Model.CpRuleName</span>
+                           break;
+                    case 4:
+                        <span  class="subjectcolor" >免邮</span>
+                        break;
+                    default:
+                        break;
+                }
+            </div>
+
+                    }    
+     

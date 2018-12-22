@@ -1,0 +1,26 @@
+﻿@using Webdiyer.WebControls.Mvc
+@model PagedList<YSWL.MALL.Model.Members.UserInvite>
+@if (Model != null)
+{
+    foreach (var item in Model)
+    {
+        <div class="list-item">
+            <div class="text-wrap">
+                <div class="list-line">
+                    日期：
+                    <span class="intro">@item.CreatedDate.ToString("yyyy-MM-dd HH:mm:ss")</span>
+                </div>
+                <div class="list-line">
+                    盟友：
+                    <span class="intro">@item.UserNick</span>
+                </div>
+                <div class="list-line">
+                    返利情况：
+                    <span class="intro">@item.RebateDesc</span>
+                </div>
+            </div>
+        </div>
+    }
+}
+
+

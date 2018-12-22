@@ -1,0 +1,35 @@
+﻿@model List<YSWL.MALL.Model.Settings.Advertisement>
+@if (Model != null && Model.Count > 0)
+{ 
+    <div class="floor">
+        <div class="floor_container mt">
+            <div class="floor_item">
+                @for (int i=0;i<Model.Count;i++)
+                { 
+                 <div class="container_col3">
+                    <a href="@Model[i].NavigateUrl">
+                        <img src="@Model[i].FileUrl" alt="@Model[i].AdvertisementName">
+                    </a>
+                </div>
+                    if (i == 2) {
+                        break;
+                    }
+                }
+            </div>
+            <div class="floor_item">
+                @for (int i = 3; i < Model.Count; i++)
+                {
+                    <div class="container_col3">
+                        <a href="@Model[i].NavigateUrl">
+                            <img src="@Model[i].FileUrl" alt="@Model[i].AdvertisementName">
+                        </a>
+                    </div>
+                    if (i == 5)
+                    {
+                        break;
+                    }
+                }
+            </div>
+        </div>
+    </div>
+}

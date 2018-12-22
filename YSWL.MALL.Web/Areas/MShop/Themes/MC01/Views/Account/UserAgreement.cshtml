@@ -1,0 +1,14 @@
+﻿@model  YSWL.MALL.ViewModel.Shop.RegisterModel
+   <!--START HEADER-->
+<header>
+    <div class="top_navbar fixed_header">
+        <div class="si icon_goback" id="back_mianPage">
+        </div>
+        <p class="header_title">用户协议</p>
+    </div>
+</header>
+<!-- END HEADER -->
+<div class="top"></div>
+<div class="agreement pd">
+    @Html.Raw(Model.UserAgreement)
+</div>

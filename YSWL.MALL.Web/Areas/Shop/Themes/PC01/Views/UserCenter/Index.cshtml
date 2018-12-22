@@ -1,0 +1,103 @@
+﻿@{
+    Layout = "/Areas/Shop/Themes/PC01/Views/Shared/_UserCenterLayout.cshtml";
+}
+@using YSWL.MALL.Model.Shop.Products
+@model YSWL.MALL.Model.Members.UsersExpModel 
+<!--personalCenterContR开始-->
+
+    <div class="userInfoWrap">
+        <div class="userPic">
+            <a href="@(ViewBag.BasePath)UserCenter/Gravatar" target="_blank" title="修改头像" >
+                <img id="imgPhoto" alt="头像" style="width: 100px; height: 100px;background: #dedada;" src="/Upload/User/Gravatar/@(Model.UserID).jpg?id=@(DateTime.Now)" onerror="this.onerror = ''; this.src = '/Upload/User/Gravatar/nophoto.png'">
+            </a>
+        </div>
+        <div class="userInfo">
+            <div class="userName">
+                欢迎，<strong>@Model.NickName</strong>
+               
+          
+                    @*@if (ViewBag.RankScoreIsEnable)
+                    {
+                        if (Model.UserRank != null)
+                        {
+                            <span style="color: #005ea7;margin-left: 30px;">@(Model.UserRank.Name)会员</span>
+                        } @:您目前的成长值为 <span class="red">@Model.RankScore</span>
+                    }*@
+
+                @if (Model.BodilyForm.Trim() != "VIP")
+                {
+                    <span style="color: #005ea7;margin-left: 30px;">普通会员</span>
+                    <span style="color: #005ea7;margin-left: 30px;"><a tab="points" href="@(ViewBag.BasePath)product/11" title="升级VIP会员">升级VIP会员</a></span>
+                }
+                else if (Model.BodilyForm.Trim() == "VIP")
+                {
+                    <span style="color: #005ea7;margin-left: 30px;">VIP会员 @*<a tab="points" href="@ViewBag.mfjyurl" title="进入VIP会员系统" target="_blank">进入VIP会员系统</a>*@</span>
+                }
+                <span style="color: #005ea7;margin-left: 30px;">所属商家：</span>@(ViewBag.suppName)
+                @if (Model.UserType.Trim() == "SP")
+                {
+                    <span style="color: #005ea7;margin-left: 30px;">商家 <a tab="points" href="@(ViewBag.BasePath)Store/apply" title="进入店铺管理" target="_blank">进入店铺管理</a></span>
+                }
+                else
+                {
+                    <span style="color: #005ea7;margin-left: 30px;"><a tab="points" href="@(ViewBag.BasePath)Store/apply" title="申请开店" target="_blank">申请成为商家</a></span>
+                }
+                
+            </div>
+            <ul>
+                <li>
+                    <p class="pT">
+                        <a href="@(ViewBag.BasePath)UserCenter/Orders" target="_blank" title="待支付订单">待支付订单</a></p>
+                    <p class="redB">
+                        <a href="javascript:;">@ViewBag.Unpaid</a></p>
+                </li>
+                <!--<li>
+                    <p class="pT">
+                        <a href="@(ViewBag.BasePath)UserCenter/Inbox" target="_blank">未读消息</a></p>
+                    <p class="redB">
+                        <a href="javascript:;">@ViewBag.privatecount</a></p>
+                </li>-->
+                <li>
+                    <p class="pT">
+                        <a href="@(ViewBag.BasePath)UserCenter/PointsDetail">商城积分</a>
+                    </p>
+                    <p class="redB">
+                        <a href="javascript:;">@Model.Points</a></p>
+                </li>
+                <li>
+                    <p class="pT">
+                        <a href="@(ViewBag.BasePath)UserCenter/Balance">账户余额</a></p>
+                    <p class="redB">
+                        <a href="javascript:;">￥@(Model.Balance.HasValue ? Model.Balance.Value.ToString("F") : "")</a></p>
+                </li>
+                @*<li>
+                    <p class="pT">
+                        VIP现金积分
+                    </p>
+                    <p class="redB">
+                        @ViewBag.XJJF
+                    </p>
+                </li>
+                <li>
+                    <p class="pT">
+                        VIP购物积分
+                    </p>
+                    <p class="redB">
+                        @ViewBag.Gwjifen
+                    </p>
+                </li>*@
+            </ul>
+        </div>
+    </div>
+    <div class="recentBrowse">
+        <h3>
+            热销新款</h3>
+        @Html.Action("ProductRec", "Partial", new { Type = ProductRecType.Latest, Top = 7, ViewName = "_UserCenterProductHot" })
+    </div>
+    <div class="recentBrowse">
+        <h3>
+            最近热卖</h3>
+        @Html.Action("ProductRec", "Partial", new { Type = ProductRecType.Hot, Top = 7, ViewName = "_UserCenterProductHot" })
+    </div>
+
+<!--personalCenterContR结束-->

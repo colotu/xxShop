@@ -1,0 +1,71 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YSWL.MALL.API", "YSWL.MALL.API\YSWL.MALL.API.csproj", "{E5DEFAE0-E621-42E3-A55C-2268C99B2C17}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YSWL.MALL.BLL", "YSWL.MALL.BLL\YSWL.MALL.BLL.csproj", "{C834DE4D-FE13-43A9-BA38-4F9C148A2949}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YSWL.MALL.DALFactory", "YSWL.MALL.DALFactory\YSWL.MALL.DALFactory.csproj", "{C78B6E62-526D-4899-8355-959C0F25A243}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YSWL.MALL.IDAL", "YSWL.MALL.IDAL\YSWL.MALL.IDAL.csproj", "{D341A09C-AB94-4148-AA44-50C63F735E6C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YSWL.MALL.Model", "YSWL.MALL.Model\YSWL.MALL.Model.csproj", "{400F9EBC-F979-4F92-8EFC-69A98377DD25}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YSWL.MALL.SQLServerDAL", "YSWL.MALL.SQLServerDAL\YSWL.MALL.SQLServerDAL.csproj", "{C087A469-5FC8-4B2F-8B49-F7906170DABD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YSWL.MALL.ViewModel", "YSWL.MALL.ViewModel\YSWL.MALL.ViewModel.csproj", "{07C90A14-0E00-4C76-9E23-076B3FB2D309}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YSWL.MALL.Web", "YSWL.MALL.Web\YSWL.MALL.Web.csproj", "{7839A7F8-296F-45FF-B16A-70D62297FE54}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E5DEFAE0-E621-42E3-A55C-2268C99B2C17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5DEFAE0-E621-42E3-A55C-2268C99B2C17}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5DEFAE0-E621-42E3-A55C-2268C99B2C17}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5DEFAE0-E621-42E3-A55C-2268C99B2C17}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C834DE4D-FE13-43A9-BA38-4F9C148A2949}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C834DE4D-FE13-43A9-BA38-4F9C148A2949}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C834DE4D-FE13-43A9-BA38-4F9C148A2949}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C834DE4D-FE13-43A9-BA38-4F9C148A2949}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C78B6E62-526D-4899-8355-959C0F25A243}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C78B6E62-526D-4899-8355-959C0F25A243}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C78B6E62-526D-4899-8355-959C0F25A243}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C78B6E62-526D-4899-8355-959C0F25A243}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D341A09C-AB94-4148-AA44-50C63F735E6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D341A09C-AB94-4148-AA44-50C63F735E6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D341A09C-AB94-4148-AA44-50C63F735E6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D341A09C-AB94-4148-AA44-50C63F735E6C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{400F9EBC-F979-4F92-8EFC-69A98377DD25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{400F9EBC-F979-4F92-8EFC-69A98377DD25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{400F9EBC-F979-4F92-8EFC-69A98377DD25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{400F9EBC-F979-4F92-8EFC-69A98377DD25}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C087A469-5FC8-4B2F-8B49-F7906170DABD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C087A469-5FC8-4B2F-8B49-F7906170DABD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C087A469-5FC8-4B2F-8B49-F7906170DABD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C087A469-5FC8-4B2F-8B49-F7906170DABD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07C90A14-0E00-4C76-9E23-076B3FB2D309}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07C90A14-0E00-4C76-9E23-076B3FB2D309}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07C90A14-0E00-4C76-9E23-076B3FB2D309}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07C90A14-0E00-4C76-9E23-076B3FB2D309}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7839A7F8-296F-45FF-B16A-70D62297FE54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7839A7F8-296F-45FF-B16A-70D62297FE54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7839A7F8-296F-45FF-B16A-70D62297FE54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7839A7F8-296F-45FF-B16A-70D62297FE54}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
+	EndGlobalSection
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = Maticsoft.vsmdi
+	EndGlobalSection
+EndGlobal

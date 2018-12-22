@@ -1,0 +1,71 @@
+﻿@using YSWL.Common;
+@using Webdiyer.WebControls.Mvc
+@model PagedList<YSWL.MALL.Model.Pay.BalanceDetails>
+<div class="user_rechargedetial user_detialclear">
+    <a href="javascript:;"  class="curr">收支明细</a>
+    <a href="javascript:;"  item="RechargeList"  >充值明细</a>
+    @*<a href="javascript:;" item="DrawDetList"  >提现明细</a>*@                                                            
+</div>
+             <table width="100%" border="0" class="user_dingdan user_balancelist" cellspacing="0" cellpadding="0">
+              <tr>
+                  <th>时间</th>
+                  <th>收入</th>
+                  <th>支出</th>
+                  <th>余额</th>
+                  <th>备注</th>
+              </tr>
+              @if (Model != null)
+              {
+                  foreach (var item in Model)
+                  {
+                  <tr>
+                      <td height="40" style="width:140px;"  class="bor">
+                          @item.TradeDate.ToString("yyyy-MM-dd HH:mm:ss")
+                      </td>                  
+                      <td   class="bor">
+                          @(item.Income.HasValue?item.Income.Value.ToString("F"):"")
+                      </td>
+                      <td   class="bor">
+                          @(item.Expenses.HasValue ? item.Expenses.Value.ToString("F") : "")
+                      </td>
+                        <td   class="bor">
+                         @item.Balance.ToString("F")
+                      </td>
+                      <td   class="bor">
+                          @item.Remark
+                      </td>
+                  </tr>
+                  }
+              }
+           
+           </table>
+@if (Model != null)
+{
+                  <!-- 分页 -->
+    <div class="pagination">
+        @Ajax.Pager(Model, new PagerOptions
+               {
+                   ShowDisabledPagerItems = false,
+                   AlwaysShowFirstLastPageNumber = true,
+                   ShowFirstLast = false,
+                   PageIndexParameterName = "pageIndex",
+                   NumericPagerItemCount = 6,
+                   CurrentPagerItemTemplate = "<span class=\"page-item curr\">{0}</span>",
+                   PagerItemTemplate = "<span class=\"page-item\">{0}</span>",
+                   MorePagerItemTemplate = "<span class=\"pn-break\">{0}</span>",
+                   CssClass = "p-wrap",
+                   PrevPageText = "<span class=\"pn-prev \"><i>&lt;</i>上一页</span>",
+                   NextPageText = "<span class=\"pn-next \">下一页<i>&gt;</i></span>",
+               }).AjaxOptions(a => a.SetUpdateTargetId("divdetaillist"))
+    </div>
+} 
+ 
+<!-- FansList BEGIN -->
+<script>
+    $(function () {
+        $('.status:contains("未审核")').addClass('tdstatusno');
+        $('.status:contains("审核失败")').addClass('tdstatusno');
+        $('.status:contains("审核通过")').addClass('tdstatusok');
+    })
+</script>
+

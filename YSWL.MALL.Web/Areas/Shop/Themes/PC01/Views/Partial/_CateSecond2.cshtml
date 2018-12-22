@@ -1,0 +1,8 @@
+﻿    @model List<YSWL.MALL.Model.Shop.Products.CategoryInfo>
+     @if (Model != null && Model.Count > 0)
+     {
+             foreach (var item in Model)
+             {
+<a href="@(ViewBag.BasePath)product/@item.CategoryId" target="_blank">@item.Name</a>
+             }
+     }

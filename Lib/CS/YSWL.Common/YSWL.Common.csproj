@@ -1,0 +1,236 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F3D70B32-ACE8-4501-B293-46680F9745FB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>YSWL.Common</RootNamespace>
+    <AssemblyName>YSWL.Common</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <DocumentationFile>bin\Debug\YSWL.Common.xml</DocumentationFile>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <DocumentationFile>bin\Release\YSWL.Common.xml</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="YSWL.Log">
+      <HintPath>..\..\YSWL.Log.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CallContextHelper.cs" />
+    <Compile Include="ComparerFactroy.cs" />
+    <Compile Include="ConvertUtity.cs" />
+    <Compile Include="CustomMessage\ClientMessageInspector.cs" />
+    <Compile Include="CustomMessage\CustomExtendBehavior.cs" />
+    <Compile Include="CustomMessage\CustomExtendBehaviorElement.cs" />
+    <Compile Include="CustomMessage\ServiceMessageInspector.cs" />
+    <Compile Include="DataTableTools.cs" />
+    <Compile Include="DEncrypt\GZip.cs" />
+    <Compile Include="DEncrypt\Hex16.cs" />
+    <Compile Include="DEncrypt\Base64.cs" />
+    <Compile Include="FastInvoke.cs" />
+    <Compile Include="Cookies.cs" />
+    <Compile Include="FileManage.cs" />
+    <Compile Include="Formatter.cs" />
+    <Compile Include="FormulaCalculator.cs" />
+    <Compile Include="ConfigHelper.cs" />
+    <Compile Include="DataCache.cs" />
+    <Compile Include="DataConversion.cs" />
+    <Compile Include="DataSetTools.cs" />
+    <Compile Include="DEncrypt\DEncrypt.cs" />
+    <Compile Include="DEncrypt\DESEncrypt.cs" />
+    <Compile Include="DEncrypt\HashEncode.cs" />
+    <Compile Include="DEncrypt\RSACryption.cs" />
+    <Compile Include="FormulaExpress.cs" />
+    <Compile Include="Globals.cs" />
+    <Compile Include="HttpProc.cs" />
+    <Compile Include="IDataCacheBaseProvider.cs" />
+    <Compile Include="IISDataCache.cs" />
+    <Compile Include="INIFile.cs" />
+    <Compile Include="InjectionFilter.cs" />
+    <Compile Include="LockManager.cs" />
+    <Compile Include="MailPoper.cs" />
+    <Compile Include="MailSender.cs" />
+    <Compile Include="Mail\ConnectCommand.cs" />
+    <Compile Include="Mail\ConnectResponse.cs" />
+    <Compile Include="Mail\DeleCommand.cs" />
+    <Compile Include="Mail\EmailConvert.cs" />
+    <Compile Include="Mail\ListCommand.cs" />
+    <Compile Include="Mail\ListResponse.cs" />
+    <Compile Include="Mail\MailHeaders.cs" />
+    <Compile Include="Mail\MailMessageEx.cs" />
+    <Compile Include="Mail\NoopCommand.cs" />
+    <Compile Include="Mail\PassCommand.cs" />
+    <Compile Include="Mail\Pop3Client.cs" />
+    <Compile Include="Mail\Pop3Command.cs" />
+    <Compile Include="Mail\Pop3Commands.cs" />
+    <Compile Include="Mail\Pop3Exception.cs" />
+    <Compile Include="Mail\Pop3ListItem.cs" />
+    <Compile Include="Mail\Pop3Response.cs" />
+    <Compile Include="Mail\Pop3Responses.cs" />
+    <Compile Include="Mail\Pop3State.cs" />
+    <Compile Include="Mail\QuitCommand.cs" />
+    <Compile Include="Mail\RetrCommand.cs" />
+    <Compile Include="Mail\RetrResponse.cs" />
+    <Compile Include="Mail\RsetCommand.cs" />
+    <Compile Include="Mail\Stat.cs" />
+    <Compile Include="Mail\StatCommand.cs" />
+    <Compile Include="Mail\StatResponse.cs" />
+    <Compile Include="Mail\TopCommand.cs" />
+    <Compile Include="Mail\UserCommand.cs" />
+    <Compile Include="MessageBox.cs" />
+    <Compile Include="Mime\MediaTypes.cs" />
+    <Compile Include="Mime\MimeEntity.cs" />
+    <Compile Include="Mime\MimeHeaders.cs" />
+    <Compile Include="Mime\MimeReader.cs" />
+    <Compile Include="Mime\QuotedPrintableEncoding.cs" />
+    <Compile Include="PageLoader.cs" />
+    <Compile Include="Page\IPagedList.cs" />
+    <Compile Include="Page\PagedList.cs" />
+    <Compile Include="Page\PageLinqExtensions.cs" />
+    <Compile Include="PageValidate.cs" />
+    <Compile Include="Pagination.cs" />
+    <Compile Include="PinyinHelper.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RedisDataCache.cs" />
+    <Compile Include="RMB.cs" />
+    <Compile Include="ServiceExecHelper.cs" />
+    <Compile Include="SqlExecutor.cs" />
+    <Compile Include="StringPlus.cs" />
+    <Compile Include="ImageTools.cs" />
+    <Compile Include="SystemInfo.cs" />
+    <Compile Include="TimeParser.cs" />
+    <Compile Include="TreeBind.cs" />
+    <Compile Include="UrlOper.cs" />
+    <Compile Include="VideoEncoderAsync\EncodedVideo.cs" />
+    <Compile Include="VideoEncoderAsync\Encoder.cs" />
+    <Compile Include="VideoEncoderAsync\QuickAudioEncodingCommands.cs" />
+    <Compile Include="VideoEncoderAsync\QuickVideoEncodingCommands.cs" />
+    <Compile Include="VideoEncoderAsync\VideoFile.cs" />
+    <Compile Include="Video\ConvertVideo.cs" />
+    <Compile Include="Video\Ku6Info.cs" />
+    <Compile Include="Video\TuDouInfo.cs" />
+    <Compile Include="Video\SwapSequenceIndex.cs" />
+    <Compile Include="Video\VideoHelper.cs" />
+    <Compile Include="Video\VideoModel.cs" />
+    <Compile Include="Video\YouKuInfo.cs" />
+    <Compile Include="WaterMark.cs" />
+    <Compile Include="WebApi\ApiHelper.cs" />
+    <Compile Include="WebApi\HttpUtil.cs" />
+    <Compile Include="WebApi\JsonExtends.cs" />
+    <Compile Include="WebApi\ResponseBase.cs" />
+    <Compile Include="XmlHelper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\YSWL.JsonRpc\YSWL.Json\YSWL.Json.csproj">
+      <Project>{d107225e-370d-4805-a8f2-a2797dae3692}</Project>
+      <Name>YSWL.Json</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YSWL.Redis\RedisClient\YSWL.RedisClient.csproj">
+      <Project>{d125802c-91a9-4d30-90df-b37927fa57fe}</Project>
+      <Name>YSWL.RedisClient</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy /Y $(TargetPath) $(SolutionDir)Lib
+copy /Y $(TargetPath) $(SolutionDir)..\
+</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

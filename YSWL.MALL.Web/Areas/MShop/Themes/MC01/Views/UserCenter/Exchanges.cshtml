@@ -1,0 +1,117 @@
+﻿@{
+    Layout = "/Areas/MShop/Themes/MC01/Views/Shared/_BaseLayout.cshtml";
+    ViewBag.Title = "积分兑换";
+    YSWL.MALL.Model.Members.UsersExpModel UserInfo = ViewBag.UserInfo;
+}
+<link href="/Areas/MShop/Themes/MC01/Content/Css/main.css" rel="stylesheet" />
+<script type="text/javascript">
+      $(function () {
+          var totalPoint =parseInt('@UserInfo.Points');
+          $("#btnExchange").click(function () {
+              var point = parseInt($(".coupons_wrap .checked").attr("point"));
+              if (!point) {
+                  ShowFailTip(" 请选择优惠券！");
+                  return;
+              }
+              if (point > totalPoint) {
+                  ShowFailTip(" 您的积分不足！");
+                  return;
+              }
+              var ruleId = $(".coupons_wrap .checked").attr("ruleId");
+              $.ajax({
+                  type: "POST",
+                  dataType: "text",
+                  url: "@(ViewBag.BasePath)UserCenter/AjaxExchange",
+                  data: { RuleId: ruleId },
+                  success: function (data) {
+                      if (data == "True") {
+                          ShowSuccessTip("兑换优惠券成功！");
+                          setTimeout(function () {
+                              window.location.reload();
+                          }, 1000);
+                      } else if (data == "NoPoints") {
+                          ShowFailTip(" 您的积分不足！");
+                      } else {
+                          ShowFailTip("服务器繁忙，请稍候再试！");
+                      }
+                  }
+              });
+          });
+      })
+</script>
+
+<div class="main_wrapper mb55">
+    <!--START HEADER-->
+    <header>
+        <div class="top_navbar fixed_header">
+            <a class="si icon_goback" href="@(ViewBag.BasePath)u/PointsDetail">
+            </a>
+            <p class="header_title">积分兑换</p>
+        </div>
+    </header>
+    <!-- END HEADER -->
+    <div class="top"></div>
+    <div class="my_points_wrap pd">
+        <span class="my_head">
+            <img alt="头像" src="/Upload/User/Gravatar/@(UserInfo.UserID).jpg?id=@DateTime.Now" onerror="this.onerror='';this.src='/Upload/User/Gravatar/nophoto.png'">
+        </span>
+        <div class="points_info">
+            <p class="my_name">@((string.IsNullOrWhiteSpace(UserInfo.TrueName)? (string.IsNullOrWhiteSpace(UserInfo.NickName) ? UserInfo.UserName : UserInfo.NickName) : UserInfo.TrueName))</p>
+            <p class="my_points">您的当前积分：<i class="price">@UserInfo.Points</i>
+            </p>
+        </div>
+    </div>
+    <div class="coupons_wrap pd">
+        @Html.Action("CouponRule", "UserCenter", new { area = "MShop", viewName = "_ExchangesList" })
+    </div>
+    <div class="btn_wrapper">
+        <input type="submit" class="b_btn btn_green" id="btnExchange" value="确认兑换">
+    </div>
+
+    <!-- ################-->
+    <!-- END TOP MENU -->
+    <!-- ################-->
+</div>
+
+<script>
+		$(function(){
+			window.onload = function() {
+				var $li = $('.coupons_tabs .tabs li');
+				var $con = $('.coupons_tabs .tabs_item');
+				var $toggle_btn = $(".cou_header");
+
+				$li.mouseover(function(){
+					var $this = $(this);
+					var $t = $this.index();
+					$li.removeClass();
+					$this.addClass('current');
+					$con.css('display','none');
+					$con.eq($t).css('display','block');
+				});
+				$toggle_btn.click(function(){
+					var $this = $(this);
+					$this.children(".si").toggleClass("icon_up");
+					$this.parent(".line_wrap").siblings(".showText").slideToggle("slow");
+				});
+				btnHold();
+			};
+
+			$(".coupons_wrap").on('click', '.cart_checkbox', function () {                
+			    var _this = $(this);
+			    $(".coupons_wrap .checked").removeClass('checked');
+			    _this.addClass('checked');
+			});
+
+			function btnHold(){
+				var windowH = $(window).height();
+				var myContent = $(".my_points_wrap").height();
+				var myContent1 = $(".coupons_wrap").height();
+				var contentH = myContent + myContent1+110;
+				if(windowH < contentH){
+					$(".btn_wrapper").addClass('hold-fixed');
+				}else{
+					$(".btn_wrapper").removeClass('hold-fixed');
+				}
+			}
+		});
+</script>

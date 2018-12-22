@@ -1,0 +1,76 @@
+﻿@model YSWL.MALL.ViewModel.Shop.ProductSKUModel
+@if (Model == null) { return; }
+@if (!ViewBag.HasStock && !ViewBag.HasSKU && Model.ListSKUInfos != null && Model.ListSKUInfos.Count == 1)
+{
+    <script type="text/javascript">
+        $(function () {
+            //$("#disableBuy").attr('disable', 'true');
+            $('#btnAddToCart').removeClass('addCart').addClass('addCart-gray');
+            $('#divBuyInfo').hide();
+            $('#closeArrivingNotifyMess').text("非常抱歉, 此商品已售罄!");
+            $('#closeArrivingNotifyMess').show();
+        });
+    </script>
+}
+<input type="hidden"  value="@ViewBag.HasSKU" id="hdHasSKU" />
+@if (!ViewBag.HasSKU && Model.ListSKUInfos != null && Model.ListSKUInfos.Count == 1)
+{
+   <input type="hidden"  value="@Model.ListSKUInfos[0].SKU"   stock="@Model.ListSKUInfos[0].Stock"   id="hdprodSku" />
+    <script type="text/javascript">
+        $(function () {
+            $('#btnAddToCart').attr('itemid', '@Model.ListSKUInfos[0].SKU');
+            $('#div_stock').show().find('#stock_num').text(@Model.ListSKUInfos[0].Stock);
+        });
+    </script>
+}
+@if (Model.ListAttrSKUItems == null || Model.ListAttrSKUItems.Count < 1)
+{
+    return;
+}
+<div id="SKUOptions">
+<input type="hidden" id="SKUDATA" value="@ViewBag.SKUJson"/>
+    @foreach (KeyValuePair<YSWL.MALL.Model.Shop.Products.AttributeInfo, SortedSet<YSWL.MALL.Model.Shop.Products.SKUItem>> attrSKUItem in Model.ListAttrSKUItems)
+    {
+        <div class="p-choose">
+            <div class="dt">@(attrSKUItem.Key.AttributeName)</div>
+            <div class="dd AttrItems">
+                @if (!string.IsNullOrWhiteSpace(attrSKUItem.Value.Min.ImageUrl))
+                {
+                    foreach (YSWL.MALL.Model.Shop.Products.SKUItem skuItem in attrSKUItem.Value)
+                    {
+                        <span class="sele-item sele-img SkuItems"  AttrId="@skuItem.ValueId" title="@skuItem.ValueStr" alt="@skuItem.ValueStr">
+@if (!string.IsNullOrWhiteSpace(skuItem.ImageUrl))
+{
+                            <img src="@YSWL.MALL.Web.Components.FileHelper.GeThumbImage(skuItem.ImageUrl, "T32x32_")"  largeurl="@YSWL.MALL.Web.Components.FileHelper.GeThumbImage(skuItem.ImageUrl, "T350X350_")" alt="@skuItem.ValueStr" title="@skuItem.ValueStr" >
+}
+                        </span>
+                    }
+                }
+                else
+                {
+                    foreach (YSWL.MALL.Model.Shop.Products.SKUItem skuItem in attrSKUItem.Value)
+                    {
+                        <span class="sele-item sele-txt SkuItems"  attrId="@skuItem.ValueId"  title="@skuItem.ValueStr" alt="@skuItem.ValueStr">@skuItem.ValueStr</span>
+                    }
+                }
+            </div>
+        </div>
+    }
+</div>
+
+@*<div class="p-choose">
+    <div class="dt">选择规格</div>
+    <div class="dd">
+        <span class="sele-item sele-txt selected">100g</span>
+        <span class="sele-item sele-txt disabled">100g</span>
+        <span class="sele-item sele-txt">100g</span>
+        <span class="sele-item sele-txt">100g</span>
+    </div>
+</div>
+<div class="p-choose">
+    <div class="dt">选择规格</div>
+    <div class="dd">
+        <span class="sele-item sele-img selected"><img src="Img/product1.jpg" alt=""></span>
+        <span class="sele-item disabled sele-img"><img src="Img/product1.jpg" alt=""></span>
+    </div>
+</div>*@

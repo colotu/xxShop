@@ -1,0 +1,93 @@
+﻿@using Webdiyer.WebControls.Mvc
+@model YSWL.MALL.ViewModel.Shop.ProductListModel
+@{
+    string cid = Request.RequestContext.RouteData.Values["cid"] != null ? Request.RequestContext.RouteData.Values["cid"].ToString() : "0";
+    string brandid = Request.RequestContext.RouteData.Values["brandid"] != null ? Request.RequestContext.RouteData.Values["brandid"].ToString() : "0";
+    string attrvalues = Request.RequestContext.RouteData.Values["attrvalues"] != null ? Request.RequestContext.RouteData.Values["attrvalues"].ToString() : "0";
+    string mod = Request.RequestContext.RouteData.Values["mod"] != null ? Request.RequestContext.RouteData.Values["mod"].ToString() : "default";
+    string price = Request.RequestContext.RouteData.Values["price"] != null ? Request.RequestContext.RouteData.Values["price"].ToString() : "";
+
+}
+
+<script type="text/javascript">
+    $(function () {
+        var mod = '@mod';
+        if (mod === '') {
+            $('.f-sort a')[0].addClass("selected");
+        } else {
+            $(".f-sort").find("a").each(function () {
+                var mode = $(this).attr("mod");
+                if (mode == mod) {
+                    $(this).addClass("selected");
+                }
+            });
+        }
+    });
+</script>
+
+
+@if (Model.ProductPagedList != null && Model.ProductPagedList.Count > 0)
+{
+    <div class="filter">
+        <div class="f-line">
+            <div class="f-sort">
+                <a href="@(ViewBag.BasePath)product/@cid/@brandid/@attrvalues/default/@price" mod="default">默认</a><a href="@(ViewBag.BasePath)product/@cid/@brandid/@attrvalues/hot/@price" mod="hot">销量</a><a href="@(ViewBag.BasePath)product/@cid/@brandid/@attrvalues/price/@price" mod="price">价格</a><a href="@(ViewBag.BasePath)product/@cid/@brandid/@attrvalues/new/@price" mod="new">上架时间</a>
+            </div>
+            <div class="f-sum">
+                共<span class="num">@ViewBag.ToalCount</span>件商品
+            </div>
+        </div>
+    </div>
+
+    <div class="pro-list-wrapper">
+        <ul class="pro-list clearfix allGoods">
+            @foreach (var item in Model.ProductPagedList)
+            {
+                <li class="pro-list-item">
+                    <div class="pro-item">
+                        <a href="@item.SeoUrl">
+                            <div class="pro-pic">
+                                <img ref="@YSWL.MALL.Web.Components.FileHelper.GeThumbImage(item.ThumbnailUrl1, "T350X350_")" title="@item.ProductName" alt="@item.ProductName">
+                            </div>
+                            <div class="pro-price">
+                                <span class="price-new"><i>¥</i>@item.LowestSalePrice.ToString("F")</span>
+                                @if (item.MarketPrice.HasValue && item.MarketPrice.Value > item.LowestSalePrice)
+                                {
+                                    <span class="price-origin"><del>¥@item.MarketPrice.Value.ToString("F")</del></span>
+                                }
+                                <span style="color:red"><i>积分：</i>@item.Gwjf</span>
+                            </div>
+                            <p class="pro-name">@item.ProductName</p>
+                        </a>
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
+                <!-- 分页 -->
+                <div class="pagination">
+                    @Ajax.Pager(Model.ProductPagedList, new PagerOptions
+       {
+           ShowDisabledPagerItems = false,
+           AlwaysShowFirstLastPageNumber = true,
+           ShowFirstLast = false,
+           PageIndexParameterName = "pageIndex",
+           NumericPagerItemCount = 6,
+           CurrentPagerItemTemplate = "<span class=\"page-item curr\">{0}</span>",
+           PagerItemTemplate = "<span class=\"page-item\">{0}</span>",
+           MorePagerItemTemplate = "<span class=\"pn-break\">{0}</span>",
+           CssClass = "p-wrap",
+           PrevPageText = "<span class=\"pn-prev \"><i>&lt;</i>上一页</span>",
+           NextPageText = "<span class=\"pn-next \">下一页<i>&gt;</i></span>",
+       }).AjaxOptions(a => a.SetUpdateTargetId("ProductListDiv"))
+                </div>
+                <script type="text/javascript">
+                    $.scaleLoad('.allGoods', 220, 220);
+                </script>
+}
+else
+{
+    <div class="no_propt">
+        <i>!</i>未找到相符合的商品
+    </div>
+}

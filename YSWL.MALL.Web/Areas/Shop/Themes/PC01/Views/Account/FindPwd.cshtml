@@ -1,0 +1,101 @@
+﻿@{
+    ViewBag.Title = "找回密码";
+    Layout = "/Areas/Shop/Themes/PC01/Views/Shared/_BaseLayout.cshtml";
+
+}
+<script type="text/javascript">
+    $(function () {
+        $("#guide_2").mouseover(function () { $("#category").show(); }).mouseout(function () { $("#category").hide(); });
+
+        $("#btnVerify").click(function () {
+            Math.random() * 24
+            $("#tImg").attr("src", "/ValidateCode.aspx?Guid=" + Math.random() * 100);
+        });
+
+        $("#UserName").focus(function () {
+            $("#divEmailTip").removeClass("msg msg-ok msg-naked").removeClass("msg msg-err").addClass("msg msg-info").html("<i class=\"msg-ico\"></i><p>请填写Email地址</p>");
+        }).blur(function () {
+            checkfindpwdEmail();
+        });
+        checkfindpwdEmail(); //回发的时候恢复样式
+    });
+
+    //验证邮箱
+    function checkfindpwdEmail() {
+        $("#btnFindPwd").attr("disabled", "disabled"); //禁用
+        var regs = /^[\w-]+(\.[\w-]+)*\@@[A-Za-z0-9]+((\.|-|_)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
+        var username = $("#UserName").val();
+        if (username != "") {
+            $.ajax({
+                url: $YSWL.BasePath + "Account/HasEmail",
+                type: 'post',
+                dataType: 'text',
+                timeout: 10000,
+                data: { Action: "post", UserName: username },
+                success: function (resultData) {
+                    if (resultData == "true") {
+                        $("#btnFindPwd").removeAttr("disabled"); //启用
+                        $("#divEmailTip").removeClass("msg msg-err").removeClass("msg msg-info").addClass("msg msg-ok msg-naked").html("<i class=\"msg-ico\"></i><p>&nbsp;</p>");
+                        return true;
+                    }
+                    else {
+                        $("#divEmailTip").removeClass("msg msg-ok msg-naked").removeClass("msg msg-info").addClass("msg msg-err").html("<i class=\"msg-ico\"></i><p>该用户名不存在或者该用户没有绑定邮箱</p>");
+                        return false;
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert(textStatus);
+                    return false;
+                }
+            });
+        }
+    }
+</script>
+<div class="contentWrap">
+    <div class="findpass_centent boxbg">
+        <h3  class="from-sm-title">
+            找回密码</h3>
+        <div class="J_tab_panel" style="border: 1px solid #e4e4e4;">
+            @using (Html.BeginForm("FindPwd", "Account", FormMethod.Post, new { Class = "form form-regi", id = "formfindpwd" }))
+            {
+                <div class="f-box" style="margin-top: 20px;">
+                    <label class="f-label">
+                        用户名：</label>
+                    <div class="f-input">
+                        @Html.TextBox("UserName", ViewData["UserName"], new
+                            {
+                                id = "UserName",
+                                maxlength = "40",
+                                Class = "f-txt-b f-txt"
+                            })
+                    </div>
+                    <div class="f-msg">
+                        <div id="divEmailTip">
+                        </div>
+                    </div>
+                </div>
+                <div class="f-box" style="margin-top: 20px;">
+                    <label class="f-label">
+                        验证码：</label>
+                    <div class="f-input">
+                        @Html.TextBox("CheckCode", "", new { maxlength = "4", Class = "f-txt-b f-txt", style = "width: 60px;" })
+                    </div>
+                    <div class="f-msg">
+                        <div class="f-vcode">
+                            <div>
+                                <img id="tImg" alt="验证码" src="/ValidateCode.aspx" style="height: 25px" />
+                                <a id="btnVerify" href="javascript:void(0)" style="color: #666666">看不清楚?</a> <span
+                                    style="text-align: center; color: Red">@Html.ValidationMessage("Error")</span>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+                <div class="fb f-act" style="margin-top: 10px;">
+                    <div class="f-input">
+                        <input class="btn btn-important-large" type="submit" value="确定" id="btnFindPwd" />
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,90 @@
+﻿@using Webdiyer.WebControls.Mvc
+@model YSWL.MALL.ViewModel.Shop.ProductListModel
+
+@if (Model.ProductPagedList != null)
+{
+    <div class="pro-list-wrapper">
+        <ul class="pro-list col4 clearfix">
+            @foreach (var item in Model.ProductPagedList)
+            {
+                <li class="pro-list-item">
+                    <a href="@(ViewBag.BasePath)Product/ProSaleDetail/@item.CountDownId">
+                        <div class="pro-item">
+                            <div class="pro-pic">
+                                <img src="@YSWL.MALL.Web.Components.FileHelper.GeThumbImage(item.ThumbnailUrl1, "T350X350_")">
+                            </div>
+                            <div class="pro-info">
+                                <p class="pro-name">@item.ProductName</p>
+                            </div>
+                        </div>
+                        <div class="seckill-goods-info">
+                            <div class="skill-time txtenddate" endDate="@((item.ProSalesEndDate.ToUniversalTime() - Convert.ToDateTime("1970-01-01")).TotalMilliseconds.ToString("0"))" CountDownId="@item.CountDownId" id="txtenddate_@(item.CountDownId)" >
+                                <span  id="dayEnd_@(item.CountDownId)">0</span><i class="txt">天</i>
+                                <span  id="hourEnd_@(item.CountDownId)">0</span>&#58;
+                                <span  id="minEnd_@(item.CountDownId)">0</span>&#58;
+                                <span  id="secEnd_@(item.CountDownId)">0</span>
+                            </div>
+                            <div class="pro-price">
+                                <span class="price-new"><i>¥</i>@(item.ProSalesPrice.ToString("F"))</span>
+@if (item.MarketPrice.HasValue)
+{
+                                <span class="price-origin"><del>¥@item.MarketPrice.Value.ToString("F")</del></span>
+}
+                            </div>
+                            <span class="activity-tag tag-solid-btn">立即抢购<i class="arrow">&gt;</i></span>
+                        </div>
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+            <!-- 分页 -->
+            <div class="pagination">
+                @Ajax.Pager(Model.ProductPagedList, new PagerOptions
+           {
+               ShowDisabledPagerItems = false,
+               AlwaysShowFirstLastPageNumber = true,
+               ShowFirstLast = false,
+               PageIndexParameterName = "pageIndex",
+               NumericPagerItemCount = 6,
+               CurrentPagerItemTemplate = "<span class=\"page-item curr\">{0}</span>",
+               PagerItemTemplate = "<span class=\"page-item\">{0}</span>",
+               MorePagerItemTemplate = "<span class=\"pn-break\">{0}</span>",
+               CssClass = "p-wrap",
+               PrevPageText = "<span class=\"pn-prev \"><i>&lt;</i>上一页</span>",
+               NextPageText = "<span class=\"pn-next \">下一页<i>&gt;</i></span>",
+           }).AjaxOptions(a => a.SetUpdateTargetId("ProductListDiv"))
+            </div>
+
+
+<script type="text/javascript">
+    $(function () {
+        //限时抢购倒计时
+        $(".txtenddate").each(function () {
+            $(this).removeClass('txtenddate');
+            var endDate = $(this).attr("endDate");
+            var countDownId = $(this).attr("CountDownId");
+            var myclass = new CountDown();
+            myclass.init({
+                id: 'txtenddate_' + countDownId,
+                //天数
+                day_Dom: $("#dayEnd_" + countDownId),
+                //小时
+                hour_Dom: $("#hourEnd_" + countDownId),
+                //分钟
+                min_Dom: $("#minEnd_" + countDownId),
+                //秒
+                sec_Dom: $("#secEnd_" + countDownId),
+                endTime: endDate
+            });
+        });
+    });
+            </script>
+}
+else
+{
+    <div class="no_propt">
+        <i>!</i>未找到相关的商品
+    </div>
+}
+ 

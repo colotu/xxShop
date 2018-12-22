@@ -1,0 +1,118 @@
+﻿@model YSWL.MALL.Model.Shop.Order.OrderInfo
+@{
+    Layout = "~/Areas/COM/Themes/Default/Views/Shared/_SiteLayout.cshtml";
+}
+@section head{
+    <link href="/Areas/COM/Themes/Default/Content/Css/print.css" rel="stylesheet"
+        type="text/css" />
+}
+@if (Model != null)
+{
+    <div class="mainBody">
+    <div  >
+        <div class="partialhead">
+            <div>
+                <h2>
+                    送货单</h2>
+            </div>
+        </div>
+        <div style="min-height: 80px;">
+            <table style="width: 95%;">
+                <tr class="header_tr">
+                    <td style="width: 30%">
+                        订单号：@Model.OrderCode
+                    </td>
+                    <td style="width: 20%">
+                        配送方式： @Model.RealShippingModeName
+                    </td>
+                    <td style="width: 20%">
+                        支付方式： @Model.PaymentTypeName
+                    </td>
+                    <td style="width: 30%">
+                        订购日期：@Model.CreatedDate.ToString("yyyy-MM-dd")
+                    </td>
+                </tr>
+                <tr class="header_tr">
+                    <td>
+                        客户姓名： @Model.ShipName
+                    </td>
+                    <td colspan="2">
+                        收货地址：@(Model.ShipRegion) @(Model.ShipAddress)
+                    </td>
+                    <td>
+                        联系方式： @(String.IsNullOrWhiteSpace(Model.ShipTelPhone) ? Model.ShipCellPhone : Model.ShipTelPhone)
+                    </td>
+                </tr>
+                
+            </table>
+        </div>
+    </div>
+    <div class="productList">
+    <div style="padding-top: 10px;">
+        <table width="95%;" class="product_table">
+            <tr>
+                <td>
+                    商品编码
+                </td>
+                <td>
+                    商品名称
+                </td>
+                <td>
+                    规格属性
+                </td>
+                <td>
+                    单价
+                </td>
+                <td>
+                    数量
+                </td>
+                <th>
+                    金额
+                </th>
+            </tr>
+            @foreach (var item in Model.OrderItems)
+            {
+                <tr class="content_tr">
+                  
+                    <td>@item.SKU
+                    </td>
+                    <td>@item.Name
+                    </td>
+                    <td>@item.Attribute
+                    </td>
+                         <td style="text-align: right;">@(item.SellPrice.ToString("F"))
+                    </td>
+                    <td style="text-align: center">@item.ShipmentQuantity
+                    </td>
+                    <td style="text-align: right;"  class="amounts"  >@((item.SellPrice * item.ShipmentQuantity).ToString("F"))
+                    </td>
+                </tr>
+            }
+            
+        </table>
+        <div class="total_div">
+       
+            <table style="float: right;margin-right: 40px;">
+                <tr>
+                   
+                        <td style="text-align: right;">
+                         合计：    <span>商品金额：<strong class="">@Model.ProductTotal.ToString("F")</strong></span>
+                        </td>
+                          
+                    <td style="text-align: right;">
+                            <span>优惠金额：<strong class="">@((Model.OrderTotal - Model.Amount).ToString("F"))</strong></span>
+                        </td>
+                     <td style="text-align: right;">
+                            <span>运费：<strong class="">@(Model.FreightAdjusted.HasValue ? Model.FreightAdjusted.Value.ToString("F") : "0.00")</strong></span>
+                        </td>
+                        <td style="text-align: right;">
+                            <span>&nbsp;应收金额：<strong>@Model.Amount.ToString("F")</strong></span>
+                        </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    </div>
+</div>
+}
+

@@ -1,0 +1,27 @@
+﻿@{
+    Layout = "~/Areas/Shop/Themes/PC01/Views/Shared/_SiteLayout.cshtml";
+}
+@section head{
+    @RenderSection("head", false)
+}
+@Html.Action("Header", "Partial", new { area = "Shop" })
+<header>
+    <div class="wrap">
+        <div class="headerLayout clearfix">
+            <div class="headerLogo">
+                <span class="headerLogo-bg">
+                    <!-- logo -->
+                    @Html.Action("Header", "Partial", new { area = "Shop", ViewName = "_HeaderLogo" })
+                    @RenderSection("title", false)
+                </span>
+            </div>
+            @RenderSection("step", false)
+        </div>
+    </div>
+</header>
+    @RenderBody()
+    @Html.Action("Footer", "Partial", new { area = "Shop" })
+    @section foot{
+        @RenderSection("foot", false)
+    }
+@Html.Action("SelectRegion", "Partial", new { area = "Shop" })

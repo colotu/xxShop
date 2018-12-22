@@ -1,0 +1,376 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C834DE4D-FE13-43A9-BA38-4F9C148A2949}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>YSWL.MALL.BLL</RootNamespace>
+    <AssemblyName>YSWL.MALL.BLL</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\Lib\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Webdiyer.MvcPager">
+      <HintPath>..\Lib\Webdiyer.MvcPager.dll</HintPath>
+    </Reference>
+    <Reference Include="YSWL.Accounts">
+      <HintPath>..\Lib\YSWL.Accounts.dll</HintPath>
+    </Reference>
+    <Reference Include="YSWL.Common">
+      <HintPath>..\Lib\YSWL.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="YSWL.DBUtility">
+      <HintPath>..\Lib\YSWL.DBUtility.dll</HintPath>
+    </Reference>
+    <Reference Include="YSWL.Email">
+      <HintPath>..\Lib\YSWL.Email.dll</HintPath>
+    </Reference>
+    <Reference Include="YSWL.Json">
+      <HintPath>..\Lib\YSWL.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="YSWL.Log, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\YSWL.Log.dll</HintPath>
+    </Reference>
+    <Reference Include="YSWL.OAuth">
+      <HintPath>..\Lib\YSWL.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="YSWL.Payment">
+      <HintPath>..\Lib\YSWL.Payment.dll</HintPath>
+    </Reference>
+    <Reference Include="YSWL.RedisClient">
+      <HintPath>..\Lib\YSWL.RedisClient.dll</HintPath>
+    </Reference>
+    <Reference Include="YSWL.ShoppingCart">
+      <HintPath>..\Lib\YSWL.ShoppingCart.dll</HintPath>
+    </Reference>
+    <Reference Include="YSWL.TaoBao">
+      <HintPath>..\Lib\YSWL.TaoBao.dll</HintPath>
+    </Reference>
+    <Reference Include="YSWL.WeChat">
+      <HintPath>..\Lib\YSWL.WeChat.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CMS\Comment.cs" />
+    <Compile Include="CMS\GenerateHtml.cs" />
+    <Compile Include="Members\GuestBook.cs" />
+    <Compile Include="Members\Feedback.cs" />
+    <Compile Include="Members\FeedbackType.cs" />
+    <Compile Include="Members\PointsAction.cs" />
+    <Compile Include="Members\PointsDetail.cs" />
+    <Compile Include="Members\PointsLimit.cs" />
+    <Compile Include="Members\PointsRule.cs" />
+    <Compile Include="Members\RankAction.cs" />
+    <Compile Include="Members\RankDetail.cs" />
+    <Compile Include="Members\RankLimit.cs" />
+    <Compile Include="Members\RankRule.cs" />
+    <Compile Include="Members\SiteMessage.cs" />
+    <Compile Include="Members\SiteMessageLog.cs" />
+    <Compile Include="Members\UserCard.cs" />
+    <Compile Include="Members\UserDistribution.cs" />
+    <Compile Include="Members\UserInvite.cs" />
+    <Compile Include="Members\UserRank.cs" />
+    <Compile Include="Members\UsersApprove.cs" />
+    <Compile Include="Ms\Agent\AgentAD.cs" />
+    <Compile Include="Ms\Agent\AgentConfig.cs" />
+    <Compile Include="Ms\Agent\AgentMenus.cs" />
+    <Compile Include="Ms\Agent\AgentRank.cs" />
+    <Compile Include="Ms\Agent\Agents.cs" />
+    <Compile Include="Ms\EmailRole\EmailRoleAction.cs" />
+    <Compile Include="Ms\RegionAreas.cs" />
+    <Compile Include="Ms\EmailTemplet.cs" />
+    <Compile Include="Ms\RegionRec.cs" />
+    <Compile Include="Ms\Theme.cs" />
+    <Compile Include="Ms\ThumbnailSize.cs" />
+    <Compile Include="Ms\WeiBoMsg.cs" />
+    <Compile Include="Ms\WeiBoTaskMsg.cs" />
+    <Compile Include="Pay\GwjfDetails.cs" />
+    <Compile Include="Pay\BalanceDetails.cs" />
+    <Compile Include="Pay\BalanceDrawRequest.cs" />
+    <Compile Include="Pay\RechargeRequest.cs" />
+    <Compile Include="Settings\Advertisement.cs" />
+    <Compile Include="Settings\AdvertisePosition.cs" />
+    <Compile Include="CMS\ClassType.cs" />
+    <Compile Include="CMS\Content.cs" />
+    <Compile Include="CMS\ContentClass.cs" />
+    <Compile Include="CMS\Video.cs" />
+    <Compile Include="CMS\VideoAlbum.cs" />
+    <Compile Include="CMS\VideoClass.cs" />
+    <Compile Include="Settings\FilterWords.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Settings\MainMenus.cs" />
+    <Compile Include="CreateManage.cs" />
+    <Compile Include="Settings\SEORelation.cs" />
+    <Compile Include="Settings\SEORelationManage.cs" />
+    <Compile Include="Shop\Activity\ActivityDetail.cs" />
+    <Compile Include="Shop\Activity\ActivityInfo.cs" />
+    <Compile Include="Shop\Activity\ActivityRule.cs" />
+    <Compile Include="Shop\Commission\CommissionDetail.cs" />
+    <Compile Include="Shop\Commission\CommissionPro.cs" />
+    <Compile Include="Shop\Commission\CommissionRule.cs" />
+    <Compile Include="Shop\Constant.cs" />
+    <Compile Include="Shop\Coupon\CouponHistory.cs" />
+    <Compile Include="Shop\Coupon\CouponInfo.cs" />
+    <Compile Include="Shop\Coupon\CouponClass.cs" />
+    <Compile Include="Shop\Coupon\CouponRule.cs" />
+    <Compile Include="Shop\DisDepot\Depot.cs" />
+    <Compile Include="Shop\DisDepot\DepotProduct.cs" />
+    <Compile Include="Shop\DisDepot\DepotProSKUs.cs" />
+    <Compile Include="Shop\DisDepot\DepotProSKUsService.cs" />
+    <Compile Include="Shop\DisDepot\DepotRegion.cs" />
+    <Compile Include="Shop\DisDepot\DepotRegionService.cs" />
+    <Compile Include="Shop\PrePro\PreOrder.cs" />
+    <Compile Include="Shop\PrePro\PreProduct.cs" />
+    <Compile Include="Shop\Products\StockHelper.cs" />
+    <Compile Include="Shop\Service\CommonHelper.cs" />
+    <Compile Include="Shop\Service\OMSServiceHelper.cs" />
+    <Compile Include="Shop\Distribution\SuppDistProduct.cs" />
+    <Compile Include="Shop\Distribution\SuppDistRegion.cs" />
+    <Compile Include="Shop\Distribution\SuppDistSKU.cs" />
+    <Compile Include="Shop\Favorite.cs" />
+    <Compile Include="Shop\Gift\ExchangeDetail.cs" />
+    <Compile Include="Shop\Gift\Gifts.cs" />
+    <Compile Include="Shop\Gift\GiftsCategory.cs" />
+    <Compile Include="Shop\Inquiry\InquiryInfo.cs" />
+    <Compile Include="Shop\Inquiry\InquiryItem.cs" />
+    <Compile Include="Shop\ReturnOrder\ReturnOrderAction.cs" />
+    <Compile Include="Shop\ReturnOrder\ReturnOrderItems.cs" />
+    <Compile Include="Shop\ReturnOrder\ReturnOrders.cs" />
+    <Compile Include="Shop\Sales\ExpressTemplate.cs" />
+    <Compile Include="Shop\Order\OrderAction.cs" />
+    <Compile Include="Shop\Order\OrderItems.cs" />
+    <Compile Include="Shop\Order\OrderLookupItems.cs" />
+    <Compile Include="Shop\Order\OrderLookupList.cs" />
+    <Compile Include="Shop\Order\OrderManage.cs" />
+    <Compile Include="Shop\Order\OrderOptions.cs" />
+    <Compile Include="Shop\Order\OrderRemark.cs" />
+    <Compile Include="Shop\Order\Orders.cs" />
+    <Compile Include="Shop\Order\OrdersHistory.cs" />
+    <Compile Include="Shop\Products\ICartProvider.cs" />
+    <Compile Include="Shop\Products\ProductCategories.cs" />
+    <Compile Include="Shop\Products\ProductQA.cs" />
+    <Compile Include="Shop\Products\HotKeywords.cs" />
+    <Compile Include="Shop\Products\ProductConsults.cs" />
+    <Compile Include="Shop\Products\ProductConsultsType.cs" />
+    <Compile Include="Shop\Products\ProductManage.cs" />
+    <Compile Include="Shop\Products\ProductReviews.cs" />
+    <Compile Include="Shop\Products\ScoreDetails.cs" />
+    <Compile Include="Shop\Package\Package.cs" />
+    <Compile Include="Shop\Package\PackageCategory.cs" />
+    <Compile Include="Shop\Package\ProductPackage.cs" />
+    <Compile Include="Shop\Products\ShoppingCartHelper.cs" />
+    <Compile Include="Shop\Products\ShoppingCarts.cs" />
+    <Compile Include="Shop\PromoteSales\CountDown.cs" />
+    <Compile Include="Shop\PromoteSales\GroupBuy.cs" />
+    <Compile Include="Shop\RechargeCards\RechargeCards.cs" />
+    <Compile Include="Shop\Sales\SalesItem.cs" />
+    <Compile Include="Shop\Sales\SalesRule.cs" />
+    <Compile Include="Shop\Sales\SalesRuleProduct.cs" />
+    <Compile Include="Shop\Sales\SalesUserRank.cs" />
+    <Compile Include="Shop\Sales\ShipperInfo.cs" />
+    <Compile Include="Shop\Sample\Sample.cs" />
+    <Compile Include="Shop\Sample\SampleDetail.cs" />
+    <Compile Include="Shop\Service\PMSServiceHelper.cs" />
+    <Compile Include="Shop\Shippers.cs" />
+    <Compile Include="Shop\Shipping\ShippingAddress.cs" />
+    <Compile Include="Shop\Shipping\ShippingPayment.cs" />
+    <Compile Include="Shop\Shipping\ShippingRegionGroups.cs" />
+    <Compile Include="Shop\Shipping\ShippingRegions.cs" />
+    <Compile Include="Shop\Shipping\ShippingType.cs" />
+    <Compile Include="Shop\Supplier\SupplierAD.cs" />
+    <Compile Include="Shop\Supplier\SupplierCategories.cs" />
+    <Compile Include="Shop\Supplier\SupplierConfig.cs" />
+    <Compile Include="Shop\Supplier\SupplierMenus.cs" />
+    <Compile Include="Shop\Supplier\SupplierRank.cs" />
+    <Compile Include="Shop\Supplier\SupplierRankThemes.cs" />
+    <Compile Include="Shop\Supplier\SupplierInfo.cs" />
+    <Compile Include="Shop\Supplier\SupplierScoreDetails.cs" />
+    <Compile Include="Shop\Supplier\SupplierThemes.cs" />
+    <Compile Include="Shop\Supplier\SuppProductCategories.cs" />
+    <Compile Include="Shop\Supplier\SuppProductStatModes.cs" />
+    <Compile Include="Shop\Tags\TagCategories.cs" />
+    <Compile Include="Shop\Tags\Tags.cs" />
+    <Compile Include="Shop\TaoBaoConfig.cs" />
+    <Compile Include="Shop\Trial\TrialReports.cs" />
+    <Compile Include="Shop\Trial\Trials.cs" />
+    <Compile Include="Appt\Reservation.cs" />
+    <Compile Include="Appt\Services.cs" />
+    <Compile Include="Settings\FriendlyLink.cs" />
+    <Compile Include="Ms\Enterprise.cs" />
+    <Compile Include="Members\EntryForm.cs" />
+    <Compile Include="Ms\Regions.cs" />
+    <Compile Include="CMS\Photo.cs" />
+    <Compile Include="CMS\PhotoAlbum.cs" />
+    <Compile Include="CMS\PhotoClass.cs" />
+    <Compile Include="Poll\Forms.cs" />
+    <Compile Include="Poll\Options.cs" />
+    <Compile Include="Poll\Reply.cs" />
+    <Compile Include="Poll\Topics.cs" />
+    <Compile Include="Poll\UserPoll.cs" />
+    <Compile Include="Poll\PollUsers.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Shop\Products\AccessoriesValue.cs" />
+    <Compile Include="Shop\Products\AttributeInfo.cs" />
+    <Compile Include="Shop\Products\AttributeValue.cs" />
+    <Compile Include="Shop\Products\BrandInfo.cs" />
+    <Compile Include="Shop\Products\CategoryInfo.cs" />
+    <Compile Include="Shop\Products\Distributor.cs" />
+    <Compile Include="Shop\Products\LineDistributor.cs" />
+    <Compile Include="Shop\Products\ProductAccessorie.cs" />
+    <Compile Include="Shop\Products\ProductAttribute.cs" />
+    <Compile Include="Shop\Products\ProductImage.cs" />
+    <Compile Include="Shop\Products\ProductLine.cs" />
+    <Compile Include="Shop\Products\ProductInfo.cs" />
+    <Compile Include="Shop\Products\ProductStationMode.cs" />
+    <Compile Include="Shop\Products\ProductTypeBrand.cs" />
+    <Compile Include="Shop\Products\ProductType.cs" />
+    <Compile Include="Shop\Products\RelatedProduct.cs" />
+    <Compile Include="Shop\Products\SKUItem.cs" />
+    <Compile Include="Shop\Products\SKUInfo.cs" />
+    <Compile Include="SysManage\ConfigArea.cs" />
+    <Compile Include="SysManage\ConfigSystem.cs" />
+    <Compile Include="Members\MailConfig.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SysManage\ConfigType.cs" />
+    <Compile Include="SysManage\ErrorLog.cs" />
+    <Compile Include="SysManage\LogHelp.cs" />
+    <Compile Include="SysManage\MultiLanguage.cs" />
+    <Compile Include="SysManage\SysTree.cs" />
+    <Compile Include="SysManage\TaskQueue.cs" />
+    <Compile Include="SysManage\TreeFavorite.cs" />
+    <Compile Include="Members\UserBind.cs" />
+    <Compile Include="SysManage\UpYunManager.cs" />
+    <Compile Include="SysManage\UserLog.cs" />
+    <Compile Include="Members\Users.cs" />
+    <Compile Include="Members\UsersExp.cs" />
+    <Compile Include="SysManage\VerifyMail.cs" />
+    <Compile Include="SysManage\WebSiteSet.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\YSWL.MALL.DALFactory\YSWL.MALL.DALFactory.csproj">
+      <Project>{c78b6e62-526d-4899-8355-959c0f25a243}</Project>
+      <Name>YSWL.MALL.DALFactory</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YSWL.MALL.IDAL\YSWL.MALL.IDAL.csproj">
+      <Project>{d341a09c-ab94-4148-aa44-50c63f735e6c}</Project>
+      <Name>YSWL.MALL.IDAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YSWL.MALL.Model\YSWL.MALL.Model.csproj">
+      <Project>{400f9ebc-f979-4f92-8efc-69a98377dd25}</Project>
+      <Name>YSWL.MALL.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YSWL.MALL.ViewModel\YSWL.MALL.ViewModel.csproj">
+      <Project>{07c90a14-0e00-4c76-9e23-076b3fb2d309}</Project>
+      <Name>YSWL.MALL.ViewModel</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

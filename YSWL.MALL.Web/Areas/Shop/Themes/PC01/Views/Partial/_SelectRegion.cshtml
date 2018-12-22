@@ -1,0 +1,145 @@
+﻿<div class="blackcover"></div>
+<div class="popup choose-location">
+    <div class="pop-title">
+        选地区
+        <a href="javascript:;" class="closebtn icon-close"></a>
+    </div>
+    <div class="pop-content">
+        <div class="location-wrap">
+            <div class="pop-select" id="divDeliveryAreas">
+                <script src="/Scripts/jquery/jquery.guid.js" type="text/javascript"></script>
+                <input type="hidden" id="hfSelectedNodeDelivery" value="@(ViewBag.RegionId<0?0:ViewBag.RegionId)" />
+                <script src="/Scripts/jquery/maticsoft.selectregion.delivery2.js" handle="/RegionHandle.aspx" isnull="true" type="text/javascript"></script>
+            </div>       
+        </div>
+    </div>
+</div>
+<input type="hidden" id="hidIsMultiDepot"  value= "@ViewBag.IsMultiDepot" />
+<script>
+    $(function () {
+        $('#headerSelectRegion').click(function () {
+            $('.popup').center();
+            $('.blackcover').show();
+            $('.popup').fadeIn();
+            $("body").addClass("pop-fixed");
+        });
+        $('.closebtn,.blackcover').click(function () {
+            CloseSelectRegion();
+        });
+
+
+        jQuery.fn.center = function (loaded) {
+            var obj = this;
+            body_width = parseInt($(window).width());
+            body_height = parseInt($(window).height());
+            block_width = parseInt(obj.width());
+            block_height = parseInt(obj.height());
+
+            left_position = parseInt((body_width / 2) - (block_width / 2) + $(window).scrollLeft());
+            if (body_width < block_width) {
+                left_position = 0 + $(window).scrollLeft();
+            };
+
+            top_position = parseInt((body_height / 2) - (block_height / 2) + $(window).scrollTop());
+            if (body_height < block_height) {
+                top_position = 0 + $(window).scrollTop();
+            };
+
+            if (!loaded) {
+
+                obj.css({
+                    'position': 'absolute'
+                });
+                obj.css({
+                    'top': ($(window).height() - $('.popup').height()) * 0.5
+                    // 'left': left_position
+                });
+                $(window).bind('resize', function () {
+                    obj.center(!loaded);
+                });
+                $(window).bind('scroll', function () {
+                    obj.center(!loaded);
+                });
+
+            } else {
+                obj.stop();
+                obj.css({
+                    'position': 'absolute'
+                });
+                obj.animate({
+                    'top': top_position
+                }, 200, 'linear');
+            }
+        }
+
+    });
+
+    //地区选择完成
+    function SelectDone(send) {
+        //无子节点时会走这里
+        setDeliveryAreas($(send).val());
+        switch (pagename) {
+            case 'HomePage'://首页
+                window.location.reload();//刷新页面
+                break;
+            case 'groupbuy_list'://团购列表页
+                window.location.reload();//刷新页面
+                break;
+            case 'product_detail'://单品页
+            case 'prosale_detail'://限时抢购页
+            case 'groupbuy_detail'://团购页
+                if ($('#hidIsMultiDepot').length > 0 && $('#hidIsMultiDepot').val().toLocaleLowerCase() == 'true') {
+                    //开启了分仓     重新加载库存
+                    setProdDetailDeliveryAreas($(send).val());
+                }
+                break;
+            case 'cart_list'://购物车列表页
+                if ($('#hidIsMultiDepot').length > 0 && $('#hidIsMultiDepot').val().toLocaleLowerCase() == 'true'){
+                    //开启了分仓  刷新页面  
+                    window.location.reload();//刷新页面
+                }
+                break;
+            default:
+                break;
+        }
+        CloseSelectRegion();
+    }
+
+    function CloseSelectRegion() {
+        $('.popup').hide();
+        $('.blackcover').hide();
+        $("body").removeClass("pop-fixed");
+    }
+
+    //设置地区
+    function setDeliveryAreas(regoinId) {
+        //记录regionId
+        $.cookie('deliveryareas_regionId', regoinId, { expires: 1, path: '/' });//分仓地区
+        $.cookie('groupbuy_regionId', regoinId, { expires: 1, path: '/' });//团购地区
+
+        //地区全名称
+        var regionFullName = "";
+        $("#divDeliveryAreas select").each(function () {
+            regionFullName += $(this).find("option:selected").text();
+        });
+        //去除重复名
+        if (regionFullName.indexOf('北京北京') != -1) {
+            regionFullName = regionFullName.replace('北京北京', '北京');
+        } else if (regionFullName.indexOf('上海上海') != -1) {
+            regionFullName = regionFullName.replace('上海上海', '上海');
+        } else if (regionFullName.indexOf('重庆重庆') != -1) {
+            regionFullName = regionFullName.replace('重庆重庆', '重庆');
+        } else if (regionFullName.indexOf('天津天津') != -1) {
+            regionFullName = regionFullName.replace('天津天津', '天津');
+        }
+
+        var lastRegionName = $("#divDeliveryAreas select:last option:selected").text();
+        //全称
+        $.cookie('deliveryareas_regionname', regionFullName, { expires: 1, path: '/' });
+
+        //最后一级名称
+        $.cookie('deliveryareas_lastRegionName', lastRegionName, { expires: 1, path: '/' });
+        $('#l_regionName').text(lastRegionName);
+        CloseSelectRegion();
+    }
+</script>

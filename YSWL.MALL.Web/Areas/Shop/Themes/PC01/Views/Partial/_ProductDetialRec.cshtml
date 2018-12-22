@@ -1,0 +1,24 @@
+﻿@model List<YSWL.MALL.Model.Shop.Products.ProductInfo> 
+<ul class="pro-list s-product clearfix">
+    @if (Model != null && Model.Count > 0)
+    {
+        foreach (var item in Model)
+        {
+    <li class="pro-list-item">
+        <a href="@item.SeoUrl">
+            <div class="pro-item">
+                <div class="pro-pic">
+                    <img alt="@item.ProductName"  src="@YSWL.MALL.Web.Components.FileHelper.GeThumbImage(item.ThumbnailUrl1, "T88X88_")">
+                </div>
+                <div class="r-info">
+                    <p class="pro-name">@item.ProductName</p>
+                    <div class="pro-price">
+                        <span class="price-new"><i>¥</i>@item.LowestSalePrice.ToString("F")</span>
+                    </div>
+                </div>
+            </div>
+        </a>
+</li>
+        }
+    }
+</ul>

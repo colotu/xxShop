@@ -1,0 +1,97 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    @Html.YSWLSEO(PoweredBy: true)
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <link href="/Areas/MShop/Themes/MC01/Content/Skins/@YSWL.MALL.Web.MvcApplication.MShopThemeColor/color.css" rel="stylesheet" />
+    <link href="/Areas/MShop/Themes/MC01/Content/Css/base.css" rel="stylesheet" />
+    <link href="/Areas/MShop/Themes/MC01/Content/Css/main.css" rel="stylesheet" />
+    <script src="/Scripts/jquery-1.8.3.min.js" type="text/javascript"></script>
+    <script src="/Scripts/jquery/maticsoft.jquery.min.js" type="text/javascript"></script>
+    <script src="/Areas/MShop/Themes/MC01/Content/Scripts/msgbox.js"></script>
+    <script type="text/javascript" language="javascript">    var $YSWL = { BasePath: '@(ViewBag.BasePath)', CurrentArea: '@(ViewBag.CurrentArea)' } </script>
+</head>
+<body>
+    <div class="main_wrapper">
+        <!--START HEADER-->
+        <header>
+            <div class="top_navbar fixed_header">
+                <p class="header_title">微信支付订单</p>
+            </div>
+        </header>
+        <!-- END HEADER -->
+        <div class="top"></div>
+        <div class="pay_result_wrapper">
+            <div class="con">
+                <div class="pic_wrap">
+                    <div class="txt green f20">
+                        微信支付订单
+                    </div>
+                </div>
+                <div class="result_txt">
+                    <div class="info">
+                        订单号：@(ViewBag.OrderCode)
+                    </div>
+                    <div class="info">
+                        支付金额：@(ViewBag.OrderAmount.ToString("F"))元
+                    </div>
+               </div>
+            </div>
+            <div class="btn_wrapper">
+                <input type="button" class="b_btn btn_green" value="确认支付" id="pay">
+            </div>
+        </div>
+        <!-- ################-->
+        <!-- END TOP MENU -->
+        <!-- ################-->
+    </div>
+    <input type="hidden" value="@ViewBag.OrderId" id="OrderId" />
+    <script type="text/javascript">
+        if (!navigator.userAgent.toLowerCase().match(/MicroMessenger/i)) {
+            alert('检测到非微信环境, 请使用微信内置浏览器进行支付!');
+        }
+
+        // 当微信内置浏览器完成内部初始化后会触发WeixinJSBridgeReady事件。
+        document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+
+            $('#pay').click(function () {
+                var sender = this;
+                $(sender).fadeOut();
+                var result = $.parseJSON($.getUrlParam('json'));
+                //            alert('json:' + $.getUrlParam('json'));
+                WeixinJSBridge.invoke('getBrandWCPayRequest', result.DATA, function (res) {
+                    if (res.err_msg == "get_brand_wcpay_request:ok") {
+                        ShowSuccessTip('微信支付成功!');
+                        setTimeout(
+                            function () {
+                                window.location.replace('@(ViewBag.BasePath)u/Orders/');
+                            }, 3000);
+                    } else {
+                        $(sender).show();
+                    }
+
+                    //  返回 res.err_msg,取值
+
+                    // get_brand_wcpay_request:cancel   用户取消
+
+                    // get_brand_wcpay_request:fail 发送失败
+
+                    // get_brand_wcpay_request:ok  发送成功
+                    //                    alert(res.err_msg);
+
+                    WeixinJSBridge.log(res.err_msg);
+                    //                    alert(res.err_code + res.err_desc);
+                });
+            });
+
+            WeixinJSBridge.log('yo~ ready.');
+        }, false);
+
+    </script>
+</body>
+</html>
+

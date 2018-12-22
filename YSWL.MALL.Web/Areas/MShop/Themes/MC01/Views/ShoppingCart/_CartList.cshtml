@@ -1,0 +1,166 @@
+﻿@model YSWL.MALL.ViewModel.Shop.ShoppingCartModel
+ @if (Model != null && Model.AllCartInfo.Quantity > 0)
+ {
+    <div class="shop_group">
+       @if (Model.AllCartInfo != null && Model.DicSuppCartItems != null)
+       {
+           foreach (var dicSuppCartItem in Model.DicSuppCartItems)
+           {
+        <div class="shop_group_item shop_checkbox" id="div_supp_@(dicSuppCartItem.Key)" supp="@(dicSuppCartItem.Key)">
+            <div class="shop_title pd">
+                <div class="item">
+                    <a href="javascript:;" >
+                        <div class="check_wrapper">
+                            <input type="hidden" id="groupKey_" value="@dicSuppCartItem.Value.Where(o=>o.Selected==true).ToList().Count"/>
+                            <span class="cart_checkbox @(dicSuppCartItem.Value.Count == dicSuppCartItem.Value.Where(o=>o.Selected==true).ToList().Count ? "checked" : "")"  id="groupKey_@(dicSuppCartItem.Key)" suppId="@(dicSuppCartItem.Key)" ></span>
+                        </div>
+                    </a>
+              @if (dicSuppCartItem.Key <= 0)
+               {
+                            <a href="javascript:;">
+                                <div class="shop_title_content">
+                                    <em></em>
+                                    <span class="shop_title_name arrow_left">
+                                        自营
+                                    </span>      
+                                </div>
+                            </a>
+                            }
+                            else
+                            {
+                            <a href="@(ViewBag.BasePath)store/@(dicSuppCartItem.Key)">
+                                <div class="shop_title_content">
+                                    <em></em>
+                                    <span class="shop_title_name arrow_left">
+                                        @(dicSuppCartItem.Value.Count > 0 ? dicSuppCartItem.Value[0].ShopName : "")
+                                    </span>
+                                </div>
+                            </a>
+                            }
+                </div>
+            </div>
+            <ul class="shp_cart_list pd">
+
+                @foreach (YSWL.MALL.Model.Shop.Products.ShoppingCartItem item in dicSuppCartItem.Value)
+       {
+                        <li class="@((item.Stock < item.Quantity || item.SaleStatus != 1) ? "set_grey" : "")">
+                            @if (!string.IsNullOrWhiteSpace(item.SaleDes))
+                                {
+                                <div class="discount_info">
+                                    <div class="discount_text">
+                                        <i class="txt_tag">优惠</i>
+                                        <span>@item.SaleDes</span>
+                                    </div>
+                                </div>
+                                }
+
+                            <div class="items">
+                                <a href="javascript:;">
+                                    <div class="check_wrapper">
+                                        <span class="cart_checkbox @(item.Selected ? "checked" : "") btnCheck " ItemId="@item.ItemId"></span>
+                                    </div>
+                                </a>
+
+                                <div class="shp_cart_item_display">
+                                    <a href="@(ViewBag.BasePath)Product/Detail/@item.ProductId" class="cart_product_cell_1">
+                                        <img src="@YSWL.MALL.Web.Components.FileHelper.GeThumbImage(item.ThumbnailsUrl, "T115X115_")" class="cart_photo_thumb" onerror="this.onerror = ''; this.src = '/Content/themes/base/images/404/404_1.png'" />
+                                        @if (item.SaleStatus == 1)
+       {
+           if (item.Stock <= 0)
+           {
+                                            <span class="no_pro">补货中</span>@*无货*@
+                                                }
+                                                else if (item.Stock < item.Quantity)
+                                                {
+                                            <span class="no_pro">库存不足</span>
+                                                }
+                                                //有货
+                                            }
+                                    </a>
+                                    <div class="cart_product_cell_2">
+                                        <a href="@(ViewBag.BasePath)p/d/@item.ProductId">
+                                            <div class="cart_product_name">
+                                                @item.Name
+                                            </div>
+                                        </a>
+
+                                        @if (item.SaleStatus != 1)
+                                            {
+                                            <div class="cart_product_prop">
+                                                <span class="pro_gone txt_tag">
+                                                    失效
+                                                </span>
+                                            </div>
+                                            <div class="price_count_edit">
+                                                <span class="shp_cart_item_price">
+                                                    ￥@item.AdjustedPrice.ToString("F")
+                                                </span>
+                                            </div>
+                                            }
+                                            else
+                                            {
+                                                if (item.SkuValues != null && item.SkuValues.Length > 0)
+                                                {
+                                            <div class="cart_product_prop">
+                                                @foreach (string val in item.SkuValues)
+                                                        {
+                                                        <span class="prop">
+                                                            @val
+                                                        </span>
+                                                        }
+                                            </div>
+                                                }
+                                            <div class="price_count_edit">
+                                                <span class="shp_cart_item_price">
+                                                    ￥@item.AdjustedPrice.ToString("F")
+                                                </span>
+                                                <span class="shp_cart_item_price">
+                                                    商城积分：-@item.Gwjf.ToString()
+                                                </span>
+                                                <div class="quantity_wrapper shp_qua shuliang" ItemId="@item.ItemId" stock="@item.Stock">  
+                                                    <a href="javascript:;" class="quantity_decrease redu"></a>
+                                                    <input maxlength="3" type="text" class="txtQuantity quantity" value="@item.Quantity"   ItemId="@item.ItemId"/>
+                                                    <a href="javascript:;" class="quantity_increase add"></a>
+                                                </div>
+                                            </div>
+                                            }
+                                    </div>
+                                </div>
+
+                            </div>
+                        </li>
+                        }
+            </ul>
+        </div>
+        }
+        }
+    </div>
+<script type="text/javascript">
+    $(function(){
+        $('#finalPrice').attr('data-bind',@((Model.SelectedCartInfo.TotalAdjustedPrice - Model.SelectedCartInfo.TotalGwjf).ToString("F"))).text('¥@((Model.SelectedCartInfo.TotalAdjustedPrice- Model.SelectedCartInfo.TotalGwjf).ToString("F"))');
+        $('#totalSellPrice').text('¥@Model.SelectedCartInfo.TotalSellPrice.ToString("F")');
+        $('#totalRate').text('¥@((Model.SelectedCartInfo.TotalSellPrice-Model.SelectedCartInfo.TotalAdjustedPrice).ToString("F"))');
+        $('#totalGwjf').text('-@(Model.SelectedCartInfo.TotalGwjf)');
+        @if (Model.SelectedCartInfo.Quantity == Model.AllCartInfo.Quantity)
+            {
+                 @:$('#btnCheckAll').addClass('checked');
+                    }
+            else
+            {
+                @:$('#btnCheckAll').removeClass('checked');
+                    }
+        $('#SelectedQuantity').attr('Quantity','@Model.SelectedCartInfo.Quantity');
+        $('#checkednum').text('@Model.SelectedCartInfo.Quantity');
+    });
+</script>
+ }
+ else
+ {
+    @Html.Partial("/Areas/MShop/Themes/MC01/Views/ShoppingCart/_Empty.cshtml")
+     <script type="text/javascript">
+         $(function(){
+             $('#buttomContent').hide();
+             $('#cart_edit').hide();
+         });
+     </script>
+ }

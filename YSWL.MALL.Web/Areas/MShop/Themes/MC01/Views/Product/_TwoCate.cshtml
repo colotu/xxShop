@@ -1,0 +1,13 @@
+﻿@model List<YSWL.MALL.Model.Shop.Products.CategoryInfo> 
+@if (Model != null && Model.Count > 0)
+{
+    foreach (var item in Model)
+    {
+     <li>
+            <a href="@(ViewBag.BasePath)p/@item.CategoryId"><h2>@item.Name</h2></a>
+     </li>
+    <li>
+        @Html.Action("CategoryList", "Product", new { parentId = item.CategoryId, viewName = "_ThreeCate" })
+    </li>
+}
+}

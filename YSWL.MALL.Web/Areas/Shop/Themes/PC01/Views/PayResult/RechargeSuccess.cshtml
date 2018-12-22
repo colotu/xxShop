@@ -1,0 +1,36 @@
+﻿@{
+    Layout = "~/Areas/Shop/Themes/PC01/Views/Shared/_BaseLayout.cshtml";
+}
+<div class="order-wrapper">
+    <div class="successk">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tbody>
+                <tr>
+                    <td width="10%" rowspan="5" align="center">
+                        <img src="/Areas/Shop/Themes/PC01/Content/images/chenggong.jpg" width="48" height="80">
+                    </td>
+                    <td height="45" colspan="3" align="left">
+                        <span class="successk_title">
+                            您已成功支付，请注意查看您的账户余额。</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td height="35" colspan="3" align="left">
+                        充值号：@(ViewBag.RechargeId)
+                    </td>
+                </tr>
+                <tr>
+                    <td height="35" colspan="3" align="left">
+                        充值金额：@(ViewBag.RechargeBlance.ToString("F"))
+                    </td>
+                </tr>
+                <tr>
+                    <td width="65%" height="60" align="left" valign="middle">
+                        <span class="fenzi"></span><a href="@(ViewBag.BasePath)UserCenter/Balance">查看您的余额</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<input type="hidden" value="@ViewBag.RechargeId" id="RechargeId"/>

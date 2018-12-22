@@ -1,0 +1,70 @@
+﻿    @{
+        Layout = "~/Areas/Supplier/Themes/M1/Views/Shared/_SupplierLayout.cshtml";
+    }
+    @model List<YSWL.MALL.ViewModel.Supplier.SupplierAdP>
+<link href="/Areas/Supplier/Themes/M1/Content/Css/supplier.css" rel="stylesheet" type="text/css" />
+    <div class="contenttitle2 mar30">
+        <h3>
+            <span>广告位设置</span>
+        </h3>
+        <small class="desc"><span>您可以设置广告位内容</span> </small>
+    </div>
+    <!--Title end -->
+    <!--Toolbar -->
+    <div class="newslist">
+        <!--Toolbar end -->
+        @if (null != Model)
+        {
+            <table width="100%" border="0" cellspacing="0" cellpadding="5" class="show stdtable stdtablecb GridView"  style="border-top: 1px solid #ddd;">
+                <tbody>
+                    <tr class="head1">
+                        <td width="10%" bgcolor="#FFFFFF">
+                            <strong>广告编号</strong>
+                        </td>
+                        <td width="10%" bgcolor="#FFFFFF">
+                            <strong>广告名称</strong>
+                        </td>
+                        <td width="30%" bgcolor="#FFFFFF">
+                            <strong>操作</strong>
+                        </td>
+                    </tr>
+                    @foreach (var item in Model)
+                    {
+      <tr>
+                            <td>
+                                @item.AdvPositionId
+                        </td>
+                        <td>
+                            @item.Name
+                    </td>
+        <td>
+            <a class="editThisAd" href="@(ViewBag.BasePath)Home/AdsSetting?positionId=@item.AdvPositionId" style="display: inline-block; width: 50px;" >
+                设置内容
+            </a> 
+        </td>
+    </tr>
+                    }
+                </tbody>
+            </table>
+        }
+
+        <script type="text/javascript">
+    $(function () {
+        $(".GridView tr:odd").addClass("eventrcolor");
+        $(".GridView tr:even").addClass("oddtrcolor");
+        $("table.GridView tr").hover(
+            function () {
+                $(this).addClass("tylehover");
+            },
+            function () {
+                $(this).removeClass("tylehover");
+            }
+        );
+        $("#checkAll").click(function () {
+            $(".itemCheck").prop('checked', $(this).prop('checked'));
+        });
+    });
+        </script>
+
+    </div>
+ 

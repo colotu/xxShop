@@ -1,0 +1,238 @@
+body{
+	
+	background-color: #E6E6E6;
+}
+.btn1{
+	font-size: 15px;
+	color: #fff;
+	background-color:#1face3; 
+	border:1px solid #1face3;
+	border-radius: 3px;
+	margin-bottom: 12px;
+	padding: 8px 22px;
+}
+
+/*header头部*/
+header{
+	background-color: #fff;
+	height: 50px;
+	width: 100%;
+}
+header img{
+	float: left;
+}
+.hd_logo{
+	height: 59px;
+	margin: 15px 0 15px 42px;
+}
+/*右上角用户信息*/
+.navbar-header{
+	position: absolute;
+	right: 75px;
+	top: 15px;
+}
+.navbar-header a{
+	color:#808080;
+}
+.navbar-header ul{
+	float: right;
+
+}
+.navbar-header img{
+	margin-right: 5px;
+	position: relative;
+}
+.navbar-header li{
+	float: left;
+	margin-left: 30px;
+	text-align: center;
+}
+.navbar-header li a{
+	font-size: 14px;
+}
+.navbar-header ul ul{
+	display: none;
+	border:1px solid #c3c3c3;
+	position: absolute;
+}
+.navbar-header li:hover>ul{
+	display: block;
+	background: #fff;
+}
+.navbar-header li ul li:hover{
+	display: block;
+	background: #c3c3c3;
+}
+#nav_xiaoxi{
+	width: 20px;
+	height: 20px;
+	background-color: red;
+	border-radius: 50%;
+	position: absolute;
+	left: 40px;
+	top: -10px;
+	color: #fff;
+}
+.navbar_top{
+	display: none;
+	border:1px solid #c3c3c3;
+	position: absolute;	
+}
+.navbar_top li{
+    float:none;
+	font-size: 16px;
+	line-height: 30px;
+    width:110px;
+    margin-left:0;
+}
+
+/*左侧导航栏*/
+.content_wrap{
+    overflow:hidden;
+}
+.content_nav{
+	float: left;
+	width: 198px;
+	/*min-height:820px;*+height:100%;_height:820px;*/
+	background-color: #eaeaea;
+	padding-bottom:100000px;
+    margin-bottom:-100000px;
+    background-color:#333645;
+}
+.content_nav .menu1{
+	position: absolute;
+	top: 17px;
+	left: 20px;
+}
+.content_nav .menu2{
+	position: absolute;
+	top: 11px;
+	left: 20px;
+}
+.content_nav li{
+	position: relative;
+	height: auto;
+	line-height: 50px;
+
+	text-align: center;
+	font-size: 16px;
+}
+.content_nav a{
+	color: #fff;
+	display: block;
+
+	   text-align: left;
+    padding-left: 40px;
+}
+.firstNode {
+    background-color: #24283B;
+}
+.content_nav .dropdown_ul a:hover{
+	color: #fff;
+	display: block;
+	background-color: #1face3;
+}
+.content_nav .dropdown_ul li{
+	background-color: #333645;
+	font-size: 14px;
+	height: 34px;
+	line-height: 34px;
+	position: relative;
+}
+.dropdown_ul{
+	display:none;
+}
+
+.dropdown_ul li{
+	height: 40px;
+	line-height: 40px;
+	
+}
+.dropdown_ul a{
+	text-align: Left;
+}
+/*
+.content_nav .dropdown_ul a{
+	display: block;
+	position: relative;
+	background-color:#f2f2f2;
+	padding: 7px 0 9px 37px;
+	margin-left: 20px;
+	background: url("../img/personal.png") left center no-repeat;
+}
+*/
+
+
+
+/*右侧主体*/
+.main-content{
+	margin-left: 177px;
+}
+.shouye{
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+	background-color: #fff;
+	font-size: 17px;
+	margin-bottom: 12px;
+    margin-top:2px;
+}
+
+.shouye h1{
+	color: #999;
+	display: inline-block;
+	font-size: 17px;
+}
+#homepage{
+	padding-right: 21px;
+}
+#homepage img{
+    margin-bottom: -3px;
+}
+.active h1{
+	color: #1face3;
+}
+.active a{
+	color: #1face3;
+}
+.shouye li{
+	float: left;
+	color: #999;
+	line-height: 50px;
+	margin-left:20px;
+}
+.shouye a{
+	color: #999;
+}
+/*滚动通知消息*/
+.scrolltext{
+	font-size: 12px;
+	position: relative;
+	height: 38px;
+	line-height: 38px;
+	padding-left: 30px;
+	margin-bottom: 12px;
+	color: #909090;
+	background: url("../img/tongzhi.png") left center no-repeat;
+	background-color: #fff;
+}
+.scrolltext-r{
+	font-size: 12px;
+	color: #1face3;
+	float: right;
+	font-weight: bold;
+	padding-right: 40px;
+}
+.scrolltext-r p{
+	float: left;
+	padding-right: 25px;
+}
+.scrolltext img{
+	position: absolute;
+	top: 14px;
+	right: 0;
+	padding-right: 17px;
+}
+
+
+

@@ -1,0 +1,24 @@
+﻿@using Webdiyer.WebControls.Mvc
+@model PagedList<YSWL.MALL.ViewModel.Shop.CommissionProStat>
+@if (Model != null)
+{
+    foreach (var item in Model)
+    {
+        <div class="list-item">
+            <div class="text-wrap">
+                <div class="list-line pro-intro">
+                    商品：
+                    <span class="intro"><a class="color-666" href="@(ViewBag.BasePath)Product/Detail/@item.ProductId">@item.ProName</a></span>
+                </div>
+                <div class="list-line">
+                    佣金：
+                    <span class="intro price">￥@item.TotalFee.ToString("F")</span>
+                </div>
+                <div class="list-line">
+                    数量：
+                    <span class="intro">@item.TotalProduct</span>
+                </div>
+            </div>
+        </div>
+    }
+}

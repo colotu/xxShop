@@ -1,0 +1,79 @@
+﻿@using Webdiyer.WebControls.Mvc
+@model  PagedList<YSWL.MALL.Model.Shop.Products.ProductReviews>
+<div class="detailEvaluation1 mb" id="comment_list">
+    <h3>累计评价<span class="commentCounts">@(ViewBag.TotalCount)</span></h3>
+    @if (Model != null && Model.Count > 0)
+    {
+        for (int i = 0; i < Model.Count; i++)
+        {
+            <div class="personDetail mb">
+                <div class="personPhoto"><img src="/Upload/User/Gravatar/@(Model[i].UserId).jpg" onerror="this.onerror = ''; this.src = '/Upload/User/Gravatar/default.jpg'" /></div>
+                <span class="personName td_buyname" style="display:none;">@Model[i].UserName</span>
+                <p>@Model[i].ReviewText</p>
+                <p class="personTime">
+                    <span>@Model[i].CreatedDate.ToString("yyyy-MM-dd")</span>
+                    @if (!string.IsNullOrWhiteSpace(Model[i].Attribute))
+                    {
+                        string[] tmpAttr = Model[i].Attribute.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                        foreach (string val in tmpAttr)
+                        {
+                            <span>@val</span>
+                        }
+                    }
+                </p>
+                @if (!String.IsNullOrWhiteSpace(Model[i].ImagesPath) && !String.IsNullOrWhiteSpace(Model[i].ImagesNames))
+                {
+                    string[] arr = Model[i].ImagesNames.Split(new Char[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
+                    <div class="photoShow">
+                        <!--图片-->
+                        @for (int k = 0; k < arr.Length; k++)
+                        {
+                            <span>
+                                <img src="@string.Format(Model[i].ImagesPath, arr[k])" />
+                            </span>
+                        }
+                    </div>
+                }
+            </div>
+        }
+        <script type="text/javascript">
+    $(function () {
+        pullUp.init({
+            //Ajax请求参数
+            AjaxOptions: {
+                //Ajax请求参数
+                Params: $.extend(@Html.Raw(ViewBag.DataParam), { viewName:"_ProdCommentsMove"}),
+                //Ajax请求URL
+                DataURL: $YSWL.BasePath + "Product/Comments"
+            },
+            //当前页码
+            CurrentPage: 2,
+            //页码参数名称
+            PageParamsName: "pageIndex",
+            //每页数量
+            PageSize: @(ViewBag.PageSize),
+            //每页数量参数名称
+            PageSizeParamsName: "pageSize",
+            //内容容器
+            ContentContainer: $("#comment_list"),
+            //正在加载提示框
+            LoadingTipBox: $("#loadingMore"),
+            //无更多数据提示框
+            NoMoreTipBox: $("#divNoMoreProduct"),
+            LoadFinish: false
+        });
+
+             
+        //显示用户名
+        encryption('td_buyname');
+    });
+
+        </script>
+    }
+
+
+    <!---上拉加载没有更多提示-->
+    <div id="divNoMoreProduct" class="noMoreProduct dsn">没有更多...</div>
+    <div class="bottom"></div>
+</div>
+

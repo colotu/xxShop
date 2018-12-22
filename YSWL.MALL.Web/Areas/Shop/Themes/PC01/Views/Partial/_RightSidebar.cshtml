@@ -1,0 +1,36 @@
+﻿<!-- 右侧边栏 -->
+<div class="mui-bar">
+    <div class="mui-bar-tab-wrap">
+        <a href="@(ViewBag.Basepath)ShoppingCart/CartInfo">
+            <div class="mui-bar-tab mui-bar-cart">
+                <span class="icon-cart"></span>
+                <span class="txt">购物车</span>
+                <span class="count" id="mui-bar-cart-num" style="display:none;">0</span>
+            </div>
+        </a>
+        <a href="@(ViewBag.Basepath)UserCenter/MyFavor">
+            <div class="mui-bar-tab mui-bar-favor">
+                <span class="icon-favor"></span>
+                <span class="txt">收藏</span>
+            </div>
+         </a>
+            <div class="mui-bar-top" id="mui-bar-top">
+                <span class="top-triangle"></span>
+                <span class="txt">TOP</span>
+            </div>
+</div>
+</div>
+<script type="text/javascript">
+    $(function () {
+        $('#mui-bar-top').click(function () {
+            $('body,html').animate({ scrollTop: 0 }, 200);//滑动的速度
+            return false;
+        });
+        $('#mui-bar-cart-num').load($YSWL.BasePath + 'ShoppingCart/GetCartCount?timespan=' + new Date().format('yyyyMMddhhmmssS')); //Date.parse(new Date())
+        var cartNum = parseInt($('#mui-bar-cart-num').text());
+        if (cartNum > 99) {
+            cartNum = 99+"+";
+        }
+        $('#mui-bar-cart-num').text(cartNum).show();
+    })
+</script>

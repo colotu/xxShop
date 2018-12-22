@@ -1,0 +1,100 @@
+﻿@using Webdiyer.WebControls.Mvc
+@model PagedList<YSWL.MALL.Model.Shop.Products.Reviews>
+
+    @if (Model != null && Model.Count > 0)
+    {
+
+        foreach (var item in Model)
+        {
+            <div class="comment_item">
+                <a href="@(ViewBag.BasePath)Product/Detail/@item.ProductId">
+                    <div class="pro_info my_comment">
+                        <div class="pro_info_l">
+                            <img src="@YSWL.MALL.Web.Components.FileHelper.GeThumbImage(item.ImageUrl, "T50X65_")" alt="">
+                        </div>
+                        <div class="pro_info_r">
+                            <!--<div class="comment_type">已好评</div> -->
+                            <div class="pro_name">
+                               @item.ProductName  @if (!string.IsNullOrWhiteSpace(item.Attribute))
+                               {
+                                   string[] tmpAttr = item.Attribute.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                                   foreach (string val in tmpAttr)
+                                   {
+                                    @(val + " ")
+                                   }
+                               }
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <div class="comment_con">
+                    <div class="comment_txt">
+                       @item.ReviewText
+                    </div>
+                    <div class="comment_img">
+                        @if (!string.IsNullOrWhiteSpace(item.ImagesNames)&&!string.IsNullOrWhiteSpace(item.ImagesPath))
+                        {
+                            <ul>
+                                @foreach (var it in item.ImagesNames.Split('|'))
+                                {
+                                    <li><img src="@string.Format(item.ImagesPath,"")@it" alt=""></li>
+                                }
+                            </ul>
+                        }
+                        
+                    </div>
+
+                </div>
+                <div class="comment_date">
+                    @item.CreatedDate.ToString("yyyy-MM-dd")
+                </div>
+            </div>
+        }
+
+    }
+    else
+    {
+        <div class="empty pro_list_empty">
+            <div class="img_wrap">
+
+                <img src="/Areas/MShop/Themes/MC01/Content/images/nopro.png" alt="暂无评价">
+            </div>
+            <div class="txt">
+                <p>您还没有发表过评价</p>
+            </div>
+        </div>
+    }
+
+
+
+<script type="text/javascript">
+
+    $(function() {
+        pullUp.init({
+            //Ajax请求参数
+            AjaxOptions: {
+                //Ajax请求参数
+                Params:  { viewName: "_MyPreviewMore" },
+                //Ajax请求URL
+                DataURL: "@(ViewBag.BasePath)u/MyPeviewList"
+            },
+
+            //当前页码
+            CurrentPage: 2,
+            //页码参数名称
+            PageParamsName: "pageIndex",
+            //每页数量
+            PageSize: @(ViewBag.PageSize),
+            //每页数量参数名称
+            PageSizeParamsName: "pageSize",
+            //内容容器
+            ContentContainer: $("#LoadPreviewList"),
+            //正在加载提示框
+            LoadingTipBox: $("#loadingMore"),
+            //无更多数据提示框
+            NoMoreTipBox: $("#noMoreProduct"),
+            LoadFinish:false
+        });
+        $("#noMoreProduct").hide();
+    });
+</script>

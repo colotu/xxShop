@@ -1,0 +1,83 @@
+﻿@{
+    Layout = "~/Areas/Shop//Themes/PC01/Views/Shared/_UserCenterLayOut.cshtml";
+}
+@using Webdiyer.WebControls.Mvc
+@model PagedList<YSWL.MALL.Model.Shop.Commission.CommissionDetail>
+<div class="col-main">
+    <table  width="100%" border="0"   cellspacing="0" cellpadding="0">
+        <tr class="user_dingdantitle">
+            <td style="width: 600px">
+
+                我的推广佣金
+            </td>
+            <td>
+                获得的佣金:<span class="integral_a1">@ViewBag.AllFee.ToString("F")</span>
+            </td>
+        </tr> 
+    </table>
+     <input type="hidden" value="@(YSWL.Common.Globals.DomainFullName)" id="hiddomain"/>
+    <input type="hidden" id="currentpage" value="myPromo" /> 
+    <table width="100%" border="0" class="user_dingdan" cellspacing="0" cellpadding="0">
+        <tr>
+            <th>
+                获得日期
+            </th>
+            <th>
+                佣金规则
+            </th>
+            <th>
+                佣金
+            </th>
+            <th>
+                说明
+            </th>
+        </tr>
+        @if (Model != null)
+        {
+            foreach (var item in Model)
+            {
+            <tr align="center">
+                <td height="40" class="bor" style="padding: 0 0 0 0;">
+                    @item.TradeDate.ToString("yyyy-MM-dd HH:mm:ss")
+                </td>
+                <td class="bor">
+                    @item.RuleName
+                </td>
+                <td class="bor">
+                    @if (item.TradeType == 1)
+                    {
+                        <strong style="color: #ff8a00;">+@item.Fee.ToString("F")</strong>
+                 
+                    }
+                    else
+                    {
+                        <strong style="color: #33982e;">-@item.Fee.ToString("F")</strong>
+                    }
+                </td>
+                <td class="bor" style="text-align: left">
+                    @item.Remark  推广商品【<a href="@(ViewBag.BasePath)Product/Detail/@item.ProductId">@item.Name</a>】
+                </td>
+            </tr>
+            }
+        }
+    </table>
+@if (Model != null)
+{
+    <div class="pagination">
+        @Html.Pager(Model, new PagerOptions
+   {
+       ShowDisabledPagerItems = false,
+       AlwaysShowFirstLastPageNumber = true,
+       ShowFirstLast = false,
+       PageIndexParameterName = "pageIndex",
+       NumericPagerItemCount = 6,
+       CurrentPagerItemTemplate = "<span class=\"page-item curr\">{0}</span>",
+       PagerItemTemplate = "<span class=\"page-item\">{0}</span>",
+       MorePagerItemTemplate = "<span class=\"pn-break\">{0}</span>",
+       CssClass = "p-wrap",
+       PrevPageText = "<span class=\"pn-prev \"><i>&lt;</i>上一页</span>",
+       NextPageText = "<span class=\"pn-next \">下一页<i>&gt;</i></span>",
+   })
+    </div>
+}
+</div>

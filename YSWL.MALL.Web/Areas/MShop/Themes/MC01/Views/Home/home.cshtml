@@ -1,0 +1,194 @@
+﻿@{
+    Layout = "/Areas/MShop/Themes/MC01/Views/Shared/_BaseLayout.cshtml";
+}
+@section headtop{
+    <!--swiper-->
+    <link href="/Scripts/Swiper-3.3.1/css/swiper.min.css" rel="stylesheet" />
+    <!--swiper-->
+}
+@section head{    
+<link href="/Areas/MShop/Themes/MC01/Content/Css/main.css" rel="stylesheet" />
+}
+<!--START MAIN-WRAPPER-->
+<div class="main_wrapper" >
+    <div id="main_page" >
+        <!--START HEADER-->
+        <header>
+            <div class="top_navbar fixed_header">
+                <div class="topbar_location" >
+                    <a href="javascript:;" id="showSelectRegion">
+                        <span class="location" id="l_regionName"></span>
+                        <span class="si icon_down"></span>
+                    </a>
+                </div>
+                <div class="top_search search_pr pl70px"><!--头部搜索框-->
+                    @Html.Partial("/Areas/MShop/Themes/MC01/Views/Partial/_HeaderSearch.cshtml")
+                </div>
+                @Html.Partial("/Areas/MShop/Themes/MC01/Views/Partial/_HeaderMsg.cshtml")
+            </div>
+        </header>
+        <div class="top"></div>
+        <!-- END HEADER -->
+        <!--START banner轮播-->
+        @Html.Action("AdDetail", "Partial", new { id =88, ViewName = "_IndexAd" })
+
+        <!--END banner轮播-->
+
+        <div class="quick-nav-box">
+            <a class="quick-nav-link" href="/MShop/rec/cheap/0/1/30/Cheap">
+                <div class="quick-nav-img">
+                    <img src="/Areas/Mshop/Themes/MC01/Content/images/quick-link1.png" alt="今日热卖">
+                </div>
+                <span>今日热卖1</span>
+            </a>
+            <a class="quick-nav-link" href="/MShop/u/MyFavor">
+                <div class="quick-nav-img">
+                    <img src="/Areas/Mshop/Themes/MC01/Content/images/quick-link2.png" alt="收藏商品">
+                </div>
+                <span>收藏商品2</span>
+            </a>
+            <a class="quick-nav-link" href="/MShop/rec/new/0/1/30/New">
+                <div class="quick-nav-img">
+                    <img src="/Areas/Mshop/Themes/MC01/Content/images/quick-link3.png" alt="新品推荐">
+                </div>
+                <span>新品推荐3</span>
+            </a>
+            <a class="quick-nav-link" href="/MShop/rec/hot/0/1/30/Hot">
+                <div class="quick-nav-img">
+                    <img src="/Areas/Mshop/Themes/MC01/Content/images/quick-link4.png" alt="畅销商品">
+                </div>
+                <span>畅销商品4</span>
+            </a>
+        </div>
+
+        <!--中间大图分类 在后台广告位置-->
+        @Html.Action("AdDetail", "Partial", new { id = 157, ViewName = "/Areas/MShop/Themes/MC01/Views/Home/_AdList.cshtml" })
+
+        <!--限时抢购-->
+        @Html.Action("CountDown", "Home", new { top = 3 })
+        @*<div class="floor">
+            <div class="floor_container mt pd">
+                <div class="floor_item">
+                    <!---今日热卖--->
+                    <div class="container_col_l">
+                        <a href="@(ViewBag.BasePath)rec/cheap/0/1/30/Cheap" >
+                            <img src="/Areas/MShop/Themes/MC01/Content/images/ad7.jpg" alt="">
+                        </a>
+                    </div>
+                    <div class="container_col_r">
+                        <!---团购--->
+                        <div class="container_col1">
+                            <a href="@(ViewBag.BasePath)ProSales/Group">
+                                <img src="/Areas/MShop/Themes/MC01/Content/images/ad8.jpg" alt="">
+                            </a>
+                        </div>
+                        <!---新品推荐--->
+                        <div class="container_col1" >
+                            <a href="@(ViewBag.BasePath)rec/new/0/1/30/New" >
+                                <img src="/Areas/MShop/Themes/MC01/Content/images/ad9.jpg" alt="新品推荐">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+        <div class="floor">
+            <div class="floor_container">
+                <div class="floor_item">
+                    <div class="container_col1">
+                        <!---畅销商品--->
+                        <a href="@(ViewBag.BasePath)rec/hot/0/1/30/Hot">
+                            <img src="/Areas/MShop/Themes/MC01/Content/images/fast_selling.jpg" alt="">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="floor fast_selling">
+            <div class="floor_container mt pd">
+                <div class="pro_container3_list">
+                    @Html.Action("ProductRec", "Partial", new { Type= YSWL.MALL.Model.Shop.Products.ProductRecType.Hot, Top = 3, ViewName= "/Areas/MShop/Themes/MC01/Views/ShoppingCart/_ProductRec.cshtml" })
+                </div>
+            </div>
+        </div>
+        <div class="floor nosale-list">
+            <div class="floor_container">
+                @*<div class="home_title">
+                    /推荐商品/
+                </div>*@
+                <div class="recommendtip">
+                    <div class="title">
+                        <em></em>
+                        为您推荐
+                    </div>
+                </div>
+                <div class="floor_item">
+                    <div class="pro_container2_list">
+                        @Html.Action("Index", "Recommend", new { type = "irec", vName = "IndexRec", ajaxVName = "_IndexRec" , pageSize =30})
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--加载提示信息--->
+        @Html.Partial("/Areas/MShop/Themes/MC01/Views/Partial/_LoadTip.cshtml")
+        <!-- ################-->
+        <!-- END TOP MENU -->
+        <!-- ################-->
+        <!--底部菜单---->
+        <div class="bottom">
+        </div>
+        @Html.Partial("/Areas/MShop/Themes/MC01/Views/Partial/_FooterNav.cshtml")
+    </div>
+</div>
+<!-- END MAIN WRAPPER-->
+ @Html.Partial("/Areas/MShop/Themes/MC01/Views/Partial/_SearchLayer.cshtml")
+@section foot{
+<script src="/Areas/MShop/Themes/MC01/Content/Scripts/pullUp.js"></script>
+<!--swiper-->
+<script src="/Scripts/Swiper-3.3.1/js/swiper.min.js"></script>
+<!--swiper-->
+<script src="/Areas/MShop/Themes/MC01/Content/Scripts/timeCountDown.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        //显示地区
+        var regionName = $.cookie('deliveryareas_lastRegionName');
+        if (regionName == null || regionName == ""){
+            regionName = "请选择";
+        }
+        $('#l_regionName').text($.cookie('deliveryareas_lastRegionName'));        
+        $(function () {
+            $('#body').addClass('m_home');
+
+            if ($('.swiper-container').length > 0) {
+                //banner图滑动
+                var mySwiper = new Swiper('.swiper-container', {
+                    direction: 'horizontal',
+                    loop: true,
+                    pagination: '.swiper-pagination',
+                    autoplay: 5000
+                });
+            }
+            
+            //限时抢购倒计时
+            $(".txtenddate").each(function (){
+                $(this).removeClass('txtenddate');
+                var endDate = $(this).attr("endDate");
+                var productId = $(this).attr("Product");
+                var myclass = new CountDown2();
+                myclass.init({
+                    id: 'txtenddate_' + productId,
+                    //天数
+                    day_Dom: $("#dayEnd_" + productId),
+                    //小时 
+                    hour_Dom: $("#hourEnd_" + productId),
+                    //分钟
+                    min_Dom: $("#minEnd_" + productId),
+                    //秒
+                    sec_Dom: $("#secEnd_" + productId),
+                    dayMainElement: $("#dayMainElement_" + productId),
+                    hourMainElement: $("#hourMainElement_" + productId),
+                    endTime: endDate
+                });
+            });
+        });
+    </script>
+} 

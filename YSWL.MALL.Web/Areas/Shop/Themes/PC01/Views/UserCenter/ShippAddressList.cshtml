@@ -1,0 +1,82 @@
+﻿@{
+    Layout = "/Areas/Shop/Themes/PC01/Views/Shared/_UserCenterLayout.cshtml";
+}
+@model List<YSWL.MALL.Model.Shop.Shipping.ShippingAddress>
+<input type="hidden" id="currentpage" value="address"/>
+
+<div class="col-main">
+    <div class="user_dingdantitle" style="height: 32px; vertical-align: bottom;">
+        收货地址
+        <input onclick="window.location='@(ViewBag.BasePath)UserCenter/ShippAddress';return false;" type="button" class="usercenterbtn" style="margin-left: 10px; vertical-align: middle;" value="新增" /></div>
+    <div id="LoadOrderList">
+        <table width="100%" border="0" class="user_dingdan" cellspacing="0" cellpadding="0">
+            <tr>
+                <th style="width: 80px">
+                    收货人
+                </th>
+                <th>
+                    详细地址
+                </th>
+                <th style="width: 120px" >
+                    手机号码
+                </th>
+                <th style="width: 150px" >
+                    操作
+                </th>
+            </tr>
+            @if (Model != null && Model.Count > 0)
+            {
+                foreach (YSWL.MALL.Model.Shop.Shipping.ShippingAddress item in Model)
+                {
+                <tr>
+                    <td height="40"  class="bor">
+                        @item.ShipName
+                    </td>
+                    <td style="text-align: left;padding: 2px" class="bor">
+                       @item.RegionFullName @item.Address
+                    </td>
+                    <td class="bor">
+                        @item.CelPhone
+                    </td>
+                    <td class="bor">
+                        @if (!item.IsDefault)
+                        {
+                            <a href="javascript:;" onclick="SetDefaultAddress(@(item.ShippingId))">设为默认</a>
+                        }
+                        <a href="@(ViewBag.BasePath)UserCenter/ShippAddress/@(item.ShippingId)" >修改</a>
+                        <a href="javascript:;" class="btnDel" onclick="DelAddress(@(item.ShippingId))">删除</a>
+                    </td>
+                </tr>
+                }
+            }
+        </table>
+    </div>
+</div>
+<script type="text/javascript">
+    function DelAddress(id) {
+        if (!confirm('确认删除?')) {
+            return;
+        }
+        $.post('@(ViewBag.BasePath)UserCenter/DelShippAddress/' + id,
+            function (data) {
+                if (data == "OK") {
+                    window.location.reload();
+                } else {
+                    ShowFailTip("服务器忙, 请稍后再试!");
+                }
+            }
+        );
+    }
+
+    function SetDefaultAddress(id) {
+        $.post('@(ViewBag.BasePath)UserCenter/SetDefaultAddress/' + id,
+            function (data) {
+                if (data == "OK") {
+                    window.location.reload();
+                } else {
+                    ShowFailTip("服务器忙, 请稍后再试!");
+                }
+            }
+        );
+    }
+</script>

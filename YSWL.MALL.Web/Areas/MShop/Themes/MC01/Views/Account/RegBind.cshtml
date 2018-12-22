@@ -1,0 +1,91 @@
+﻿ @{
+    Layout = "/Areas/MShop/Themes/MC01/Views/Shared/_BaseLayout.cshtml";
+    ViewBag.Title = "微信用户绑定";
+}
+@model YSWL.MALL.ViewModel.Shop.RegisterModel
+@section head{
+    <link href="/Areas/MShop/Themes/MC01/Content/Css/main.css" rel="stylesheet" />
+}
+<div class="main_wrapper">
+    <!--START HEADER-->
+    <header>
+        <div class="top_navbar fixed_header">
+            @Html.Partial("/Areas/MShop/Themes/mc01/Views/Partial/_Back.cshtml")
+            <p class="header_title">微信用户绑定</p>
+        </div>
+    </header>
+    <!-- END HEADER -->
+    <div class="top"></div>
+    <!--START 主体-->
+    <div class="menu_list">
+        <input id="hfReturn" type="hidden" value="@ViewBag.ReturnUrl" />
+        <div class="login_con_box">
+            <div class="input_item login_username">
+                <input type="text" class="spec_ipt" id="nickname" placeholder="请输入昵称">
+            </div>
+        </div>
+        <div class="btn_wrap">
+            <a href="javascript:;" id="btnRegBind">
+                <div class="big_btn btn_green">
+                    <span>微信登录</span>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+@section foot{
+<script type="text/javascript">
+    $(function () {
+        //微信新用户绑定
+        $("#btnRegBind").click(function () {
+            var nick = $("#nickname").val();
+            var returnUrl = $("#hfReturn").val();
+            if (nick == "") {
+                ShowFailTip("请输入用户昵称！");
+                return;
+            }
+            $.ajax({
+                url: $YSWL.BasePath + "Account/AjaxRegBind",
+                type: 'post',
+                dataType: 'text',
+                timeout: 10000,
+                async: false,
+                data: {
+                    Action: "post", NickName: nick
+                },
+                success: function (resultData) {
+                    if (resultData == "1") {
+                        ShowSuccessTip("绑定用户成功！");
+                        if (returnUrl != "") {
+                            location.href = returnUrl;
+                            return;
+                        }
+                        else {
+                            location.href = $YSWL.BasePath + "u";
+                            return;
+                        }
+                    }
+                    if (resultData == "2") {
+                        ShowFailTip("该微信帐号已经绑定！");
+                        if (returnUrl == "") {
+                            location.href = $YSWL.BasePath + "u";
+                            return;
+                        }
+                        else {
+                            location.href = returnUrl;
+                            return;
+                        }
+                    }
+                    if (resultData == "0") {
+                        ShowFailTip("服务器繁忙，请稍候再试！");
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    ShowServerBusyTip("服务器繁忙，请稍候再试！");
+                }
+
+            });
+        });
+    })
+</script>
+}

@@ -1,0 +1,238 @@
+﻿@using YSWL.Web
+@using MvcApplication = YSWL.Components.MvcApplication
+@{
+    Layout = "/Areas/Shop/Themes/PC01/Views/Shared/_BaseLayout.cshtml";
+}
+@if (YSWL.MALL.Web.MvcApplication.HasArea(YSWL.Web.AreaRoute.MShop))
+{
+    <script type="text/javascript">
+        try {
+            if ((navigator.userAgent.match(/(iPhone|iPod|Android|ios|iPad)/i))) {
+                location.replace('/m');
+            }
+        } catch (e) { }
+    </script>
+}
+<script type="text/javascript">
+    pagename = 'HomePage';
+</script>
+    <div class="bgc">
+
+        <!-- 轮播图 -->
+         @Html.Action("AdDetail", "Partial", new { id =105, ViewName = "_IndexAd" })
+
+        <!-- 活动 -->
+        <div class="activity">
+            <!---分类广告内容-->
+            @Html.Action("AdDetail", "Partial", new { id = 106, ViewName = "_IndexCateAd" })
+            
+            <!-- 限时抢购 
+            <div class="module"  id="F1">
+                <div class="floor-line wrap">
+                    <div class="floor-hd">
+                        <span class="floor-num floor1">F1</span>
+                        <span class="txt">限时抢购</span>
+                        <a href="@(ViewBag.BasePath)Prosales/CountDown" class="more">更多<span class="icon-more"></span></a>
+                    </div>
+                    @Html.Action("CountDown", "Home", new { Top = 5 })
+                </div>
+            </div>-->
+          
+            <!-- 今日热卖 -->
+            <div class="module fix-h" id="F1">
+                <div class="floor-line wrap">
+                    <div class="floor-hd">
+                        <span class="floor-num floor1">F1</span>
+                        <span class="txt">今日热卖</span>
+                        <a href="@(ViewBag.BasePath)rec/cheap/0/1/30" class="more">更多<span class="icon-more"></span></a>
+                    </div>
+                    @Html.Action("ProductList", "Home", new { Cid = 0, RecType = YSWL.MALL.Model.Shop.Products.ProductRecType.Cheap, Top = 8, viewName = "_Floor1" })
+                </div>
+            </div>
+
+            <!-- 日用百货 -->
+            <div class="module fix-h" id="F2">
+                <div class="floor-line wrap">
+                    <div class="floor-hd">
+                        <span class="floor-num floor2">F2</span>
+                        <span class="txt">珠宝玉器</span>
+                        <a href="@(ViewBag.BasePath)product/5" class="more">更多<span class="icon-more"></span></a>
+                    </div>
+                    @Html.Action("ProductList", "Home", new { Cid = 5, Top = 8, viewName = "_Floor2" })
+                </div>
+            </div>
+
+            <!-- 生活电器 -->
+            <div class="module fix-h" id="F3">
+                <div class="floor-line wrap">
+                    <div class="floor-hd">
+                        <span class="floor-num floor3">F3</span>
+                        <span class="txt">健康养生</span>
+                        <a href="@(ViewBag.BasePath)product/4" class="more">更多<span class="icon-more"></span></a>
+                    </div>
+                    @Html.Action("ProductList", "Home", new { Cid = 4,Top =8, viewName = "_Floor3" })
+                </div>
+            </div>
+
+            <!-- 食品 -->
+            <div class="module fix-h" id="F4">
+                <div class="floor-line wrap">
+                    <div class="floor-hd">
+                        <span class="floor-num floor4">F4</span>
+                        <span class="txt">电子科技</span>
+                        <a href="@(ViewBag.BasePath)product/6" class="more">更多<span class="icon-more"></span></a>
+                    </div>
+                    @Html.Action("ProductList", "Home", new { Cid = 6, Top =8, viewName = "_Floor4" })
+                </div>
+            </div>
+
+            <!-- 酒水饮料 -->
+            <div class="module fix-h" id="F5">
+                <div class="floor-line wrap">
+                    <div class="floor-hd">
+                        <span class="floor-num floor5">F5</span>
+                        <span class="txt">进口红酒</span>
+                        <a href="@(ViewBag.BasePath)product/3" class="more">更多<span class="icon-more"></span></a>
+                    </div>
+                    @Html.Action("ProductList", "Home", new { Cid = 3, Top = 8, viewName = "_Floor5" })
+                </div>
+            </div>
+
+            <!-- 家纺家居 -->
+            <div class="module fix-h" id="F6">
+                <div class="floor-line wrap">
+                    <div class="floor-hd">
+                        <span class="floor-num floor5">F6</span>
+                        <span class="txt">文创产品</span>
+                        <a href="@(ViewBag.BasePath)product/11" class="more">更多<span class="icon-more"></span></a>
+                    </div>
+                    @Html.Action("ProductList", "Home", new { Cid = 11, Top = 8, viewName = "_Floor6" })
+                </div>
+            </div>
+
+
+            <!-- 特卖团购 
+            <div class="module fix-h" id="F3">
+                <div class="floor-line wrap">
+                    <div class="floor-hd">
+                        <span class="floor-num floor3">F3</span>
+                        <span class="txt">特卖团购</span>
+                        <a href="@(ViewBag.BasePath)ProSales/Group" class="more">更多<span class="icon-more"></span></a>
+                    </div>
+                    @Html.Action("GroupBuy", "Home", new { Top = 8 })
+                </div>
+
+            </div>-->
+            <!-- 新品推荐
+            <div class="module fix-h" id="F4">
+                <div class="floor-line wrap">
+                    <div class="floor-hd">
+                        <span class="floor-num floor4">F4</span>
+                        <span class="txt">新品推荐</span>
+                        <a href="@(ViewBag.BasePath)rec/new/0/1/30" class="more">更多<span class="icon-more"></span></a>
+                    </div>
+                    @Html.Action("ProductList", "Home", new { Cid = 0, RecType = YSWL.MALL.Model.Shop.Products.ProductRecType.Latest, Top = 8, viewName = "_Floor4" })
+                </div>
+            </div> -->
+            <!-- 广告位 -->
+            @Html.Action("AD", "Partial", new { AdvPositionId = 110, ViewName = "/Areas/Shop/Themes/PC01/Views/Home/_AD.cshtml" })
+
+            <!-- 畅销商品
+            <div class="module fix-h" id="F5">
+                <div class="floor-line wrap">
+                    <div class="floor-hd">
+                        <span class="floor-num floor5">F5</span>
+                        <span class="txt">畅销商品</span>
+                        <a href="@(ViewBag.BasePath)rec/hot/0/1/30" class="more">更多<span class="icon-more"></span></a>
+                    </div>
+                    @Html.Action("ProductList", "Home", new { Cid = 0, RecType = YSWL.MALL.Model.Shop.Products.ProductRecType.Hot, Top = 8, viewName = "_Floor5" })
+                </div>
+            </div> -->
+
+            <!-- 推荐商品 -->
+              <!-- 推荐商品 -->
+                <div class="floor-line wrap" id="F7">
+                    <div class="floor-bd-recommend"><span>推荐商品</span></div>
+                    @Html.Action("ProductList", "Home", new { Cid = 0, RecType = YSWL.MALL.Model.Shop.Products.ProductRecType.Recommend, Top = 10, viewName = "_ProductList" })
+                </div>
+
+        </div>
+    </div>
+
+    <!-- 左侧锚点导航栏 -->
+    <div class="lift">
+        <ul class="lift-list hidden" id="leftSidebar">
+            <li class="lift-item">今日热卖</li>
+            <li class="lift-item">日用百货</li>
+            <li class="lift-item">生活电器</li>
+            <li class="lift-item">食品</li>
+            <li class="lift-item">酒水饮料</li>
+            <li class="lift-item">家纺家居</li>
+        </ul>
+    </div>
+<script type="text/javascript">
+    $("body").addClass("bgc");
+
+    //左侧导航 点击事件
+    $('#leftSidebar .lift-item').click(function () {
+        var num=$(this).index()+1; 
+        $('body,html').animate({ scrollTop: $('#F' + num).offset().top - 100 }, "slow");
+        $(this).addClass('selected').siblings().removeClass('selected');
+        return false;
+    });
+   
+    $(document).scroll(function () {
+        //屏幕内容滚动到F1时显示 左侧导航
+        if ($('#F1').offset().top - $(window).scrollTop() <= 200) {
+            $('#leftSidebar').fadeIn("slow");
+        } else {
+            $('#leftSidebar').fadeOut("slow");
+        }
+
+        // 某个元素的上边界到body最顶部的距离  -    //滚动条到body最顶部的距离
+        $('[id^="F"]').each(function (index, obj) {
+            if ($(this).offset().top - $(window).scrollTop() <= 100) {
+                $('#leftSidebar .lift-item').eq(index).addClass('selected').siblings().removeClass('selected');
+            } else {
+                $('#leftSidebar .lift-item').eq(index).removeClass('selected');
+            }
+        });
+    });
+
+    /*没有商品时占位*/
+    var placeholderHtml1=' <li class="pro-list-item"><div class="row1"><div class="pro-item placeholder-img"><img src="/Images/Shop/prod-placeh.jpg"></div></div> </li>'
+    var placeholderHtml2 = ' <li class="pro-list-item"><div class="row2"><div class="pro-item placeholder-img"><img src="/Images/Shop/prod-placeh.jpg"></div><div class="pro-item placeholder-img"><img src="/Images/Shop/prod-placeh.jpg"></div></div></li>'
+    var placeholderHtml3 = '<div class="pro-item placeholder-img"><img src="/Images/Shop/prod-placeh.jpg"></div>'
+    $('.placeholder-pf').each(function (index,obj) {
+        if ($(obj).find('.pro-list-item').length == 5) {
+            return true;
+        }
+        switch($(obj).find('.pro-item').length){
+            case 0://没有商品
+                $(obj).append(placeholderHtml1 + placeholderHtml2 + placeholderHtml2 + placeholderHtml1);
+                break;
+            case 1://有一个商品
+                $(obj).append( placeholderHtml2 + placeholderHtml2 + placeholderHtml1);
+                break;
+            case 2://有2个商品
+                $(obj).find('.placeholder-column2:last').append(placeholderHtml3);
+                $(obj).append(placeholderHtml2 + placeholderHtml1);
+                break;
+            case 3:
+                $(obj).append(placeholderHtml2 + placeholderHtml1);
+                break;
+            case 4:
+                $(obj).find('.placeholder-column2:last').append(placeholderHtml3);
+                $(obj).append(placeholderHtml1);
+                break;
+            case 5:
+                $(obj).append(placeholderHtml1);
+                break;
+            default:
+                break;
+        }
+    });
+</script>
+
+<!-- 右侧边栏 -->
+@Html.Partial("/Areas/Shop/Themes/PC01/Views/Partial/_RightSidebar.cshtml")

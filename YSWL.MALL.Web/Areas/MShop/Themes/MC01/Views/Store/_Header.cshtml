@@ -1,0 +1,92 @@
+﻿@model YSWL.MALL.Model.Shop.Supplier.SupplierInfo
+           @if (Model != null)
+           {
+               <div class="topWrapper">
+                   <div class="min-h-100">
+                       @Html.Action("Ad", "Store", new { advPositionId = 6, suppId = Model.SupplierId, ViewName = "_Ad" })
+                   </div>
+                   <div class="storeName">
+                       <span class="storeLogo">
+                          <img src="@(ViewBag.BasePath)Partial/SuppLogo?id=@(Model.SupplierId)&size=T200X200"  onerror="this.onerror = ''; this.src = '/Areas/MShop/Themes/MC01/Content/images/store-pic.jpg'" />
+                       </span>
+                       <span class="name">@Model.ShopName</span>
+                       <div class="storeWay">
+                           <span>销量@(Model.SalesCount)</span> | <span>收藏@(Model.FavoritesCount)</span>
+                       </div>
+                       <span class="collect" id="btn-fav">+收藏</span>
+                   </div>
+               </div>
+               <div class="tabWrapper" id="store-menu">
+                   <a  href="@(ViewBag.BasePath)Store/@(Model.SupplierId)"><i class="cate store"></i><span>店铺首页</span></a>
+                   <a  href="@(ViewBag.BasePath)Store/ListV2/@(Model.SupplierId)?vName=AllProd"><i class="cate all-shop"></i><span>全部商品</span></a>
+                   <a  href="@(ViewBag.BasePath)Store/Cate/@(Model.SupplierId)"><i class="cate catey"></i><span>分类</span></a>
+                   <a  href="@(ViewBag.BasePath)Store/Intr/@(Model.SupplierId)"><i class="cate store-xx"></i><span>店铺信息</span></a>
+               </div>
+            <script type="text/javascript">
+                //选中菜单
+                var storeMenu = window.location.pathname.toLowerCase();
+                if (storeMenu.indexOf('/store/listv2/') > -1) {
+                    $("#store-menu a").eq(1).addClass('actived');
+                } else if (storeMenu.indexOf('/store/cate/') > -1) {
+                    $("#store-menu a").eq(2).addClass('actived');
+                } else if (storeMenu.indexOf('/store/intr/') > -1) {
+                    $("#store-menu a").eq(3).addClass('actived');
+                } else {
+                    $("#store-menu a").eq(0).addClass('actived');
+                }
+
+
+                //收藏操作
+                $("#btn-fav").click(function () {
+                    if ($(this).hasClass('collect2')) {//已收藏
+                        return;
+                    }
+                    if (!CheckUserState()) {
+                        //未登录  跳转到登陆页
+                        gotoLoginPage();
+                        return;
+                    }
+                    $.ajax({
+                        type: "POST",
+                        dataType: "text",
+                        url: $YSWL.BasePath + "u/AjaxAddStoreFav",
+                        async: false,
+                        data: { suppId: @(Model.SupplierId) },
+                        success: function (data) {
+                            if (data === "Rep") {
+                                $("#btn-fav").addClass('collect2').text('已收藏');
+                                ShowFailTip('已收藏，请不要重复收藏');
+                            } else if (data === "True") {
+                                $("#btn-fav").addClass('collect2').text('已收藏');
+                                ShowSuccessTip('收藏成功');
+                            } else {
+                                ShowFailTip('服务器繁忙，请稍候再试！');
+                            }
+                        }
+                    });
+                });
+
+                IsAddedFav(@(Model.SupplierId));
+
+                //是否添加过收藏
+                function IsAddedFav(suppId) {
+                    if (!CheckUserState()) {
+                        //未登录 返回
+                        return;
+                    }
+                    $.ajax({
+                        type: "POST",
+                        dataType: "text",
+                        url: $YSWL.BasePath + "u/IsAddedFav",
+                        async: false,
+                        data: { id: suppId,type:2 },
+                        success: function (data) {
+                            if (data === "True") {
+                                $("#btn-fav").addClass('collect2').text('已收藏');
+                            }
+                        }
+                    });
+                }
+               </script>
+           }
+

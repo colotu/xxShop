@@ -1,0 +1,79 @@
+﻿ 
+ @{
+     Layout = "/Areas/MShop/Themes/MC01/Views/Shared/_BaseLayout.cshtml";
+     ViewBag.Title = "个人中心--会员升级";
+     YSWL.MALL.Model.Members.UsersExpModel UserInfo = ViewBag.UserInfo;
+ }
+@section head{
+    <link href="/Areas/MShop/Themes/MC01/Content/Css/main.css" rel="stylesheet" />
+}
+
+<link href="/Areas/MShop/Themes/MC01/Content/Css/main.css" rel="stylesheet" />
+<script src="/Areas/MShop/Themes/MC01/Content/Scripts/userUpVip.js"></script>
+
+<div class="main_wrapper" id="mainPage">
+    <!--START HEADER-->
+    <header>
+        <div class="top_navbar fixed_header">
+            @Html.Partial("/Areas/MShop/Themes/MC01/Views/Partial/_Back.cshtml")
+            <p class="header_title">升级VIP会员</p>
+        </div>
+    </header>
+    <!-- END HEADER -->
+    <div class="top"></div>
+    <!--START 主体-->
+
+    <div class="menu_list">
+        <div class="yy"></div>
+        <div class="index_h1">升级VIP会员  需从钱包余额扣住响应的费用</div>
+        <div class="index_h1">您当前的商城钱包余额:<span class="integral_a1">@UserInfo.Balance</span> &nbsp;&nbsp;&nbsp;&nbsp;<a href="http://xxshop.lvbangtuan.com/UserCenter/Recharge" class="usercenterbtn">去充值</a></div>
+        <div class="input_item"></div>
+        <div class="input_item" style="background-color:darkgrey">
+            <input id="txtUseName" name="txtUseName" type="text"  value="@ViewBag.userName" readonly="readonly" placeholder="用户名" class="spec_ipt">
+            <div id="UseNameTip" class="txterror tipClass"></div>
+        </div>
+        <div class="input_item">
+            <input id="txtNickName" name="txtNickName" type="text"  value="@ViewBag.Nickname" placeholder="姓名" class="spec_ipt">
+            <div id="nciknameTip" class="txterror tipClass"></div>
+        </div>
+        <div class="input_item">
+            <input id="txtTelPhone" name="txtTelPhone" type="text" placeholder="手机号" class="spec_ipt">
+            <div id="txtTelPhoneTip" class="txterror tipClass"></div>
+        </div>
+        <div class="input_item">
+            <input id="passone" name="passone" type="password"  value="@ViewBag.passone" placeholder="登录密码" class="spec_ipt">默认同商城登录密码
+            <div id="passoneTip" class="txterror tipClass"></div>
+        </div>
+
+        <div class="input_item">
+            <input id="passtwo" name="passtwo" type="password"  value="@ViewBag.passone" placeholder="交易密码" class="spec_ipt">默认同商城登录密码
+            <div id="titleTip" class="txterror tipClass"></div>
+        </div>
+        <div class="input_item">
+            <select id="userLeve" class="spec_ipt">
+                <option>L2：银卡(2000)</option>
+                <option>L3：金卡(6000)</option>
+                <option>L4：钻卡(10000)</option>
+                <option>L5：翡翠卡(20000)</option>
+            </select>
+            <div id="userLeveTip" class="txterror tipClass"></div>
+        </div>
+        <div class="input_item">
+            <input id="txtTjrUsernmae" name="txtTjrUsernmae" type="text"  value="@ViewBag.tjrName" placeholder="推荐人" class="spec_ipt">
+            <div id="TjrUsernmaeTip" class="txterror tipClass"></div>
+        </div>
+        <div class="input_item">
+            <input id="txtshenghuoguan" name="txtshenghuoguan" type="text" value="@ViewBag.shenghuoguan" placeholder="生活馆" class="spec_ipt">
+            <div id="TjrshenghuoguanTip" class="txterror tipClass"></div>
+        </div>
+        <div class="zhuce_wrap">
+            <div class="big_btn btn_green">
+                <input class="btn btn-important-large" style="line-height: 30px; background-position: 100% -78px;
+                    padding-right: 10px; font-weight: bold;" type="button" value="升级VIP" id="btnUpdatepersonal"
+                       onclick="submit();" />
+            </div>
+        </div>
+    </div>
+    <!-- END 主体 -->
+    <!-- ################-->
+</div>

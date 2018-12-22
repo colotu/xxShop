@@ -1,0 +1,16 @@
+﻿@model List<YSWL.MALL.Model.Poll.Options>
+@if (!ViewBag.IsCheckBox)
+{
+    foreach (YSWL.MALL.Model.Poll.Options item in Model)
+    {
+        
+                      <li>@Html.RadioButton(item.TopicID.ToString(), item.ID, false, new { @id = @item.ID })<label for="@item.ID" class="label">@item.Name</label></li>
+    }
+}
+else
+{
+    foreach (YSWL.MALL.Model.Poll.Options item in Model)
+    {
+        <li>@Html.CheckBox(item.TopicID.ToString(), false, new { @id = @item.ID })<label for="@item.ID"  class="label">@item.Name</label></li>
+    }
+}

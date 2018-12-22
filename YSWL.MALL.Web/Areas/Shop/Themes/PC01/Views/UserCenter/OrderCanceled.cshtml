@@ -1,0 +1,120 @@
+﻿ @{
+    Layout = "/Areas/Shop/Themes/PC01/Views/Shared/_UserCenterLayout.cshtml";
+}  
+ @model  YSWL.MALL.Model.Shop.Order.OrderInfo
+    <input type="hidden" id="currentpage" value="span_6" />
+    <div class="col-main">
+        <!-- 用户信息 E -->
+         <div class="user_dingdantitle">已取消订单</div>
+         @if (Model != null)
+    {
+        <table width="100%" border="0" class="user_dingdan" cellspacing="0" cellpadding="0">
+    <tr>
+        <th>商品编号</th>
+        <th>商品名称</th>
+        <th>价格</th>
+        <th>赠送积分</th>
+        <th>商品数量</th>
+    </tr>
+        @foreach (var item in Model.OrderItems)
+        {
+            <tr>
+                <td height="40" style="width: 88px"  class="bor">       
+                    @item.SKU
+                </td>
+                <td style="width: 220px;"  class="bor">
+                    <a class="flk13" target="_blank" href="@(ViewBag.BasePath)Product/Detail/@item.ProductId"  >
+                        @item.Name &nbsp;
+                        @if (!string.IsNullOrWhiteSpace(item.Attribute))
+                        {
+                            string[] tmpAttr = item.Attribute.Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries);
+                            foreach (string val in tmpAttr)
+                            {
+                                @(val + " ")
+                            }
+                        }
+                    </a>   
+                </td>
+                <td style="width: 88px"  class="bor">
+                    ￥@((item.AdjustedPrice*item.Quantity).ToString("F"))
+                </td>
+                <td style="width: 88px"  class="bor">
+                    @item.Points
+                </td>
+                <td style="width: 88px"  class="bor">
+                    @item.Quantity
+                </td>
+               
+            </tr>
+        }
+        </table>
+    }
+        <table width="100%" border="0" class="user_dingdan ordertable" cellspacing="0" cellpadding="0">
+            <tr>
+                <th>订单信息</th>  
+            </tr>
+            <tr>
+                <td  >       
+                    订单编号：@Model.OrderCode
+                </td>
+            </tr>
+            <tr>
+                <td   >       
+                    支付方式：@Model.PaymentTypeName
+                </td>
+            </tr>
+            <tr>
+                <td  >       
+                    配送方式：@Model.RealShippingModeName
+                </td>
+            </tr>
+            <tr>
+                <td >       
+                    下单时间：@Model.OrderDate
+                </td>
+            </tr>
+        </table>
+
+        <table width="100%" border="0" class="user_dingdan ordertable" cellspacing="0" cellpadding="0">
+            <tr>
+                <th>收货人信息</th>  
+            </tr>
+            <tr>
+                <td  >       
+                    收货人姓名：@Model.ShipName
+                </td>
+            </tr>
+            <tr>
+                <td >       
+                    地址：@Model.ShipRegion @Model.ShipAddress
+                </td>
+            </tr>
+            <tr>
+                <td >       
+                    手机号码：@Model.ShipCellPhone
+                </td>
+            </tr>
+            <tr>
+                <td >       
+                    邮编：@Model.ShipZipCode
+                </td>
+            </tr>
+        </table>
+        <table width="100%" border="0" class="user_dingdan ordertable" cellspacing="0" cellpadding="0">
+         <tr>
+             <th>订单备注</th>  
+         </tr>
+         <tr>
+             <td>       
+                 结算信息
+             </td>
+         </tr>
+         <tr>
+             <td   >       
+                 商品金额：@Model.ProductTotal.ToString("F")+运费：@(Model.Freight.HasValue ? Model.Freight.Value.ToString("F") : "0.00")元-优惠金额：@((Model.OrderTotal - Model.Amount).ToString("F")) 元 =订单总金额：@Model.Amount.ToString("F")元
+             </td>
+         </tr>
+           
+     </table>
+    </div>
+

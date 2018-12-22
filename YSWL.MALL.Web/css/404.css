@@ -1,0 +1,94 @@
+html{
+	font-size: 10px;
+}
+body{
+	font-size: 1.40rem;
+}
+.error-text p{
+	color: #999;
+}
+.error-text h3{
+	color: #1face3;
+}
+.color-blue{
+	color: #1face3;
+}
+.link{
+	margin-left: 15px;
+}
+.link a{
+	text-decoration: underline;
+}
+/* 小屏幕（手机、平板，小于等于1080px） */
+@media (max-width: 360px) {
+	.error-text{
+	width: 90%;
+	margin-left: 10%;
+	}
+	.error-img{
+		width: 90%;
+		height: auto;
+		margin-top: 2rem;
+		padding-left: 5%;
+		padding-right: 5%;
+	}
+	.error-text p{
+		font-size: 1.6rem;
+		line-height: 3.6rem;
+	}
+	.error-text h3{
+		font-size: 2rem;
+		line-height: 4.4rem;
+	}
+}
+@media (min-width: 361px) and (max-width:1080px) {
+	.error-text{
+	width: 80%;
+	margin-left: 20%;
+	margin-top: 2rem;
+	}
+	.error-img{
+		width: 90%;
+		height: auto;
+		margin-top: 2rem;
+		padding-left: 5%;
+		padding-right: 5%;
+	}
+	.error-text p{
+		font-size: 1.6rem;
+		line-height: 3.6rem;
+	}
+	.error-text h3{
+		font-size: 2rem;
+		line-height: 4.4rem;
+	}
+}
+/* 中等屏幕（桌面显示器，大于等于1080px） */
+@media (min-width:1080px) { 
+	.error-content{
+		width: 1024px;
+		margin: 200px auto 0;
+	}
+	.error-img{
+		float: left;
+	}
+	.error-text{
+		float: left;
+	}
+	.error-text{
+	width: 254px;
+	margin-top: 285px;
+	margin-left: -12px;
+	}
+	.error-text p{
+		color: #999;
+		font-size: 16px;
+		line-height: 36px;
+	}
+	.error-text h3{
+		color: #1face3;
+		font-size: 20px;
+		line-height: 44px;
+	}
+}
+

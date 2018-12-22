@@ -1,0 +1,56 @@
+﻿@model YSWL.MALL.Model.Shop.Activity.ActivityInfo    
+           @if (Model != null)
+           { 
+            <span class="showTit">
+                @switch (Model.RuleId)
+                {
+                    case 1:
+                        <em>首单</em>
+                        break;
+                    case 2:
+                        <em>满额</em>
+                        break;
+                    case 3:
+                        <em>赠券</em>
+                        break;
+                    case 4:
+                        <em>包邮</em>
+                        break;
+                }
+                <i class="show-text">
+                    @if (Model.BuyProductId.HasValue && Model.BuyProductId.Value > 0)
+                {
+                   @:购买&#12288;<a class="cx" href="@(ViewBag.BasePath)Product/Detail/@Model.BuyProductId.Value" target="_blank">@Model.BuyProductName</a>&#12288;<span class="red">@(Model.BuyCount > 0 ? ("满" + Model.BuyCount + "件") : "")</span>
+                    }
+                    else if (Model.BuyCategoryId > 0)
+                    {
+                            @:购买&#12288;分类<a class="cx" href="@(ViewBag.BasePath)product/@Model.BuyCategoryId" target="_blank">@Model.BuyCategoryName</a>中的商品&#12288;<span class="red">@(Model.BuyCount > 0 ? ("满" + Model.BuyCount + "件") : "")</span>
+                    }
+                    <span >
+                        @if (Model.LimitPrice > 0 || Model.LimitMaxPrice.HasValue)
+                        {
+                            @:消费金额<span class="money"> @(Model.LimitPrice > 0 ? Model.LimitPrice.ToString("F") : "无限制")-@(Model.LimitMaxPrice.HasValue ? Model.LimitMaxPrice.Value.ToString("F") : "无限制")</span>
+                            }
+                        @switch (Model.RuleId)
+                {
+                    case 1:
+                    case 2:
+                                @:送 <a class="cx" href="@(ViewBag.BasePath)p/d/@Model.ProductId">@Model.ProductName</a>
+                           break;
+                    case 3:
+                                @:送 <a class="cx" href="javascript:;">@Model.CpRuleName</a>
+                           break;
+                    case 4:
+                                <a class="cx" href="javascript:;">免邮</a>
+                                break;
+                            default:
+                                break;
+                        }
+                    </span>
+
+                </i>
+</span>
+ 
+
+                    }    
+     

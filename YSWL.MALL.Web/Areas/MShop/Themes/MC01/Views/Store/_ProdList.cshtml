@@ -1,0 +1,74 @@
+﻿@model List<YSWL.MALL.Model.Shop.Products.ProductInfo>
+@if (Model != null)
+{
+    <div class="floor floor3 mb">
+        <div class="floor_container">
+            <div class="floor_item">
+                <div class="pro_container1_list">
+                    <ul id="pro_list">
+                        @foreach (var item in Model)
+                        {
+                            <li>
+                                <a href="@(ViewBag.BasePath)p/d/@item.ProductId">
+                                    <div class="list_item">
+                                        <div class="img_wrap pro_img">
+                                            <img src="@YSWL.MALL.Web.Components.FileHelper.GeThumbImage(item.ThumbnailUrl1, "T115X115_")" alt="@item.ProductName" onerror="this.onerror = ''; this.src = '/Content/themes/base/images/404/404_1.png'">
+                                        </div>
+                                        <div class="info_wrap pro_info">
+                                            <div class="name">@item.ProductName</div>
+                                            <div class="price">
+                                                <em>￥@item.LowestSalePrice.ToString("F")</em>
+                                            </div>
+                                            <div class="comments">已售@(item.SaleCounts)@item.Unit</div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+            <div class="empty pro_list_empty mt-0 ">
+                <div class="img_wrap">
+                    <img src="/Areas/MShop/Themes/MC01/Content/images/nopro.png" alt="">
+                </div>
+                <div class="txt">
+                    <p>没找到相关商品</p>
+                </div>
+            </div>
+}
+    <script type="text/javascript">
+            $(function () {
+                pullUp.init({
+                    //Ajax请求参数
+                    AjaxOptions: {
+                        //Ajax请求参数
+                        Params: $.extend(@Html.Raw(ViewBag.DataParam), { ajaxVName:"_ProdListMore"}),
+                        //Params:@Html.Raw(ViewBag.DataParam),
+                        //Ajax请求URL
+                        DataURL: "@(ViewBag.BasePath)Store/ListV2"
+                    },
+                    //当前页码
+                    CurrentPage: 2,
+                    //页码参数名称
+                    PageParamsName: "pageIndex",
+                    //每页数量
+                    PageSize: @(ViewBag.PageSize),
+                    //每页数量参数名称
+                    PageSizeParamsName: "pageSize",
+                    //内容容器
+                    ContentContainer: $("#pro_list"),
+                    //正在加载提示框
+                    LoadingTipBox: $("#loadingMore"),
+                    //无更多数据提示框
+                    NoMoreTipBox: $("#noMoreProduct"),
+                    LoadFinish:false
+                });
+                $("#noMoreProduct").hide();
+            });
+    </script>

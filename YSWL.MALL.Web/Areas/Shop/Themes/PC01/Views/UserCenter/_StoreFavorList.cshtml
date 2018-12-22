@@ -1,0 +1,89 @@
+﻿@using Webdiyer.WebControls.Mvc
+@model PagedList<YSWL.MALL.ViewModel.Shop.FavoStoreModel>
+@if (Model != null && Model.Count > 0)
+{
+    <div class="mf-store-list">
+        <ul class="store-list clearfix">
+@foreach (var item in Model)
+{
+    if (item.Status == 1 && item.StoreStatus == 1)
+    {
+        <li class="store-item">
+            <div class="store-img">
+                <img src="@(ViewBag.BasePath)Partial/SuppLogo?id=@(item.SupplierId)&size=T200X200"   onerror="this.onerror = ''; this.src = '/Images/Shop/store-default.jpg'" >
+            </div>
+                <div class="name">
+                    @item.ShopName
+                </div>
+            <div class="quantity">
+                销量：<span class="number">@(item.SalesCount)</span>
+            </div>
+            <a  href="@(ViewBag.BasePath)store/@item.SupplierId" class="tag-hollow-btn">进入店铺</a>
+            <div class="unfollow btnDelete" targetId="@item.SupplierId">取消收藏</div>
+        </li>
+    }
+    else
+    {
+        <li class="store-item">
+            <div class="store-img">
+                <img src="@(ViewBag.BasePath)Partial/SuppLogo?id=@(item.SupplierId)&size=T200X200" onerror="this.onerror = ''; this.src = '/Images/Shop/store-default.jpg'">
+            </div>
+            <div class="name">
+                @item.ShopName
+            </div>
+            <div class="quantity">
+                销量：<span class="number">@(item.SalesCount)</span>
+            </div>
+            <span class="pro_gone txt_tag">
+                失效
+            </span>
+            <div class="unfollow btnDelete"  targetId="@item.SupplierId" >取消收藏</div>
+        </li>
+    }
+}
+        </ul>
+    </div>
+
+     <!-- 分页 -->
+    <div class="pagination">
+        @Ajax.Pager(Model, new PagerOptions
+               {
+                   ShowDisabledPagerItems = false,
+                   AlwaysShowFirstLastPageNumber = true,
+                   ShowFirstLast = false,
+                   PageIndexParameterName = "pageIndex",
+                   NumericPagerItemCount = 6,
+                   CurrentPagerItemTemplate = "<span class=\"page-item curr\">{0}</span>",
+                   PagerItemTemplate = "<span class=\"page-item\">{0}</span>",
+                   MorePagerItemTemplate = "<span class=\"pn-break\">{0}</span>",
+                   CssClass = "p-wrap",
+                   PrevPageText = "<span class=\"pn-prev \"><i>&lt;</i>上一页</span>",
+                   NextPageText = "<span class=\"pn-next \">下一页<i>&gt;</i></span>",
+               }).AjaxOptions(a => a.SetUpdateTargetId("FavorList"))
+    </div>
+    <script type="text/javascript">
+         $(".btnDelete").click(function () {
+             var targetId = $(this).attr("targetId");
+             $.ajax({
+                 type: "POST",
+                 dataType: "text",
+                 url: "@(ViewBag.BasePath)UserCenter/DelFav",
+                 data: { targetId: targetId, type: 2 },
+                 success: function (data) {
+                     if (data == "True") {
+                         $("#FavorList").load("@(ViewBag.BasePath)UserCenter/StoreFavorList");
+                     } else {
+                         ShowFailTip("服务器繁忙，请稍候再试！");
+                     }
+                 }
+             });
+         });
+    </script>
+}
+else
+{
+    <div class="no_propt">
+        <i>!</i>您还没有收藏过店铺哦
+    </div>
+}
+

@@ -1,0 +1,49 @@
+﻿@model YSWL.MALL.ViewModel.Shop.ProductModel 
+@if (Model.ProductInfo != null)
+{
+    <div class="specificationWrapper main_wrapper"  style="display: block;">
+        <div class="photoWrapper">
+            <div class="photo">
+                <img src="@YSWL.MALL.Web.Components.FileHelper.GeThumbImage(Model.ProductInfo.ThumbnailUrl1, "T115X115_")" onerror="this.onerror = ''; this.src = '/Content/themes/base/images/404/404_1.png'" />
+            </div>
+            <div class="photoName">
+                <span class="price">
+                    ￥<span id="stylePrice">
+                        @if (Model.ProductSkus != null && Model.ProductSkus.Count > 0)
+                        {
+                            @Model.ProductSkus[0].SalePrice.ToString("F")
+                        }
+                    </span>
+                </span>
+                @if (Model.ProductSkus != null && Model.ProductSkus.Count > 0 && Model.ProductSkus[0].RankPrice > 0)
+                {
+                    <div class="huiyuan"><em>会员价</em><span class="price">￥<span id="rankPrice">@Model.ProductSkus[0].RankPrice.ToString("F")</span></span></div>
+                }
+                <span class="kucun dsn" id="div_stock">库存：<span><span id="stock_num"></span>件</span></span>
+            </div>
+            <a class="close my_icon" onclick="dialoghide();"></a>
+        </div>
+        <div class="specificationMiddle">
+            <div id="SKUOptions">
+                @if (Model.ProductInfo.SaleStatus == 1 && Model.ProductInfo.SupplierId<=0 && Model.ProductInfo.SalesType == 1 && ViewBag.IsMultiDepot)
+                {
+                    //已开启了分仓
+                    @Html.Action("OptionSKUByDepot", "Product", new { productId = Model.ProductInfo.ProductId, SuppId = Model.ProductInfo.SupplierId, viewName = "_OptionSKU" })
+                }
+                else
+                {
+                    @Html.Action("OptionSKU", "Product", new { ProductId = Model.ProductInfo.ProductId, SuppId = Model.ProductInfo.SupplierId, viewName = "_OptionSKU" })
+                }
+            </div>
+            <div class="numberWrapper" id="divBuyInfo">
+                <span class="numTxt">数量</span>
+                <div class="numAdd">
+                    <span class="shop_icon less-a redu" id="subtract"></span>
+                    <input type="text" maxlength="4" id="productCount" class="number" value="1" />
+                    <span id="plus" class="shop_icon addMore-a add"></span>
+                </div>
+            </div>
+        </div>
+        <a href="javascript:;" class="addShop" id="btnAddToCart" DefaultText="@(YSWL.MALL.BLL.SysManage.ConfigSystem.GetValueByCache("Shop_BuyMode") == "BuyNow" ? "立刻购买" : "加入购物车")">@(YSWL.MALL.BLL.SysManage.ConfigSystem.GetValueByCache("Shop_BuyMode") == "BuyNow" ? "立刻购买" : "加入购物车")</a>
+    </div>
+}

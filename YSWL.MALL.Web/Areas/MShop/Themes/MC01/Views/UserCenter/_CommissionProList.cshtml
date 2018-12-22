@@ -1,0 +1,81 @@
+﻿@using Webdiyer.WebControls.Mvc
+@model PagedList<YSWL.MALL.ViewModel.Shop.ProComModel>
+
+@if (Model != null)
+{
+    foreach (var item in Model)
+    {
+        <div class="list-item">
+            <div class="list-img">
+                <a href="@(ViewBag.BasePath)Product/Detail/@item.ProductId">
+                    <img src="@YSWL.MALL.Web.Components.FileHelper.GeThumbImage(item.ThumbnailUrl, "T115X115_")" onerror="this.onerror = ''; this.src = '/Content/themes/base/images/404/404_1.png'" />
+                </a>
+            </div>
+            <div class="text-wrap">
+                <div class="list-line pro-intro height-39">
+                    <span class="intro">@item.ProductName</span>
+                </div>
+                <div class="list-line">
+                    单价：
+                    <span class="intro">￥@item.ProductPrice.ToString("F")</span>
+                </div>
+                <div class="list-line">
+                    比率：
+                    <span class="intro rate">@item.FeeRate.ToString("F")%</span>
+                </div>
+                <div class="list-line">
+                    佣金：
+                    <span class="intro">￥@item.FirstFee.ToString("F")</span>
+                </div>
+                <div class="list-line">
+                    操作：
+                    <span class="intro">
+                        <a href="javascript:;" url='@item.PromoCode' class="red btnPromo" name="@item.ProductName">立即推广</a>
+                        <a href='/spread/@item.PromoCode/m' class="red" name="@item.ProductName">立即分享</a>
+                    </span>
+                </div>
+            </div>
+        </div>
+    }
+
+    <script type="text/javascript">
+    $(function () {
+        pullUp.init({
+            //Ajax请求参数
+            AjaxOptions: {
+                //Ajax请求参数
+                Params: $.extend(@Html.Raw(ViewBag.DataParam), { ajaxViewName:"_CommissionProListMore"}),
+                //Params:@Html.Raw(ViewBag.DataParam),
+                //Ajax请求URL
+                DataURL: "@(ViewBag.BasePath)u/CommissionPro"
+            },
+
+            //当前页码
+            CurrentPage: 2,
+            //页码参数名称
+            PageParamsName: "p",
+            //每页数量
+            PageSize: @(ViewBag.PageSize),
+            //每页数量参数名称
+            PageSizeParamsName: "pageSize",
+            //内容容器
+            ContentContainer: $("#list"),
+            //正在加载提示框
+            LoadingTipBox: $("#loadingMore"),
+            //无更多数据提示框
+            NoMoreTipBox: $("#noMoreProduct"),
+            LoadFinish:false
+        });
+        $("#noMoreProduct").hide();
+    });
+    </script>
+}
+else
+{
+    <div class="empty-2">
+        <img src="/Areas/MShop/Themes/MC01/Content/images/nopro.png"  class="img_wrap">
+        <div class="txt">
+            <p>没找到相关数据</p>
+        </div>
+    </div>
+}

@@ -1,0 +1,248 @@
+﻿@{
+    Layout = "/Areas/MShop/Themes/MC01/Views/Shared/_BaseLayout.cshtml";
+    ViewBag.Title = "订单详情";
+}
+@model YSWL.MALL.Model.Shop.Order.OrderInfo
+<link href="/Areas/MShop/Themes/MC01/Content/Css/main.css" rel="stylesheet" />
+<div class="main_wrapper mb55">
+    <!--START HEADER-->
+    <header>
+        <div class="top_navbar fixed_header">
+            <a  href="@(ViewBag.BasePath)u/Orders" class="si icon_goback">
+            </a>
+            <p class="header_title">订单详情</p>
+        </div>
+    </header>
+    <!-- END HEADER -->
+    <div class="top"></div>
+    <div class="order_info">
+        <div class="order_title pd">
+            <div class="order_num">
+                订单号：<span>@Model.OrderCode</span>
+            </div>
+            <div class="status">
+                @YSWL.MALL.Web.Areas.MShop.Controllers.UserCenterController.GetOrderTypeEx(Model.PaymentGateway, Model.OrderStatus, Model.PaymentStatus, Model.ShippingStatus)
+            </div>
+        </div>
+        <div class="order_wrapper">
+            @*<div class="order_logistics pd">
+                <a href="@(ViewBag.BasePath)Order/ShipInfo?orderId=@(Model.OrderId)">
+                    查看物流详情
+                    <span class="si point_icon"></span>
+                </a>
+            </div>*@
+            <div class="order_addr pd">
+                <a href="javascript:void(0);">
+                    <div class="s_info">
+                        <span class="s_name">
+                            收件人：@Model.ShipName
+                        </span>
+                        <span class="s_phone">
+                            @Model.ShipCellPhone
+                        </span>
+                    </div>
+                    <div class="s_addr">
+                        收货地址：@Model.ShipAddress
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="order_item mt">
+            <div class="shop_group pd">
+                <ul class="order_list">
+                    <li>
+                        <div class="shop_group_item">
+                            @if (!string.IsNullOrWhiteSpace(Model.SellerName)||!string.IsNullOrWhiteSpace(Model.SupplierName))
+                            {
+
+                                <div class="shop_title">
+                                    <div class="item">
+                                        <a href="javascript:void(0);">
+                                            <div class="shop_title_content">
+                                                <em></em>
+                                                <span class="shop_title_name arrow_left">
+                                                @(string.IsNullOrWhiteSpace(Model.SellerName) ?Model.SupplierName : Model.SellerName)
+                                            </span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            }
+                            @foreach (var item in Model.OrderItems)
+                            {
+
+
+                                <div class="shp_cart_list">
+                                    
+                                        <div class="items" onclick="window.location.href = '@(ViewBag.BasePath)Product/Detail/@item.ProductId'">
+
+
+                                            <div class="shp_cart_item_display">
+                                                <a href="javascript:void(0);" class="cart_product_cell_1">
+                                                    <img src="@YSWL.MALL.Web.Components.FileHelper.GeThumbImage(item.ThumbnailsUrl, "T50X65_")" alt="" class="cart_photo_thumb">
+                                                </a>
+                                                <div class="cart_product_cell_2">
+                                                    <div class="cart_product_name">
+                                                        @item.Name
+
+                                                    </div>
+                                                    <div class="cart_product_prop">
+                                                        <span class="prop">
+                                                            @if (String.IsNullOrWhiteSpace(item.Attribute))
+                                                            {
+                                                                foreach (var attr in item.Attribute.Split(','))
+                                                                {
+                                                                    <span class="prop">@attr</span>
+                                                                }
+                                                            }
+                                                        </span>
+                                                        <div class="pro_qua">
+                                                            x<span class="num">@(item.Quantity)</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="price_count_edit">
+                                                        <span class="shp_cart_item_price">
+                                                            ￥@(item.AdjustedPrice.ToString("f"))
+                                                        </span>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                   
+                                </div>
+                            }
+
+
+                        </div>
+                    </li>
+                    @if (Model.OrderOptions != null&&Model.OrderOptions.Count>1)
+                    {
+                        <li>
+                            <div class="b_item invoice_mess">
+                                <div class="title">发票信息</div>
+                                <div class="invoice_con">
+                                    <div class="info">发票抬头：<span>@Model.OrderOptions[0].ItemDescription :@Model.OrderOptions[0].CustomerTitle</span></div>
+                                    <div class="info">发票内容：<span>@Model.OrderOptions[1].ItemDescription</span></div>
+                                </div>
+                            </div>
+                        </li>
+                    }
+                    
+                    <li>
+                        <div class="b_item">
+                            <div class="item_wrap">
+                                <div class="sitem_l">
+                                    商品金额
+                                </div>
+                                <div class="sitem_r">
+                                    @Model.ProductTotal.ToString("F")
+                                </div>
+                                </div>
+                                <div class="item_wrap">
+                                    <div class="sitem_l">
+                                        运费
+                                    </div>
+                                    <div class="sitem_r">
+                                        ￥@(Model.Freight.HasValue ? Model.Freight.Value.ToString("F") : "0.00")
+                                    </div>
+                                </div>
+                            <div class="item_wrap">
+                                <div class="sitem_l">
+                                    优惠
+                                </div>
+                                <div class="sitem_r price">
+                                    ￥@((Model.OrderTotal - Model.Amount).ToString("F"))
+                                </div>
+                            </div>
+                            <div class="item_wrap">
+                                <div class="sitem_l">
+                                    实付款
+                                </div>
+                                <div class="sitem_r price">
+                                    ￥@Model.Amount.ToString("F")
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ################-->
+    <!-- END TOP MENU -->
+    <!-- ################-->
+    <div class="bottom">
+
+    </div>
+    <!--START footer-->
+
+    <div class="footer pay_bar">
+        <div class="btn_wrap pd">
+            <div class="btn_r">
+                @if (Model.OrderStatus == (int)YSWL.MALL.Model.Shop.Order.EnumHelper.OrderStatus.Complete)
+                            {
+                                if (!Model.IsReviews)
+                                {
+                                   
+                    <a href = "@(ViewBag.BasePath)u/preview/@Model.OrderId" class="btn_default">评价商品</a>
+                    }
+                }
+                
+
+                <span href="javascript:void(0);" class="btn_default btn_green2" onclick="buy_again(@Model.OrderId)">再次购买</span>
+            </div>
+        </div>
+    </div>
+    <!-- END footer -->
+</div>
+
+<script>
+    $(function() {
+        $('body').addClass('m_home');
+    });
+
+    //再次购买
+    function buy_again(orderid) {
+        if (!orderid) {
+            ShowFailTip("订单有误，请稍候再试！");
+            return;
+        }
+        //加入购物车
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            async: false,
+            url: $YSWL.BasePath + "ShoppingCart/OrderAddCart?s=" + new Date().format('yyyyMMddhhmmssS'),
+            data: { orderId: orderid },
+            success: function (resultData) {
+                switch (resultData.STATUS) {
+                    case "SUCCESS":
+                        //跳转到购物车页面
+                        location.href = $YSWL.BasePath + "sc/ci";
+                        return;
+                    case "FAILED":
+                        switch (resultData.DATA) {
+                            case "OrderNO":
+                                ShowFailTip("该订单不存在，请稍候再试！");
+                                return;
+                            case "NOTCANBUY":
+                                //AlertWarning("没有可以购买的商品！");
+                                ShowFailTip("库存不足，暂无可以购买的商品！");
+                                return;
+                            default:
+                                ShowFailTip("服务器繁忙，请稍候再试！");
+                                return;
+                        }
+                    default:
+                        ShowFailTip("服务器繁忙，请稍候再试！");
+                        return;
+                }
+            }
+        });
+    }
+</script>

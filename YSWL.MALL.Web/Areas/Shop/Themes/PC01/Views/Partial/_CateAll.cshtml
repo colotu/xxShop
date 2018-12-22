@@ -1,0 +1,80 @@
+﻿ @model List<YSWL.MALL.Model.Shop.Products.CategoryInfo>
+<!--商品分类开始-->
+<div class="category-con">
+    <!-- 分类 -->
+    <div class="wrap" id="cate_all_idx">
+        <div class="category-type" id="js-navall">
+            <span class="icon-cate"></span>
+            <div class="txt">全部商品分类</div>
+            <span class="icon-down icon-up"></span>
+        </div>
+        @if (Model != null && Model.Count > 0)
+        {
+            <div class="category-tab-content" id="product-cate-content-all" style="display:none;">
+                <ul class="nav-item-wrap" id="product-cate-listsA">
+                    @for (int i = 0; i < Model.Count; i++)
+                    {
+                        <li class="nav-item" cid="@Model[i].CategoryId">
+                            @*selected*@
+                            <div class="level1-pic">
+                                <img src="@Model[i].ImageUrl">
+                            </div>
+                            <div class="cate-menu-wrap">
+                                <a class="cate-level1" href="@(ViewBag.BasePath)product/@Model[i].CategoryId">@Model[i].Name</a>
+                                <div class="cate-level2">
+                                    @Html.Action("CategoryList", "Partial", new { Cid = Model[i].CategoryId, Top = 2, viewName = "_CateSecond2" })
+                                </div>
+                            </div>
+                        </li>
+                    }
+                </ul>
+
+                @foreach (var item in Model)
+                {
+                    <div class="cate-pop productalls" style="display: none" id="product_cate_@(item.CategoryId)">
+                        <div class="cate-part">
+                            <div class="cate-part-detail">
+                                @Html.Action("CategoryList", "Partial", new { Cid = item.CategoryId, Top = 0, viewName = "_CateSecond" })
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        //子分类显示隐藏
+        $('#product-cate-listsA li').unbind('hover').hover(function () {
+            $(this).addClass('selected').siblings().removeClass('selected');
+            $('[id^="product_cate_"]').hide();
+            $('#product_cate_' + $(this).attr('cid')).show();
+        });
+
+        if (pagename == 'HomePage') { //首页分类展示效果      
+           
+            $('#js-navall .icon-down').remove();
+            //展开分类列表
+            $("#product-cate-content-all").slideDown();
+
+            //鼠标离开分类内容时，隐藏子分类
+            $('#product-cate-content-all').mouseleave(function () {
+                $('[id^="product_cate_"]').hide();
+                $('#product-cate-listsA li').removeClass('selected');
+            });
+
+        } else {
+            //其他页面分类展示效果
+            $('#cate_all_idx').hover(function () {
+                $("#product-cate-content-all").show();
+                $('#js-navall .icon-down').removeClass("icon-up");
+            }, function () {
+                $("#product-cate-content-all").hide();
+                $('#js-navall .icon-down').addClass("icon-up");
+            });
+        }
+    });
+</script>
+    <!--商品分类结束-->
+ 

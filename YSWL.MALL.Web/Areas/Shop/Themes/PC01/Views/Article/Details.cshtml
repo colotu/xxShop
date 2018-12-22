@@ -1,0 +1,19 @@
+﻿@{
+   Layout = "/Areas/Shop/Themes/PC01/Views/Shared/_BaseLayout.cshtml";
+}
+@model YSWL.MALL.Model.CMS.Content
+<div class="aw m0u clearfix" style="width: 1200px;margin:15px auto;">
+    <div class="location" style="margin-bottom: 15px;">您当前所在的位置：<a href="@(ViewBag.BasePath)">首页</a> &gt;  <a href="javascript:;">帮助中心</a> &gt; <span>常见问题</span></div>
+    <div class="leftdiv fl" style="border-bottom:1px solid #ddd;width: 200px;float: left;">
+    @Html.Action("LeftMenu", "Article", new { classid = Model.ClassID })
+ </div>
+    <div class="rightdiv fr">
+        <div class="help_title"><span>@Model.Title</span></div>
+        <div class="goods_list">
+            <div style="padding: 20px; line-height: 24px;">
+                @Html.Raw(YSWL.MALL.BLL.Settings.SEORelationManage.FilterStr(Model.Description, true, true, false, false, false, Model.ContentID, "CMSDescription"))
+            </div>
+        </div>
+        <div style="clear: both"></div>
+    </div>
+</div>

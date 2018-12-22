@@ -1,0 +1,84 @@
+﻿@{
+    Layout = "/Areas/MShop/Themes/MC01/Views/Shared/_BaseLayout.cshtml";
+}
+<link href="/Areas/MShop/Themes/MC01/Content/Css/main.css" rel="stylesheet"/>
+<div class="main_wrapper mb55">
+    <header>
+        <input type="hidden" id="hidBuyMode" value="@YSWL.MALL.BLL.SysManage.ConfigSystem.GetValueByCache("Shop_BuyMode")"/>
+        <div class="top_navbar fixed_header">
+            @Html.Partial("/Areas/MShop/Themes/MC01/Views/Partial/_Back.cshtml")
+            <p class="header_title">我的收藏</p>
+        </div>
+    </header>
+    <!-- END HEADER -->
+    <div class="top"></div>
+    <div class="collect_tab" >
+        <ul>
+            <li class="tab_l">
+                <ul id="collect_tab">
+                    <li class="collect_a" item="product">商品</li>
+                    <li item="store">店铺</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="floor collect_list">
+        <div class="floor_item" id="favorList">
+                @Html.Action("FavorList", "UserCenter", new {Areas = "Mshop", pageSize = 30})
+        </div>
+    </div>
+    <!--加入购物车弹窗-->
+    <div id="addCart-Lay" class="dsn"></div>
+    <!-- END specificationWrapper -->  <!--加入购物车提示-->
+    @Html.Partial("/Areas/MShop/Themes/MC01/Views/Partial/_AddCartTip.cshtml")
+    <!--加载提示信息--->
+    @Html.Partial("/Areas/MShop/Themes/MC01/Views/Partial/_LoadTip.cshtml")
+</div>
+
+@section foot{
+    <script src="/Areas/MShop/Themes/MC01/Content/Scripts/pullUp.js"></script>
+    <script type="text/javascript" src="/Areas/MShop/Themes/MC01/Content/Scripts/SKU.js"></script>
+    <script src="/Areas/MShop/Themes/MC01/Content/Scripts/addCart.js"></script>
+<link href="/Scripts/jqueryui/base/jquery-ui-1.9.2.min.css" rel="stylesheet" type="text/css" />
+<script src="/Scripts/jqueryui/jquery-ui-1.9.2.custom.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $('#collect_tab li').click(function() {
+                if ($(this).hasClass('collect_a')) {
+                    return;
+                }
+                $('#collect_tab li.collect_a').removeClass('collect_a');
+                $(this).addClass('collect_a');
+                $("#bgloading,#bg").css({ height: $(window).height(), display: 'block' });
+                var item = $(this).attr('item');
+                var url = '';
+                if (item === 'store') {
+                    url = $YSWL.BasePath + "u/FavorStoreList?viewName=_FavorStoreList&pageSize=30";
+                } else {
+                    url = $YSWL.BasePath + "u/FavorList?viewName=_FavorList&pageSize=30";
+                }
+                $('#favorList').load(url, function () {
+                    $("#noMoreProduct").hide();
+                    $("#bgloading,#bg").hide();
+                });
+        });
+
+        $("#favorList").on('click', '.btnDelete', function () {
+            var itemId = $(this).attr("itemid");
+            $.ajax({
+                type: "POST",
+                dataType: "text",
+                async: false,
+                url: $YSWL.BasePath + "u/RemoveFavorItem",
+                data: { ItemId: itemId },
+                success: function (data) {
+                    if (data == "Ok") {
+                        $("#favorList").load($YSWL.BasePath + "u/FavorList");
+                    } else {
+                        ShowFailTip("服务器繁忙，请稍候再试！");
+                    }
+                }
+            });
+        });
+    </script>
+}

@@ -1,0 +1,100 @@
+﻿@{
+    Layout = "~/Areas/Supplier/Themes/M1/Views/Shared/_SupplierLayout.cshtml";
+}
+<script type="text/javascript" src="/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+<script src="/Scripts/jquery/maticsoft.img.min.js" type="text/javascript"></script>
+<link href="/Scripts/tab/tab.css" rel="stylesheet" type="text/css" charset="utf-8" />
+<script src="/Scripts/tab/tab.js" type="text/javascript"></script>
+<link href="/Scripts/colorbox/colorbox.css" rel="stylesheet" type="text/css" />
+<script src="/Scripts/colorbox/jquery.colorbox-min.js" type="text/javascript"></script>
+<script src="/Scripts/jquery/maticsoft.jquery.min.js" type="text/javascript"></script>
+<link href="/Scripts/jqueryui/jquery-ui-1.8.19.custom.css" rel="stylesheet" type="text/css" />
+<script src="/Scripts/jqueryui/jquery-ui-1.8.19.custom.min.js" type="text/javascript"></script>
+<script src="/Scripts/jqueryui/JqueryDataPicker4CN.js" type="text/javascript"></script>
+<script src="/Scripts/jquery.cookie.js" type="text/javascript"></script>
+<link href="/Areas/Supplier/Themes/M1/Content/Css/supplier.css" rel="stylesheet  type="text/css" />
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $.datepicker.setDefaults($.datepicker.regional['zh-CN']);
+
+        $("[id$='txtCreatedDateStart']").prop("readonly", true).datepicker({
+            changeMonth: true,
+            dateFormat: "yy-mm-dd",
+            onClose: function (selectedDate) {
+                $("[id$='txtCreatedDateEnd']").datepicker("option", "minDate", selectedDate);
+            }
+        });
+        $("[id$='txtCreatedDateEnd']").prop("readonly", true).datepicker({
+            changeMonth: true,
+            dateFormat: "yy-mm-dd",
+            onClose: function (selectedDate) {
+                $("[id$='txtCreatedDateStart']").datepicker("option", "maxDate", selectedDate);
+                $("[id$='txtCreatedDateEnd']").val($(this).val());
+            }
+        });
+
+
+        //搜索按钮
+        $('#btnSearch').click(function () {
+            $('#btnSearch').attr('disabled', 'disabled');
+            var roc = $('#txtReturnOrderCode').val();
+            var oc = $('#txtOrderCode').val();
+            var cn = $('#txtContactName').val();
+            var un = $('#txtReturnUserName').val();
+            var sd = $('#txtCreatedDateStart').val();
+            var ed = $('#txtCreatedDateEnd').val();
+            // cn, string un, DateTime? sd, DateTime? ed 
+            if (sd.length <= 1) {
+                sd = '';
+            }
+            if (ed.length <= 1) {
+                ed = '';
+            }
+            $("#divList").load($YSWL.BasePath + 'ReturnOrder/List?roc=' + roc + '&oc=' + oc + '&cn=' + cn + '&un=' + un + '&sd=' + sd + '&ed=' + ed, function () {
+                $('#btnSearch').removeAttr('disabled');
+            });
+        });
+ 
+    });
+</script>
+<!--Title -->
+<div class="contenttitle2 mar30">
+    <h3>
+        <span>退货单管理</span>
+    </h3>
+    <small class="desc"><span>退换单管理</span> </small>
+</div>
+<!--Title end -->
+<!--Add  -->
+<!--Add end -->
+<!--Search -->
+<div class="newslistabout">
+    <div class="field shuru shuru1">
+    <div>
+        <img src="/Areas/Supplier/Themes/M1/Content/images/icon-1.gif" width="19" height="19" />
+        <span>搜索</span> &nbsp;&nbsp;<span>退单号</span>：
+        <input type="text" id="txtReturnOrderCode" class="admininput_1" />
+        &nbsp;&nbsp;<span>订单号</span>：
+        <input type="text" id="txtOrderCode" class="admininput_1" />
+        &nbsp;&nbsp;<span id="LiteralContactName">联系人</span>：
+        <input type="text" id="txtContactName" class="admininput_1">
+        &nbsp;&nbsp;<span id="LiteralReturnUserName">用户名</span>：
+        <input type="text" id="txtReturnUserName" class="admininput_1" />
+        </div>
+     <div style="margin: 10px 0 0 66px;">
+        <span id="LiteralCreatedDate">申请日期</span>：
+        <input type="text" id="txtCreatedDateStart" style="width: 80px;" />-<input type="text"
+            id="txtCreatedDateEnd" style="width: 80px;" />
+        <button type="button" id="btnSearch">
+            搜索</button>
+      </div>
+    </div>
+</div>
+<!--Search end-->
+<br />
+<div class="newslist">
+    <div id="divList">
+        @Html.Action("List", "ReturnOrder")
+    </div>
+</div>

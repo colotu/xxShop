@@ -1,0 +1,36 @@
+﻿@{
+    Layout = "~/Areas/Shop/Themes/PC01/Views/Shared/_BaseLayout.cshtml";
+}
+<div class="order-wrapper">
+    <div class="successk">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" >
+            <tbody><tr>
+                        <td width="10%" rowspan="5" align="center"> <img src="/Areas/Shop/Themes/PC01/Content/images/shibai.jpg" width="48" height="80" ></td>
+
+                       <td height="45"  align="left">
+                           <span  class="successk_title"> 您的账户余额不足，请充值。</span>
+                       </td>
+                   </tr>
+                <tr>
+                    <td height="35" colspan="2" align="left">订单号：@(ViewBag.OrderCode)</td>
+                </tr>
+                <tr>
+                    <td height="35" colspan="2" align="left">应付金额：@(ViewBag.Amount.ToString("F"))元</td>
+                </tr>
+                 <tr>
+                     <td height="35" colspan="2" align="left">账户余额：@(ViewBag.Balance.ToString("F"))元</td>
+                 </tr>
+                <tr>
+                    <td width="65%" height="60"  colspan="2" align="left" valign="middle">
+                        <a href="@(ViewBag.BasePath)UserCenter/Recharge">立即充值</a>&nbsp;&nbsp;
+                        <a href="@(ViewBag.BasePath)UserCenter/Orders">查看或更改您的订单</a>
+ 
+                    </td>
+                </tr>
+            </tbody></table>
+    </div>
+
+</div>
+<input type="hidden" value="@ViewBag.OrderId" id="OrderId"/>
+<input type="hidden" value="@ViewBag.PayStatus" id="Status"/>
+

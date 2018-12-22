@@ -1,0 +1,166 @@
+﻿@using Webdiyer.WebControls.Mvc
+@model PagedList<YSWL.MALL.Model.Shop.ReturnOrder.ReturnOrders> 
+<script type="text/javascript">
+    $(function () {
+        //隔行换色
+        var trs = $('table.GridViewTyle tr');
+        for (var i = 0; i < trs.length; i++) {
+            if (i % 2 != 0) {
+                trs.eq(i).addClass('eventrcolor');
+            }
+        }
+        //鼠标移动效果
+        $("table.GridViewTyle tr").hover(
+            function () {
+                $(this).addClass("tylehover");
+            },
+            function () {
+                $(this).removeClass("tylehover");
+            }
+        );
+ 
+        
+        $("span:contains('已完成')").css("color", "green");
+        $("span:contains('等待退款')").css("color", "#C27512");
+        $("span:contains('取货中')").css("color", "#C27512");
+        $("span:contains('审核未通过')").css("color", "red");
+        $("span:contains('等待审核')").css("color", "#C27512");
+        $("span:contains('已取消')").css("color", "red");
+
+        $(".iframe").colorbox({ iframe: true, width: "840", height: "700", overlayClose: false });
+        $(".iframeaudit").colorbox({ iframe: true, width: "840", height: "720", overlayClose: false });
+        $(".iframepick").colorbox({ iframe: true, width: "840", height: "700", overlayClose: false });
+        $(".iframerefund").colorbox({ iframe: true, width: "840", height: "700", overlayClose: false });
+    
+        //  audit      pick      refund   
+        $(".div_states").each(function () {
+            var status = parseInt($(this).attr("Status"));
+            var logisticStatus = parseInt($(this).attr("LogisticStatus"));
+            var refundStatus = parseInt($(this).attr("RefundStatus"));
+            if (status == 0) {//待审核
+                $(this).find('.audit').show();
+            }
+            if (status == 1 && logisticStatus > 0 && logisticStatus < 4) {
+                $(this).find('.pick').show();
+            }
+            if (status == 1 && refundStatus > 0 && refundStatus < 4) {
+                $(this).find('.refund').show();
+            }
+        });
+       
+    });
+
+</script>
+ 
+@if (Model != null && Model.Count > 0)
+{
+    <table width="100%" border="0" cellspacing="0" cellpadding="5" class="show stdtable stdtablecb GridViewTyle">
+        <tr class="head1 padd_left_h">
+            <td width="10%" bgcolor="#FFFFFF" >
+                退单号
+            </td>
+            <td width="10%" bgcolor="#FFFFFF">
+               订单号
+            </td>
+            <td width="10%" bgcolor="#FFFFFF">
+                申请时间
+            </td>
+            <td width="8%" bgcolor="#FFFFFF">
+                商品出售总额
+            </td>
+            <td width="5%" bgcolor="#FFFFFF">
+                应退金额
+            </td>
+            <td width="5%" bgcolor="#FFFFFF">
+                实退金额
+            </td>
+            <td width="5%" bgcolor="#FFFFFF">
+                用户名
+            </td>
+            <td width="5%" bgcolor="#FFFFFF">
+                联系人
+            </td>
+            <td width="10%" bgcolor="#FFFFFF">
+                状态
+            </td>
+             
+            <td width="32%" bgcolor="#FFFFFF">
+                操作
+            </td>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr class="oddtrcolor padd_left_h">
+                <td>
+                    <a class="iframe cboxElement" href="Show?rid=@item.ReturnOrderId" >@item.ReturnOrderCode
+                    </a>
+                </td>
+                <td >
+                    @item.OrderCode
+                </td>
+                <td>
+                    @item.CreatedDate.ToString("yyyy-MM-dd HH:mm:ss")
+                </td>
+                <td >
+                    @item.ActualSalesTotal.ToString("F")
+                </td>
+                <td>
+                      @item.AmountAdjusted.ToString("F")
+                </td>
+                <td>           
+                    @item.AmountActual.ToString("F")
+                </td>
+                <td>
+                   @item.ReturnUserName
+                </td>
+                <td>  
+                     @item.ContactName
+                </td>
+                <td>
+                   <span>
+                    @YSWL.MALL.Web.Areas.Supplier.Controllers.ReturnOrderController.GetMainStatus(item.Status, item.LogisticStatus, item.RefundStatus)
+                   </span>  
+                </td> 
+                <td align="left"  >
+                  
+                    <div class="div_states" Status="@item.Status"  LogisticStatus="@item.LogisticStatus"   RefundStatus="@item.RefundStatus">
+                        <a class="iframe seller_orlist_st"  style="display:inline;"  href="Show?rid=@item.ReturnOrderId" >查看</a>
+                        <a class="iframeaudit  audit seller_orlist_st" style="display:none;"  href="Audit?rid=@item.ReturnOrderId">审核</a>
+                            <a class="iframepick  pick seller_orlist_st"  href="Pick?rid=@item.ReturnOrderId">已取货</a>
+                            <a class="iframerefund  refund seller_orlist_st"  href="Refund?rid=@item.ReturnOrderId">退款</a>
+                            </div>
+
+
+                </td>
+            </tr>
+        }
+    </table>
+    <br />
+    <table width="100%" border="0" cellspacing="0" cellpadding="5" class="news_123">
+        <tr>
+            <td width="5%" style="padding-left: 12px;">
+            </td>
+            <td width="5%">
+                &nbsp;
+            </td>
+            <td width="5%">
+                &nbsp;
+            </td>
+            <td width="50%">
+                @Ajax.Pager(Model, new PagerOptions
+                        {
+                            ShowDisabledPagerItems = false,
+                            AlwaysShowFirstLastPageNumber = false,
+                            PageIndexParameterName = "p",
+                            NumericPagerItemCount = 6,
+                            CurrentPagerItemTemplate = "<li><span class=\"ins\">{0}</span></li>",
+                            MorePagerItemTemplate = "<span>{0}</span>",
+                            NumericPagerItemTemplate = "<span>{0}</span>",
+                            NavigationPagerItemTemplate = "<label class=\"page_xia\">{0}</label>",
+                            CssClass = "page",
+                             
+                        }).AjaxOptions(a => a.SetUpdateTargetId("divList"))
+            </td>
+        </tr>
+    </table>
+}

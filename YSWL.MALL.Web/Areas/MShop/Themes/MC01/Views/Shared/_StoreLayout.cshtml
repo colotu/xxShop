@@ -1,0 +1,17 @@
+﻿@using System.Web.Mvc.Html
+@{
+    Layout = "~/Areas/MShop/Themes/MC01/Views/Shared/_SiteLayout.cshtml";
+    @*前台店铺模版*@
+}
+@section headtop{
+    @RenderSection("headtop", false)
+}
+@section head{
+    <link href="/Areas/MShop/Themes/MC01/Content/Css/main.css?v=1.0" rel="stylesheet" />
+    <link href="~/Areas/MShop/Themes/MC01/Content/Css/store.css?v=1.0" rel="stylesheet" />
+    @RenderSection("head", false)
+}
+@RenderBody()
+@section foot{
+    @RenderSection("foot", false)
+}

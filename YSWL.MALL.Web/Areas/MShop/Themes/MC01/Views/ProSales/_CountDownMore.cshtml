@@ -1,0 +1,49 @@
+﻿@using Webdiyer.WebControls.Mvc
+@model YSWL.MALL.ViewModel.Shop.ProductListModel
+@if (Model != null && Model.ProductPagedList != null && Model.ProductPagedList.Count > 0)
+{
+   foreach (var item in Model.ProductPagedList)
+    {
+        <li>
+            <a href="@(ViewBag.BasePath)Product/ProSaleDetail/@item.CountDownId">
+                <div class="list_item">
+                    <div class="img_wrap pro_img">
+                        <img src="@YSWL.MALL.Web.Components.FileHelper.GeThumbImage(item.ThumbnailUrl1, "T115X115_")" alt="@item.ProductName"  onerror="this.onerror = ''; this.src = '/Content/themes/base/images/404/404_1.png'" >
+                    </div>
+                    <div class="info_wrap pro_info">
+                        <div class="name">@item.ProductName</div>
+                        <div class="price">
+                            <em>￥@(item.ProSalesPrice.ToString("F"))</em>
+                        </div>
+                        <div class="seckill_timer txtenddate" endDate="@((item.ProSalesEndDate.ToUniversalTime()- Convert.ToDateTime("1970-01-01")).TotalMilliseconds.ToString("0"))" Product="@item.CountDownId" id="txtenddate_@(item.CountDownId)">
+                            <div class="lastTime">
+                                <span class="day" id="dayEnd_@(item.CountDownId)">0</span>天<span class="hour" id="hourEnd_@(item.CountDownId)">0</span><i>:</i><span id="minEnd_@(item.CountDownId)">0</span><i>:</i><span id="secEnd_@(item.CountDownId)">0</span>
+                            </div>
+                        </div>
+                        <span class="skill_count">去抢购</span>
+                    </div>
+                </div>
+            </a>
+        </li>
+    }
+    <script type="text/javascript">
+            $(".txtenddate").each(function () {
+                $(this).removeClass('txtenddate');
+                var endDate = $(this).attr("endDate");
+                var productId = $(this).attr("Product");
+                var myclass = new CountDown();
+                myclass.init({
+                    id: 'txtenddate_' + productId,
+                    //天数
+                    day_Dom: $("#dayEnd_" + productId),
+                    //小时 
+                    hour_Dom: $("#hourEnd_" + productId),
+                    //分钟
+                    min_Dom: $("#minEnd_" + productId),
+                    //秒
+                    sec_Dom: $("#secEnd_" + productId),
+                    endTime: endDate
+                });
+            });
+     </script>
+}

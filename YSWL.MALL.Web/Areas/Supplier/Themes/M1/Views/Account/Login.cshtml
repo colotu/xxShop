@@ -1,0 +1,92 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head id="Head1" runat="server">
+        <title>商家登录</title>
+         <script type="text/javascript" >                 var $YSWL = { BasePath: '/SP/', CurrentArea: '@(ViewBag.CurrentArea)' };</script>
+        <script language="JavaScript">
+            var selfurl = window.location.pathname + window.location.search;
+            if (selfurl.indexOf( $YSWL.BasePath + 'Account/Login') == -1) {
+                window.location = $YSWL.BasePath + "Account/Login?returnUrl=" + selfurl;
+            }
+            ; if (parent.length) { top.window.location = $YSWL.BasePath + "Account/Login" + window.location.search; }
+       </script> 
+        <link href="@(ViewBag.StaticHost)/css/login.min.css" rel="stylesheet" type="text/css" />
+        <script src="/Scripts/jquery-1.8.3.min.js" type="text/javascript"></script> 
+    </head>
+    @model YSWL.MALL.ViewModel.Shop.LogOnModel
+    @if (ViewData.ModelState != null &&
+         ViewData.ModelState.Count > 0 &&
+         ViewData.ModelState["Message"] != null &&
+         ViewData.ModelState["Message"].Errors.Count > 0)
+{
+    <script type="text/javascript">
+        $(function() {
+            $('#lblMsg').text('@ViewData.ModelState["Message"].Errors[0].ErrorMessage');
+        });
+    </script>
+}  
+    <body class="standard-bg">
+        <div class="standard-page-wrapper">
+            <!-- start 登录页 -->
+            <div class="s-login-box-wrap">
+                <div class="logo">
+                    @Html.Action("AD", "Partial", new { Area = "Supplier", AdvPositionId = 60 })
+                </div>
+@using (Html.BeginForm("Login", "Account", FormMethod.Post, new { id = "form1" }))
+{
+                <div class="s-login-box">
+                    <div class="s-login-title">登录</div>
+                    <div class="s-bd">
+                        <form id="form1" runat="server">
+                            <div class="s-form-item">
+                                @Html.TextBoxFor(m => m.UserName, new { Class = "s-input-text", id = "txtLogin", name = "xlInput", placeholder = "请输入用户名" , TabIndex = "1" })
+                            </div>
+                            <div class="s-form-item">
+                                @Html.PasswordFor(m => m.Password, new { Class = "s-input-text", id = "password", name = "xlInput", placeholder = "请输入密码" , TabIndex = "2" })
+                            </div>
+                            <div class="s-form-item qrcode-field">
+                                <input class="s-input-text" id="CheckCode" name="CheckCode" tabindex="3" maxlength="4"  aria-label="验证码" placeholder="请输入验证码" />
+                                <div class="s-captcha"> <img id="ImageCheck" onclick="ChangeCode()" src="/ValidateCode.aspx" tooltip="验证码" /></div>
+                            </div>
+                            <button id="btnLogin"  class="s-btn-def-submit" tabindex="4"  >登 录</button>
+                            <div class="s-login-msg s-error" id="lblMsg"></div>
+                        </form>
+                    </div>
+                </div>
+}
+            </div>
+            <!-- end 登录页 -->
+        </div>
+        <script type="text/javascript">
+  var _scrollHeight = $(document).scrollTop(),//获取当前窗口距离页面顶部高度
+  _windowHeight = $(window).height(),//获取当前窗口高度
+  _posiTop = (_windowHeight - 530)/2 + _scrollHeight;
+  $(".s-login-box-wrap").css({"margin-top": _posiTop + "px"});
+        </script>
+    </body>
+</html>
+  
+<script  type="text/javascript">
+    $(function () {
+        $('#btnLogin').click(function () {
+            if ($.trim($('#txtLogin').val()) == '') {
+                $('#lblMsg').text('请输入用户名！');
+                return false;
+            }
+            if ($.trim($('#password').val()) == '') {
+                $('#lblMsg').text('请输入密码！');
+                return false;
+            }
+            if ($.trim($('#CheckCode').val()) == '') {
+                $('#lblMsg').text('请输入验证码！');
+                return false;
+            } else {
+                if( $.trim($('#CheckCode').val()).length !=4){
+                    $('#lblMsg').text('验证码错误！');
+                    return false;
+                }
+            }
+            $('#form1').submit();
+        });
+    });
+</script>

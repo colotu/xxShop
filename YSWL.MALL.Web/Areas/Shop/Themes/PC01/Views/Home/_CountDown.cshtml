@@ -1,0 +1,64 @@
+﻿@using YSWL.MALL.Web.SMSService
+@model List<YSWL.MALL.Model.Shop.Products.ProductInfo>
+@if (null != Model && Model.Count > 0)
+{
+<div class="floor-bd">
+    <div class="pro-list-wrapper">
+        <ul class="pro-list col5 pro-item-border clearfix">
+            @foreach (var item in Model)
+            {
+                <li class="pro-list-item">
+                    <div class="pro-item">
+                        <a href="@(ViewBag.BasePath)Product/ProSaleDetail/@item.CountDownId">
+                            <div class="pro-pic">
+                                <img src="@YSWL.MALL.Web.Components.FileHelper.GeThumbImage(item.ThumbnailUrl1, "T350X350_")" alt="@item.ProductName">
+                            </div>
+                            <div class="pro-price">
+                                <span class="price-new"><i>¥</i>@item.ProSalesPrice.ToString("F")</span>
+                                <span class="price-origin"><del>¥@item.LowestSalePrice.ToString("F")</del></span>
+                            </div>
+                            <div class="skill-time txtenddate" endDate="@((item.ProSalesEndDate.ToUniversalTime() - Convert.ToDateTime("1970-01-01")).TotalMilliseconds.ToString("0"))" CountDownId="@item.CountDownId" id="txtenddate_@(item.CountDownId)">
+                                <div id="dayMainElement_@(item.CountDownId)" style="display:none;">
+                                    <i class="txt">剩余</i><span id="dayEnd_@(item.CountDownId)">0</span><i class="txt">天</i>
+                                </div>
+                                <div id="hourMainElement_@(item.CountDownId)" style="display:none;">
+                                    <span id="hourEnd_@(item.CountDownId)">0</span>&#58;
+                                    <span id="minEnd_@(item.CountDownId)">0</span>&#58;
+                                    <span id="secEnd_@(item.CountDownId)">0</span>
+                                </div>
+                            </div>
+                            <p class="pro-name">@item.ProductName</p>
+                        </a>
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
+</div>
+<script src="/Areas/Shop/Themes/PC01/Content/scripts/timeCountDown.js" type="text/javascript"></script>
+<script type="text/javascript">
+     $(function () {
+         //限时抢购倒计时
+         $(".txtenddate").each(function () {
+             $(this).removeClass('txtenddate');
+             var endDate = $(this).attr("endDate");
+             var countDownId = $(this).attr("CountDownId");
+             var myclass = new CountDown2();
+             myclass.init({
+                 id: 'txtenddate_' + countDownId,
+                 //天数
+                 day_Dom: $("#dayEnd_" + countDownId),
+                 //小时
+                 hour_Dom: $("#hourEnd_" + countDownId),
+                 //分钟
+                 min_Dom: $("#minEnd_" + countDownId),
+                 //秒
+                 sec_Dom: $("#secEnd_" + countDownId),
+                 dayMainElement: $("#dayMainElement_" + countDownId),
+                 hourMainElement: $("#hourMainElement_" + countDownId),
+                 endTime: endDate
+             });
+         });
+     });
+        </script>
+}

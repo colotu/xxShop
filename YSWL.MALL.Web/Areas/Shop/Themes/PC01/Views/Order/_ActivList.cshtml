@@ -1,0 +1,125 @@
+﻿ @model  YSWL.MALL.ViewModel.Shop.ActicityGiveList 
+ <input type="hidden" id="hidAdjustedFreight" value="@ViewBag.AdjustedFreight" />
+<script type="text/javascript">
+    $(function () {
+        var freightPrice = parseFloat($('#freightPriceId').attr('freightPrice')); //运费
+        var couponPrice = parseFloat($("#couponPriceId").attr('couponPrice')); //优惠券优惠金额
+
+        //支付运费
+        var adjustedFreight = parseFloat($('#hidAdjustedFreight').val());
+        if (!isNaN(adjustedFreight)) { //调整后运费
+            $('#freightPriceId').text('￥'+adjustedFreight.toFixed(2));
+            var totalprice = (parseFloat($('#payPriceId').attr('BasePrice')) + adjustedFreight).toFixed(2);
+            var payprice = (totalprice - couponPrice) > 0 ? (totalprice - couponPrice) : 0;
+            $('#payPriceId').text('￥' + payprice.toFixed(2));
+        } else {//实际运费
+            $('#freightPriceId').text('￥' + freightPrice.toFixed(2));
+            var totalprice = (parseFloat($('#payPriceId').attr('BasePrice')) + freightPrice).toFixed(2);
+            var payprice = (totalprice - couponPrice) > 0 ? (totalprice - couponPrice) : 0;
+            $('#payPriceId').text('￥' + payprice.toFixed(2));
+        }
+    });
+</script>
+ @if (Model != null)
+ {
+
+<!--赠品-->   
+     if (Model.ActProdList != null && Model.ActProdList.Count > 0)
+     {
+ 
+                                                    <span>赠品</span>
+                                                 foreach (var item in Model.ActProdList)
+                                                 {
+                                                    <div class="review-tbody">
+                                                        <table class="order-table" style="width: 1115px;">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td class="fore1">
+                                                                        <div class="p-goods">
+                                                                            <div class="p-img">
+                                                                                <a href="@(ViewBag.BasePath)Product/Detail/@item.ProductId" target="_blank">
+                                                                                    <img alt="" width="50" height="50" src="@YSWL.MALL.Web.Components.FileHelper.GeThumbImage(item.ThumbnailUrl1, "T128X130_")"></a></div>
+                                                                            <div class="p-detail">
+                                                                                <div class="p-name">
+                                                                                    <a href="@(ViewBag.BasePath)Product/Detail/@item.ProductId" target="_blank">@item.ProductName</a>
+                                                                                </div>
+                                                                                @if (item.SkuValues != null && item.SkuValues.Length > 0)
+                                                                                {
+                                                                                    <div>
+                                                                                        <div class="sizeOptions cf sku-size-div">
+                                                                                            <ul class="sku-size-select AttrItems">
+                                                                                                @foreach (string val in item.SkuValues)
+                                                                                                {
+                                                                                                    <li class="SkuItems"><a href="javascript:;">@val</a> </li>
+                                                                                                }
+                                                                                            </ul>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                }
+  @if (item.SkuInfos != null && item.SkuInfos.Count > 0)
+                                                                                { 
+                                                                                    <div class="p-more">
+                                                                                        商品编号：@item.SkuInfos[0].SKU</div>
+                                                                         
+                                                                                } 
+                                                                            </div>
+                                                                            <!-- 赠品和附件显示-->
+                                                                        </div>
+                                                                    </td>
+                                                                    <td class="p-price">
+                                                                    </td>
+                                                                    <td class="p-promotion" style="display: none;">
+                                                                    </td>
+                                                                    <td class="fore2">
+                                                                        x @item.Count
+                                                                    </td>
+                                                                    <td class="fore2 p-inventory" style="text-align: right">
+                                                                        <strong style="margin-right: 5px">￥@item.SalePrice.ToString("F")</strong>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                 }
+
+     }
+
+     if (Model.ActCouponList != null && Model.ActCouponList.Count > 0)
+     {
+                                                    <span>赠优惠券</span>
+         if (ViewBag.IsMerge)
+         {
+             foreach (var item in Model.ActCouponList)
+             {
+                                                    <div>@(item.Name)
+                                                        面值为： @((item.CouponPrice * item.SendCount).ToString("F")) &nbsp&nbsp&nbsp&nbsp 1张</div> 
+             }
+         }
+         else
+         {
+             foreach (var item in Model.ActCouponList)
+             {
+                                                    <div>@(item.Name)
+                                                        面值为： @item.CouponPrice.ToString("F") &nbsp&nbsp&nbsp&nbsp @(item.SendCount)
+                                                        张</div> 
+             }
+         }
+
+     }
+ 
+     if (Model.NotStockActProdList != null && Model.NotStockActProdList.Count > 0)
+     {
+         <div style="border: 1px solid #f60;margin-top: 5px;padding: 5px;">
+                                                       <div   style="color: #f60;">
+                                                      非常抱歉，您来晚了，以下赠品今天已经被抢光了，您可以明天再试。</div>
+                                                        @foreach (var item in Model.NotStockActProdList)
+                                                        {
+                                                        <div  style="color: #999;" >
+                                                                                  @item.ProductName        x @item.Count  
+                                                                                </div>
+                                                        }
+                                                    </div>
+     }
+
+ }
+                                                <!--赠品-->

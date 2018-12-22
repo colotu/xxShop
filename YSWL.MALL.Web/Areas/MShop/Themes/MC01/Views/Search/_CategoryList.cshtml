@@ -1,0 +1,19 @@
+﻿@model List<YSWL.MALL.Model.Shop.Products.CategoryInfo>
+@if (Model != null && Model.Count > 0)
+{
+    <ul class="siderbar_list"  id="catelist">
+@for (int i = 0; i < Model.Count; i++)
+{
+<li class="siderbar_item">
+            <a href="javascript:;" cid="@Model[i].CategoryId" class="firstCategory">
+                <span class="b_item b_sort">@Model[i].Name</span><span class="si icon_down"></span>
+            </a>
+            <ul class="filter_item dsn" id="secondCate_@(Model[i].CategoryId)">
+                @Html.Action("CateList", "Partial", new {parentId = Model[i].CategoryId, viewName = "/Areas/MShop/Themes/MC01/Views/Search/_SecondCategoryList.cshtml" })
+            </ul>
+</li>
+}
+    </ul>
+}
+
+

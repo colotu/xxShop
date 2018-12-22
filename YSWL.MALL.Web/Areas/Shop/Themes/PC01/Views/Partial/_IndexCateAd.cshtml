@@ -1,0 +1,12 @@
+﻿@model List<YSWL.MALL.Model.Settings.Advertisement>
+
+    @if (Model != null)
+    {
+        <div class="module wrap clearfix">
+            @foreach (var item in Model)
+            {
+               <a href="@item.NavigateUrl" class="area-item"><img src="@item.FileUrl" alt="@item.AdvertisementName"></a>
+            }
+        </div>
+    }
+

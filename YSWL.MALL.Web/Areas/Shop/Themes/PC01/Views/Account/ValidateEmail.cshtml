@@ -1,0 +1,46 @@
+﻿  @{
+      Layout = "/Areas/Shop/Themes/PC01/Views/Shared/_BaseLayout.cshtml";
+}
+<script type="text/javascript">
+    $(function () {
+        var msgvalue = $('#hidmsg').val();
+        if (msgvalue == "Success") {
+            $('#hyanzheng').css({ 'color': 'rgb(104, 223, 66)' }).text('恭喜，' + $('#hidemail').val() + '邮箱已通过验证');
+        } else {
+            $('#hyanzheng').text(msgvalue);
+        }
+        $("#guide_2").mouseover(function () { $("#category").show(); }).mouseout(function () { $("#category").hide(); });
+
+    });
+
+</script>
+<input type="hidden" value="@ViewBag.Msg" id="hidmsg" />
+<input type="hidden" value="@ViewBag.email" id="hidemail"/>
+<div class="contentWrap" >
+    <div class="findpass_centent boxbg">
+        <h3 class="from-sm-title">验证成功</h3>
+        <div class="findpass_tip">
+            <div class="successk" style="border: 1px solid #e4e4e4">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tbody>
+                        <tr>
+                            <td width="1%" rowspan="5" align="center">
+                                <img src="/Areas/Shop/Themes/PC01/Content/images/success.png" width="180" height="133"></td>
+                            <td height="45" align="left">
+                                <span class="successk_tip" id="hyanzheng"></span>
+                            </td>
+                        </tr>
+                         <tr>
+                            <td height="35" colspan="2" align="left">恭喜您成为@(ViewBag.WebName)会员,您已经完成注册,请点击下方按钮进行登录。</td>
+                        </tr>
+                        <tr>
+                            <td width="60%" height="60" colspan="2" align="left" valign="middle">
+                                <a href="@(ViewBag.BasePath)Account/Login" target="_self"><span>点我登录</span></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

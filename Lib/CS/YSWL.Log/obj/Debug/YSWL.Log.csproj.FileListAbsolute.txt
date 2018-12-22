@@ -1,0 +1,9 @@
+E:\ZheJiangBiYan\BYShop\Lib\CS\YSWL.Log\obj\Debug\YSWL.Log.pdb
+E:\ZheJiangBiYan\BYShop\Lib\CS\YSWL.Log\obj\Debug\YSWL.Log.dll
+E:\ZheJiangBiYan\BYShop\Lib\CS\YSWL.Log\bin\Debug\YSWL.Log.dll
+E:\ZheJiangBiYan\BYShop\Lib\CS\YSWL.Log\bin\Debug\YSWL.Log.pdb
+E:\zhou\洪光顺\XXShop\Lib\CS\YSWL.Log\bin\Debug\YSWL.Log.dll
+E:\zhou\洪光顺\XXShop\Lib\CS\YSWL.Log\bin\Debug\YSWL.Log.pdb
+E:\zhou\洪光顺\XXShop\Lib\CS\YSWL.Log\obj\Debug\YSWL.Log.csprojResolveAssemblyReference.cache
+E:\zhou\洪光顺\XXShop\Lib\CS\YSWL.Log\obj\Debug\YSWL.Log.dll
+E:\zhou\洪光顺\XXShop\Lib\CS\YSWL.Log\obj\Debug\YSWL.Log.pdb

@@ -1,0 +1,46 @@
+﻿@{
+    string suppid = Request.RequestContext.RouteData.Values["suppid"] != null ? Request.RequestContext.RouteData.Values["suppid"].ToString() : "0";
+}
+<header class="fixed_header main_wrapper">
+    <div class="top_navbar">
+        @Html.Partial("/Areas/MShop/Themes/MC01/Views/Partial/_Back.cshtml")
+        <div class="top_search search_pr search_pl">
+            <a href="javascript:void(0);">
+                <span class="searchInput">
+                    <i class="si icon_search" id="icon_search"></i>
+                    <input type="text" placeholder="输入关键词" id="keyWord">
+                </span>
+            </a>
+        </div>
+        <a class="carList" href="@(ViewBag.BasePath)sc/ci"></a>
+    </div>
+</header>
+<script type="text/javascript">
+    if ($('#hidKeyWord').length>0) {
+        $('#keyWord').val($('#hidKeyWord').val());
+    }
+    $('#icon_search').click(function() {
+        var keyword = $('#keyWord').val();
+        if (keyword == '') {
+            ShowFailTip('请输入关键字');
+            return;
+        }
+        location.href = $YSWL.BasePath + "Store/ListV2/@suppid/0/hot/" + keyword;
+    });
+
+
+    //手机键盘确认键
+    $('#keyWord').keydown(function (event) {
+        if (event.keyCode === 13) {
+            event.stopPropagation();//阻止事件冒泡
+            var keyword = $('#keyWord').val();
+            if (keyword == '') {
+                ShowFailTip('请输入关键字');
+                return false;
+            }
+            location.href = $YSWL.BasePath + "Store/ListV2/@suppid/0/hot/" + keyword;
+            return false;
+        }
+    });
+
+</script>

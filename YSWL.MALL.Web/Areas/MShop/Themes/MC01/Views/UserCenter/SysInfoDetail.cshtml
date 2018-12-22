@@ -1,0 +1,62 @@
+﻿@{
+    Layout = "/Areas/MShop/Themes/MC01/Views/Shared/_BaseLayout.cshtml";
+    ViewBag.Title = "系统消息";
+}
+<link href="/Areas/MShop/Themes/MC01/Content/Css/main.css" rel="stylesheet" />
+
+@model YSWL.MALL.Model.Members.SiteMessage
+
+
+
+<div class="main_wrapper">
+    <!--START HEADER-->
+    <header>
+        <div class="top_navbar fixed_header">
+            <a class="si icon_goback" href="@(ViewBag.BasePath)u/SysInfo" ></a>
+            @**@
+            <p class="header_title">系统消息详情</p>
+        </div>
+    </header>
+    <!-- END HEADER -->
+    <div class="top"></div>
+    <div class="system_mess_wrap">
+        @if (Model != null)
+        {
+            <div class="system_mess_detail">
+                <div class="item">
+                    <div class="publish_date">
+                        <span>@Model.SendTime.Value.ToString("yyyy-MM-dd HH:mm:ss")</span>
+                    </div>
+                    <div class="mess_content">
+                        <div class="item_display">
+                            <div href="javascript:void(0);" class="cell_1">
+                                <img src="/Areas/MShop/Themes/MC01/Content/images/system_mess.png" class="system_head"/>
+                            </div>
+                            <div class="cell_2">
+                                <div class="detail_mess">
+                                    <p class="title">@Model.Title</p>
+                                    <p class="txt">
+                                       @Model.Content
+                                    </p>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        
+    </div>
+
+    <!-- ################-->
+    <!-- END TOP MENU -->
+    <!-- ################-->
+</div>
+
+
+<script>
+    $(function() {
+        $('body').addClass('m_home');
+    });
+</script>

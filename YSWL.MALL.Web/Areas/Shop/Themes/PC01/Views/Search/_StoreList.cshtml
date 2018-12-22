@@ -1,0 +1,66 @@
+﻿@using Webdiyer.WebControls.Mvc
+@model  PagedList<YSWL.MALL.Model.Shop.Supplier.SupplierInfo>
+@if (Model != null && Model.Count > 0)
+{
+<div class="store-list-wrap">
+    <div class="list-hd">
+        <div class="title hd-left"></div>
+        <div class="title store-count">找到相关店铺<span class="number">@ViewBag.TotalCount</span>家</div>
+        <div class="title hd-right"></div>
+    </div>
+    <div class="list-bd">
+        <ul class="store-list">
+            @foreach (var item in Model)
+            {
+                <li class="list-item">
+                    <div class="store-img">
+                        <a href="@(ViewBag.BasePath)store/@item.SupplierId">
+                            <img src="@(ViewBag.BasePath)Partial/SuppLogo?id=@(item.SupplierId)&size=T200X200" alt="@item.ShopName" onerror="this.onerror = ''; this.src = '/Images/Shop/store-default.jpg'">
+                        </a>
+                    </div>
+                    <div class="store-info">
+                        <a href="@(ViewBag.BasePath)store/@item.SupplierId">
+                            <h4 class="item name">@item.ShopName</h4>
+                        </a>
+                        <div class="item collect">收藏：<span id="favCount_@item.SupplierId">@(item.FavoritesCount)</span></div>
+                        <div class="item sales">销量：<span>@(item.SalesCount)</span></div>
+                        <div class="item date">开店日期：<span>@item.CreatedDate.ToString("yyyy-MM-dd")</span></div>
+                        <div class="item company">公司名称：<span>@item.Name</span></div>
+                        <div class="item contacts">联系人：<span>@(!String.IsNullOrWhiteSpace(item.Contact) ? item.Contact : "暂无")</span></div>
+                        <div class="item phonenum">
+                            联系电话：<span>@(!String.IsNullOrWhiteSpace(item.ServicePhone) ? item.ServicePhone : "暂无")</span>
+                        </div>
+                    </div>
+                    <div class="btn-wrap">
+                        <a href="@(ViewBag.BasePath)store/@item.SupplierId" class="tag-hollow-btn">进店逛逛</a>
+                        <a href="javascript:;" class="tag-hollow-btn storeFav @(item.IsFavorited?"collected":"")" suppid="@item.SupplierId">@(item.IsFavorited ? "已收藏" : "收藏")</a>
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
+</div>
+                            <!-- 分页 -->
+            <div class="pagination">
+                @Ajax.Pager(Model, new PagerOptions
+   {
+       ShowDisabledPagerItems = false,
+       AlwaysShowFirstLastPageNumber = true,
+       ShowFirstLast = false,
+       PageIndexParameterName = "pageIndex",
+       NumericPagerItemCount = 6,
+       CurrentPagerItemTemplate = "<span class=\"page-item curr\">{0}</span>",
+       PagerItemTemplate = "<span class=\"page-item\">{0}</span>",
+       MorePagerItemTemplate = "<span class=\"pn-break\">{0}</span>",
+       CssClass = "p-wrap",
+       PrevPageText = "<span class=\"pn-prev \"><i>&lt;</i>上一页</span>",
+       NextPageText = "<span class=\"pn-next \">下一页<i>&gt;</i></span>",
+   }).AjaxOptions(a => a.SetUpdateTargetId("ProductListDiv"))
+            </div>
+            }
+            else
+            {
+                <div class="no_propt">
+                    <i>!</i>未找到相符合的店铺
+                </div>
+            }

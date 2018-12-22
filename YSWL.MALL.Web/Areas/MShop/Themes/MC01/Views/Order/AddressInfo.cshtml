@@ -1,0 +1,143 @@
+﻿@{
+    Layout = "~/Areas/MShop/Themes/MC01/Views/Shared/_BaseLayout.cshtml";
+  
+}
+@section head{
+   <link href="/Areas/MShop/Themes/MC01/Content/Css/main.css" rel="stylesheet" />
+}
+@model YSWL.MALL.Model.Shop.Shipping.ShippingAddress
+<div class="main_wrapper">
+    <!--START HEADER-->
+    <header>
+        <div class="top_navbar fixed_header">
+            <div class="si icon_goback" id="c_back">
+            </div>
+            <p class="header_title">设置收货人信息</p>
+        </div>
+    </header>
+    <!-- END HEADER -->
+    <div class="top"></div>
+    <div class="address_wrap">
+
+@using (Html.BeginForm("SubmitAddressInfo", "Order", FormMethod.Post, new { id = "FormSubmitAddress", area = "MShop" }))
+{
+    @Html.HiddenFor(m => m.ShippingId)
+    @Html.HiddenFor(m => m.UserId)
+    <input type="hidden" id="consignee_form_id" name="consigneeParam.id">
+    <input type="hidden" id="consignee_type" name="consigneeParam.type">
+
+
+    <div class="ipt_wrap new_addr pd">
+        <div class="b_item">
+            <div class="sitem_l">
+                收货人
+            </div>
+            <div class="sitem_r">
+                @Html.TextBoxFor(m => m.ShipName, new { maxlength = "20", Class = "ipt", placeholder = "请输入收货人姓名" })
+            </div>
+        </div>
+        <div class="b_item">
+            <div class="sitem_l">
+                手机号码
+            </div>
+            <div class="sitem_r">
+                @Html.TextBoxFor(m => m.CelPhone, new { maxlength = "11", Class = "ipt", placeholder = "请输入收货人手机号码" })
+            </div>
+        </div>
+        <div class="b_item">
+            <div class="sitem_l">
+                邮箱
+            </div>
+            <div class="sitem_r">
+                @Html.TextBoxFor(m => m.EmailAddress, new { Class = "ipt", placeholder = "请输入邮箱" })
+            </div>
+        </div>
+        <div class="b_item">
+            <div class="sitem_l">
+                请选择地区
+            </div>
+            <div class="sitem_r address_province"  id="span_area">
+                <script src="/Scripts/jquery/jquery.guid.js" type="text/javascript"></script>
+                @Html.HiddenFor(m => m.RegionId, new { id = "hfSelectedNode" })
+                <script src="/Scripts/jquery/maticsoft.selectregion.js" handle="/RegionHandle.aspx"
+                        isnull="true" type="text/javascript"></script>
+            </div>
+        </div>
+        <div class="new_textarea">
+            @Html.TextAreaFor(m => m.Address, new { Class = "textarea", placeholder = "请填写详细地址" })
+        </div>
+    </div>
+        <div class="btn_wrapper">
+            <input type="button"  class="b_btn btn_green" value="保存" onclick="Save_Consignee(this)">
+            <div class="loading loading-1" style="display: none">
+                <b></b>正在提交信息，请等待！
+            </div>
+        </div>
+        <div style="display: none">
+            <input id="consignee_form_reset" name="" type="reset">
+        </div>
+}
+
+    </div>
+    <!-- ################-->
+    <!-- END TOP MENU -->
+    <!-- ################-->
+</div>  
+
+ 
+<script type="text/javascript">
+    //返回按钮
+    $('#c_back').click(function () {
+        window.location.replace($YSWL.BasePath + "Order/SubmitOrder");
+    });
+
+
+    function Save_Consignee(sender) {
+        var shipName = $("#ShipName").val();
+        if (shipName == "") {
+            ShowFailTip("请填写收货人");
+            return;
+        }
+        var regionId = parseInt($("#hfSelectedNode").val());
+        if (regionId == 0 || $("#hfSelectedNode").val() == "") {
+            ShowFailTip("请选择所在地区");
+            return;
+        }
+        var isBreak = true;
+        $('#span_area').find('select').each(function () {
+            var _this = $(this);
+            if (_this.val().trim() == "") {
+                ShowFailTip("请选择完整区域信息");
+                isBreak = false;
+            }
+        });
+        if (!isBreak) {
+            return;
+        }
+
+        var address = $("#Address").val();
+        if (address == "") {
+            ShowFailTip("请填写详细地址");
+            return;
+        }
+        var celPhone = $("#CelPhone").val();
+        if (celPhone == "") {
+            ShowFailTip("请填写手机号码");
+            return;
+        }
+        $(sender).hide();
+        $(sender).next().show();
+        var form = $('#FormSubmitAddress');
+        $.post(
+            form.get(0).action,
+            form.serialize(),
+            function (data) {
+                if (data == "True") {
+                    window.location.replace($YSWL.BasePath + "Order/SubmitOrder");
+                } else {
+                    ShowFailTip("服务器繁忙，请稍候再试！");
+                }
+            }
+        );
+    }
+</script>

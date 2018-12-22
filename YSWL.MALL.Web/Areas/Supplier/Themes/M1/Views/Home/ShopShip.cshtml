@@ -1,0 +1,262 @@
+﻿@{
+    Layout = "~/Areas/Supplier/Themes/M1/Views/Shared/_SupplierLayout.cshtml";
+}
+@model YSWL.MALL.ViewModel.Shop.ShipTypeModel
+
+<script type="text/javascript">
+    $(function () {
+
+        $('#tWeight').OnlyFloat();
+        $('#tAddWeight').OnlyFloat();
+        $('#tPrice').OnlyFloat();
+        $('#tAddPrice').OnlyFloat();
+        
+
+        $("#TerraceShip").change(function () {
+            Init();
+        });
+        $("#BusinessShip").change(function () {
+            Init();
+        });
+        Init();
+    });
+
+    function Init() {
+        if ($("#TerraceShip").prop("checked")) {
+            $(".TabContent").hide();
+        } else {
+            $(".TabContent").show();
+        }
+
+    }
+
+
+</script>
+
+
+<div class="newslistabout">
+    <div class="newslist_title">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="borderkuang">
+            <tr>
+                <td bgcolor="#FFFFFF" class="newstitle">
+                    <span>配送信息管理</span>
+                </td>
+            </tr>
+            <tr>
+                <td bgcolor="#FFFFFF" class="newstitlebody">
+                    <span>您可以设置相关配送信息</span>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <br/>
+    <table style="width: 100%; padding-top: 10px" cellpadding="2" cellspacing="1" class="border">
+        <tr>
+            <td class="tdbg">
+                <div class="newsadd_title">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="">
+                        <tr>
+                            <td bgcolor="#FFFFFF" class="newstitle">
+                                配送信息设置
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="member_info_show">
+                        <table cellspacing="0" cellpadding="3" width="100%" border="0">
+
+                            <tr>
+                                <td class="td_class" Width="88">
+                                    上传图片存储：
+                                </td>
+                                <td>
+                                    @if (Model.ShipType == 0)
+                                    {
+                                        @:<input id="TerraceShip" type="radio" name="ShipWay" checked="checked" value="0"/> 平台配送
+                                        @:<input id="BusinessShip" type="radio" name="ShipWay" value="1"/> 商家配送
+                                    }
+                                    else
+                                    {
+                                        @:<input id="TerraceShip" type="radio" name="ShipWay" value="0"/> 平台配送
+                                        @:<input id="BusinessShip" type="radio" name="ShipWay" checked="checked" value="1" /> 商家配送
+                                    }
+
+                                </td>
+                                <td></td>
+                            </tr>
+
+                        </table>
+                        <br/>
+
+
+                        <div class="TabContent" style="display:none">
+                            <div id="myTab1_Content0">
+                                <table style="width: 100%;" cellpadding="2" cellspacing="1" class="border">
+                                    <tr>
+                                        <td class="tdbg">
+                                            <table cellspacing="0" cellpadding="3" width="100%" border="0">
+                                                <tr>
+                                                    <td class="td_class">
+                                                        物流公司 ：
+                                                    </td>
+                                                    <td height="25">
+                                                        <select id="companhy-js">
+                                                            @if (!string.IsNullOrWhiteSpace(Model.ExpressCompanyEn) && !string.IsNullOrWhiteSpace(Model.ExpressCompanyName))
+                                                            {
+                                                                <option selected="selected" value="@Model.ExpressCompanyEn">@Model.ExpressCompanyName</option>
+                                                            }
+                                                            else
+                                                            {
+                                                                <option selected="selected" value="">请选择</option>
+                                                            }
+
+
+                                                            @if (ViewBag.ExpressList != null && ViewBag.ExpressList.Count > 0)
+                                                            {
+
+                                                                foreach (var item in ViewBag.ExpressList)
+                                                                {
+                                                                    <option value="@item.ComEn">@item.ComName</option>
+                                                                }
+                                                            }
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="td_class">
+                                                        配送方式名称 ：
+                                                    </td>
+                                                    <td height="25">
+                                                        <input type="text" id="tName" value="@(YSWL.Common.Globals.SafeString( Model.Name,""))" maxlength="20" TabIndex="1" style="width: 250px"/>
+                                                        
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="td_class">
+                                                        起步重量 ：
+                                                    </td>
+                                                    <td height="25">
+                                                        <input type="text" id="tWeight" value="@Model.Weight" maxlength="20" TabIndex="2" style="width: 250px"/>（克）
+                                                    
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="td_class">
+                                                        加价重量 ：
+                                                    </td>
+                                                    <td height="25">
+                                                        <input type="text" id="tAddWeight" value="@((Model.AddWeight??0))" maxlength="20" TabIndex="3" style="width: 250px"/>（克）
+                                                        
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="td_class">
+                                                        起步价 ：
+                                                    </td>
+                                                    <td height="25">
+                                                        <input type="text" id="tPrice" value="@(Model.Price.ToString("f"))" maxlength="20" TabIndex="2" style="width: 250px"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="td_class">
+                                                        加价 ：
+                                                    </td>
+                                                    <td height="25">
+                                                        <input type="text" id="tAddPrice" value="@((Model.AddPrice??0).ToString("f"))" maxlength="20" TabIndex="3" style="width: 250px"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="td_class">
+                                                        描述 ：
+                                                    </td>
+                                                    <td height="50">
+                                                        <textarea id="tDesc" rows="2" cols="2" style="width: 250px" value="" >@Model.Description</textarea>
+                                                       
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <table style="width: 100%; border: none; float: left;" cellpadding="2" cellspacing="1" class="border">
+                    <tr>
+                        <td class="tdbg">
+                            <table cellspacing="0" cellpadding="0" width="100%" border="0">
+                                <tr>
+                                    <td class="td_class"></td>
+                                    <td height="25">
+                                        <input type="button" id="btnSave" value="保存" class="adminsubmit_short" onclick="submit()"/>
+                                        @*<input type="button" id="btnReset" value="取消" class="adminsubmit_short" OnClick=""/>*@
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<script type="text/javascript">
+    
+    function submit() {
+        var expressCompanyEn = $('#companhy-js option:selected').val();
+        var expressCompanyName = $('#companhy-js option:selected').text();
+        var shipType = $('input:radio[name=ShipWay]:checked').val();
+        var name = $('#tName').val() + "";
+        if (name.trim().length < 1) {
+            ShowLoadingTip("请填写配送方式!");
+            return;
+        }
+        var weight = $('#tWeight').val();
+        var addWeight = $('#tAddWeight').val();
+        debugger;
+        var price = $('#tPrice').val();
+        var addPrice = $('#tAddPrice').val();
+        var description = $('#tDesc').val();
+        $.ajax({
+            type: "POST",
+            url: "@(ViewBag.BasePath)Home/SavaShipType",
+            data: {
+                ShipType: shipType,
+                ExpressCompanyEn: expressCompanyEn,
+                ExpressCompanyName: expressCompanyName,
+                Name: name,
+                Weight: weight,
+                AddWeight: addWeight,
+                Price: price,
+                AddPrice: addPrice,
+                Description: description
+            },
+            async: true,
+            cache: false,
+            success: function (result) {
+                if (result.STATUS == "FAIL") {
+                    ShowFailTip("保存失败!");
+                    console.log(result.CODE);
+                    return;
+                }
+                if (result.STATUS == "SUCCESS") {
+                    ShowSuccessTip("保存成功!");
+                    return;
+                }
+                
+            },
+            error: function () {
+                ShowFailTip("服务器没有返回数据，可能服务器忙，请稍候再试！");
+            }
+        });
+    }
+
+   
+
+
+</script>

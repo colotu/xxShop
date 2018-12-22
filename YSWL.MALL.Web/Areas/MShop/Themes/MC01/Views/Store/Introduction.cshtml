@@ -1,0 +1,51 @@
+﻿@{
+    Layout = "/Areas/MShop/Themes/MC01/Views/Shared/_StoreLayout.cshtml";
+    ViewBag.Title = "电子商务解决方案-店铺介绍";
+}
+@model YSWL.MALL.Model.Shop.Supplier.SupplierInfo
+    <div class="main_wrapper">
+        <!--START HEADER-->
+        <header class="fixed_header main_wrapper">
+            @Html.Partial("/Areas/MShop/Themes/MC01/Views/Partial/_Back.cshtml")
+            <h2 class="title">店铺信息</h2>
+        </header>
+        <!--END HEADER-->
+        <div class="contentWrapper main_wrapper">
+            @if (Model != null)
+            {
+                <div class="setLogo">
+                    <div class="logo">
+                        <img  src="@(ViewBag.BasePath)Partial/SuppLogo?id=@(Model.SupplierId)&size=T200X200" alt="@(Model.ShopName)"    onerror="this.onerror = ''; this.src = '/Areas/MShop/Themes/MC01/Content/images/store-pic.jpg'" />
+                    </div>
+                    <p>小店LOGO</p>
+                </div>
+                <div class="storeNameWrapper">
+                    <h3>基本信息</h3>
+                    <div><label>店铺名称</label><span>@Model.ShopName</span></div>
+                    <div><label>公司名称</label><span>@Model.Name</span></div>
+                    <div><label>联系人</label><span>@Model.Contact</span></div>
+                    <div><label>联系电话</label><span>@Model.ServicePhone</span></div>
+                    <div><label>开店日期</label><span>@Model.CreatedDate.ToString("yyyy-MM-dd")</span></div>
+                </div>
+                <div class="storeNameWrapper mb">
+                    <h3>公司信息</h3>
+                    <div><label>成立时间</label><span>@(Model.EstablishedDate.HasValue? Model.EstablishedDate.Value.ToString("yyyy-MM-dd"):"")</span></div>
+                    <div><label>注册地</label><span>@Model.EstablishedCityStr</span></div>
+                    <div><label>注册资本</label><span>@(Model.RegisteredCapital.HasValue? Model.RegisteredCapital.Value.ToString("F"):"")</span></div>
+                    <div><label>法人</label><span>@Model.ArtiPerson</span></div>
+                </div>
+            }
+        </div>
+    </div>
+@section foot{
+    <script type="text/javascript">
+        $(function () {
+            $('#body').addClass('m_home');
+        });
+</script>
+}
+
+ 
+
+ 
+  

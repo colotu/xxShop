@@ -1,0 +1,67 @@
+﻿@using Webdiyer.WebControls.Mvc
+@model PagedList<YSWL.MALL.ViewModel.Shop.CommissionProStat>
+    <input type="hidden" id="hidTotalFee" value="@ViewBag.TotalFee.ToString("F")"/>
+@if (Model != null)
+{
+    foreach (var item in Model)
+    {
+        <div class="list-item">
+            <div class="text-wrap">
+                <div class="list-line pro-intro">
+                    商品：
+                    <span class="intro"><a class="color-666" href="@(ViewBag.BasePath)Product/Detail/@item.ProductId">@item.ProName</a></span>
+                </div>
+                <div class="list-line">
+                    佣金：
+                    <span class="intro price">￥@item.TotalFee.ToString("F")</span>
+                </div>
+                <div class="list-line">
+                    数量：
+                    <span class="intro">@item.TotalProduct</span>
+                </div>
+            </div>
+        </div>
+    }
+}
+else
+{
+    <div class="empty pro_list_empty">
+        <div class="img_wrap">
+            <img src="/Areas/MShop/Themes/mc02/Content/images/nopro.png" alt="">
+        </div>
+        <div class="txt">
+            <p>没找到相关数据</p>
+        </div>
+    </div>
+}
+<script type="text/javascript">
+    $(function () {
+        pullUp.init({
+            //Ajax请求参数
+            AjaxOptions: {
+                //Ajax请求参数
+                Params: $.extend(@Html.Raw(ViewBag.DataParam), { ajaxViewName:"_CommProListMore"}),
+                //Params:@Html.Raw(ViewBag.DataParam),
+                //Ajax请求URL
+                DataURL: "@(ViewBag.BasePath)Commission/CommPro"
+            },
+
+            //当前页码
+            CurrentPage: 2,
+            //页码参数名称
+            PageParamsName: "pageIndex",
+            //每页数量
+            PageSize: @(ViewBag.PageSize),
+            //每页数量参数名称
+            PageSizeParamsName: "pageSize",
+            //内容容器
+            ContentContainer: $("#list"),
+            //正在加载提示框
+            LoadingTipBox: $("#loadingMore"),
+            //无更多数据提示框
+            NoMoreTipBox: $("#noMoreProduct"),
+            LoadFinish:false
+        });
+        $("#noMoreProduct").hide();
+    });
+</script>     

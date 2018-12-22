@@ -1,0 +1,2534 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>YSWL.Accounts</name>
+    </assembly>
+    <members>
+        <member name="T:YSWL.Accounts.Bus.Actions">
+            <summary>
+            功能行为
+            </summary>
+        </member>
+        <member name="P:YSWL.Accounts.Bus.Actions.ActionID">
+             <summary>
+            功能行为ID
+             </summary>
+        </member>
+        <member name="P:YSWL.Accounts.Bus.Actions.Description">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:YSWL.Accounts.Bus.Actions.PermissionID">
+            <summary>
+            权限
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.Actions.Add(System.String)">
+            <summary>
+            Add a record
+            </summary> 
+        </member>
+        <member name="M:YSWL.Accounts.Bus.Actions.Add(System.String,System.Int32)">
+            <summary>
+            Add a record,include perimission
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.Actions.Update(System.Int32,System.String)">
+            <summary>
+            Update a record
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.Actions.Update(System.Int32,System.String,System.Int32)">
+            <summary>
+            Update a record, include permission
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.Actions.Delete(System.Int32)">
+            <summary>
+            Delete a record
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.Actions.GetDescription(System.Int32)">
+            <summary>
+            Get Description
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.Actions.GetList(System.String)">
+            <summary>
+            Query data list
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.Actions.AddPermission(System.Int32,System.Int32)">
+            <summary>
+            Relevance between ActionID and PermissionID
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.Actions.AddPermission(System.String,System.Int32)">
+            <summary>
+            批量增加权限设置
+            </summary>
+            <param name="ActionIDs"></param>
+            <param name="PermissionID"></param>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.Actions.ClearPermissions(System.Int32)">
+            <summary>
+            Clear relevance
+            </summary>        
+        </member>
+        <member name="M:YSWL.Accounts.Bus.Actions.GetHashList">
+            <summary>
+            Get an object list
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.Actions.GetHashListByCache">
+            <summary>
+            Get an object list，From the cache
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.Actions.GetXmlHashList">
+            <summary>
+            获取所有的功能行为(XML  Hash 列表)
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.Actions.GetXmlHashListCache">
+            <summary>
+            获取所有的缓存功能行为 (XML  Hash 列表)
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.Actions.GetAllActionXml">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.Actions.GetAllActionListXmlCache">
+            <summary>
+            获取可用的XML功能行为
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.Actions.AddAction(YSWL.Accounts.Bus.Actions)">
+            <summary>
+            添加功能行为
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.Actions.SyncActions">
+            <summary>
+            同步所有的数据库功能行为至XML功能行为数据 （初始化一次性调用）
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:YSWL.Accounts.Bus.AccountsPrincipal">
+            <summary>
+            用户对象的安全上下文信息
+            </summary>
+        </member>
+        <member name="P:YSWL.Accounts.Bus.AccountsPrincipal.Roles">
+            <summary>
+            当前用户的所有角色
+            </summary>
+        </member>
+        <member name="P:YSWL.Accounts.Bus.AccountsPrincipal.PermissionLists">
+            <summary>
+            当前用户拥有的权限列表数据集
+            </summary>
+        </member>
+        <member name="P:YSWL.Accounts.Bus.AccountsPrincipal.PermissionsDesc">
+            <summary>
+            当前用户拥有的权限名称列表
+            </summary>
+        </member>
+        <member name="P:YSWL.Accounts.Bus.AccountsPrincipal.PermissionsID">
+            <summary>
+            当前用户拥有的权限ID列表
+            </summary>
+        </member>
+        <member name="P:YSWL.Accounts.Bus.AccountsPrincipal.Identity">
+            <summary>
+            当前用户的标识对象
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.AccountsPrincipal.#ctor(System.Int32)">
+            <summary>
+            根据用户编号构造
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.AccountsPrincipal.#ctor(System.String,System.Boolean)">
+            <summary>
+            根据用户名构造
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.AccountsPrincipal.IsInRole(System.String)">
+            <summary>
+            当前用户是否属于指定名称的角色
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.AccountsPrincipal.HasRole(System.Int32)">
+            <summary>
+            当前用户是否拥有指定的角色
+            </summary>
+            <param name="roleId">角色ID</param>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.AccountsPrincipal.HasPermission(System.String)">
+            <summary>
+            当前用户是否拥有指定名称的权限
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.AccountsPrincipal.HasPermissionID(System.Int32)">
+            <summary>
+            当前用户是否拥有指定的权限
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.AccountsPrincipal.ValidateLogin(System.String,System.String)">
+            <summary>
+            验证登录信息
+            用户名登录
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.AccountsPrincipal.ValidateLogin4Email(System.String,System.String)">
+            <summary>
+            验证登录信息
+            邮箱登录
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.AccountsPrincipal.EncryptPassword(System.String)">
+            <summary>
+            密码加密
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.AccountsPrincipal.GetValidateLogin(System.String)">
+            <summary>
+            获取验证信息对象 （SAAS效验使用）
+            </summary>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="T:YSWL.Accounts.Bus.AccountsTool">
+            <summary>
+            权限工具类
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.AccountsTool.GetAllCategories">
+            <summary>
+            获取所有权限类别
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.AccountsTool.GetPermissionsByCategory(System.Int32)">
+            <summary>
+            获取某类别的所有权限
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.AccountsTool.GetAllPermissions">
+            <summary>
+            获取所有权限
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.AccountsTool.GetRoleList">
+            <summary>
+            获取所有角色
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.AccountsTool.GetRoleList(System.String)">
+            <summary>
+            获取部分角色
+            </summary>
+        </member>
+        <member name="T:YSWL.Accounts.Bus.PermissionCategories">
+            <summary>
+            权限类别。
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.PermissionCategories.#ctor">
+            <summary>
+            构造函数
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.PermissionCategories.Create(System.String)">
+            <summary>
+            创建权限类别
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.PermissionCategories.ExistsPerm(System.Int32)">
+            <summary>
+            该类别下是否存在权限记录
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.PermissionCategories.Delete(System.Int32)">
+            <summary>
+            删除权限类别
+            </summary>
+        </member>
+        <member name="T:YSWL.Accounts.Bus.Permissions">
+            <summary>
+            权限管理。
+            </summary>
+        </member>
+        <member name="P:YSWL.Accounts.Bus.Permissions.PermissionID">
+            <summary>
+            用户编号
+            </summary>
+        </member>
+        <member name="P:YSWL.Accounts.Bus.Permissions.Description">
+            <summary>
+            用户编号
+            </summary>
+        </member>
+        <member name="P:YSWL.Accounts.Bus.Permissions.CategoryID">
+            <summary>
+            用户编号
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.Permissions.#ctor">
+            <summary>
+            构造函数
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.Permissions.Create(System.Int32,System.String)">
+            <summary>
+            创建一个权限
+            </summary>
+            <param name="pcID">类别ID</param>
+            <param name="description">权限描述</param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.Permissions.Update(System.Int32,System.String)">
+            <summary>
+            更新权限
+            </summary>
+            <param name="pcID">权限ID</param>
+            <param name="description">权限描述</param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.Permissions.Delete(System.Int32)">
+            <summary>
+            删除权限
+            </summary>
+            <param name="pID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.Permissions.GetPermissionName(System.Int32)">
+            <summary>
+            得到权限名称
+            </summary>
+            <param name="pID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.Permissions.GetPermissionDetails(System.Int32)">
+            <summary>
+            得到权限信息
+            </summary>
+            <param name="pID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.Permissions.GetAllXMLPermission">
+            <summary>
+            获取所有的XML 权限
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.Permissions.GetAllXMLPermissionCache">
+            <summary>
+            获取所有的XML 权限缓存
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.Permissions.GetPermissionByUser(System.Int32)">
+            <summary>
+            获取某用户的权限
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:YSWL.Accounts.Bus.UserType">
+            <summary>
+            用户类型
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.UserType.Exists(System.String,System.String)">
+            <summary>
+            是否存在该记录
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.UserType.Add(System.String,System.String)">
+            <summary>
+            增加一条数据
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.UserType.Update(System.String,System.String)">
+            <summary>
+            更新一条数据
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.UserType.Delete(System.String)">
+            <summary>
+            删除一条数据
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.UserType.GetDescription(System.String)">
+            <summary>
+            得到一个对象实体
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.UserType.GetDescriptionByCache(System.String)">
+            <summary>
+            得到一个对象实体，从缓存中。
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.UserType.GetList(System.String)">
+            <summary>
+            获得数据列表
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.UserType.GetAllList">
+            <summary>
+            获得数据列表
+            </summary>
+        </member>
+        <member name="T:YSWL.Accounts.Bus.Role">
+            <summary>
+            角色管理
+            </summary>
+        </member>
+        <member name="P:YSWL.Accounts.Bus.Role.RoleID">
+            <summary>
+            角色编号
+            </summary>
+        </member>
+        <member name="P:YSWL.Accounts.Bus.Role.Description">
+            <summary>
+            角色名称
+            </summary>
+        </member>
+        <member name="P:YSWL.Accounts.Bus.Role.Permissions">
+            <summary>
+            该角色拥有的权限列表
+            </summary>
+        </member>
+        <member name="P:YSWL.Accounts.Bus.Role.NoPermissions">
+            <summary>
+            该角色没有的权限列表
+            </summary>
+        </member>
+        <member name="P:YSWL.Accounts.Bus.Role.Users">
+            <summary>
+            该角色下的所有用户
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.Role.#ctor">
+            <summary>
+            构造函数
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.Role.#ctor(System.Int32)">
+            <summary>
+            根据角色ID构造角色的信息
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.Role.RoleExists(System.String)">
+            <summary>
+            是否存在该角色
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.Role.Create">
+            <summary>
+            增加角色
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.Role.Update">
+            <summary>
+            更新角色
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.Role.Delete">
+            <summary>
+            删除角色
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.Role.AddPermission(System.Int32)">
+            <summary>
+            为角色增加权限
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.Role.RemovePermission(System.Int32)">
+            <summary>
+            从角色移除权限
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.Role.ClearPermissions">
+            <summary>
+            清空角色的权限
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.Role.GetRoleList">
+            <summary>
+            获取所有角色的列表
+            </summary>
+        </member>
+        <member name="P:YSWL.Accounts.Bus.RolePermissions.RoleID">
+            <summary>
+            用户角色
+            </summary>
+        </member>
+        <member name="P:YSWL.Accounts.Bus.RolePermissions.PermissionID">
+            <summary>
+            用户权限
+            </summary>
+        </member>
+        <member name="P:YSWL.Accounts.Bus.UserRoles.RoleID">
+            <summary>
+            用户角色
+            </summary>
+        </member>
+        <member name="P:YSWL.Accounts.Bus.UserRoles.UserID">
+            <summary>
+            用户ID
+            </summary>
+        </member>
+        <member name="T:YSWL.Accounts.Bus.SiteIdentity">
+            <summary>
+            当前用户的标识对象
+            </summary>
+        </member>
+        <member name="P:YSWL.Accounts.Bus.SiteIdentity.UserID">
+            <summary>
+            用户编号
+            </summary>
+        </member>
+        <member name="P:YSWL.Accounts.Bus.SiteIdentity.UserName">
+            <summary>
+            用户名
+            </summary>
+        </member>
+        <member name="P:YSWL.Accounts.Bus.SiteIdentity.Password">
+            <summary>
+            密码
+            </summary>
+        </member>
+        <member name="P:YSWL.Accounts.Bus.SiteIdentity.TrueName">
+            <summary>
+            真实姓名
+            </summary>
+        </member>
+        <member name="P:YSWL.Accounts.Bus.SiteIdentity.Sex">
+            <summary>
+            性别
+            </summary>
+        </member>
+        <member name="P:YSWL.Accounts.Bus.SiteIdentity.Phone">
+            <summary>
+            联系电话
+            </summary>
+        </member>
+        <member name="P:YSWL.Accounts.Bus.SiteIdentity.Email">
+            <summary>
+            邮箱
+            </summary>
+        </member>
+        <member name="P:YSWL.Accounts.Bus.SiteIdentity.EmployeeID">
+            <summary>
+            （员工）编号
+            </summary>
+        </member>
+        <member name="P:YSWL.Accounts.Bus.SiteIdentity.DepartmentID">
+            <summary>
+            用户所在单位或部门
+            </summary>
+        </member>
+        <member name="P:YSWL.Accounts.Bus.SiteIdentity.Activity">
+            <summary>
+            用户状态
+            </summary>
+        </member>
+        <member name="P:YSWL.Accounts.Bus.SiteIdentity.UserType">
+            <summary>
+            用户类型
+            </summary>
+        </member>
+        <member name="P:YSWL.Accounts.Bus.SiteIdentity.Style">
+            <summary>
+            风格
+            </summary>
+        </member>
+        <member name="P:YSWL.Accounts.Bus.SiteIdentity.User_iCreator">
+            <summary>
+            创建者
+            </summary>
+        </member>
+        <member name="P:YSWL.Accounts.Bus.SiteIdentity.User_dateCreate">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:YSWL.Accounts.Bus.SiteIdentity.User_dateValid">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:YSWL.Accounts.Bus.SiteIdentity.User_dateExpire">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:YSWL.Accounts.Bus.SiteIdentity.User_iApprover">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:YSWL.Accounts.Bus.SiteIdentity.User_dateApprove">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:YSWL.Accounts.Bus.SiteIdentity.User_iApproveState">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:YSWL.Accounts.Bus.SiteIdentity.User_cLang">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:YSWL.Accounts.Bus.SiteIdentity.Name">
+            <summary>
+            当前用户的名称
+            </summary>
+        </member>
+        <member name="P:YSWL.Accounts.Bus.SiteIdentity.AuthenticationType">
+            <summary>
+            获取所使用的身份验证的类型。
+            </summary>
+        </member>
+        <member name="P:YSWL.Accounts.Bus.SiteIdentity.IsAuthenticated">
+            <summary>
+            是否验证了用户
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.SiteIdentity.LoadFromDR(System.Data.DataRow)">
+            <summary>
+            加载用户数据
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.SiteIdentity.#ctor(System.String)">
+            <summary>
+            根据用户名构造
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.SiteIdentity.#ctor(System.Int32)">
+            <summary>
+            根据用户ID构造
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.SiteIdentity.TestPassword(System.String)">
+            <summary>
+            检查当前用户对象密码
+            </summary>
+        </member>
+        <member name="T:YSWL.Accounts.Bus.User">
+            <summary>
+            用户
+            </summary>
+        </member>
+        <member name="P:YSWL.Accounts.Bus.User.UserID">
+            <summary>
+            用户编号
+            </summary>
+        </member>
+        <member name="P:YSWL.Accounts.Bus.User.UserName">
+            <summary>
+            用户名
+            </summary>
+        </member>
+        <member name="P:YSWL.Accounts.Bus.User.Password">
+            <summary>
+            密码
+            </summary>
+        </member>
+        <member name="P:YSWL.Accounts.Bus.User.NickName">
+            <summary>
+            昵称
+            </summary>
+        </member>
+        <member name="P:YSWL.Accounts.Bus.User.TrueName">
+            <summary>
+            真实姓名
+            </summary>
+        </member>
+        <member name="P:YSWL.Accounts.Bus.User.Sex">
+            <summary>
+            性别
+            </summary>
+        </member>
+        <member name="P:YSWL.Accounts.Bus.User.Phone">
+            <summary>
+            联系电话
+            </summary>
+        </member>
+        <member name="P:YSWL.Accounts.Bus.User.Email">
+            <summary>
+            邮箱
+            </summary>
+        </member>
+        <member name="P:YSWL.Accounts.Bus.User.EmployeeID">
+            <summary>
+            （员工）编号
+            </summary>
+        </member>
+        <member name="P:YSWL.Accounts.Bus.User.DepartmentID">
+            <summary>
+            用户所在单位或部门
+            </summary>
+        </member>
+        <member name="P:YSWL.Accounts.Bus.User.Activity">
+            <summary>
+            用户状态
+            </summary>
+        </member>
+        <member name="P:YSWL.Accounts.Bus.User.UserType">
+            <summary>
+            用户类型
+            </summary>
+        </member>
+        <member name="P:YSWL.Accounts.Bus.User.Style">
+            <summary>
+            风格
+            </summary>
+        </member>
+        <member name="P:YSWL.Accounts.Bus.User.User_iCreator">
+            <summary>
+            创建者
+            </summary>
+        </member>
+        <member name="P:YSWL.Accounts.Bus.User.User_dateCreate">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:YSWL.Accounts.Bus.User.User_dateValid">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:YSWL.Accounts.Bus.User.User_dateExpire">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:YSWL.Accounts.Bus.User.User_iApprover">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:YSWL.Accounts.Bus.User.User_dateApprove">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:YSWL.Accounts.Bus.User.User_iApproveState">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:YSWL.Accounts.Bus.User.User_cLang">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:YSWL.Accounts.Bus.User.EnterpriseId">
+            <summary>
+            （员工）编号
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.User.LoadFromDR(System.Data.DataRow)">
+            <summary>
+            加载用户数据
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.User.#ctor(System.Int32)">
+            <summary>
+            根据用户ID构造
+            </summary> 
+        </member>
+        <member name="M:YSWL.Accounts.Bus.User.#ctor(System.String)">
+            <summary>
+            根据用户名构造
+            </summary>        
+        </member>
+        <member name="M:YSWL.Accounts.Bus.User.#ctor(YSWL.Accounts.Bus.AccountsPrincipal)">
+            <summary>
+            根据AccountsPrincipal构造
+            </summary>        
+        </member>
+        <member name="M:YSWL.Accounts.Bus.User.GetTrueNameByCache(System.Int32)">
+            <summary>
+            从缓存中获取用户的真实姓名
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.User.GetUserNameByCache(System.Int32)">
+            <summary>
+            从缓存中获取用户名
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.User.HasUser(System.String)">
+            <summary>
+            用户名是否已经存在
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.User.HasUserByUserName(System.String)">
+            <summary>
+            用户名是否已经存在
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.User.HasUserByEmail(System.String)">
+            <summary>
+            邮箱是否已经存在
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.User.HasUserByNickName(System.String)">
+            <summary>
+            昵称是否已经存在
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.User.HasUserByPhone(System.String)">
+            <summary>
+            手机是否已经存在
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.User.HasUserByPhone(System.String,System.String)">
+            <summary>
+            手机是否已经存在
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.User.Create">
+            <summary>
+            创建用户
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.User.Create4CreateDate">
+            <summary>
+            创建用户
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.User.Update(System.Boolean)">
+            <summary>
+            更新用户信息
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.User.SetPassword(System.String,System.String,System.Boolean)">
+            <summary>
+            设置用户密码
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.User.UpdateEmployee(System.Int32,System.Int32,System.String)">
+            <summary>
+            设置部门和员工编号
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.User.UpdateApprover(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            设置审核
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.User.UpdateActivity(System.Int32,System.Boolean)">
+            <summary>
+            设置用户状态
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.User.Delete">
+            <summary>
+            删除用户
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.User.GetUserByNickName(System.String)">
+            <summary>
+            根据NickName获取用户对象
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.User.GetUserList(System.String)">
+            <summary>
+            根据关键字查询用户
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.User.GetUsersByDepart(System.String,System.String)">
+            <summary>
+            根据部门和关键字查询用户信息
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.User.GetUsersByType(System.String,System.String)">
+            <summary>
+            根据用户类型和关键字查询用户信息
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.User.GetUserList(System.String,System.String,System.String)">
+            <summary>
+            根据用户类型，部门，关键字查询用户
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.User.GetUsersByRole(System.Int32)">
+            <summary>
+            获取某角色下的所有用户
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.User.GetUsersByEmp(System.Int32)">
+            <summary>
+            根据员工编号，获取员工编号的用户信息
+            </summary>        
+            <param name="EmployeeID">员工编号</param>        
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.User.AddToRole(System.Int32)">
+            <summary>
+            为用户增加角色
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.User.RemoveRole(System.Int32)">
+            <summary>
+            从用户移除角色
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.User.RemoveRole(System.Int32,System.Int32)">
+            <summary>
+            从用户移除角色
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.User.AssignRoleExists(System.Int32,System.Int32)">
+            <summary>
+            要分配是否存在该记录
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.User.AddAssignRole(System.Int32,System.Int32)">
+            <summary>
+            增加一条数据
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.User.DeleteAssignRole(System.Int32,System.Int32)">
+            <summary>
+            删除一条数据
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.User.GetAssignRolesByUser(System.Int32)">
+            <summary>
+            获取用户的分配的角色列表
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.User.GetNoAssignRolesByUser(System.Int32)">
+            <summary>
+            获取用户的未分配的角色列表
+            </summary>
+            <param name="UserID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Accounts.Bus.User.Create2SAAS(System.Int64,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="enterpriseId"></param>
+            <param name="applicationIds">应用Id集合,"|"分割式，如 1|3|5 </param>
+            <returns></returns>
+        </member>
+        <member name="T:YSWL.Accounts.ConfigHelper">
+            <summary>
+            web.config操作类
+            Copyright (C) 云商未来    
+            </summary>
+        </member>
+        <member name="F:YSWL.Accounts.ConfigHelper.DEFAULT_CACHETIME">
+            <summary>
+            默认缓存时间
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.ConfigHelper.GetConfigString(System.String)">
+            <summary>
+            得到AppSettings中的配置字符串信息
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Accounts.ConfigHelper.GetConfigBool(System.String)">
+            <summary>
+            得到AppSettings中的配置Bool信息
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Accounts.ConfigHelper.GetConfigDecimal(System.String)">
+            <summary>
+            得到AppSettings中的配置Decimal信息
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Accounts.ConfigHelper.GetConfigInt(System.String)">
+            <summary>
+            得到AppSettings中的配置int信息
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="T:YSWL.Accounts.DataCache">
+            <summary>
+            缓存相关的操作类
+            Copyright (C) 云商未来    
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.DataCache.GetCache(System.String)">
+            <summary>
+            获取当前应用程序指定CacheKey的Cache值
+            </summary>
+            <param name="CacheKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Accounts.DataCache.SetCache(System.String,System.Object)">
+            <summary>
+            设置当前应用程序指定CacheKey的Cache值
+            </summary>
+            <param name="CacheKey"></param>
+            <param name="objObject"></param>
+        </member>
+        <member name="M:YSWL.Accounts.DataCache.SetCache(System.String,System.Object,System.DateTime,System.TimeSpan)">
+            <summary>
+            设置当前应用程序指定CacheKey的Cache值
+            </summary>
+            <param name="CacheKey"></param>
+            <param name="objObject"></param>
+        </member>
+        <member name="M:YSWL.Accounts.DataCache.DeleteCache(System.String)">
+            <summary>
+            删除当前应用程序指定CacheKey的Cache值
+            </summary>
+            <param name="CacheKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Accounts.Data.Actions.Exists(System.String)">
+            <summary>
+            Whether Exists
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Data.Actions.Add(System.String)">
+            <summary>
+            Add a record
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Data.Actions.Add(System.String,System.Int32)">
+            <summary>
+            Add a record,include perimission
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Data.Actions.Update(System.Int32,System.String)">
+            <summary>
+            Update a record
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Data.Actions.Update(System.Int32,System.String,System.Int32)">
+            <summary>
+            Update a record, include permission
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Data.Actions.Delete(System.Int32)">
+            <summary>
+            Delete a record
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Data.Actions.GetDescription(System.Int32)">
+            <summary>
+            Get Description
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Data.Actions.GetList(System.String)">
+            <summary>
+            Query data list
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Data.Actions.AddPermission(System.String,System.Int32)">
+            <summary>
+            批量增加权限设置
+            </summary>
+            <param name="ActionIDs"></param>
+            <param name="PermissionID"></param>
+        </member>
+        <member name="T:YSWL.Accounts.Data.UserType">
+            <summary>
+            用户类型管理
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Data.UserType.Exists(System.String,System.String)">
+            <summary>
+            是否存在该记录
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Data.UserType.Add(System.String,System.String)">
+            <summary>
+            增加一条数据
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Data.UserType.Update(System.String,System.String)">
+            <summary>
+            更新一条数据
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Data.UserType.Delete(System.String)">
+            <summary>
+            删除一条数据
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Data.UserType.GetDescription(System.String)">
+            <summary>
+            得到类型描述
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Data.UserType.GetList(System.String)">
+            <summary>
+            获得数据列表
+            </summary>
+        </member>
+        <member name="T:YSWL.Accounts.Data.Permission">
+            <summary>
+            权限管理
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Data.Permission.Create(System.Int32,System.String)">
+            <summary>
+            创建一个权限
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Data.Permission.Update(System.Int32,System.String)">
+            <summary>
+            更新权限信息
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Data.Permission.Delete(System.Int32)">
+            <summary>
+            删除权限
+            </summary>        
+        </member>
+        <member name="M:YSWL.Accounts.Data.Permission.Retrieve(System.Int32)">
+            <summary>
+            根据权限ID获取权限信息
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Data.Permission.GetPermissionList">
+            <summary>
+            获取权限列表
+            </summary>        
+        </member>
+        <member name="M:YSWL.Accounts.Data.Permission.GetPermissionList(System.Int32)">
+            <summary>
+            获取指定角色的权限列表
+            </summary>        
+        </member>
+        <member name="M:YSWL.Accounts.Data.Permission.GetNoPermissionList(System.Int32)">
+            <summary>
+            获取指定角色没有的权限列表
+            </summary>        
+        </member>
+        <member name="T:YSWL.Accounts.Data.PermissionCategory">
+             <summary>
+            权限类别
+             </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Data.PermissionCategory.Create(System.String)">
+            <summary>
+            创建权限类别
+            </summary>        
+        </member>
+        <member name="M:YSWL.Accounts.Data.PermissionCategory.ExistsPerm(System.Int32)">
+            <summary>
+            该类别下是否存在权限记录
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Data.PermissionCategory.Delete(System.Int32)">
+            <summary>
+            删除权限类别
+            </summary>        
+        </member>
+        <member name="M:YSWL.Accounts.Data.PermissionCategory.Retrieve(System.Int32)">
+            <summary>
+            获取权限类别信息
+            </summary>        
+        </member>
+        <member name="M:YSWL.Accounts.Data.PermissionCategory.GetPermissionsInCategory(System.Int32)">
+            <summary>
+            获取指定类别下的权限列表
+            </summary>        
+        </member>
+        <member name="M:YSWL.Accounts.Data.PermissionCategory.GetCategoryList">
+            <summary>
+            获取权限类别的列表
+            </summary>        
+        </member>
+        <member name="T:YSWL.Accounts.Data.Role">
+            <summary>
+            角色管理
+            </summary>    
+        </member>
+        <member name="M:YSWL.Accounts.Data.Role.RoleExists(System.String)">
+            <summary>
+            是否存在该角色
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Data.Role.Create(System.String)">
+            <summary>
+            增加角色
+            </summary>       
+        </member>
+        <member name="M:YSWL.Accounts.Data.Role.Update(System.Int32,System.String)">
+            <summary>
+            更新角色信息
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Data.Role.Delete(System.Int32)">
+            <summary>
+            删除角色
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Data.Role.Retrieve(System.Int32)">
+            <summary>
+            根据角色ID获取角色的信息
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Data.Role.AddPermission(System.Int32,System.Int32)">
+            <summary>
+            为角色增加权限
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Data.Role.RemovePermission(System.Int32,System.Int32)">
+            <summary>
+            从角色移除权限
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Data.Role.ClearPermissions(System.Int32)">
+            <summary>
+            清空角色的权限
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Data.Role.GetRoleList">
+            <summary>
+            获取所有角色的列表
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Data.Role.GetRoleList(System.String)">
+            <summary>
+            获得数据列表
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Data.Role.GetALLUserRole">
+             <summary>
+            获取所有的用户角色
+             </summary>
+             <returns></returns>
+        </member>
+        <member name="M:YSWL.Accounts.Data.Role.GetALLRolePerm">
+             <summary>
+            获取所有的用户角色
+             </summary>
+             <returns></returns>
+        </member>
+        <member name="T:YSWL.Accounts.Data.User">
+            <summary>
+            用户管理
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Data.User.Create(System.String,System.Byte[],System.String,System.String,System.String,System.String,System.String,System.Int32,System.String,System.Boolean,System.String,System.Int32,System.Int32,System.DateTime,System.String,System.DateTime,System.Int32)">
+            <summary>
+            创建用户
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Data.User.Create(System.String,System.Byte[],System.String,System.String,System.String,System.String,System.String,System.Int32,System.String,System.Boolean,System.String,System.Int32,System.Int32,System.DateTime,System.DateTime,System.String)">
+            <summary>
+            创建用户
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Data.User.Retrieve(System.Int32)">
+            <summary>
+            根据UserID查询用户详细信息
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Data.User.Retrieve(System.String)">
+            <summary>
+            根据UserName查询用户详细信息
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Data.User.RetrieveByNickName(System.String)">
+            <summary>
+            根据NickName查询用户详细信息
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Data.User.HasUser(System.String)">
+            <summary>
+            用户名是否已经存在
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Data.User.HasUserByUserName(System.String)">
+            <summary>
+            用户名是否已经存在
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Data.User.HasUserByEmail(System.String)">
+            <summary>
+            邮箱是否已经存在
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Data.User.HasUserByNickName(System.String)">
+            <summary>
+            昵称是否已经存在
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Data.User.HasUserByPhone(System.String)">
+            <summary>
+            手机是否已经存在
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Data.User.HasUserByPhone(System.String,System.String)">
+            <summary>
+            手机是否已经存在
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Data.User.UpdateActivity(System.Int32,System.Boolean)">
+            <summary>
+            更新用户状态
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Data.User.Update(System.Int32,System.String,System.Byte[],System.String,System.String,System.String,System.String,System.String,System.Int32,System.String,System.Boolean,System.String,System.Int32)">
+            <summary>
+            更新用户信息
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Data.User.Update(System.Int32,System.Int32,System.String)">
+            <summary>
+            设置部门和员工编号
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Data.User.Update(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            设置审核
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Data.User.SetPassword(System.String,System.Byte[])">
+            <summary>
+            设置用户密码
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Data.User.Delete(System.Int32)">
+            <summary>
+            删除用户
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Data.User.ValidateLogin(System.String,System.Byte[])">
+            <summary>
+            验证用户登录信息
+            用户名登录
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Data.User.ValidateLogin4Email(System.String,System.Byte[])">
+            <summary>
+            验证用户登录信息
+            邮箱登录
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Data.User.TestPassword(System.Int32,System.Byte[])">
+            <summary>
+            测试用户密码
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Data.User.GetUserList(System.String)">
+            <summary>
+            根据关键字查询用户
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Data.User.GetUsersByType(System.String,System.String)">
+            <summary>
+            根据用户类型和关键字查询用户信息
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Data.User.GetUsersByDepart(System.String,System.String)">
+            <summary>
+            根据部门和关键字查询用户信息
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Data.User.GetUserList(System.String,System.String,System.String)">
+            <summary>
+            根据用户类型，部门，关键字查询用户
+            </summary>
+            <param name="UserType"></param>
+            <param name="DepartmentID"></param>
+            <param name="Key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Accounts.Data.User.GetUsersByEmp(System.Int32)">
+            <summary>
+            根据员工编号，获取员工编号的用户信息
+            </summary>        
+            <param name="EmployeeID">员工编号</param>        
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Accounts.Data.User.GetUsersByRole(System.Int32)">
+            <summary>
+            获取某角色下的所有用户
+            </summary>
+            <param name="RoleID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Accounts.Data.User.GetUserRoles(System.Int32)">
+            <summary>
+            获取用户的角色信息
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Data.User.GetUserRoles4KeyValues(System.Int32)">
+            <summary>
+            获取用户的角色信息
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Data.User.GetEffectivePermissionLists(System.Int32)">
+            <summary>
+            获取用户有效的权限列表数据集
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Data.User.GetEffectivePermissionList(System.Int32)">
+            <summary>
+            获取用户有效的权限名称列表
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Data.User.GetEffectivePermissionListID(System.Int32)">
+            <summary>
+            获取用户有效的权限ID列表
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Data.User.AddRole(System.Int32,System.Int32)">
+            <summary>
+            为用户增加角色
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Data.User.RemoveRole(System.Int32,System.Int32)">
+            <summary>
+            从用户移除角色
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Data.User.AssignRoleExists(System.Int32,System.Int32)">
+            <summary>
+            要分配是否存在该记录
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Data.User.AddAssignRole(System.Int32,System.Int32)">
+            <summary>
+            增加一条关联数据
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Data.User.DeleteAssignRole(System.Int32,System.Int32)">
+            <summary>
+            删除一条关联数据
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Data.User.GetAssignRolesByUser(System.Int32)">
+            <summary>
+            获取用户分配的角色列表
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Data.User.GetNoAssignRolesByUser(System.Int32)">
+            <summary>
+            获取用户的未分配的角色列表
+            </summary>
+            <param name="UserID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Accounts.Data.User.CreateAndRole(System.String,System.Byte[],System.String,System.String,System.String,System.String,System.String,System.Int32,System.String,System.Boolean,System.String,System.Int32,System.Int32,System.DateTime,System.String,System.Int32)">
+            <summary>
+            创建用户
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.Data.User.UpdateEx(System.String,System.Byte[],System.String,System.String)">
+            <summary>
+            更新信息 （SAAS 创建子账号使用）
+            </summary>
+            <param name="userName"></param>
+            <param name="password"></param>
+            <param name="trueName"></param>
+            <param name="phone"></param>
+            <returns></returns>
+        </member>
+        <member name="T:YSWL.Accounts.DbHelperMySQL">
+            <summary>
+            数据访问基础类(基于MySQL)
+            Copyright (C) 2004-2012 By YSWL
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.DbHelperMySQL.ExecuteSql(System.String)">
+            <summary>
+            执行SQL语句，返回影响的记录数
+            </summary>
+            <param name="SQLString">SQL语句</param>
+            <returns>影响的记录数</returns>
+        </member>
+        <member name="M:YSWL.Accounts.DbHelperMySQL.ExecuteSqlTran(System.Collections.Generic.List{System.String})">
+            <summary>
+            执行多条SQL语句，实现数据库事务。
+            </summary>
+            <param name="SQLStringList">多条SQL语句</param>		
+        </member>
+        <member name="M:YSWL.Accounts.DbHelperMySQL.ExecuteSql(System.String,System.String)">
+            <summary>
+            执行带一个存储过程参数的的SQL语句。
+            </summary>
+            <param name="SQLString">SQL语句</param>
+            <param name="content">参数内容,比如一个字段是格式复杂的文章，有特殊符号，可以通过这个方式添加</param>
+            <returns>影响的记录数</returns>
+        </member>
+        <member name="M:YSWL.Accounts.DbHelperMySQL.ExecuteSqlGet(System.String,System.String)">
+            <summary>
+            执行带一个存储过程参数的的SQL语句。
+            </summary>
+            <param name="SQLString">SQL语句</param>
+            <param name="content">参数内容,比如一个字段是格式复杂的文章，有特殊符号，可以通过这个方式添加</param>
+            <returns>影响的记录数</returns>
+        </member>
+        <member name="M:YSWL.Accounts.DbHelperMySQL.ExecuteSqlInsertImg(System.String,System.Byte[])">
+            <summary>
+            向数据库里插入图像格式的字段(和上面情况类似的另一种实例)
+            </summary>
+            <param name="strSQL">SQL语句</param>
+            <param name="fs">图像字节,数据库的字段类型为image的情况</param>
+            <returns>影响的记录数</returns>
+        </member>
+        <member name="M:YSWL.Accounts.DbHelperMySQL.GetSingle(System.String)">
+            <summary>
+            执行一条计算查询结果语句，返回查询结果（object）。
+            </summary>
+            <param name="SQLString">计算查询结果语句</param>
+            <returns>查询结果（object）</returns>
+        </member>
+        <member name="M:YSWL.Accounts.DbHelperMySQL.ExecuteReader(System.String)">
+            <summary>
+            执行查询语句，返回MySqlDataReader ( 注意：调用该方法后，一定要对MySqlDataReader进行Close )
+            </summary>
+            <param name="strSQL">查询语句</param>
+            <returns>MySqlDataReader</returns>
+        </member>
+        <member name="M:YSWL.Accounts.DbHelperMySQL.Query(System.String)">
+            <summary>
+            执行查询语句，返回DataSet
+            </summary>
+            <param name="SQLString">查询语句</param>
+            <returns>DataSet</returns>
+        </member>
+        <member name="M:YSWL.Accounts.DbHelperMySQL.ExecuteSql(System.String,System.Data.Common.DbParameter[])">
+            <summary>
+            执行SQL语句，返回影响的记录数
+            </summary>
+            <param name="SQLString">SQL语句</param>
+            <returns>影响的记录数</returns>
+        </member>
+        <member name="M:YSWL.Accounts.DbHelperMySQL.ExecuteSqlTran(System.Collections.Hashtable)">
+            <summary>
+            执行多条SQL语句，实现数据库事务。
+            </summary>
+            <param name="SQLStringList">SQL语句的哈希表（key为sql语句，value是该语句的MySqlParameter[]）</param>
+        </member>
+        <member name="M:YSWL.Accounts.DbHelperMySQL.ExecuteSqlTranWithIndentity(System.Collections.Hashtable)">
+            <summary>
+            执行多条SQL语句，实现数据库事务。
+            </summary>
+            <param name="SQLStringList">SQL语句的哈希表（key为sql语句，value是该语句的MySqlParameter[]）</param>
+        </member>
+        <member name="M:YSWL.Accounts.DbHelperMySQL.GetSingle(System.String,System.Data.Common.DbParameter[])">
+            <summary>
+            执行一条计算查询结果语句，返回查询结果（object）。
+            </summary>
+            <param name="SQLString">计算查询结果语句</param>
+            <returns>查询结果（object）</returns>
+        </member>
+        <member name="M:YSWL.Accounts.DbHelperMySQL.ExecuteReader(System.String,System.Data.Common.DbParameter[])">
+            <summary>
+            执行查询语句，返回SqlDataReader ( 注意：调用该方法后，一定要对SqlDataReader进行Close )
+            </summary>
+            <param name="strSQL">查询语句</param>
+            <returns>MySqlDataReader</returns>
+        </member>
+        <member name="M:YSWL.Accounts.DbHelperMySQL.Query(System.String,System.Data.Common.DbParameter[])">
+            <summary>
+            执行查询语句，返回DataSet
+            </summary>
+            <param name="SQLString">查询语句</param>
+            <returns>DataSet</returns>
+        </member>
+        <member name="M:YSWL.Accounts.DbHelperMySQL.RunProcedure(System.String,System.Data.IDataParameter[])">
+            <summary>
+            执行存储过程，返回SqlDataReader ( 注意：调用该方法后，一定要对SqlDataReader进行Close )
+            </summary>
+            <param name="storedProcName">存储过程名</param>
+            <param name="parameters">存储过程参数</param>
+            <returns>MySqlDataReader</returns>
+        </member>
+        <member name="M:YSWL.Accounts.DbHelperMySQL.RunProcedure(System.String,System.Data.IDataParameter[],System.String)">
+            <summary>
+            执行存储过程
+            </summary>
+            <param name="storedProcName">存储过程名</param>
+            <param name="parameters">存储过程参数</param>
+            <param name="tableName">DataSet结果中的表名</param>
+            <returns>DataSet</returns>
+        </member>
+        <member name="M:YSWL.Accounts.DbHelperMySQL.RunProcedure(System.String,System.Data.IDataParameter[],System.String,System.Int32@)">
+            <summary>
+            执行存储过程
+            </summary>
+            <param name="storedProcName">存储过程名</param>
+            <param name="parameters">存储过程参数</param>
+            <param name="tableName">DataSet结果中的表名</param>
+            <returns>DataSet</returns>
+        </member>
+        <member name="M:YSWL.Accounts.DbHelperMySQL.BuildQueryCommand(MySql.Data.MySqlClient.MySqlConnection,System.String,System.Data.IDataParameter[])">
+            <summary>
+            构建 MySqlCommand 对象(用来返回一个结果集，而不是一个整数值)
+            </summary>
+            <param name="connection">数据库连接</param>
+            <param name="storedProcName">存储过程名</param>
+            <param name="parameters">存储过程参数</param>
+            <returns>MySqlCommand</returns>
+        </member>
+        <member name="M:YSWL.Accounts.DbHelperMySQL.RunProcedure(System.String,System.Data.IDataParameter[],System.Int32@)">
+            <summary>
+            执行存储过程，返回影响的行数		
+            </summary>
+            <param name="storedProcName">存储过程名</param>
+            <param name="parameters">存储过程参数</param>
+            <param name="rowsAffected">影响的行数</param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Accounts.DbHelperMySQL.ExecuteSql(System.String,System.String,System.Data.Common.DbParameter[])">
+            <summary>
+            执行SQL语句，返回影响的记录数
+            </summary>
+            <param name="SQLString">SQL语句</param>
+            <param name="strConnectionString">连接字符串</param>
+            <returns>影响的记录数</returns>
+        </member>
+        <member name="M:YSWL.Accounts.DbHelperMySQL.Query(System.String,System.String)">
+            <summary>
+            执行查询语句，返回DataSet
+            </summary>
+            <param name="SQLString">查询语句</param>
+            <param name="strConnectionString">连接字符串</param>
+            <returns>DataSet</returns>
+        </member>
+        <member name="M:YSWL.Accounts.DbHelperMySQL.RunProcedure(System.String,System.Data.IDataParameter[],System.Data.DataSet,System.String)">
+            <summary>
+            执行存储过程，将结果集添加到现有的DataSet中。
+            Takes an -existing- dataset and fills the given table name with the results
+            of the stored procedure.
+            </summary>
+            <param name="storedProcName"></param>
+            <param name="parameters"></param>
+            <param name="dataSet"></param>
+            <param name="tableName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Accounts.DbHelperMySQL.CreateParam(System.String,MySql.Data.MySqlClient.MySqlDbType,System.Int32,System.Data.ParameterDirection,System.Object)">
+            <summary>
+            创建参数
+            </summary>
+            <param name="ParamName">参数名称</param>
+            <param name="DbType">参数类型</param>
+            <param name="Size">参数大小</param>
+            <param name="Direction">参数方向</param>
+            <param name="Value">参数值</param>
+            <returns>新的 parameter 对象</returns>
+        </member>
+        <!-- 对于成员“M:YSWL.Accounts.DbHelperMySQL.CreateInParam(System.String,MySql.Data.MySqlClient.MySqlDbType,System.Int32,System.Object)”忽略有格式错误的 XML 注释 -->
+        <member name="M:YSWL.Accounts.DbHelperMySQL.CreateOutParam(System.String,MySql.Data.MySqlClient.MySqlDbType,System.Int32)">
+            <summary>
+            创建输出类型参数
+            </summary>
+            <param name="ParamName">参数名称</param>
+            <param name="DbType">参数类型</param>
+            <param name="Size">参数大小</param>
+            <returns>新的 parameter 对象</returns>
+        </member>
+        <member name="M:YSWL.Accounts.DbHelperMySQL.CreateInputOutParam(System.String,MySql.Data.MySqlClient.MySqlDbType,System.Int32,System.Object)">
+            <summary>
+            创建输出类型参数
+            </summary>
+            <param name="ParamName">参数名称</param>
+            <param name="DbType">参数类型</param>
+            <param name="Size">参数大小</param>
+            <returns>新的 parameter 对象</returns>
+        </member>
+        <member name="M:YSWL.Accounts.DbHelperMySQL.CreateReturnParam(System.String,MySql.Data.MySqlClient.MySqlDbType,System.Int32)">
+            <summary>
+            创建返回类型参数
+            </summary>
+            <param name="ParamName">参数名称</param>
+            <param name="DbType">参数类型</param>
+            <param name="Size">参数大小</param>
+            <returns>新的 parameter 对象</returns>
+        </member>
+        <member name="M:YSWL.Accounts.IData.IUser.Create(System.String,System.Byte[],System.String,System.String,System.String,System.String,System.String,System.Int32,System.String,System.Boolean,System.String,System.Int32,System.Int32,System.DateTime,System.String,System.DateTime,System.Int32)">
+            <summary>
+            创建用户
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.IData.IUser.Create(System.String,System.Byte[],System.String,System.String,System.String,System.String,System.String,System.Int32,System.String,System.Boolean,System.String,System.Int32,System.Int32,System.DateTime,System.DateTime,System.String)">
+            <summary>
+            创建用户
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.IData.IUser.Retrieve(System.Int32)">
+            <summary>
+            根据UserID查询用户详细信息
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.IData.IUser.Retrieve(System.String)">
+            <summary>
+            根据UserName查询用户详细信息
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.IData.IUser.RetrieveByNickName(System.String)">
+            <summary>
+            根据NickName查询用户详细信息
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.IData.IUser.HasUser(System.String)">
+            <summary>
+            用户名是否已经存在
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.IData.IUser.HasUserByUserName(System.String)">
+            <summary>
+            用户名是否已经存在
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.IData.IUser.HasUserByEmail(System.String)">
+            <summary>
+            邮箱是否已经存在
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.IData.IUser.HasUserByNickName(System.String)">
+            <summary>
+            昵称是否已经存在
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.IData.IUser.HasUserByPhone(System.String)">
+            <summary>
+            手机是否已经存在
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.IData.IUser.HasUserByPhone(System.String,System.String)">
+            <summary>
+            手机是否已经存在
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.IData.IUser.Update(System.Int32,System.String,System.Byte[],System.String,System.String,System.String,System.String,System.String,System.Int32,System.String,System.Boolean,System.String,System.Int32)">
+            <summary>
+            更新用户信息
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.IData.IUser.Update(System.Int32,System.Int32,System.String)">
+            <summary>
+            设置部门和员工编号
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.IData.IUser.Update(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            设置审核
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.IData.IUser.SetPassword(System.String,System.Byte[])">
+            <summary>
+            设置用户密码
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.IData.IUser.Delete(System.Int32)">
+            <summary>
+            删除用户
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.IData.IUser.ValidateLogin(System.String,System.Byte[])">
+            <summary>
+            验证用户登录信息
+            用户名登录
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.IData.IUser.ValidateLogin4Email(System.String,System.Byte[])">
+            <summary>
+            验证用户登录信息
+            邮箱登录
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.IData.IUser.TestPassword(System.Int32,System.Byte[])">
+            <summary>
+            测试用户密码
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.IData.IUser.GetUserList(System.String)">
+            <summary>
+            根据关键字查询用户
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.IData.IUser.GetUsersByType(System.String,System.String)">
+            <summary>
+            根据用户类型和关键字查询用户信息
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.IData.IUser.GetUsersByDepart(System.String,System.String)">
+            <summary>
+            根据部门和关键字查询用户信息
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.IData.IUser.GetUserList(System.String,System.String,System.String)">
+            <summary>
+            根据用户类型，部门，关键字查询用户
+            </summary>
+            <param name="UserType"></param>
+            <param name="DepartmentID"></param>
+            <param name="Key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Accounts.IData.IUser.GetUsersByEmp(System.Int32)">
+            <summary>
+            根据员工编号，获取员工编号的用户信息
+            </summary>        
+            <param name="EmployeeID">员工编号</param>        
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Accounts.IData.IUser.GetUsersByRole(System.Int32)">
+            <summary>
+            获取某角色下的所有用户
+            </summary>
+            <param name="RoleID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Accounts.IData.IUser.GetUserRoles(System.Int32)">
+            <summary>
+            获取用户的角色信息
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.IData.IUser.GetUserRoles4KeyValues(System.Int32)">
+            <summary>
+            获取用户的角色信息
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.IData.IUser.GetEffectivePermissionLists(System.Int32)">
+            <summary>
+            获取用户有效的权限列表数据集
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.IData.IUser.GetEffectivePermissionList(System.Int32)">
+            <summary>
+            获取用户有效的权限名称列表
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.IData.IUser.GetEffectivePermissionListID(System.Int32)">
+            <summary>
+            获取用户有效的权限ID列表
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.IData.IUser.AddRole(System.Int32,System.Int32)">
+            <summary>
+            为用户增加角色
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.IData.IUser.RemoveRole(System.Int32,System.Int32)">
+            <summary>
+            从用户移除角色
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.IData.IUser.AssignRoleExists(System.Int32,System.Int32)">
+            <summary>
+            要分配是否存在该记录
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.IData.IUser.AddAssignRole(System.Int32,System.Int32)">
+            <summary>
+            增加一条关联数据
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.IData.IUser.DeleteAssignRole(System.Int32,System.Int32)">
+            <summary>
+            删除一条关联数据
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.IData.IUser.GetAssignRolesByUser(System.Int32)">
+            <summary>
+            获取用户分配的角色列表
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.IData.IUser.GetNoAssignRolesByUser(System.Int32)">
+            <summary>
+            获取用户的未分配的角色列表
+            </summary>
+            <param name="UserID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Accounts.IData.IUser.UpdateActivity(System.Int32,System.Boolean)">
+            <summary>
+            更新用户状态
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.IData.IUser.CreateAndRole(System.String,System.Byte[],System.String,System.String,System.String,System.String,System.String,System.Int32,System.String,System.Boolean,System.String,System.Int32,System.Int32,System.DateTime,System.String,System.Int32)">
+            <summary>
+            创建用户
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.IData.IUserType.Exists(System.String,System.String)">
+            <summary>
+            是否存在该记录
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.IData.IUserType.Add(System.String,System.String)">
+            <summary>
+            增加一条数据
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.IData.IUserType.Update(System.String,System.String)">
+            <summary>
+            更新一条数据
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.IData.IUserType.Delete(System.String)">
+            <summary>
+            删除一条数据
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.IData.IUserType.GetDescription(System.String)">
+            <summary>
+            得到类型描述
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.IData.IUserType.GetList(System.String)">
+            <summary>
+            获得数据列表
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.IData.IRole.RoleExists(System.String)">
+            <summary>
+            是否存在该角色
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.IData.IRole.Create(System.String)">
+            <summary>
+            增加角色
+            </summary>       
+        </member>
+        <member name="M:YSWL.Accounts.IData.IRole.Update(System.Int32,System.String)">
+            <summary>
+            更新角色信息
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.IData.IRole.Delete(System.Int32)">
+            <summary>
+            删除角色
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.IData.IRole.Retrieve(System.Int32)">
+            <summary>
+            根据角色ID获取角色的信息
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.IData.IRole.AddPermission(System.Int32,System.Int32)">
+            <summary>
+            为角色增加权限
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.IData.IRole.RemovePermission(System.Int32,System.Int32)">
+            <summary>
+            从角色移除权限
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.IData.IRole.ClearPermissions(System.Int32)">
+            <summary>
+            清空角色的权限
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.IData.IRole.GetRoleList">
+            <summary>
+            获取所有角色的列表
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.IData.IRole.GetRoleList(System.String)">
+            <summary>
+            获得数据列表
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.IData.IPermissionCategory.Create(System.String)">
+            <summary>
+            创建权限类别
+            </summary>        
+        </member>
+        <member name="M:YSWL.Accounts.IData.IPermissionCategory.ExistsPerm(System.Int32)">
+            <summary>
+            该类别下是否存在权限记录
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.IData.IPermissionCategory.Delete(System.Int32)">
+            <summary>
+            删除权限类别
+            </summary>        
+        </member>
+        <member name="M:YSWL.Accounts.IData.IPermissionCategory.Retrieve(System.Int32)">
+            <summary>
+            获取权限类别信息
+            </summary>        
+        </member>
+        <member name="M:YSWL.Accounts.IData.IPermissionCategory.GetPermissionsInCategory(System.Int32)">
+            <summary>
+            获取指定类别下的权限列表
+            </summary>        
+        </member>
+        <member name="M:YSWL.Accounts.IData.IPermissionCategory.GetCategoryList">
+            <summary>
+            获取权限类别的列表
+            </summary>        
+        </member>
+        <member name="M:YSWL.Accounts.IData.IPermission.Create(System.Int32,System.String)">
+            <summary>
+            创建一个权限
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.IData.IPermission.Update(System.Int32,System.String)">
+            <summary>
+            更新权限信息
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.IData.IPermission.Delete(System.Int32)">
+            <summary>
+            删除权限
+            </summary>        
+        </member>
+        <member name="M:YSWL.Accounts.IData.IPermission.Retrieve(System.Int32)">
+            <summary>
+            根据权限ID获取权限信息
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.IData.IPermission.GetPermissionList">
+            <summary>
+            获取权限列表
+            </summary>        
+        </member>
+        <member name="M:YSWL.Accounts.IData.IPermission.GetPermissionList(System.Int32)">
+            <summary>
+            获取指定角色的权限列表
+            </summary>        
+        </member>
+        <member name="M:YSWL.Accounts.IData.IPermission.GetNoPermissionList(System.Int32)">
+            <summary>
+            获取指定角色没有的权限列表
+            </summary>        
+        </member>
+        <member name="M:YSWL.Accounts.IData.IActions.Exists(System.String)">
+            <summary>
+            Whether Exists
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.IData.IActions.Add(System.String)">
+            <summary>
+            Add a record
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.IData.IActions.Add(System.String,System.Int32)">
+            <summary>
+            Add a record,include perimission
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.IData.IActions.Update(System.Int32,System.String)">
+            <summary>
+            Update a record
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.IData.IActions.Update(System.Int32,System.String,System.Int32)">
+            <summary>
+            Update a record, include permission
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.IData.IActions.Delete(System.Int32)">
+            <summary>
+            Delete a record
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.IData.IActions.GetDescription(System.Int32)">
+            <summary>
+            Get Description
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.IData.IActions.GetList(System.String)">
+            <summary>
+            Query data list
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.IData.IActions.AddPermission(System.String,System.Int32)">
+            <summary>
+            批量增加权限设置
+            </summary>
+            <param name="ActionIDs"></param>
+            <param name="PermissionID"></param>
+        </member>
+        <member name="T:YSWL.Accounts.DESEncrypt">
+            <summary>
+            DES加密/解密类。
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.DESEncrypt.Encrypt(System.String)">
+            <summary>
+            加密
+            </summary>
+            <param name="Text"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Accounts.DESEncrypt.Encrypt(System.String,System.String)">
+            <summary> 
+            加密数据 
+            </summary> 
+            <param name="Text"></param> 
+            <param name="sKey"></param> 
+            <returns></returns> 
+        </member>
+        <member name="M:YSWL.Accounts.DESEncrypt.Decrypt(System.String)">
+            <summary>
+            解密
+            </summary>
+            <param name="Text"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Accounts.DESEncrypt.Decrypt(System.String,System.String)">
+            <summary> 
+            解密数据 
+            </summary> 
+            <param name="Text"></param> 
+            <param name="sKey"></param> 
+            <returns></returns> 
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.Actions.Exists(System.String)">
+            <summary>
+            Whether Exists
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.Actions.Add(System.String)">
+            <summary>
+            Add a record
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.Actions.Add(System.String,System.Int32)">
+            <summary>
+            Add a record,include perimission
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.Actions.Update(System.Int32,System.String)">
+            <summary>
+            Update a record
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.Actions.Update(System.Int32,System.String,System.Int32)">
+            <summary>
+            Update a record, include permission
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.Actions.Delete(System.Int32)">
+            <summary>
+            Delete a record
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.Actions.GetDescription(System.Int32)">
+            <summary>
+            Get Description
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.Actions.GetList(System.String)">
+            <summary>
+            Query data list
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.Actions.AddPermission(System.String,System.Int32)">
+            <summary>
+            批量增加权限设置
+            </summary>
+            <param name="ActionIDs"></param>
+            <param name="PermissionID"></param>
+        </member>
+        <member name="T:YSWL.Accounts.MySqlData.Permission">
+            <summary>
+            权限管理
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.Permission.Create(System.Int32,System.String)">
+            <summary>
+            创建一个权限
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.Permission.Update(System.Int32,System.String)">
+            <summary>
+            更新权限信息
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.Permission.Delete(System.Int32)">
+            <summary>
+            删除权限
+            </summary>        
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.Permission.Retrieve(System.Int32)">
+            <summary>
+            根据权限ID获取权限信息
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.Permission.GetPermissionList">
+            <summary>
+            获取权限列表
+            </summary>        
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.Permission.GetPermissionList(System.Int32)">
+            <summary>
+            获取指定角色的权限列表
+            </summary>        
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.Permission.GetNoPermissionList(System.Int32)">
+            <summary>
+            获取指定角色没有的权限列表
+            </summary>        
+        </member>
+        <member name="T:YSWL.Accounts.MySqlData.PermissionCategory">
+             <summary>
+            权限类别
+             </summary>
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.PermissionCategory.Create(System.String)">
+            <summary>
+            创建权限类别
+            </summary>        
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.PermissionCategory.ExistsPerm(System.Int32)">
+            <summary>
+            该类别下是否存在权限记录
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.PermissionCategory.Delete(System.Int32)">
+            <summary>
+            删除权限类别
+            </summary>        
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.PermissionCategory.Retrieve(System.Int32)">
+            <summary>
+            获取权限类别信息
+            </summary>        
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.PermissionCategory.GetPermissionsInCategory(System.Int32)">
+            <summary>
+            获取指定类别下的权限列表
+            </summary>        
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.PermissionCategory.GetCategoryList">
+            <summary>
+            获取权限类别的列表
+            </summary>        
+        </member>
+        <member name="T:YSWL.Accounts.MySqlData.Role">
+            <summary>
+            角色管理
+            </summary>    
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.Role.RoleExists(System.String)">
+            <summary>
+            是否存在该角色
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.Role.Create(System.String)">
+            <summary>
+            增加角色
+            </summary>       
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.Role.Update(System.Int32,System.String)">
+            <summary>
+            更新角色信息
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.Role.Delete(System.Int32)">
+            <summary>
+            删除角色
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.Role.Retrieve(System.Int32)">
+            <summary>
+            根据角色ID获取角色的信息
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.Role.AddPermission(System.Int32,System.Int32)">
+            <summary>
+            为角色增加权限
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.Role.RemovePermission(System.Int32,System.Int32)">
+            <summary>
+            从角色移除权限
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.Role.ClearPermissions(System.Int32)">
+            <summary>
+            清空角色的权限
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.Role.GetRoleList">
+            <summary>
+            获取所有角色的列表
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.Role.GetRoleList(System.String)">
+            <summary>
+            获得数据列表
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.Role.GetALLUserRole">
+             <summary>
+            获取所有的用户角色
+             </summary>
+             <returns></returns>
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.Role.GetALLRolePerm">
+             <summary>
+            获取所有的用户角色
+             </summary>
+             <returns></returns>
+        </member>
+        <member name="T:YSWL.Accounts.MySqlData.User">
+            <summary>
+            用户管理
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.User.Create(System.String,System.Byte[],System.String,System.String,System.String,System.String,System.String,System.Int32,System.String,System.Boolean,System.String,System.Int32,System.Int32,System.DateTime,System.String,System.DateTime,System.Int32)">
+            <summary>
+            创建用户
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.User.Retrieve(System.Int32)">
+            <summary>
+            根据UserID查询用户详细信息
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.User.Retrieve(System.String)">
+            <summary>
+            根据UserName查询用户详细信息
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.User.RetrieveByNickName(System.String)">
+            <summary>
+            根据NickName查询用户详细信息
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.User.HasUser(System.String)">
+            <summary>
+            用户名是否已经存在
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.User.HasUserByUserName(System.String)">
+            <summary>
+            用户名是否已经存在
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.User.HasUserByEmail(System.String)">
+            <summary>
+            邮箱是否已经存在
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.User.HasUserByNickName(System.String)">
+            <summary>
+            昵称是否已经存在
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.User.HasUserByPhone(System.String)">
+            <summary>
+            手机是否已经存在
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.User.HasUserByPhone(System.String,System.String)">
+            <summary>
+            手机是否已经存在
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.User.UpdateActivity(System.Int32,System.Boolean)">
+            <summary>
+            更新用户状态
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.User.Update(System.Int32,System.String,System.Byte[],System.String,System.String,System.String,System.String,System.String,System.Int32,System.String,System.Boolean,System.String,System.Int32)">
+            <summary>
+            更新用户信息
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.User.Update(System.Int32,System.Int32,System.String)">
+            <summary>
+            设置部门和员工编号
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.User.Update(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            设置审核
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.User.SetPassword(System.String,System.Byte[])">
+            <summary>
+            设置用户密码
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.User.Delete(System.Int32)">
+            <summary>
+            删除用户
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.User.ValidateLogin(System.String,System.Byte[])">
+            <summary>
+            验证用户登录信息
+            用户名登录
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.User.ValidateLogin4Email(System.String,System.Byte[])">
+            <summary>
+            验证用户登录信息
+            邮箱登录
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.User.TestPassword(System.Int32,System.Byte[])">
+            <summary>
+            测试用户密码
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.User.GetUserList(System.String)">
+            <summary>
+            根据关键字查询用户
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.User.GetUsersByType(System.String,System.String)">
+            <summary>
+            根据用户类型和关键字查询用户信息
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.User.GetUsersByDepart(System.String,System.String)">
+            <summary>
+            根据部门和关键字查询用户信息
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.User.GetUserList(System.String,System.String,System.String)">
+            <summary>
+            根据用户类型，部门，关键字查询用户
+            </summary>
+            <param name="UserType"></param>
+            <param name="DepartmentID"></param>
+            <param name="Key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.User.GetUsersByEmp(System.Int32)">
+            <summary>
+            根据员工编号，获取员工编号的用户信息
+            </summary>        
+            <param name="EmployeeID">员工编号</param>        
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.User.GetUsersByRole(System.Int32)">
+            <summary>
+            获取某角色下的所有用户
+            </summary>
+            <param name="RoleID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.User.GetUserRoles(System.Int32)">
+            <summary>
+            获取用户的角色信息
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.User.GetUserRoles4KeyValues(System.Int32)">
+            <summary>
+            获取用户的角色信息
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.User.GetEffectivePermissionLists(System.Int32)">
+            <summary>
+            获取用户有效的权限列表数据集
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.User.GetEffectivePermissionList(System.Int32)">
+            <summary>
+            获取用户有效的权限名称列表
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.User.GetEffectivePermissionListID(System.Int32)">
+            <summary>
+            获取用户有效的权限ID列表
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.User.AddRole(System.Int32,System.Int32)">
+            <summary>
+            为用户增加角色
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.User.RemoveRole(System.Int32,System.Int32)">
+            <summary>
+            从用户移除角色
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.User.AssignRoleExists(System.Int32,System.Int32)">
+            <summary>
+            要分配是否存在该记录
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.User.AddAssignRole(System.Int32,System.Int32)">
+            <summary>
+            增加一条关联数据
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.User.DeleteAssignRole(System.Int32,System.Int32)">
+            <summary>
+            删除一条关联数据
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.User.GetAssignRolesByUser(System.Int32)">
+            <summary>
+            获取用户分配的角色列表
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.User.GetNoAssignRolesByUser(System.Int32)">
+            <summary>
+            获取用户的未分配的角色列表
+            </summary>
+            <param name="UserID"></param>
+            <returns></returns>
+        </member>
+        <member name="T:YSWL.Accounts.MySqlData.UserType">
+            <summary>
+            用户类型管理
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.UserType.Exists(System.String,System.String)">
+            <summary>
+            是否存在该记录
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.UserType.Add(System.String,System.String)">
+            <summary>
+            增加一条数据
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.UserType.Update(System.String,System.String)">
+            <summary>
+            更新一条数据
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.UserType.Delete(System.String)">
+            <summary>
+            删除一条数据
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.UserType.GetDescription(System.String)">
+            <summary>
+            得到类型描述
+            </summary>
+        </member>
+        <member name="M:YSWL.Accounts.MySqlData.UserType.GetList(System.String)">
+            <summary>
+            获得数据列表
+            </summary>
+        </member>
+        <member name="P:YSWL.Accounts.PubConstant.ConnectionString">
+            <summary>
+            数据库连接字符串
+            </summary>
+        </member>
+    </members>
+</doc>

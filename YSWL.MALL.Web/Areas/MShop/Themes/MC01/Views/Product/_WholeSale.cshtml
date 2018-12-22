@@ -1,0 +1,96 @@
+﻿@model YSWL.MALL.ViewModel.Shop.SalesModel
+ @if (Model != null && Model.SalesItems != null && Model.SalesItems.Count > 0)
+ {
+    <div class="preferential bgc-f  clearfix" id="wholeList">
+        <span class="fl">批发</span>
+        <div class="showTxt fl">
+          @{
+              var sales = Model.SalesItems.Find(o => o.ItemType == 0);
+              if (sales != null)
+              {
+                <em>打折</em>
+              }
+              sales = Model.SalesItems.Find(o => o.ItemType == 1);
+              if (sales != null)
+              {
+                <em>减价</em>
+              }
+              sales = Model.SalesItems.Find(o => o.ItemType == 2);
+              if (sales != null)
+              {
+                <em>固定价</em>
+              }
+        }  
+        </div>
+        <div class="showTxt2 fl">
+            <span class="showTit">可享受以下批发活动</span>
+        @foreach (var item in Model.SalesItems)
+        {
+            <span class="showTit">
+                    @switch (item.ItemType)
+                    {
+                        case 0:
+                            <em> 打折 </em>
+                            break;
+                        case 1:
+                            <em> 减价 </em>
+                            break;
+                        case 2:
+                            <em> 固定价 </em>
+                            break;
+                    }
+                <i class="show-text">
+
+                    @if (item.UserRankList != null)
+                    {
+                        @:会员级别为
+                      for (int i = 0; i < item.UserRankList.Count; i++)
+                        {
+                            if (i > 0)
+                            {
+                                @:、
+                          }
+                            <label class="red">@item.UserRankList[i].Name</label>
+                        }
+                        @:的用户,
+                  }
+
+                    @if (Model.SalesRule.RuleUnit == 0)
+                    {
+                        if (item.ItemType == 0)
+                        {
+                            @:满<label class="red">@item.UnitValue</label>个，优惠<label class="red">@(100 - item.RateValue)</label>%
+                      }
+                        if (item.ItemType == 1)
+                        {
+                            @:满<label class="red">@item.UnitValue</label>个，总价优惠<label class="red">@item.RateValue</label>元
+                      }
+                        if (item.ItemType == 2)
+                        {
+                            @:满<label class="red">@item.UnitValue</label>个，每个优惠<label class="red">@item.RateValue</label>元
+                      }
+                    }
+                    else
+                    {
+                        if (item.ItemType == 0)
+                        {
+                            @:满<label class="red">@item.UnitValue</label>元，优惠<label class="red">@(100 - item.RateValue)</label>%
+                      }
+                        if (item.ItemType == 1)
+                        {
+                            @:满<label class="red">@item.UnitValue</label>元，总价优惠<label class="red">@item.RateValue</label>元
+                      }
+                        if (item.ItemType == 2)
+                        {
+
+                            @:满<label class="red">@item.UnitValue</label>元，每个优惠<label class="red">@item.RateValue</label>元
+                      }
+                    }
+                </i>
+</span>
+        }
+        </div>
+        <i class="preMore si fr" id="whole_preMore"></i>
+    </div>
+ }
+

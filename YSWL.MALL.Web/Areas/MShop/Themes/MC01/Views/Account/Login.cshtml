@@ -1,0 +1,55 @@
+﻿ @{
+     Layout = "/Areas/MShop/Themes/MC01/Views/Shared/_BaseLayout.cshtml";
+     ViewBag.Title = "登录";
+ }
+@section head{
+    <link href="/Areas/MShop/Themes/MC01/Content/Css/main.css" rel="stylesheet" />
+}
+<script type="text/javascript">
+    var selfurl = window.location.pathname + window.location.search;
+    if (selfurl.indexOf( 'a/l') == -1 &&
+        selfurl.indexOf('a/login') == -1 &&
+        selfurl.indexOf( 'account/login') == -1) {
+        window.location = $YSWL.BasePath + "a/l?returnUrl=" + selfurl;
+    }
+</script>
+ 
+<input id="hfSMSIsOpen" type="hidden" value="@ViewBag.SMSIsOpen" /> 
+<div class="main_wrapper">
+    <div class="menu_list login_con">
+        <div class="saas_logo">
+            <img src="/Areas/MShop/Themes/MC01/Content/images/saas_logo.png" alt="">
+        </div>
+        <input id="hfRegisterToggle" type="hidden" value="@ViewBag.RegisterToggle" />
+        <input name="returnUrl" id="returnUrl" type="hidden" value="@ViewBag.returnUrl" />
+        <div class="login_con_box">
+            <div class="input_item login_username">
+                @*<input type="@(ViewBag.RegisterToggle == "Phone"?"number":"text")" class="spec_ipt" id="txtLogin" placeholder="@(ViewBag.RegisterToggle == "Phone"?"请输入手机号码":"请输入邮箱")">*@
+                <input type="text" class="spec_ipt" id="txtLogin" placeholder="@(ViewBag.RegisterToggle == "Phone"?"请输入用户名":"请输入邮箱")">
+            </div>
+            <div class="input_item login_password">
+                <input type="password" class="spec_ipt" id="txtPwd" placeholder="请输入密码">
+            </div>
+        </div>
+        <div class="btn_wrap">
+            <a href="javascript:;"  id="loginsubmit" >
+                <div class="big_btn btn_green">
+                    <span>登录</span>
+                </div>
+            </a>
+        </div>
+        <div class="autologin">
+           <a href="@(ViewBag.BasePath)a/fp"><span style="display:none;">找回密码</span></a> 
+           <a href="@(ViewBag.BasePath)a/r"> <span class="fr">立即注册>></span></a>
+           <a href="@(ViewBag.BasePath)account/RegBind"> <span class="fr">微信登录>></span></a>
+       </div>
+    </div>
+</div>
+@section foot{
+<script src="/Areas/MShop/Themes/MC01/Content/Scripts/login.js" type="text/javascript"></script>
+}
+ 
+ 
+ 
+ 
+

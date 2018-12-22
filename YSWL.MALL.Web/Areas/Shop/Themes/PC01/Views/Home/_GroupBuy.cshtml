@@ -1,0 +1,191 @@
+﻿@using YSWL.MALL.Web.SMSService
+@model List<YSWL.MALL.Model.Shop.PromoteSales.GroupBuy>
+<div class="floor-bd">
+    <div class="pro-list-wrapper">
+        <ul class="pro-list col5 pro-item-border clearfix placeholder-pf">
+            <li class="pro-list-item">
+                @Html.Action("AD", "Partial", new { AdvPositionId = 108, ViewName = "_IndexLeftAd" })
+            </li>
+            @if (Model != null && Model.Count > 0)
+            {
+                @*<li class="pro-list-item">
+                    <div class="row1">
+                        <div class="pro-item">
+                            <a href="@(ViewBag.BasePath)Product/GroupBuyDetail/@Model[0].GroupBuyId">
+                                <div class="pro-pic">
+                                    <img src="@YSWL.MALL.Web.Components.FileHelper.GeThumbImage(Model[0].GroupBuyImage, "T350X350_")" alt="@Model[0].ProductName">
+                                </div>
+                                <p class="pro-name">@Model[0].ProductName</p>
+                                <div class="pro-price">
+                                    <span class="price-new"><i>¥</i>@Model[0].Price.ToString("F")</span>
+                                    <span class="activity-tag tag-hollow-btn">立省@((Model[0].LowestSalePrice - Model[0].Price).ToString("F"))</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </li>*@
+
+                if (Model.Count > 0)
+                {
+                    <li class="pro-list-item">
+                        <div class="row2 placeholder-column2">
+                            <div class="pro-item">
+                                <a href="@(ViewBag.BasePath)Product/GroupBuyDetail/@Model[0].GroupBuyId">
+                                    <p class="pro-name">@Model[0].ProductName</p>
+                                    <div class="pro-price">
+                                        <span class="price-new"><i>¥</i>@Model[0].Price.ToString("F")</span>
+                                        <span class="activity-tag tag-hollow-btn">立省@((Model[0].LowestSalePrice - Model[0].Price).ToString("F"))</span>
+                                    </div>
+                                    <div class="pro-pic">
+                                        <img src="@YSWL.MALL.Web.Components.FileHelper.GeThumbImage(Model[0].GroupBuyImage, "T115X115_")" alt="@Model[0].ProductName">
+                                    </div>
+                                </a>
+                            </div>
+                            @if (Model.Count > 1)
+                            {
+                                <div class="pro-item">
+                                    <a href="@(ViewBag.BasePath)Product/GroupBuyDetail/@Model[0].GroupBuyId">
+                                        <p class="pro-name">@Model[1].ProductName</p>
+                                        <div class="pro-price">
+                                            <span class="price-new"><i>¥</i>@Model[1].Price.ToString("F")</span>
+                                            <span class="activity-tag tag-hollow-btn">立省@((Model[1].LowestSalePrice - Model[1].Price).ToString("F"))</span>
+                                        </div>
+                                        <div class="pro-pic">
+                                            <img src="@YSWL.MALL.Web.Components.FileHelper.GeThumbImage(Model[1].GroupBuyImage, "T115X115_")" alt="@Model[1].ProductName">
+                                        </div>
+                                    </a>
+                                </div>
+                            }
+                        </div>
+                    </li>
+                }
+
+                if (Model.Count > 2)
+                {
+                    <li class="pro-list-item">
+                        <div class="row2 placeholder-column2">
+                            <div class="pro-item">
+                                <a href="@(ViewBag.BasePath)Product/GroupBuyDetail/@Model[2].GroupBuyId">
+                                    <p class="pro-name">@Model[2].ProductName</p>
+                                    <div class="pro-price">
+                                        <span class="price-new"><i>¥</i>@Model[2].Price.ToString("F")</span>
+                                        <span class="activity-tag tag-hollow-btn">立省@((Model[2].LowestSalePrice - Model[2].Price).ToString("F"))</span>
+                                    </div>
+                                    <div class="pro-pic">
+                                        <img src="@YSWL.MALL.Web.Components.FileHelper.GeThumbImage(Model[2].GroupBuyImage, "T115X115_")" alt="@Model[2].ProductName">
+                                    </div>
+                                </a>
+                            </div>
+                            @if (Model.Count > 3)
+                            {
+                                <div class="pro-item">
+                                    <a href="@(ViewBag.BasePath)Product/GroupBuyDetail/@Model[3].GroupBuyId">
+                                        <p class="pro-name">@Model[3].ProductName</p>
+                                        <div class="pro-price">
+                                            <span class="price-new"><i>¥</i>@Model[3].Price.ToString("F")</span>
+                                            <span class="activity-tag tag-hollow-btn">立省@((Model[3].LowestSalePrice - Model[3].Price).ToString("F"))</span>
+                                        </div>
+                                        <div class="pro-pic">
+                                            <img src="@YSWL.MALL.Web.Components.FileHelper.GeThumbImage(Model[3].GroupBuyImage, "T115X115_")" alt="@Model[3].ProductName">
+                                        </div>
+                                    </a>
+                                </div>
+                            }
+                        </div>
+                    </li>
+                }
+
+                if (Model.Count > 4)
+                {
+                    <li class="pro-list-item">
+                        <div class="row2 placeholder-column2">
+                            <div class="pro-item">
+                                <a href="@(ViewBag.BasePath)Product/GroupBuyDetail/@Model[4].GroupBuyId">
+                                    <p class="pro-name">@Model[4].ProductName</p>
+                                    <div class="pro-price">
+                                        <span class="price-new"><i>¥</i>@Model[4].Price.ToString("F")</span>
+                                        <span class="activity-tag tag-hollow-btn">立省@((Model[4].LowestSalePrice - Model[4].Price).ToString("F"))</span>
+                                    </div>
+                                    <div class="pro-pic">
+                                        <img src="@YSWL.MALL.Web.Components.FileHelper.GeThumbImage(Model[4].GroupBuyImage, "T115X115_")" alt="@Model[4].ProductName">
+                                    </div>
+                                </a>
+                            </div>
+                            @if (Model.Count > 5)
+                            {
+                                <div class="pro-item">
+                                    <a href="@(ViewBag.BasePath)Product/GroupBuyDetail/@Model[5].GroupBuyId">
+                                        <p class="pro-name">@Model[5].ProductName</p>
+                                        <div class="pro-price">
+                                            <span class="price-new"><i>¥</i>@Model[5].Price.ToString("F")</span>
+                                            <span class="activity-tag tag-hollow-btn">立省@((Model[5].LowestSalePrice - Model[5].Price).ToString("F"))</span>
+                                        </div>
+                                        <div class="pro-pic">
+                                            <img src="@YSWL.MALL.Web.Components.FileHelper.GeThumbImage(Model[5].GroupBuyImage, "T115X115_")" alt="@Model[5].ProductName">
+                                        </div>
+                                    </a>
+                                </div>
+                            }
+                        </div>
+                    </li>
+                }
+
+                if (Model.Count > 6)
+                {
+                    <li class="pro-list-item">
+                        <div class="row2 placeholder-column2">
+                            <div class="pro-item">
+                                <a href="@(ViewBag.BasePath)Product/GroupBuyDetail/@Model[6].GroupBuyId">
+                                    <p class="pro-name">@Model[6].ProductName</p>
+                                    <div class="pro-price">
+                                        <span class="price-new"><i>¥</i>@Model[6].Price.ToString("F")</span>
+                                        <span class="activity-tag tag-hollow-btn">立省@((Model[6].LowestSalePrice - Model[6].Price).ToString("F"))</span>
+                                    </div>
+                                    <div class="pro-pic">
+                                        <img src="@YSWL.MALL.Web.Components.FileHelper.GeThumbImage(Model[6].GroupBuyImage, "T115X115_")" alt="@Model[6].ProductName">
+                                    </div>
+                                </a>
+                            </div>
+                            @if (Model.Count > 7)
+                            {
+                                <div class="pro-item">
+                                    <a href="@(ViewBag.BasePath)Product/GroupBuyDetail/@Model[7].GroupBuyId">
+                                        <p class="pro-name">@Model[7].ProductName</p>
+                                        <div class="pro-price">
+                                            <span class="price-new"><i>¥</i>@Model[7].Price.ToString("F")</span>
+                                            <span class="activity-tag tag-hollow-btn">立省@((Model[7].LowestSalePrice - Model[7].Price).ToString("F"))</span>
+                                        </div>
+                                        <div class="pro-pic">
+                                            <img src="@YSWL.MALL.Web.Components.FileHelper.GeThumbImage(Model[7].GroupBuyImage, "T115X115_")" alt="@Model[7].ProductName">
+                                        </div>
+                                    </a>
+                                </div>
+                            }
+                        </div>
+                    </li>
+                }
+                
+
+                @*if (Model.Count > 5)
+                {
+                    <li class="pro-list-item">
+                        <div class="row1">
+                            <div class="pro-item">
+                                <a href="@(ViewBag.BasePath)Product/GroupBuyDetail/@Model[5].GroupBuyId">
+                                    <div class="pro-pic">
+                                        <img src="@YSWL.MALL.Web.Components.FileHelper.GeThumbImage(Model[5].GroupBuyImage, "T350X350_")" alt="@Model[5].ProductName">
+                                    </div>
+                                    <p class="pro-name">@Model[5].ProductName</p>
+                                    <div class="pro-price">
+                                        <span class="price-new"><i>¥</i>@Model[5].Price.ToString("F")</span>
+                                        <span class="activity-tag tag-hollow-btn">立省@((Model[5].LowestSalePrice - Model[5].Price).ToString("F"))</span>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+                }*@
+            }
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,20 @@
+﻿@model List<YSWL.MALL.Model.Shop.Products.AttributeInfo> 
+
+
+@if (Model != null && Model.Count > 0)
+{
+    foreach (var item in Model)
+    {
+        <div class="filter_item brand" id="Attr_@(item.AttributeId)">
+            <div class="search_head pd">
+                @item.AttributeName：<span class="green"  id="filter_attr_tip@(item.AttributeId)">全部</span>
+            </div>
+            <div class="filter_tag">
+                <a href="javascript:;"  valueId="0" AttrId="@item.AttributeId" class="valueList">
+                    <span class="tag tag_a">全部</span>
+                </a>
+                @Html.Action("AttrValues", new { AttrId = item.AttributeId, viewName = "_AttrValues" }) 
+            </div>
+        </div>
+    }
+}

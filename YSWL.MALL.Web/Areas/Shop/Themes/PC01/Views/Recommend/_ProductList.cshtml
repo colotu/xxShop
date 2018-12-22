@@ -1,0 +1,65 @@
+﻿@using Webdiyer.WebControls.Mvc
+@model YSWL.MALL.ViewModel.Shop.ProductListModel
+@{
+    string type = Request.RequestContext.RouteData.Values["type"] != null ? Request.RequestContext.RouteData.Values["type"].ToString() : "rec";
+}
+@if (Model.ProductPagedList != null && Model.ProductPagedList.Count > 0)
+{
+    <div class="tab-con">
+        <div class="pro-list-wrapper">
+            <ul class="pro-list col5 pro-item-border clearfix allGoods">
+                @foreach (var item in Model.ProductPagedList)
+                {
+                    <li class="pro-list-item">
+                        <div class="pro-item">
+                            <a href="@item.SeoUrl">
+                                <div class="pro-pic">
+                                    <img  ref="@YSWL.MALL.Web.Components.FileHelper.GeThumbImage(item.ThumbnailUrl1, "T350X350_")" title="@item.ProductName" alt="@item.ProductName">
+                                </div>
+                                <div class="pro-info">
+                                    <p class="pro-name">@item.ProductName</p>
+                                    <div class="pro-price">
+                                        <span class="price-new"><i>¥</i>@item.LowestSalePrice.ToString("F")</span>
+                                        @if (type == "new")
+                                        {
+                                            <span class="activity-tag tag-hollow-btn">尝新价</span>
+                                        }
+                                        <span style="color:red;"><i>积分：</i>@item.Gwjf</span>                                    
+                                    </div>
+                                </div>
+                                <div class="btn-wrap">
+                                    <span class="activity-tag tag-solid-btn">马上抢</span>
+                                </div>
+                                </a>
+</div>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+<div class="pagination">
+    @Ajax.Pager(Model.ProductPagedList, new PagerOptions
+{
+    ShowDisabledPagerItems = false,
+    AlwaysShowFirstLastPageNumber = true,
+    ShowFirstLast = false,
+    PageIndexParameterName = "pageIndex",
+    NumericPagerItemCount = 6,
+    CurrentPagerItemTemplate = "<span class=\"page-item curr\">{0}</span>",
+    PagerItemTemplate = "<span class=\"page-item\">{0}</span>",
+    MorePagerItemTemplate = "<span class=\"pn-break\">{0}</span>",
+    CssClass = "p-wrap",
+    PrevPageText = "<span class=\"pn-prev \"><i>&lt;</i>上一页</span>",
+    NextPageText = "<span class=\"pn-next \">下一页<i>&gt;</i></span>",
+}).AjaxOptions(a => a.SetUpdateTargetId("ProductListDiv"))
+</div>
+<script type="text/javascript">
+                    $.scaleLoad('.allGoods', 220, 220);
+</script>
+}
+else
+{
+    <div class="no_propt">
+        <i>!</i>未找到相符合的商品
+    </div>
+}

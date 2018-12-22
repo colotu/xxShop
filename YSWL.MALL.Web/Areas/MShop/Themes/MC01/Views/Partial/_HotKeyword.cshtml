@@ -1,0 +1,12 @@
+﻿@model List<YSWL.MALL.Model.Shop.Products.HotKeyword>
+<div class="hot_word_tag">
+    @if (Model != null && Model.Count > 0)
+    {
+        foreach (var item in Model)
+        {
+            <span>
+                <a href="@(ViewBag.BasePath)s/@item.CategoryId/0/hot/0-0/@item.Keywords"><i>@item.Keywords</i></a>
+            </span>
+        }
+    }
+</div>

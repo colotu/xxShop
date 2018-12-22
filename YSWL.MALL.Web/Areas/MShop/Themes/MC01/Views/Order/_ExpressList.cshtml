@@ -1,0 +1,33 @@
+﻿@model List<YSWL.MALL.ViewModel.Shop.Express>
+
+@if (ViewBag.ApiType == "html")
+{ 
+    <div style="width:100%; overflow:auto;overflow-x: auto;">
+    <iframe id="expressiframe" name="expressiframe" src="@ViewBag.ExpressUrl"  width="550"  height="340" marginwidth="0" marginheight="0" hspace="0" vspace="0" frameborder="0" scrolling="no">
+    </iframe>
+    </div>
+}
+else
+{
+    if (Model != null)
+    {
+        <ul class="logis_detail_con">
+            @foreach (var item in Model)
+            {
+
+                <li class="detail_first">
+                    <div class="detail_con">
+                        <div>@item.Content</div>
+                        <div class="date">@item.Date.ToString("yyyy-MM-dd HH:mm:ss")</div>
+                    </div>
+                </li>
+            }
+        </ul>
+    }
+    else
+    {
+           <div style="margin-left: 10px;">暂无物流信息</div>
+        }
+}
+ 
+     

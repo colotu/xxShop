@@ -1,0 +1,1773 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>YSWL.Payment</name>
+    </assembly>
+    <members>
+        <member name="T:YSWL.Payment.Configuration.WebConfigHelper">
+            <summary>
+            web.config操作类
+            Copyright (C) 云商未来
+            </summary>
+        </member>
+        <member name="M:YSWL.Payment.Configuration.WebConfigHelper.GetConfigString(System.String)">
+            <summary>
+            得到AppSettings中的配置字符串信息
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Payment.Configuration.WebConfigHelper.GetConfigBool(System.String)">
+            <summary>
+            得到AppSettings中的配置Bool信息
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Payment.Configuration.WebConfigHelper.GetConfigDecimal(System.String)">
+            <summary>
+            得到AppSettings中的配置Decimal信息
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Payment.Configuration.WebConfigHelper.GetConfigInt(System.String)">
+            <summary>
+            得到AppSettings中的配置int信息
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="P:YSWL.Payment.Core.Globals.IsPaymentTestMode">
+            <summary>
+            是否测试模式 - 跳过支付网关
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.Core.Globals.IsRechargeTestMode">
+            <summary>
+            是否测试模式 - 跳过充值网关
+            </summary>
+        </member>
+        <member name="F:YSWL.Payment.Core.Globals.PAYMENT_RETURN_URL">
+            <summary>
+            支付成功URL
+            </summary>
+            
+        </member>
+        <member name="F:YSWL.Payment.Core.Globals.PAYMENT_NOTIFY_URL">
+            <summary>
+            支付成功网关异步通知URL
+            </summary>
+        </member>
+        <member name="F:YSWL.Payment.Core.Globals.RECHARGE_RETURN_URL">
+            <summary>
+            充值成功URL
+            </summary>
+        </member>
+        <member name="F:YSWL.Payment.Core.Globals.RECHARGE_NOTIFY_URL">
+            <summary>
+            充值成功网关异步通知URL
+            </summary>
+        </member>
+        <member name="F:YSWL.Payment.Core.Globals.AlipayOtherParamKeys">
+            <summary>
+            Alipay支付接口扩展参数集合 - 用于自定义参数的扩展
+            </summary>
+        </member>
+        <member name="M:YSWL.Payment.Core.Globals.SafeEnum``1(System.String,``0)">
+            <summary>
+            将枚举数值or枚举名称 安全转换为枚举对象
+            </summary>
+            <typeparam name="T">枚举类型</typeparam>
+            <param name="value">数值or名称</param>
+            <param name="defaultValue">默认值</param>
+            <remarks>转换区分大小写</remarks>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Payment.Core.Globals.SafeEnum``1(System.String,``0,System.Boolean)">
+            <summary>
+            将枚举数值or枚举名称 安全转换为枚举对象
+            </summary>
+            <typeparam name="T">枚举类型</typeparam>
+            <param name="value">数值or名称</param>
+            <param name="defaultValue">默认值</param>
+            <param name="ignoreCase">是否忽略大小写 true 不区分大小写 | false 区分大小写</param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Payment.Core.Globals.SubString(System.Object,System.Int32,System.String)">
+            <summary>
+            截取字符串
+            </summary>
+            <param name="target">内容</param>
+            <param name="subLength">截取长度</param>
+            <param name="sign">替换符号</param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Payment.Core.Globals.IsNullOrEmpty(System.Object)">
+            <summary>
+            检查字符串是否是 null 或者空白字符,不同于.net自带的string.IsNullOrEmpty，多个空格在这里也返回true。
+            </summary>
+            <param name="target"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Payment.Core.Globals.DecodeData4Url(System.String)">
+            <summary>
+            从适用于URL的Base64编码字符串转换为普通字符串
+            </summary>
+        </member>
+        <member name="M:YSWL.Payment.Core.Globals.EncodeData4Url(System.String)">
+            <summary>
+            从普通字符串转换为适用于URL的Base64编码字符串
+            </summary>
+        </member>
+        <member name="M:YSWL.Payment.Core.Globals.GetAssemblyPath">
+            <summary>
+            获取Assembly的运行路径
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:YSWL.Payment.Core.NotifyMode">
+            <summary>
+            通知模式
+            </summary>
+        </member>
+        <member name="F:YSWL.Payment.Core.NotifyMode.None">
+            <summary>
+            未知
+            </summary>
+        </member>
+        <member name="F:YSWL.Payment.Core.NotifyMode.Callback">
+            <summary>
+            回调
+            </summary>
+        </member>
+        <member name="F:YSWL.Payment.Core.NotifyMode.Notify">
+            <summary>
+            通知
+            </summary>
+        </member>
+        <member name="T:YSWL.Payment.DALFactory.DAPayment">
+            <summary>
+            抽象工厂模式创建DAL。
+            web.config 需要加入配置：(利用工厂模式+反射机制+缓存机制,实现动态创建不同的数据层对象接口) 
+            DataCache类在导出代码的文件夹里
+            <appSettings> 
+            <add key="DAL" value="YSWL.SQLServerDAL.JLT" /> (这里的命名空间根据实际情况更改为自己项目的命名空间)
+            </appSettings> 
+            </summary>
+        </member>
+        <member name="M:YSWL.Payment.DALFactory.DAPayment.CreatePaymentModeService">
+            <summary>
+            创建PaymentModeService数据层接口。
+            </summary>
+        </member>
+        <member name="T:YSWL.Payment.DALFactory.DataAccessBase">
+            <summary>
+            Abstract Factory base class
+            </summary>
+        </member>
+        <member name="T:YSWL.Payment.Handler.PaymentReturnHandlerBase`1">
+            <summary>
+            支付回调/通知抽象Handler
+            </summary>
+            <typeparam name="T">订单信息</typeparam>
+        </member>
+        <member name="P:YSWL.Payment.Handler.PaymentReturnHandlerBase`1.Amount">
+            <summary>
+            订单金额
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.Handler.PaymentReturnHandlerBase`1.OrderId">
+            <summary>
+            订单ID
+            </summary>
+        </member>
+        <member name="M:YSWL.Payment.Handler.PaymentReturnHandlerBase`1.#ctor(YSWL.Payment.Model.IPaymentOption{`0},System.Boolean)">
+            <summary>
+            构造支付回调/通知Handler
+            </summary>
+            <param name="option">支付网关回调URL参数</param>
+            <param name="isNotify">是否为支付网关异步回调请求</param>
+        </member>
+        <member name="M:YSWL.Payment.Handler.PaymentReturnHandlerBase`1.GetPaymentMode(System.Int32)">
+            <summary>
+            根据支付ID 获取支付信息
+            </summary>
+            <param name="paymentTypeId"></param>
+            <returns></returns>
+        </member>
+        <member name="T:YSWL.Payment.Handler.RechargeReturnHandlerBase">
+            <summary>
+            支付模块回调/通知抽象基类
+            </summary>
+        </member>
+        <member name="M:YSWL.Payment.Handler.RechargeReturnHandlerBase.#ctor(YSWL.Payment.Model.IRechargeOption{YSWL.Payment.Model.RechargeRequestInfo,YSWL.Payment.Model.UserInfo},System.Boolean)">
+            <summary>
+            构造充值请求接口
+            </summary>
+            <param name="option">充值网关回调URL参数</param>
+            <param name="isNotify">是否为异步通知模式</param>
+        </member>
+        <member name="T:YSWL.Payment.Handler.RechargeReturnHandlerBase`2">
+            <summary>
+            支付模块回调/通知抽象基类
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.Handler.RechargeReturnHandlerBase`2.RechargeId">
+            <summary>
+            充值流水号
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.Handler.RechargeReturnHandlerBase`2.Amount">
+            <summary>
+            充值金额
+            </summary>
+        </member>
+        <member name="M:YSWL.Payment.Handler.RechargeReturnHandlerBase`2.#ctor(YSWL.Payment.Model.IRechargeOption{`0,`1},System.Boolean)">
+            <summary>
+            构造充值请求接口
+            </summary>
+            <param name="option">充值网关回调URL参数</param>
+            <param name="isNotify">是否为异步通知模式</param>
+        </member>
+        <member name="M:YSWL.Payment.Handler.RechargeReturnHandlerBase`2.GetPaymentMode(System.Int32)">
+            <summary>
+            根据支付ID 获取支付信息
+            </summary>
+            <param name="paymentTypeId"></param>
+            <returns></returns>
+        </member>
+        <member name="T:YSWL.Payment.Handler.SendRechargeHandlerBase">
+            <summary>
+            支付请求接口抽象基类
+            </summary> 
+        </member>
+        <member name="M:YSWL.Payment.Handler.SendRechargeHandlerBase.#ctor(YSWL.Payment.Model.IRechargeOption{YSWL.Payment.Model.RechargeRequestInfo,YSWL.Payment.Model.UserInfo})">
+            <summary>
+            构造充值请求接口
+            </summary>
+            <param name="option">充值网关回调URL参数</param>
+        </member>
+        <member name="T:YSWL.Payment.Handler.SendRechargeHandlerBase`2">
+            <summary>
+            充值接口抽象基类
+            </summary>
+            <typeparam name="T">充值信息</typeparam>
+            <typeparam name="U">用户信息</typeparam>
+        </member>
+        <member name="M:YSWL.Payment.Handler.SendRechargeHandlerBase`2.#ctor(YSWL.Payment.Model.IRechargeOption{`0,`1})">
+            <summary>
+            构造充值请求接口
+            </summary>
+            <param name="option">充值网关回调URL参数</param>
+        </member>
+        <member name="M:YSWL.Payment.Handler.SendRechargeHandlerBase`2.GetGateway(System.String)">
+            <summary>
+            获取支付网关
+            </summary>
+        </member>
+        <member name="M:YSWL.Payment.Handler.SendRechargeHandlerBase`2.GetPayee(YSWL.Payment.Model.PaymentModeInfo)">
+            <summary>
+            获取收款人信息
+            </summary>
+        </member>
+        <member name="M:YSWL.Payment.Handler.SendRechargeHandlerBase`2.GetTrade(`0,System.Decimal,`1)">
+            <summary>
+            获取交易信息
+            </summary>
+            <param name="rechargeRequest">充值信息</param>
+            <param name="payCharge">支付手续费</param>
+            <param name="user">用户</param>
+        </member>
+        <member name="M:YSWL.Payment.Handler.SendRechargeHandlerBase`2.VerifySendPayment(System.Web.HttpContext)">
+            <summary>
+            验证支付请求是否合法
+            </summary>
+            <param name="context">HttpContext</param>
+            <returns>是否合法</returns>
+        </member>
+        <member name="T:YSWL.Payment.Handler.SendPaymentHandlerBase`1">
+            <summary>
+            支付请求接口抽象基类
+            </summary>
+            <typeparam name="T">订单信息</typeparam>
+        </member>
+        <member name="M:YSWL.Payment.Handler.SendPaymentHandlerBase`1.#ctor(YSWL.Payment.Model.IPaymentOption{`0})">
+            <summary>
+            构造支付请求接口
+            </summary>
+            <param name="option">支付网关回调URL参数</param>
+        </member>
+        <member name="M:YSWL.Payment.Handler.SendPaymentHandlerBase`1.GetGateway(System.String)">
+            <summary>
+            获取支付网关
+            </summary>
+        </member>
+        <member name="M:YSWL.Payment.Handler.SendPaymentHandlerBase`1.GetPayee(YSWL.Payment.Model.PaymentModeInfo)">
+            <summary>
+            获取收款人信息
+            </summary>
+        </member>
+        <member name="M:YSWL.Payment.Handler.SendPaymentHandlerBase`1.GetTrade(System.String,System.Decimal,`0)">
+            <summary>
+            获取交易信息
+            </summary>
+        </member>
+        <member name="M:YSWL.Payment.Handler.SendPaymentHandlerBase`1.GetPaymentMode(`0)">
+            <summary>
+            获取支付信息
+            </summary>
+        </member>
+        <member name="M:YSWL.Payment.Handler.SendPaymentHandlerBase`1.GetOrderTotalMoney(System.String[],`0)">
+            <summary>
+            获取订单支付金额
+            </summary>
+            <param name="orderIds">订单ID - 合并支付使用</param>
+            <param name="orderInfo">订单信息</param>
+            <returns>支付金额</returns>
+        </member>
+        <member name="M:YSWL.Payment.Handler.SendPaymentHandlerBase`1.VerifySendPayment(System.Web.HttpContext)">
+            <summary>
+            验证支付请求是否合法
+            </summary>
+            <param name="context">HttpContext</param>
+            <returns>是否合法</returns>
+        </member>
+        <member name="T:YSWL.Payment.Model.DriveEnum">
+             <summary>
+             支付设备类型 0 ：全部 1：Web  2：Wap
+            </summary>
+        </member>
+        <member name="F:YSWL.Payment.Model.DriveEnum.ALL">
+            <summary>
+            全部
+            </summary>
+        </member>
+        <member name="F:YSWL.Payment.Model.DriveEnum.Web">
+            <summary>
+            Web网站
+            </summary>
+        </member>
+        <member name="F:YSWL.Payment.Model.DriveEnum.Wap">
+            <summary>
+            Wap网站
+            </summary>
+        </member>
+        <member name="T:YSWL.Payment.Model.IPaymentOption`1">
+            <summary>
+            支付模块配置接口
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.Model.IPaymentOption`1.ReturnUrl">
+            <summary>
+            网关浏览器返回地址
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.Model.IPaymentOption`1.NotifyUrl">
+            <summary>
+            网关异步通知回调地址
+            </summary>
+        </member>
+        <member name="M:YSWL.Payment.Model.IPaymentOption`1.GetOrderInfo(System.String)">
+            <summary>
+            根据订单ID 获取订单信息
+            </summary>
+            <param name="orderId">网关回传订单ID</param>
+            <returns>订单对象</returns>
+        </member>
+        <member name="M:YSWL.Payment.Model.IPaymentOption`1.PayForOrder(`0)">
+            <summary>
+            更新订单-完成付款
+            </summary>
+            <param name="order">订单</param>
+            <returns>是否成功</returns>
+        </member>
+        <member name="T:YSWL.Payment.Model.IRechargeRequest">
+            <summary>
+            充值接口
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.Model.IRechargeRequest.RechargeId">
+            <summary>
+            充值流水号
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.Model.IRechargeRequest.TradeDate">
+            <summary>
+            充值时间
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.Model.IRechargeRequest.PaymentTypeId">
+            <summary>
+            支付类型ID
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.Model.IRechargeRequest.PaymentGateway">
+            <summary>
+            支付网关
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.Model.IRechargeRequest.RechargeBlance">
+            <summary>
+            充值金额
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.Model.IRechargeRequest.UserId">
+            <summary>
+            充值用户
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.Model.IRechargeRequest.PaymentStatus">
+            <summary>
+            支付状态
+            </summary>
+        </member>
+        <member name="T:YSWL.Payment.Model.RechargeRequestInfo">
+            <summary>
+            充值信息
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.Model.RechargeRequestInfo.PaymentTypeId">
+            <summary>
+            支付类型ID
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.Model.RechargeRequestInfo.PaymentGateway">
+            <summary>
+            支付网关
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.Model.RechargeRequestInfo.RechargeBlance">
+            <summary>
+            充值金额
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.Model.RechargeRequestInfo.RechargeId">
+            <summary>
+            充值流水ID
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.Model.RechargeRequestInfo.TradeDate">
+            <summary>
+            充值时间
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.Model.RechargeRequestInfo.UserId">
+            <summary>
+            充值用户ID
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.Model.RechargeRequestInfo.PaymentStatus">
+            <summary>
+            支付状态
+            </summary>
+        </member>
+        <member name="T:YSWL.Payment.Model.IOrderInfo">
+            <summary>
+            订单信息接口
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.Model.IOrderInfo.OrderStatus">
+            <summary>
+            订单状态
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.Model.IOrderInfo.RefundStatus">
+            <summary>
+            退款状态
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.Model.IOrderInfo.PaymentStatus">
+            <summary>
+            支付状态
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.Model.IOrderInfo.ShippingStatus">
+            <summary>
+            物流状态
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.Model.IOrderInfo.Amount">
+            <summary>
+            订单最终支付金额
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.Model.IOrderInfo.BuyerEmail">
+            <summary>
+            购买者Email
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.Model.IOrderInfo.ShipName">
+            <summary>
+            收货人名称
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.Model.IOrderInfo.ShipEmail">
+            <summary>
+            收货人Email
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.Model.IOrderInfo.ShipRegion">
+            <summary>
+            收货人收货地区
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.Model.IOrderInfo.ShipAddress">
+            <summary>
+            收货人收货地址
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.Model.IOrderInfo.ShipTelPhone">
+            <summary>
+            收货人座机号码
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.Model.IOrderInfo.ShipCellPhone">
+            <summary>
+            收货人手机号码
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.Model.IOrderInfo.OrderDate">
+            <summary>
+            订单日期
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.Model.IOrderInfo.PaymentTypeId">
+            <summary>
+            支付网关
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.Model.IOrderInfo.GatewayOrderId">
+            <summary>
+            支付网关订单ID
+            </summary>
+        </member>
+        <member name="T:YSWL.Payment.Model.IRechargeOption">
+            <summary>
+            充值模块配置接口
+            </summary>
+        </member>
+        <member name="T:YSWL.Payment.Model.IRechargeOption`2">
+            <summary>
+            充值模块配置接口
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.Model.IRechargeOption`2.ReturnUrl">
+            <summary>
+            网关浏览器返回地址
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.Model.IRechargeOption`2.NotifyUrl">
+            <summary>
+            网关异步通知回调地址
+            </summary>
+        </member>
+        <member name="M:YSWL.Payment.Model.IRechargeOption`2.GetCurrentUser(System.Web.HttpContext)">
+            <summary>
+            获取当前登录(充值)用户
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Payment.Model.IRechargeOption`2.GetRechargeRequest(System.Int64)">
+            <summary>
+            获取充值信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Payment.Model.IRechargeOption`2.PayForRechargeRequest(YSWL.Payment.Model.RechargeRequestInfo)">
+            <summary>
+            更新充值信息-完成付款
+            </summary>
+            <param name="rechargeRequest">充值对象</param>
+            <returns>是否成功</returns>
+        </member>
+        <member name="T:YSWL.Payment.Model.UserInfo">
+            <summary>
+            用户信息
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.Model.UserInfo.UserId">
+            <summary>
+            用户ID
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.Model.UserInfo.Email">
+            <summary>
+            用户Email
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.Model.GatewayInfo.DataList">
+            <summary>
+            0:GatewayName,1:AreaName,2:AutoTag
+            </summary>
+        </member>
+        <member name="M:YSWL.Payment.PaymentInterface.AlipayWap.Globals.BuildRequest(System.String,System.String,System.String)">
+            <summary>
+            建立请求，以模拟远程HTTP的POST请求方式构造并获取支付宝的处理结果
+            </summary>
+            <returns>支付宝处理结果</returns>
+        </member>
+        <member name="M:YSWL.Payment.PaymentInterface.AlipayWap.Globals.ParseResponse(System.String)">
+            <summary>
+            解析远程模拟提交后返回的信息
+            </summary>
+            <param name="strText">要解析的字符串</param>
+            <returns>解析结果</returns>
+        </member>
+        <member name="M:YSWL.Payment.PaymentInterface.WeChat.Globals.GetMD5(System.String,System.String)">
+            获取大写的MD5签名结果 
+        </member>
+        <member name="M:YSWL.Payment.PaymentInterface.WeChat.Globals.UrlEncode(System.String,System.String)">
+            对字符串进行URL编码 
+        </member>
+        <member name="M:YSWL.Payment.PaymentInterface.WeChat.Globals.UrlDecode(System.String,System.String)">
+            对字符串进行URL解码 
+        </member>
+        <member name="M:YSWL.Payment.PaymentInterface.WeChat.WeChatNotify.AutoDeliverNotify">
+            <summary>
+            自动发货通知
+            </summary>
+        </member>
+        <member name="T:YSWL.Payment.PaymentInterface.WeChat.v3.Consts.WeiXinConst">
+            <summary>
+            微信 需要用到的Url、Json常量
+            </summary>
+        </member>
+        <member name="F:YSWL.Payment.PaymentInterface.WeChat.v3.Consts.WeiXinConst.AppId">
+            <summary>
+            微信开发者 AppId
+            </summary>
+        </member>
+        <member name="F:YSWL.Payment.PaymentInterface.WeChat.v3.Consts.WeiXinConst.Secret">
+            <summary>
+            微信开发者 Secret
+            </summary>
+        </member>
+        <member name="F:YSWL.Payment.PaymentInterface.WeChat.v3.Consts.WeiXinConst.PaySignKey">
+            <summary>
+            V2:支付请求中 用于加密的秘钥Key，可用于验证商户的唯一性，对应支付场景中的AppKey
+            </summary>
+        </member>
+        <member name="F:YSWL.Payment.PaymentInterface.WeChat.v3.Consts.WeiXinConst.PartnerKey">
+            <summary>
+            V2:财付通签名key
+            V3:商户支付密钥 Key。登录微信商户后台，进入栏目【账户设置】 【密码安全 】【API 安全】 【API 密钥】 ，进入设置 API 密钥。
+            </summary>
+        </member>
+        <member name="F:YSWL.Payment.PaymentInterface.WeChat.v3.Consts.WeiXinConst.PartnerId">
+            <summary>
+            商户号
+            </summary>
+        </member>
+        <member name="F:YSWL.Payment.PaymentInterface.WeChat.v3.Consts.WeiXinConst.BaiduAk">
+            <summary>
+            百度地图Api  Ak
+            </summary>
+        </member>
+        <member name="F:YSWL.Payment.PaymentInterface.WeChat.v3.Consts.WeiXinConst.Token">
+            <summary>
+            用于验证 请求 是否来自 微信
+            </summary>
+        </member>
+        <member name="F:YSWL.Payment.PaymentInterface.WeChat.v3.Consts.WeiXinConst.CertPath">
+            <summary>
+            证书文件 路径
+            </summary>
+        </member>
+        <member name="F:YSWL.Payment.PaymentInterface.WeChat.v3.Consts.WeiXinConst.CertPwd">
+            <summary>
+            证书文件密码（默认为商户号）
+            </summary>
+        </member>
+        <member name="F:YSWL.Payment.PaymentInterface.WeChat.v3.Consts.WeiXinConst.AccessToken_Url">
+            <summary>
+            公众号 获取Access_Token的Url(需Format  0.AppId 1.Secret)
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.PaymentInterface.WeChat.v3.Consts.WeiXinConst.WeiXin_AccessTokenUrl">
+            <summary>
+            公众号 获取Token的Url
+            </summary>
+        </member>
+        <member name="F:YSWL.Payment.PaymentInterface.WeChat.v3.Consts.WeiXinConst.User_GetOpenIdUrl">
+            <summary>
+            根据Code 获取用户OpenId Url
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.PaymentInterface.WeChat.v3.Consts.WeiXinConst.WeiXin_User_OpenIdUrl">
+            <summary>
+            根据Code 获取用户OpenId的Url 需要Format 0.code
+            </summary>
+        </member>
+        <member name="F:YSWL.Payment.PaymentInterface.WeChat.v3.Consts.WeiXinConst.WeiXin_User_GetInfoUrl">
+            <summary>
+            根据OpenId 获取用户基本信息 Url（需要Format0.access_token 1.openid）
+            </summary>
+        </member>
+        <member name="F:YSWL.Payment.PaymentInterface.WeChat.v3.Consts.WeiXinConst.OAuth2_Url">
+            <summary>
+            OAuth2授权Url，需要Format0.AppId  1.Uri  2.state
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.PaymentInterface.WeChat.v3.Consts.WeiXinConst.WeiXin_User_OAuth2Url">
+            <summary>
+            OAuth2授权Url，需要Format  0.Uri  1.state
+            </summary>
+        </member>
+        <member name="F:YSWL.Payment.PaymentInterface.WeChat.v3.Consts.WeiXinConst.WeiXin_Ticket_CreateUrl">
+            <summary>
+            创建获取QrCode的Ticket Url  需要Format 0 access_token
+            </summary>
+        </member>
+        <member name="F:YSWL.Payment.PaymentInterface.WeChat.v3.Consts.WeiXinConst.WeiXin_QrCode_GetUrl">
+            <summary>
+            获取二维码图片Url,需要Format 0.ticket
+            </summary>
+        </member>
+        <member name="F:YSWL.Payment.PaymentInterface.WeChat.v3.Consts.WeiXinConst.BaiduGeoCoding_ApiUrl">
+            <summary>
+            经纬度  逆地理编码 Url  需要Format 0.ak  1.经度  2.纬度
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.PaymentInterface.WeChat.v3.Consts.WeiXinConst.Baidu_GeoCoding_ApiUrl">
+            <summary>
+            经纬度  逆地理编码 Url  需要Format 0.经度  1.纬度 
+            </summary>
+        </member>
+        <member name="F:YSWL.Payment.PaymentInterface.WeChat.v3.Consts.WeiXinConst.WeiXin_Menu_CreateUrl">
+            <summary>
+            创建菜单Url 需要Format 0.access_token
+            </summary>
+        </member>
+        <member name="F:YSWL.Payment.PaymentInterface.WeChat.v3.Consts.WeiXinConst.WeiXin_Menu_GetUrl">
+            <summary>
+            获取菜单Url 需要Format 0.access_token
+            </summary>
+        </member>
+        <member name="F:YSWL.Payment.PaymentInterface.WeChat.v3.Consts.WeiXinConst.WeiXin_Menu_DeleteUrl">
+            <summary>
+            删除菜单Url 需要Format 0.access_token
+            </summary>
+        </member>
+        <member name="F:YSWL.Payment.PaymentInterface.WeChat.v3.Consts.WeiXinConst.WeiXin_Pay_PrePayUrl">
+            <summary>
+            生成预支付账单Url ，需替换 0 access_token
+            </summary>
+        </member>
+        <member name="F:YSWL.Payment.PaymentInterface.WeChat.v3.Consts.WeiXinConst.WeiXin_Pay_OrderQueryUrl">
+            <summary>
+            订单查询Url ，需替换0 access_token
+            </summary>
+        </member>
+        <member name="F:YSWL.Payment.PaymentInterface.WeChat.v3.Consts.WeiXinConst.WeiXin_Pay_DeliverNotifyUrl">
+            <summary>
+            发货通知Url，需替换 0 access_token
+            </summary>
+        </member>
+        <member name="F:YSWL.Payment.PaymentInterface.WeChat.v3.Consts.WeiXinConst.WeiXin_Pay_UnifiedPrePayUrl">
+            <summary>
+            统一预支付Url
+            </summary>
+        </member>
+        <member name="F:YSWL.Payment.PaymentInterface.WeChat.v3.Consts.WeiXinConst.WeiXin_Pay_UnifiedOrderQueryUrl">
+            <summary>
+            订单查询Url 
+            </summary>
+        </member>
+        <member name="F:YSWL.Payment.PaymentInterface.WeChat.v3.Consts.WeiXinConst.WeiXin_Pay_UnifiedOrderRefundUrl">
+            <summary>
+            退款申请Url
+            </summary>
+        </member>
+        <member name="F:YSWL.Payment.PaymentInterface.WeChat.v3.Consts.WeiXinConst.WeiXin_QrCodeTicket_Create_JsonString">
+            <summary>
+            获取二维码 所需Ticket 需要上传的Json字符串（需要Format 0.scene_id）
+            </summary>
+            <remarks>scene_id场景值ID  永久二维码时最大值为100000（目前参数只支持1--100000）</remarks>
+        </member>
+        <member name="P:YSWL.Payment.PaymentInterface.WeChat.v3.Models.Message.OrderInfo.Ret_Code">
+            <summary>
+            查询结果状态码 0 标识成功
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.PaymentInterface.WeChat.v3.Models.Message.OrderInfo.Ret_Msg">
+            <summary>
+            查询结果出错信息
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.PaymentInterface.WeChat.v3.Models.Message.OrderInfo.Input_Charset">
+            <summary>
+            返回信息中的编码方式
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.PaymentInterface.WeChat.v3.Models.Message.OrderInfo.Trade_State">
+            <summary>
+            订单状态，0 成功，其他失败
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.PaymentInterface.WeChat.v3.Models.Message.OrderInfo.Trade_Mode">
+            <summary>
+            交易模式，1为 即时到帐，其他保留
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.PaymentInterface.WeChat.v3.Models.Message.OrderInfo.Partner">
+            <summary>
+            财付通 商户号
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.PaymentInterface.WeChat.v3.Models.Message.OrderInfo.Bank_Type">
+            <summary>
+            银行类型
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.PaymentInterface.WeChat.v3.Models.Message.OrderInfo.Bank_BillNo">
+            <summary>
+            银行订单号
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.PaymentInterface.WeChat.v3.Models.Message.OrderInfo.Total_Fee">
+            <summary>
+            总金额
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.PaymentInterface.WeChat.v3.Models.Message.OrderInfo.Fee_Type">
+            <summary>
+            币种
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.PaymentInterface.WeChat.v3.Models.Message.OrderInfo.Notify_Id">
+            <summary>
+            通知Id
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.PaymentInterface.WeChat.v3.Models.Message.OrderInfo.Transaction_Id">
+            <summary>
+            订单号
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.PaymentInterface.WeChat.v3.Models.Message.OrderInfo.Out_Trade_NO">
+            <summary>
+            商户订单号
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.PaymentInterface.WeChat.v3.Models.Message.OrderInfo.Is_Split">
+            <summary>
+            是否分账，false为无分账，true有分账
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.PaymentInterface.WeChat.v3.Models.Message.OrderInfo.Is_Refund">
+            <summary>
+            是否退款，false为无退款，true为退款
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.PaymentInterface.WeChat.v3.Models.Message.OrderInfo.Attach">
+            <summary>
+            商户数据包
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.PaymentInterface.WeChat.v3.Models.Message.OrderInfo.Time_End">
+            <summary>
+            支付完成时间
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.PaymentInterface.WeChat.v3.Models.Message.OrderInfo.Transport_Fee">
+            <summary>
+            物流费用
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.PaymentInterface.WeChat.v3.Models.Message.OrderInfo.ProductFee">
+            <summary>
+            物品费用
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.PaymentInterface.WeChat.v3.Models.Message.OrderInfo.Discount">
+            <summary>
+            折扣价格
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.PaymentInterface.WeChat.v3.Models.Message.OrderInfo.Rmb_Total_Fee">
+            <summary>
+            换算成人民币之后的总金额，单位为分，一般看Total_Fee即可
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.PaymentInterface.WeChat.v3.Models.Message.OrderQueryMessage.Success">
+            <summary>
+            判断订单 支付结果
+            </summary>
+        </member>
+        <member name="T:YSWL.Payment.PaymentInterface.WeChat.v3.Models.Ticket">
+             <summary>  
+            Ticket类   
+             </summary>  
+        </member>
+        <member name="P:YSWL.Payment.PaymentInterface.WeChat.v3.Models.Ticket.ticket">
+            <summary>
+            凭借此ticket可以在有效时间内换取二维码。  
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.PaymentInterface.WeChat.v3.Models.Ticket.expire_seconds">
+            <summary>  
+            凭证有效时间，单位：秒  
+            </summary>  
+        </member>
+        <member name="T:YSWL.Payment.PaymentInterface.WeChat.v3.Models.UnifiedMessage.NotifyMessage">
+            <summary>
+            支付通知 消息
+            </summary>
+        </member>
+        <member name="T:YSWL.Payment.PaymentInterface.WeChat.v3.Models.UnifiedMessage.RefundMessage">
+            <summary>
+            退款申请 消息
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.PaymentInterface.WeChat.v3.Models.UnifiedMessage.RefundMessage.Out_Refund_No">
+            <summary>
+            商户退款单号
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.PaymentInterface.WeChat.v3.Models.UnifiedMessage.RefundMessage.Refund_Id">
+            <summary>
+            微信退款单号
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.PaymentInterface.WeChat.v3.Models.UnifiedMessage.RefundMessage.Refund_Fee">
+            <summary>
+            退款总金额,单位为分,可以做部分退款
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.PaymentInterface.WeChat.v3.Models.UnifiedMessage.RefundMessage.Success">
+            <summary>
+            退款申请是否接收成功（不代表退款成功，退款结果需要查询）
+            </summary>
+        </member>
+        <member name="T:YSWL.Payment.PaymentInterface.WeChat.v3.Models.UnifiedMessage.ReturnMessage">
+            <summary>
+            消息基类
+            </summary>
+        </member>
+        <member name="T:YSWL.Payment.PaymentInterface.WeChat.v3.Models.UnifiedMessage.UnifiedOrderQueryMessage">
+            <summary>
+            V3 订单统一查询消息
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.PaymentInterface.WeChat.v3.Models.UnifiedMessage.UnifiedOrderQueryMessage.AppId">
+            <summary>
+            公众账号ID
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.PaymentInterface.WeChat.v3.Models.UnifiedMessage.UnifiedOrderQueryMessage.Mch_Id">
+            <summary>
+            商户号
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.PaymentInterface.WeChat.v3.Models.UnifiedMessage.UnifiedOrderQueryMessage.Result_Code">
+            <summary>
+            业务结果（SUCCESS/FAIL）
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.PaymentInterface.WeChat.v3.Models.UnifiedMessage.UnifiedOrderQueryMessage.Err_Code">
+            <summary>
+            错误代码（ORDERNOTEXIST订单不存在、SYSTEMERROR系统错误）
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.PaymentInterface.WeChat.v3.Models.UnifiedMessage.UnifiedOrderQueryMessage.Err_Code_Des">
+            <summary>
+            错误代码描述
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.PaymentInterface.WeChat.v3.Models.UnifiedMessage.UnifiedOrderQueryMessage.Trade_State">
+            <summary>
+            交易状态
+            </summary>
+            <remarks>
+            SUCCESS—支付成功
+            REFUND—转入退款
+            NOTPAY—未支付
+            CLOSED—已关闭
+            REVOKED—已撤销
+            USERPAYING--用户支付中
+            NOPAY--未支付(输入密码或
+            确认支付超时)
+            PAYERROR--支付失败(其他
+            原因，如银行返回失败)
+            </remarks>
+        </member>
+        <member name="P:YSWL.Payment.PaymentInterface.WeChat.v3.Models.UnifiedMessage.UnifiedOrderQueryMessage.OpenId">
+            <summary>
+            用户标识
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.PaymentInterface.WeChat.v3.Models.UnifiedMessage.UnifiedOrderQueryMessage.Trade_Type">
+            <summary>
+            交易类型：JSAPI、NATIVE、MICROPAY 、APP
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.PaymentInterface.WeChat.v3.Models.UnifiedMessage.UnifiedOrderQueryMessage.Bank_Type">
+            <summary>
+            付款银行 银行类型，采用字符串类型的银行标识
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.PaymentInterface.WeChat.v3.Models.UnifiedMessage.UnifiedOrderQueryMessage.Total_Fee">
+            <summary>
+            总金额
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.PaymentInterface.WeChat.v3.Models.UnifiedMessage.UnifiedOrderQueryMessage.Tiem_End">
+            <summary>
+            交易完成时间
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.PaymentInterface.WeChat.v3.Models.UnifiedMessage.UnifiedOrderQueryMessage.Success">
+            <summary>
+            支付是否成功
+            </summary>
+        </member>
+        <member name="T:YSWL.Payment.PaymentInterface.WeChat.v3.Models.UnifiedMessage.UnifiedPrePayMessage">
+            <summary>
+            V3 统一支付消息
+            </summary>
+        </member>
+        <member name="T:YSWL.Payment.PaymentInterface.WeChat.v3.Models.WeiXinUserInfo">
+            <summary>
+            用户详细信息
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.PaymentInterface.WeChat.v3.Models.WeiXinUserInfo.Subscribe">
+            <summary>
+            用户是否订阅该公众号标识，值为0时，代表此用户没有关注该公众号，拉取不到其余信息。
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.PaymentInterface.WeChat.v3.Models.WeiXinUserInfo.OpenId">
+            <summary>
+            用户的标识，对当前公众号唯一
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.PaymentInterface.WeChat.v3.Models.WeiXinUserInfo.NickName">
+            <summary>
+            用户的昵称
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.PaymentInterface.WeChat.v3.Models.WeiXinUserInfo.Sex">
+            <summary>
+            用户的性别，值为1时是男性，值为2时是女性，值为0时是未知
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.PaymentInterface.WeChat.v3.Models.WeiXinUserInfo.City">
+            <summary>
+            用户所在城市
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.PaymentInterface.WeChat.v3.Models.WeiXinUserInfo.Conuntry">
+            <summary>
+            用户所在国家
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.PaymentInterface.WeChat.v3.Models.WeiXinUserInfo.Province">
+            <summary>
+            用户所在省份
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.PaymentInterface.WeChat.v3.Models.WeiXinUserInfo.Language">
+            <summary>
+            用户的语言，简体中文为zh_CN
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.PaymentInterface.WeChat.v3.Models.WeiXinUserInfo.HeadImgUrl">
+            <summary>
+            用户头像，最后一个数值代表正方形头像大小（有0、46、64、96、132数值可选，0代表640*640正方形头像），用户没有头像时该项为空
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.PaymentInterface.WeChat.v3.Models.WeiXinUserInfo.Subscribe_Time">
+            <summary>
+            用户关注时间，为时间戳。如果用户曾多次关注，则取最后关注时间
+            </summary>
+        </member>
+        <member name="P:YSWL.Payment.PaymentInterface.WeChat.v3.Models.WeiXinUserInfo.UnionId">
+            <summary>
+            只有在用户将公众号绑定到微信开放平台帐号后，才会出现该字段
+            </summary>
+        </member>
+        <member name="T:YSWL.Payment.PaymentInterface.WeChat.v3.Models.WeiXinUserSampleInfo">
+            <summary>
+            只包含OpenId 的用户信息
+            </summary>
+        </member>
+        <member name="M:YSWL.Payment.PaymentInterface.WeChat.v3.Utils.HttpClientHelper.GetResponse(System.String)">
+            <summary>
+            get请求
+            </summary>
+            <param name="url"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Payment.PaymentInterface.WeChat.v3.Utils.HttpClientHelper.PostResponse(System.String,System.String)">
+            <summary>
+            post请求
+            </summary>
+            <param name="url"></param>
+            <param name="postData">post数据</param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Payment.PaymentInterface.WeChat.v3.Utils.HttpClientHelper.PostResponse``1(System.String,System.String)">
+            <summary>
+            发起post请求
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="url">url</param>
+            <param name="postData">post数据</param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Payment.PaymentInterface.WeChat.v3.Utils.HttpClientHelper.PostXmlResponse``1(System.String,System.String)">
+            <summary>
+            V3接口全部为Xml形式，故有此方法
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="url"></param>
+            <param name="xmlString"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Payment.PaymentInterface.WeChat.v3.Utils.HttpClientHelper.XmlDeserialize``1(System.String)">
+            <summary>
+            反序列化Xml
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="xmlString"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Payment.PaymentInterface.WeChat.v3.Utils.WeiXinHelper.UnifiedPrePay(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="postData"></param>
+            <param name="isApp"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Payment.PaymentInterface.WeChat.v3.Utils.WeiXinHelper.UnifiedOrderQuery(System.String)">
+            <summary>
+            V3 统一订单查询接口
+            </summary>
+            <param name="postXml"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Payment.PaymentInterface.WeChat.v3.Utils.WXPay.CommonUtil.FormatBizQueryParaMapForUnifiedPay(System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            统一支付  （参数组合）
+            </summary>
+            <param name="paraMap"></param>
+            <param name="urlencode"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Payment.PaymentInterface.WeChat.v3.Utils.WXPay.UnifiedWxPayModel.GetCftPackage(System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            MD5签名
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Payment.PaymentInterface.WeChat.v3.Utils.WXPay.UnifiedWxPayModel.CreatePrePayPackage(System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            生成 预支付 请求参数（XML）
+            </summary>
+            <param name="description"></param>
+            <param name="tradeNo"></param>
+            <param name="totalFee"></param>
+            <param name="createIp"></param>
+            <param name="notifyUrl"></param>
+            <param name="openid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Payment.PaymentInterface.WeChat.v3.Utils.WXPay.UnifiedWxPayModel.CreateOrderQueryXml(System.String)">
+            <summary>
+            创建订单查询 XML
+            </summary>
+            <param name="orderNo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Payment.PaymentInterface.WeChat.v3.Utils.WXPay.UnifiedWxPayModel.DictionaryToXmlString(System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            dictionary转为xml 字符串
+            </summary>
+            <param name="dic"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Payment.PaymentInterface.WeChat.v3.Utils.WXPay.UnifiedWxPayModel.XmlToDictionary(System.String)">
+            <summary>
+            xml字符串 转换为  dictionary
+            </summary>
+            <param name="document"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Payment.PaymentInterface.WeChat.v3.Utils.WXPay.WxPayModel.Create(System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            创建 支付Model
+            </summary>
+            <param name="description">商品描述</param>
+            <param name="tradeNo">订单号</param>
+            <param name="totalFee">订单金额（分为单位）</param>
+            <param name="notifyUrl">支付完成后，接收微信通知支付结果的Url</param>
+            <param name="createIp">用户浏览器端Ip</param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Payment.PaymentInterface.WeChat.v3.Utils.WXPay.WxPayModel.Create(System.String)">
+            <summary>
+            创建 订单查询Model
+            </summary>
+            <param name="tradeNo">订单号</param>
+            <param name="isApp">是否为App支付创建的，默认为是</param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Payment.PaymentInterface.WeChat.v3.Utils.WXPay.WxPayModel.Create">
+            <summary>
+            创建 验证支付通知的 Model
+            </summary>
+            <param name="isApp">是否App应用</param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Payment.PaymentInterface.WeChat.v3.Utils.WXPay.WxPayModel.Create(System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            根据传入的dic 设置参数
+            </summary>
+            <param name="dic"></param>
+            <param name="isApp"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Payment.PaymentInterface.WeChat.v3.Utils.WXPay.WxPayModel.CheckOrderQueryParameters">
+            <summary>
+            检查 支付订单参数 是否完整
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Payment.PaymentInterface.WeChat.v3.Utils.WXPay.WxPayModel.GetCftPackage">
+            <summary>
+            生成 订单详情 （package）
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Payment.PaymentInterface.WeChat.v3.Utils.WXPay.WxPayModel.GetBizSign(System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            支付签名
+            </summary>
+            <param name="bizObj"></param>
+            <returns></returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:YSWL.Payment.PaymentInterface.WeChat.v3.Utils.WXPay.WxPayModel.CreateAppPrePayPackage(System.String)" -->
+        <member name="M:YSWL.Payment.PaymentInterface.WeChat.v3.Utils.WXPay.WxPayModel.CreateAppPayPackage(System.String)">
+            <summary>
+            生成app支付请求json（已测试通过）
+            </summary>
+            <param name="traceid"></param>
+            <returns></returns>
+            <remarks>
+            { 
+            "appid":"wwwwb4f85f3a797777",
+            "noncestr":"111112222233333", 
+            "package":"Sign=WXpay",
+            "partnerid":"1900000109",
+            "prepayid":"1101000000140429eb40476f4c9",
+            "sign":"53cca9d47b883bd4a5c85a9300df3da0cb48565c",
+            "timestamp":1381405298,
+             }
+            </remarks>
+        </member>
+        <member name="M:YSWL.Payment.PaymentInterface.WeChat.v3.Utils.WXPay.WxPayModel.CreateOrderQueryPackage">
+            <summary>
+            生成订单查询Json  （已测试通过）
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Payment.PaymentInterface.WeChat.v3.Utils.WXPay.WxPayModel.CreateDeliverNotifyPackage(System.String,System.String,System.String)">
+            <summary>
+            创建发货成功 Package (已测试通过)
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Payment.PaymentInterface.WeChat.v3.Utils.WXPay.WxPayModel.ValidateMD5Signature(System.Collections.Generic.Dictionary{System.String,System.String},System.String)">
+            <summary>
+            验证 package的签名(MD5) （已测试通过）
+            </summary>
+            <param name="dic"></param>
+            <param name="sign"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Payment.PaymentInterface.WeChat.v3.Utils.WXPay.WxPayModel.ValidateSha1Signature(System.Collections.Generic.Dictionary{System.String,System.String},System.String)">
+            <summary>
+            验证支付签名(Sha1) 已测试通过
+            </summary>
+            <param name="dic">参加签名的字典数据</param>
+            <param name="sign">签名值</param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Payment.PaymentInterface.WeChat.v3.WeChatNotify.GetXmlString(System.Web.HttpRequest)">
+            <summary>
+            获取Post Xml数据
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Payment.PaymentInterface.IPS.IpsNotify.verifySign(System.String,YSWL.Payment.Model.PayeeInfo)">
+            <summary>
+            验签
+            </summary>
+            <param name="rspXml">请求返回报文</param>
+            <returns>验签结果</returns>
+        </member>
+        <member name="F:YSWL.Payment.PaymentInterface.IPS.IpsRequest.objHead">
+            <summary>
+            请求报文头信息
+            </summary>
+        </member>
+        <member name="F:YSWL.Payment.PaymentInterface.IPS.IpsRequest.objBody">
+            <summary>
+            请求报文体信息
+            </summary>
+        </member>
+        <member name="M:YSWL.Payment.PaymentInterface.IPS.IpsRequest.GetReqXml">
+            <summary>
+            获取请求报文信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Payment.PaymentInterface.IPS.IpsRequest.GetReqHead">
+            <summary>
+            请求报文头
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Payment.PaymentInterface.IPS.IpsRequest.GetReqBody">
+            <summary>
+            请求报文体
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Payment.PaymentInterface.TenpayAssure.Globals.GetMD5(System.String,System.String)">
+            获取大写的MD5签名结果 
+        </member>
+        <member name="M:YSWL.Payment.PaymentInterface.TenpayAssure.Globals.UrlEncode(System.String,System.String)">
+            对字符串进行URL编码 
+        </member>
+        <member name="M:YSWL.Payment.PaymentInterface.TenpayAssure.Globals.UrlDecode(System.String,System.String)">
+            对字符串进行URL解码 
+        </member>
+        <member name="M:YSWL.Payment.PaymentInterface.Tenpay.Globals.GetMD5(System.String,System.String)">
+            获取大写的MD5签名结果 
+        </member>
+        <member name="M:YSWL.Payment.PaymentInterface.Tenpay.Globals.UrlEncode(System.String,System.String)">
+            对字符串进行URL编码 
+        </member>
+        <member name="M:YSWL.Payment.PaymentInterface.Tenpay.Globals.UrlDecode(System.String,System.String)">
+            对字符串进行URL解码 
+        </member>
+        <member name="F:YSWL.Payment.ShoppingProcessor.OrderIdsSplitChar">
+            <summary>
+            订单ID分割符
+            </summary>
+        </member>
+        <member name="M:YSWL.Payment.ShoppingProcessor.GenerateOrderId(System.Int32)">
+            <summary>
+            生成多份订单ID
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Payment.ShoppingProcessor.GenerateOrderId">
+            <summary>
+            生成一份订单ID
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Payment.ShoppingProcessor.GetQueryStringForOrderIds(System.Web.HttpRequest)">
+            <summary>
+            从URL获取全部订单ID
+            </summary>
+            <param name="page">Page对象</param>
+        </member>
+        <member name="M:YSWL.Payment.ShoppingProcessor.GetQueryStringForOrderIds(System.Web.HttpRequest,System.String@)">
+            <summary>
+            从URL获取全部订单ID
+            </summary>
+            <param name="page">Page对象</param>
+            <param name="orderIdStr">订单ID字符串</param>
+        </member>
+        <member name="T:YSWL.Payment.Web.RechargeReturnTemplatedController">
+            <summary>
+            支付模块回调/通知抽象基类
+            </summary>
+        </member>
+        <member name="T:YSWL.Payment.Web.RechargeReturnTemplatedController`1">
+            <summary>
+            支付模块回调/通知抽象基类
+            </summary>
+            <typeparam name="T">充值信息</typeparam>
+        </member>
+        <member name="M:YSWL.Payment.Web.RechargeReturnTemplatedController`1.DoValidate">
+            <summary>
+            子类调用方法 接收到请求后请立即调用此方法
+            </summary>
+        </member>
+        <member name="M:YSWL.Payment.Web.RechargeReturnTemplatedController`1.GetRechargeRequest(System.Int64)">
+            <summary>
+            获取充值信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Payment.Web.RechargeReturnTemplatedController`1.PayForRechargeRequest(`0)">
+            <summary>
+            更新充值信息-完成付款
+            </summary>
+            <param name="rechargeRequest">充值对象</param>
+            <returns>是否成功</returns>
+        </member>
+        <member name="T:YSWL.Payment.Web.RechargeReturnTemplatedPage">
+            <summary>
+            支付模块回调/通知抽象基类
+            </summary>
+        </member>
+        <member name="T:YSWL.Payment.Web.RechargeReturnTemplatedPage`1">
+            <summary>
+            支付模块回调/通知抽象基类
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:YSWL.Payment.Web.RechargeReturnTemplatedPage`1.GetRechargeRequest(System.Int64)">
+            <summary>
+            获取充值信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Payment.Web.RechargeReturnTemplatedPage`1.PayForRechargeRequest(`0)">
+            <summary>
+            更新充值信息-完成付款
+            </summary>
+            <param name="rechargeRequest">充值对象</param>
+            <returns>是否成功</returns>
+        </member>
+        <member name="T:YSWL.Payment.Web.PaymentReturnTemplatedPage`1">
+            <summary>
+            支付接口回调/通知抽象基类
+            </summary>
+            <typeparam name="T">订单信息</typeparam>
+        </member>
+        <member name="M:YSWL.Payment.Web.PaymentReturnTemplatedPage`1.#ctor(YSWL.Payment.Model.IPaymentOption{`0},System.Boolean)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="_isBackRequest">是否为支付网关异步回调请求</param>
+        </member>
+        <member name="M:YSWL.Payment.Web.PaymentReturnTemplatedPage`1.GetPaymentMode(System.Int32)">
+            <summary>
+            根据支付ID 获取支付信息
+            </summary>
+            <param name="paymentTypeId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Payment.Web.PaymentReturnTemplatedPage`1.GetOrderInfo(System.String)">
+            <summary>
+            根据订单ID 获取订单信息
+            </summary>
+            <param name="orderId">订单ID</param>
+            <returns>订单对象</returns>
+        </member>
+        <member name="M:YSWL.Payment.Web.PaymentReturnTemplatedPage`1.PayForOrder(`0)">
+            <summary>
+            更新订单-完成付款
+            </summary>
+            <param name="order">订单</param>
+            <returns>是否成功</returns>
+        </member>
+        <member name="T:YSWL.Payment.Web.PaymentReturnTemplatedController`1">
+            <summary>
+            支付接口回调/通知抽象基类
+            </summary>
+            <typeparam name="T">订单信息</typeparam>
+        </member>
+        <member name="M:YSWL.Payment.Web.PaymentReturnTemplatedController`1.#ctor(YSWL.Payment.Model.IPaymentOption{`0},System.Boolean)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="option">支付网关回调URL参数</param>
+            <param name="_isBackRequest">是否为支付网关异步回调请求</param>
+        </member>
+        <member name="M:YSWL.Payment.Web.PaymentReturnTemplatedController`1.DoValidate">
+            <summary>
+            子类调用方法 接收到请求后请立即调用此方法
+            </summary>
+        </member>
+        <member name="M:YSWL.Payment.Web.PaymentReturnTemplatedController`1.GetPaymentMode(System.Int32)">
+            <summary>
+            根据支付ID 获取支付信息
+            </summary>
+            <param name="paymentTypeId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Payment.Web.PaymentReturnTemplatedController`1.GetOrderInfo(System.String)">
+            <summary>
+            根据订单ID 获取订单信息
+            </summary>
+            <param name="orderId">订单ID</param>
+            <returns>订单对象</returns>
+        </member>
+        <member name="M:YSWL.Payment.Web.PaymentReturnTemplatedController`1.PayForOrder(`0)">
+            <summary>
+            更新订单-完成付款
+            </summary>
+            <param name="order">订单</param>
+            <returns>是否成功</returns>
+        </member>
+        <member name="T:YSWL.Payment.OrderProcessor">
+            <summary>
+            订单辅助处理类
+            </summary>
+        </member>
+        <member name="F:YSWL.Payment.OrderProcessor.OrderIdsSplitChar">
+            <summary>
+            订单ID分割符
+            </summary>
+        </member>
+        <member name="M:YSWL.Payment.OrderProcessor.GenerateOrderId(System.Int32)">
+            <summary>
+            生成多份订单ID
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Payment.OrderProcessor.GenerateOrderId">
+            <summary>
+            生成一份订单ID
+            </summary>
+            <remarks>线程安全</remarks>
+            <returns></returns>
+        </member>
+        <member name="M:YSWL.Payment.OrderProcessor.GetQueryString4OrderIds(System.Web.HttpRequest)">
+            <summary>
+            从URL获取全部订单ID
+            </summary>
+            <param name="request">HttpRequest对象</param>
+        </member>
+        <member name="M:YSWL.Payment.OrderProcessor.GetQueryString4OrderIds(System.Web.HttpRequest,System.String@)">
+            <summary>
+            从URL获取全部订单ID
+            </summary>
+            <param name="request">HttpRequest对象</param>
+            <param name="orderIdStr">订单ID字符串</param>
+        </member>
+        <member name="M:YSWL.Payment.OrderProcessor.CheckAction``1(``0,YSWL.Payment.Model.OrderActions)">
+            <summary>
+            检查订单状态是否允许当前操作
+            </summary>
+            <param name="order">订单</param>
+            <param name="action">操作</param>
+            <returns>是否允许</returns>
+        </member>
+        <member name="T:Body">
+            <summary>
+            Body 的摘要说明
+            </summary>
+        </member>
+        <member name="P:Body.MerBillno">
+            <summary>
+            商户订单号
+            </summary>
+        </member>
+        <member name="P:Body.Date">
+            <summary>
+            订单日期
+            </summary>
+        </member>
+        <member name="P:Body.CurrencyType">
+            <summary>
+            币种 
+            </summary>
+        </member>
+        <member name="P:Body.GatewayType">
+            <summary>
+            支付方式
+            </summary>
+        </member>
+        <member name="P:Body.Amount">
+            <summary>
+            订单金额
+            </summary>
+        </member>
+        <member name="P:Body.Lang">
+            <summary>
+            语言 
+            </summary>
+        </member>
+        <member name="P:Body.Merchanturl">
+            <summary>
+            支付结果成功返回的商户URL 
+            </summary>
+        </member>
+        <member name="P:Body.FailUrl">
+            <summary>
+            支付结果失败返回的商户URL 
+            </summary>
+        </member>
+        <member name="P:Body.Attach">
+            <summary>
+            商户数据包
+            </summary>
+        </member>
+        <member name="P:Body.OrderEncodeType">
+            <summary>
+            订单支付接口加密方式
+            </summary>
+        </member>
+        <member name="P:Body.RetEncodeType">
+            <summary>
+            交易返回接口加密方式
+            </summary>
+        </member>
+        <member name="P:Body.RetType">
+            <summary>
+            返回方式 
+            </summary>
+        </member>
+        <member name="P:Body.ServerUrl">
+            <summary>
+            异步S2S返回
+            </summary>
+        </member>
+        <member name="P:Body.BillEXP">
+            <summary>
+            订单有效期
+            </summary>
+        </member>
+        <member name="P:Body.GoodsName">
+            <summary>
+            商品名称
+            </summary>
+        </member>
+        <member name="P:Body.IsCredit">
+            <summary>
+            直连选项
+            </summary>
+        </member>
+        <member name="P:Body.BankCode">
+            <summary>
+            银行号
+            </summary>
+        </member>
+        <member name="P:Body.ProductType">
+            <summary>
+            产品类型
+            </summary>
+        </member>
+        <member name="T:Head">
+            <summary>
+            Head 的摘要说明
+            </summary>
+        </member>
+        <member name="P:Head.Version">
+            <summary>
+            版本号
+            </summary>
+        </member>
+        <member name="P:Head.MerCode">
+            <summary>
+            商户号
+            </summary>
+        </member>
+        <member name="P:Head.MerName">
+            <summary>
+            商户名
+            </summary>
+        </member>
+        <member name="P:Head.Account">
+            <summary>
+            账户号
+            </summary>
+        </member>
+        <member name="P:Head.MsgId">
+            <summary>
+            消息编号
+            </summary>
+        </member>
+        <member name="P:Head.ReqDate">
+            <summary>
+            商户请求时间
+            </summary>
+        </member>
+        <member name="P:Head.Signature">
+            <summary>
+            数字签名
+            </summary>
+        </member>
+        <member name="T:IpsVerify">
+            <summary>
+            MD5加密类
+            </summary>
+        </member>
+        <member name="M:IpsVerify.MD5Sign(System.String)">
+            <summary>
+            取得输入字符串的MD5哈希值
+            </summary>
+            <param name="argInput">输入字符串</param>
+            <returns>MD5哈希值</returns>
+        </member>
+        <member name="M:IpsVerify.IsMD5Sign(System.String,System.String)">
+            <summary>
+            MD5
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:IpsVerify.VerifyMessageByKeyUTF8(System.String,System.String,System.String)">
+            <summary>
+            Md5WithRsa
+            </summary>
+            <param name="argPubKey">公钥</param>
+            <param name="content">内容</param>
+            <param name="signmessage">签名</param>
+            <returns></returns>
+        </member>
+        <member name="T:LogManager">
+            <summary>
+            LogManager 的摘要说明
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:LogManager.LogPath" -->
+        <member name="P:LogManager.LogFielPrefix">
+            <summary>
+             日志文件前缀
+            </summary>
+        </member>
+        <member name="M:LogManager.WriteLog(System.String,System.String)">
+            <summary>
+             写日志
+            </summary>
+        </member>
+        <member name="M:LogManager.WriteLog(LogFile,System.String)">
+            <summary>
+             写日志
+            </summary>
+        </member>
+        <member name="T:LogFile">
+            <summary>
+            日志类型
+            </summary>
+        </member>
+        <member name="M:XmlStrUtil.#ctor(System.String)">
+            <summary>
+            加载xml文本
+            </summary>
+            <param name="xmlText">xml文本</param>
+        </member>
+        <member name="M:XmlStrUtil.GetXmlValue(System.String,System.String)">
+            <summary>
+            获取Xml指定节点的值(静态方法)
+            </summary>
+            <param name="xml"></param>
+            <param name="xpath"></param>
+            <returns></returns>
+        </member>
+        <member name="P:XmlStrUtil.XmlText">
+            <summary>
+            获取Xml的值
+            </summary>
+        </member>
+        <member name="M:XmlStrUtil.FormatXML(System.String)">
+            <summary>
+            报文格式化
+            </summary>
+            <param name="rspXMl"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

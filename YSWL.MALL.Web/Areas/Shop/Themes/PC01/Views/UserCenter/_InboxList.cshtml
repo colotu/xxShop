@@ -1,0 +1,84 @@
+﻿@using YSWL.Common;
+@using Webdiyer.WebControls.Mvc
+@model PagedList<YSWL.MALL.Model.Members.SiteMessage>
+@if (null != Model)
+{   
+    <link href="/Scripts/jqueryui/base/jquery-ui-1.9.2.min.css" rel="stylesheet" type="text/css" />
+    <script src="/Scripts/jqueryui/jquery-ui-1.9.2.custom.js" type="text/javascript"></script>
+    <script src="/Areas/Shop/Themes/PC01/Content/scripts/SendSiteMsg.js" type="text/javascript"></script>
+    <table width="100%" border="0" class="user_dingdan" cellspacing="0" cellpadding="0">
+        <input type="hidden" id="hidpage" value="@ViewBag.inboxpage"/>         
+        @foreach (var item in Model)
+        {
+            if (item.ReceiverIsRead == false)
+            {
+                 <tr><td class="bor" style="width:108px;"> 
+                    <!--<a href="/User/Posts/@item.SenderID"></a>-->
+                    <img src="/Upload/User/Gravatar/@(@item.SenderID).jpg" width="48px" height="48px" onerror="this.onerror='';this.src='/Upload/User/Gravatar/nophoto.png'" /> 
+                </td>
+                <td class="bor"  style=" text-align:left;  padding-left:20px; font-weight:bold; " title="未读消息,点击">  
+                    <p  >
+                        <!--<a href="/User/Posts/@item.SenderID"></a>--> @item.SenderUserName</p>
+                    <p >
+                    <a href="@(ViewBag.BasePath)UserCenter/ReadMsg?MsgID=@item.ID" class="readMsgContent"  >@(string.IsNullOrEmpty(item.Title) ? "" : item.Title + ":")@item.Content</a>   </p>
+                    <div  >
+                        <p  >
+                            @(item.SendTime.HasValue ? item.SendTime.Value.ToString("yyyy-MM-dd HH:mm:ss") : "")</p>
+                    </div> 
+                </td>
+                <td class="bor" style="width:100px;">  
+                    <a href="javascript:;" class="SendMsg" nickname="@item.SenderUserName">回复</a> &nbsp;&nbsp;&nbsp;&nbsp; <a href="javascript:;" class="DelReceiveMsg" itemid="@item.ID">删除</a></td></tr> 	         
+
+            }
+            else
+            {
+                 <tr><td class="bor" style="width:108px;"> 
+                    <!--<a href="/User/Posts/@item.SenderID"></a>-->
+                    <img src="/Upload/User/Gravatar/@(@item.SenderID).jpg" width="48px" height="48px" onerror="this.onerror='';this.src='/Upload/User/Gravatar/nophoto.png'" /> 
+                </td>
+                <td class="bor"  style=" text-align:left;  padding-left:20px; " >  
+                    <p  >
+                        <!--<a href="/User/Posts/@item.SenderID"></a>--> @item.SenderUserName</p>
+                    <p >
+                        @(string.IsNullOrEmpty(item.Title) ? "" : item.Title + ":")@item.Content<a href="javascript:;"></a></p>
+                    <div  >
+                        <p  >
+                            @(item.SendTime.HasValue ? item.SendTime.Value.ToString("yyyy-MM-dd HH:mm:ss") : "")</p>
+                    </div> 
+                </td>
+                <td class="bor" style="width:100px;">  
+                    <a href="javascript:;" class="SendMsg" nickname="@item.SenderUserName">回复</a> &nbsp;&nbsp;&nbsp;&nbsp; <a href="javascript:;" class="DelReceiveMsg" itemid="@item.ID">删除</a></td></tr> 	         
+
+            }
+        }
+    </table>
+
+            <div class="pagination">
+        @Ajax.Pager(Model, new PagerOptions
+   {
+       ShowDisabledPagerItems = false,
+       AlwaysShowFirstLastPageNumber = true,
+       ShowFirstLast = false,
+       PageIndexParameterName = "page",
+       NumericPagerItemCount = 6,
+       CurrentPagerItemTemplate = "<span class=\"page-item curr\">{0}</span>",
+       PagerItemTemplate = "<span class=\"page-item\">{0}</span>",
+       MorePagerItemTemplate = "<span class=\"pn-break\">{0}</span>",
+       CssClass = "p-wrap",
+       PrevPageText = "<span class=\"pn-prev \"><i>&lt;</i>上一页</span>",
+       NextPageText = "<span class=\"pn-next \">下一页<i>&gt;</i></span>",
+   }).AjaxOptions(a => a.SetUpdateTargetId("InBoxList"))
+    </div>
+}
+ 
+
+<div id="divSendSiteMsg" style="display:none ;  ">
+    <div style='margin-left:40px;margin-top:20px;font-size: 14px; font-weight: bold;'>
+        标题：<input type='text' style='height: 30px;width: 300px;border: 1px solid rgb(169, 169, 169);' id='title' name='Title' />
+    </div>
+    <div style='margin-left:40px;margin-top:20px;font-size: 14px;font-weight: bold;'>
+        <div>内容：</div><textarea rows="5" style=' z-index:0;width: 300px;margin-top: -20px;margin-left: 45px;' id='content' name='Content'></textarea> 
+    </div>
+    <input type='hidden' name='NickName' id="nickname" value='' />
+</div>
+ 

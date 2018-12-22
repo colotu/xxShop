@@ -1,0 +1,24 @@
+﻿@{
+    Layout = "~/Areas/Shop/Themes/PC01/Views/Shared/_BaseLayout.cshtml";
+}
+<div class="order-wrapper">
+    <div class="successk">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" >
+            <tbody><tr>
+                       <td height="45" colspan="3" align="left">
+                           <span  class="successk_title"> 此订单只能在手机上支付 或 重新下单。</span>
+                       </td>
+                   </tr>
+                <tr>
+                    <td height="35" colspan="3" align="left"><h2>订单号：@ViewBag.OrderCode</h2></td>
+                </tr>
+                <tr>
+                    @*<td height="35" colspan="3" align="left"><strong><span class="ftx-01">@(ViewBag.ItemsCount)</span>件商品将发送给 @(ViewBag.ShipName)</strong></td>*@
+                </tr>
+                <tr>
+                    @*<td width="65%" height="60" align="left" valign="middle"><input type="button" border="none" name="" class="btn-conti" style="display: none;" value="继续支付"></td>*@
+                </tr>
+            </tbody></table>
+    </div>
+
+</div>
