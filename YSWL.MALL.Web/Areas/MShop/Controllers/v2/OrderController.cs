@@ -5,6 +5,8 @@ using YSWL.MALL.BLL.SysManage;
 using YSWL.Common;
 using YSWL.MALL.Model.Shop.Products;
 using YSWL.TaoBao.Domain;
+using System.Linq;
+using YSWL.Json;
 
 namespace YSWL.MALL.Web.Areas.MShop.Controllers
 {
@@ -65,7 +67,31 @@ namespace YSWL.MALL.Web.Areas.MShop.Controllers
             int payId = Common.Globals.SafeInt(Common.Cookies.getKeyCookie("m_so_payId"), 0);
           //  int shipId = Common.Globals.SafeInt(Common.Cookies.getKeyCookie("m_so_shipId"), 0);
             int addrId = Common.Globals.SafeInt(Common.Cookies.getCookie("m_so_addrId", "value"), 0);
-           
+
+            #region  配送方式
+            string shipStr= Common.Cookies.getKeyCookie("shipStr"); 
+            Dictionary<int, int> dicShip = new Dictionary<int, int>();
+            if (!String.IsNullOrWhiteSpace(shipStr))
+            {
+                var shipArr = shipStr.Split('|');
+                foreach (var item in shipArr)
+                {
+                    if (item.Contains('-'))
+                    {
+                        var itemArr = item.Split('-');
+                        if (dicShip.ContainsKey(YSWL.Common.Globals.SafeInt(itemArr[0], 0)))
+                        {
+                            dicShip[YSWL.Common.Globals.SafeInt(itemArr[0], 0)] = YSWL.Common.Globals.SafeInt(itemArr[1], 0);
+                        }
+                        else
+                        {
+                            dicShip.Add(YSWL.Common.Globals.SafeInt(itemArr[0], 0), YSWL.Common.Globals.SafeInt(itemArr[1], 0));
+                        }
+                    }
+                }
+            }
+            #endregion  
+
             #region 支付
             if (payId > 0)
             {
@@ -122,7 +148,7 @@ namespace YSWL.MALL.Web.Areas.MShop.Controllers
             {
                 Model.Ms.Regions regionInfo = _regionManage.GetModelByCache(shippingAddress.RegionId);
                 //ViewBag.Freight = YSWL.MALL.BLL.Shop.Products.ShoppingCartHelper.CalcFreightGroup(cartInfo, regionInfo);
-                ViewBag.Freight = YSWL.MALL.BLL.Shop.Products.ShoppingCartHelper.CalcFreightGroup(cartInfo, regionInfo, currentUser.UserID);
+                ViewBag.Freight = YSWL.MALL.BLL.Shop.Products.ShoppingCartHelper.CalcFreightGroup(cartInfo, regionInfo, currentUser.UserID, dicShip);
             }
             else
             {
@@ -143,6 +169,33 @@ namespace YSWL.MALL.Web.Areas.MShop.Controllers
             int count = Common.Globals.SafeInt(Session["SubmitOrder_COUNT"], 1);
             int c = Common.Globals.SafeInt(Session["SubmitOrder_CountDown"], 0);
             int g = Common.Globals.SafeInt(Session["SubmitOrder_GroupBuy"], 0);
+
+            //tuzh
+            #region  配送方式
+            string shipStr = Common.Cookies.getKeyCookie("shipStr");
+            Dictionary<int, int> dicShip = new Dictionary<int, int>();
+            if (!String.IsNullOrWhiteSpace(shipStr))
+            {
+                var shipArr = shipStr.Split('|');
+                foreach (var item in shipArr)
+                {
+                    if (item.Contains('-'))
+                    {
+                        var itemArr = item.Split('-');
+                        if (dicShip.ContainsKey(YSWL.Common.Globals.SafeInt(itemArr[0], 0)))
+                        {
+                            dicShip[YSWL.Common.Globals.SafeInt(itemArr[0], 0)] = YSWL.Common.Globals.SafeInt(itemArr[1], 0);
+                        }
+                        else
+                        {
+                            dicShip.Add(YSWL.Common.Globals.SafeInt(itemArr[0], 0), YSWL.Common.Globals.SafeInt(itemArr[1], 0));
+                        }
+                    }
+                }
+            }
+            #endregion  
+
+
             ViewBag.IsMerge = ConfigSystem.GetBoolValueByCache("Shop_Activity_IsMerge");
             if (c > 0 || g > 0)//限时抢购/团购/组合套装 不参与促销活动
             {
@@ -156,7 +209,7 @@ namespace YSWL.MALL.Web.Areas.MShop.Controllers
             #region 按商家分组计算运费
 
             Model.Ms.Regions regionInfo = _regionManage.GetModelByCache(GetRegionId);
-            ViewBag.AdjustedFreight = YSWL.MALL.BLL.Shop.Products.ShoppingCartHelper.CalcFreightGroup(cartInfo, regionInfo,CurrentUser.UserID);
+            ViewBag.AdjustedFreight = YSWL.MALL.BLL.Shop.Products.ShoppingCartHelper.CalcFreightGroup(cartInfo, regionInfo,CurrentUser.UserID, dicShip);
             #endregion
 
             return View(viewName, model); 
@@ -180,6 +233,57 @@ namespace YSWL.MALL.Web.Areas.MShop.Controllers
             return View(viewName, orderModel);
         }
         #endregion
+
+        [HttpPost]
+        public void GetFreight()
+        {
+
+            string shipStr = Common.Cookies.getKeyCookie("shipStr");
+            Dictionary<int, int> dicShip = new Dictionary<int, int>();
+            if (!String.IsNullOrWhiteSpace(shipStr))
+            {
+                var shipArr = shipStr.Split('|');
+                foreach (var item in shipArr)
+                {
+                    if (item.Contains('-'))
+                    {
+                        var itemArr = item.Split('-');
+                        if (dicShip.ContainsKey(YSWL.Common.Globals.SafeInt(itemArr[0], 0)))
+                        {
+                            dicShip[YSWL.Common.Globals.SafeInt(itemArr[0], 0)] = YSWL.Common.Globals.SafeInt(itemArr[1], 0);
+                        }
+                        else
+                        {
+                            dicShip.Add(YSWL.Common.Globals.SafeInt(itemArr[0], 0), YSWL.Common.Globals.SafeInt(itemArr[1], 0));
+                        }
+                    }
+                }
+            }
+
+            JsonObject result = new JsonObject();
+            JsonArray array = new JsonArray();
+            JsonObject json;
+
+            int userId = currentUser == null ? -1 : currentUser.UserID;
+            BLL.Shop.Products.ShoppingCartHelper cartHelper = new BLL.Shop.Products.ShoppingCartHelper(userId);
+            ShoppingCartInfo cartInfo = cartHelper.GetShoppingCart();
+
+
+
+            if (cartInfo.Quantity < 1)
+            {
+                result.Accumulate("STATUS", "NO");
+                result.Accumulate("DATA", "NODATA");
+                Response.Write(result.ToString());
+                return;
+            }
+            decimal freight = BLL.Shop.Products.ShoppingCartHelper.CalcFreightGroup(cartInfo, _regionManage.GetModelByCache(GetRegionId), CurrentUser.UserID, dicShip);
+
+            result.Accumulate("STATUS", "OK");
+            result.Accumulate("DATA", freight.ToString("F"));
+            Response.Write(result.ToString());
+            return;
+        }
 
     }
 }

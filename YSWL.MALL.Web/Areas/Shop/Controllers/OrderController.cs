@@ -11,6 +11,7 @@ using System.Linq;
 using YSWL.MALL.BLL.Shop.PrePro;
 using YSWL.Json;
 using YSWL.Json.Conversion;
+using YSWL.MALL.BLL.Shop.Products;
 
 namespace YSWL.MALL.Web.Areas.Shop.Controllers
 {
@@ -97,7 +98,7 @@ namespace YSWL.MALL.Web.Areas.Shop.Controllers
                 BLL.Shop.Products.ProductAccessorie prodAcceBll = new BLL.Shop.Products.ProductAccessorie();
                 YSWL.MALL.Model.Shop.Products.ProductAccessorie prodAcceModel = prodAcceBll.GetModel(a);
                 if (prodAcceModel == null || prodAcceModel.Type != 2) return new RedirectResult("/");
-                List<SKUInfo> skulist = skuManage.GetSKUListByAcceId(a, 0);
+                List<Model.Shop.Products.SKUInfo> skulist = skuManage.GetSKUListByAcceId(a, 0);
                 if (skulist == null || skulist.Count < 2) return new RedirectResult("/");//每组商品最少有两条数据
                 cartInfo = BLL.Shop.Products.ShoppingCartHelper.GetCartInfo4SKU((currentUser != null ? currentUser.UserID : -1), skulist, prodAcceModel, GetRegionId);
                 #endregion
@@ -121,14 +122,14 @@ namespace YSWL.MALL.Web.Areas.Shop.Controllers
             {
                 #region 指定SKU提交订单 此功能已投入使用
                 //TODO: 未支持多个SKU BEN ADD 2013-06-23
-                SKUInfo skuInfo = skuManage.GetModelBySKU(sku);
+                Model.Shop.Products.SKUInfo skuInfo = skuManage.GetModelBySKU(sku);
                 if (skuInfo == null) return new RedirectResult("/");
 
-                ProductInfo productInfo = productManage.GetModel(skuInfo.ProductId);
+                Model.Shop.Products.ProductInfo productInfo = productManage.GetModel(skuInfo.ProductId);
                 if (productInfo == null) return new RedirectResult("/");
 
                 #region 限时抢购
-                ProductInfo proSaleInfo = null;
+                Model.Shop.Products.ProductInfo proSaleInfo = null;
                 if (c > 0)
                 {
                     proSaleInfo = productManage.GetProSaleModel(c);
@@ -140,7 +141,7 @@ namespace YSWL.MALL.Web.Areas.Shop.Controllers
                 #endregion
 
                 #region 团购
-                ProductInfo groupBuyInfo = null;
+                Model.Shop.Products.ProductInfo groupBuyInfo = null;
                 if (g > 0)
                 {
                     groupBuyInfo = productManage.GetGroupBuyModel(g);
@@ -220,6 +221,25 @@ namespace YSWL.MALL.Web.Areas.Shop.Controllers
             ViewBag.IsMultiDepot = IsMultiDepot;
             Common.Cookies.setCookie("submitorder_refertype_" + CurrentUser.UserID,
                 ((int)YSWL.MALL.Model.Shop.Order.EnumHelper.ReferType.PC).ToString(), 1440);
+
+            #region 处理默认的配送方式
+            var dic = ShoppingCartHelper.GetSuppCartItems(cartInfo.Items);
+            string shipStr = "";
+            foreach (var di in dic)
+            {
+               var typeModel=  _shippingTypeManage.GetCacgeModelBySupplied(di.Key);
+                if (String.IsNullOrWhiteSpace(shipStr))
+                {
+                    shipStr = di.Key + "-" + typeModel.ModeId;
+                }
+                else
+                {
+                    shipStr = shipStr+"|"+ di.Key + "-" + typeModel.ModeId;
+                }
+               
+            }
+            Common.Cookies.setCookie("shipStr", shipStr, 1440);
+            #endregion
 
             return View(viewName, cartInfo);
         }
@@ -369,6 +389,9 @@ namespace YSWL.MALL.Web.Areas.Shop.Controllers
                     model = listAddress[0];
                 }
             }
+
+
+
             
             //用户从未设置
             if (model == null) {
@@ -378,6 +401,32 @@ namespace YSWL.MALL.Web.Areas.Shop.Controllers
             } 
             //写收货地址
             Common.Cookies.setKeyCookie("submitorder_addrId", model.ShippingId.ToString(), 1440);
+
+
+            #region  配送方式
+            string shipStr = Common.Cookies.getKeyCookie("shipStr");
+            Dictionary<int, int> dicShip = new Dictionary<int, int>();
+            if (!String.IsNullOrWhiteSpace(shipStr))
+            {
+                var shipArr = shipStr.Split('|');
+                foreach (var item in shipArr)
+                {
+                    if (item.Contains('-'))
+                    {
+                        var itemArr = item.Split('-');
+                        if (dicShip.ContainsKey(YSWL.Common.Globals.SafeInt(itemArr[0], 0)))
+                        {
+                            dicShip[YSWL.Common.Globals.SafeInt(itemArr[0], 0)] = YSWL.Common.Globals.SafeInt(itemArr[1], 0);
+                        }
+                        else
+                        {
+                            dicShip.Add(YSWL.Common.Globals.SafeInt(itemArr[0], 0), YSWL.Common.Globals.SafeInt(itemArr[1], 0));
+                        }
+                        
+                    }
+                }
+            }
+            #endregion  
 
             if (IsMultiDepot)
             {
@@ -391,7 +440,7 @@ namespace YSWL.MALL.Web.Areas.Shop.Controllers
             #region 团购
             bool isGroupRegionId = true;
             int g = Common.Globals.SafeInt(Common.Cookies.getCookie("submitorder_groupbuy", "value"), 0);//团购
-            ProductInfo groupBuyInfo = null;
+            Model.Shop.Products.ProductInfo groupBuyInfo = null;
             if (g > 0)
             {
                 groupBuyInfo = productManage.GetGroupBuyModel(g);
@@ -421,7 +470,7 @@ namespace YSWL.MALL.Web.Areas.Shop.Controllers
             if (model != null && model.RegionId > 0)
             {
                 //ViewBag.Freight = YSWL.MALL.BLL.Shop.Products.ShoppingCartHelper.CalcFreightGroup(cartInfo, _regionManage.GetModelByCache(model.RegionId));
-                ViewBag.Freight = BLL.Shop.Products.ShoppingCartHelper.CalcFreightGroup(cartInfo, _regionManage.GetModelByCache(model.RegionId), currentUser.UserID);
+                ViewBag.Freight = BLL.Shop.Products.ShoppingCartHelper.CalcFreightGroup(cartInfo, _regionManage.GetModelByCache(model.RegionId), currentUser.UserID,dicShip);
             }
             else
             {
@@ -633,10 +682,35 @@ namespace YSWL.MALL.Web.Areas.Shop.Controllers
                 return View(viewName, null);
             }
 
+
+            #region  配送方式
+            string shipStr = Common.Cookies.getKeyCookie("shipStr");
+            Dictionary<int, int> dicShip = new Dictionary<int, int>();
+            if (!String.IsNullOrWhiteSpace(shipStr))
+            {
+                var shipArr = shipStr.Split('|');
+                foreach (var item in shipArr)
+                {
+                    if (item.Contains('-'))
+                    {
+                        var itemArr = item.Split('-');
+                        if (dicShip.ContainsKey(YSWL.Common.Globals.SafeInt(itemArr[0], 0)))
+                        {
+                            dicShip[YSWL.Common.Globals.SafeInt(itemArr[0], 0)] = YSWL.Common.Globals.SafeInt(itemArr[1], 0);
+                        }
+                        else
+                        {
+                            dicShip.Add(YSWL.Common.Globals.SafeInt(itemArr[0], 0), YSWL.Common.Globals.SafeInt(itemArr[1], 0));
+                        }
+                    }
+                }
+            }
+            #endregion  
+
             ShoppingCartInfo cartInfo = BLL.Shop.Products.ShoppingCartHelper.GetCartInfoByProduct((currentUser != null ? currentUser.UserID : -1), sku, count, c, g, a, referId, GetRegionId);
             ViewModel.Shop.ActicityGiveList model = activInfoBll.GetActivityGiveList(cartInfo,
                                                                                      CurrentUser.UserID, coupPrice, GetRegionId);
-            ViewBag.AdjustedFreight = BLL.Shop.Products.ShoppingCartHelper.CalcFreightGroup(cartInfo, _regionManage.GetModelByCache(GetRegionId), CurrentUser.UserID);
+            ViewBag.AdjustedFreight = BLL.Shop.Products.ShoppingCartHelper.CalcFreightGroup(cartInfo, _regionManage.GetModelByCache(GetRegionId), CurrentUser.UserID, dicShip);
             return View(viewName, model);
         }
         #endregion
@@ -691,13 +765,13 @@ namespace YSWL.MALL.Web.Areas.Shop.Controllers
 
 
             #region 指定SKU提交订单 此功能已投入使用
-            SKUInfo skuInfo = skuManage.GetModelBySKU(sku);
+            Model.Shop.Products.SKUInfo skuInfo = skuManage.GetModelBySKU(sku);
             if (skuInfo == null)
             {
                 return new RedirectResult("/");
             }
 
-            ProductInfo productInfo = productManage.GetModel(skuInfo.ProductId);
+            Model.Shop.Products.ProductInfo productInfo = productManage.GetModel(skuInfo.ProductId);
             if (productInfo == null)
             {
                 return new RedirectResult("/");

@@ -472,7 +472,7 @@ namespace YSWL.MALL.BLL.Shop.Products
         /// 按商家分组计算运费
         /// </summary>
         /// <returns>运费</returns>
-        public static decimal CalcFreightGroup(ShoppingCartInfo cartInfo)
+        public static decimal CalcFreightGroup(ShoppingCartInfo cartInfo,Dictionary<int,int> dicShip)
         {
             YSWL.MALL.BLL.Shop.Shipping.ShippingType bll = new Shipping.ShippingType();
             if (cartInfo == null)
@@ -511,7 +511,7 @@ namespace YSWL.MALL.BLL.Shop.Products
                 }
 
 
-                YSWL.MALL.Model.Shop.Shipping.ShippingType shipModel = bll.GetCacgeModelSupplied(di.Key);
+                YSWL.MALL.Model.Shop.Shipping.ShippingType shipModel = bll.GetModelByCache(dicShip[di.Key]);
                 if (shipModel != null)
                 {
                     foreach (var item in di.Value)
@@ -546,7 +546,7 @@ namespace YSWL.MALL.BLL.Shop.Products
 
             #region 平台商品运费统一计算
 
-            YSWL.MALL.Model.Shop.Shipping.ShippingType terraceShip = bll.GetCacgeModelSupplied(-1);
+            YSWL.MALL.Model.Shop.Shipping.ShippingType terraceShip = bll.GetModelByCache(dicShip[0]);
             if (terraceShip != null)
             {
 
@@ -579,7 +579,7 @@ namespace YSWL.MALL.BLL.Shop.Products
         /// <param name="cartInfo"></param>
         /// <param name="regionInfo"></param>
         /// <returns></returns>
-        public static decimal CalcFreightGroup(ShoppingCartInfo cartInfo, Model.Ms.Regions regionInfo)
+        public static decimal CalcFreightGroup(ShoppingCartInfo cartInfo, Model.Ms.Regions regionInfo,Dictionary<int,int> dicShip )
         {
             BLL.Shop.Shipping.ShippingRegionGroups _shippingRegionManage = new BLL.Shop.Shipping.ShippingRegionGroups();
 
@@ -637,7 +637,7 @@ namespace YSWL.MALL.BLL.Shop.Products
                 #endregion
 
                 #region 计算商家配送商品运费
-                YSWL.MALL.Model.Shop.Shipping.ShippingType shipModel = bll.GetCacgeModelSupplied(di.Key);
+                YSWL.MALL.Model.Shop.Shipping.ShippingType shipModel = bll.GetModelByCache(dicShip[di.Key]);
                 if (shipModel != null)
                 {
                     #region 获取区域运费model         
@@ -694,7 +694,7 @@ namespace YSWL.MALL.BLL.Shop.Products
 
             #region 平台商品运费统一计算
 
-            YSWL.MALL.Model.Shop.Shipping.ShippingType terraceShip = bll.GetCacgeModelSupplied(0);
+            YSWL.MALL.Model.Shop.Shipping.ShippingType terraceShip = bll.GetModelByCache(dicShip[0]);
             if (terraceShip != null)
             {
                 Model.Shop.Shipping.ShippingRegionGroups shippingReg =
@@ -750,7 +750,7 @@ namespace YSWL.MALL.BLL.Shop.Products
         /// <param name="regionInfo"></param>
         /// <param name=""></param>
         /// <returns></returns>
-        public static decimal CalcFreightGroup(ShoppingCartInfo cartInfo, Model.Ms.Regions regionInfo, int buyerId)
+        public static decimal CalcFreightGroup(ShoppingCartInfo cartInfo, Model.Ms.Regions regionInfo, int buyerId,Dictionary<int,int> dicShip)
         {
             BLL.Shop.Shipping.ShippingRegionGroups _shippingRegionManage = new BLL.Shop.Shipping.ShippingRegionGroups();
             BLL.Shop.Activity.ActivityInfo activInfoBll = new BLL.Shop.Activity.ActivityInfo();
@@ -808,7 +808,7 @@ namespace YSWL.MALL.BLL.Shop.Products
                 #endregion
 
                 #region 计算商家配送商品运费
-                YSWL.MALL.Model.Shop.Shipping.ShippingType shipModel = bll.GetCacgeModelSupplied(di.Key);
+                YSWL.MALL.Model.Shop.Shipping.ShippingType shipModel = bll.GetModelByCache(dicShip[di.Key]);
                 if (shipModel != null)
                 {
                     #region 获取区域运费model         
@@ -878,7 +878,7 @@ namespace YSWL.MALL.BLL.Shop.Products
 
             if (terraceWeight > 0)
             {
-                YSWL.MALL.Model.Shop.Shipping.ShippingType terraceShip = bll.GetCacgeModelSupplied(0);
+                YSWL.MALL.Model.Shop.Shipping.ShippingType terraceShip = bll.GetModelByCache(dicShip[0]);
                 if(terraceShip != null)
                 {
                     Model.Shop.Shipping.ShippingRegionGroups shippingReg =

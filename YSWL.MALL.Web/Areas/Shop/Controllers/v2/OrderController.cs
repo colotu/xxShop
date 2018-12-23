@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
+using YSWL.Json;
 using YSWL.MALL.Model.Shop.Products;
 
 namespace YSWL.MALL.Web.Areas.Shop.Controllers
@@ -41,5 +44,55 @@ namespace YSWL.MALL.Web.Areas.Shop.Controllers
         //    return View(viewName, model);
         //}
         #endregion
+        [HttpPost]
+        public void GetFreight()
+        {
+
+            string shipStr = Common.Cookies.getKeyCookie("shipStr");
+            Dictionary<int, int> dicShip = new Dictionary<int, int>();
+            if (!String.IsNullOrWhiteSpace(shipStr))
+            {
+                var shipArr = shipStr.Split('|');
+                foreach (var item in shipArr)
+                {
+                    if (item.Contains('-'))
+                    {
+                        var itemArr = item.Split('-');
+                        if (dicShip.ContainsKey(YSWL.Common.Globals.SafeInt(itemArr[0], 0)))
+                        {
+                            dicShip[YSWL.Common.Globals.SafeInt(itemArr[0], 0)] = YSWL.Common.Globals.SafeInt(itemArr[1], 0);
+                        }
+                        else
+                        {
+                            dicShip.Add(YSWL.Common.Globals.SafeInt(itemArr[0], 0), YSWL.Common.Globals.SafeInt(itemArr[1], 0));
+                        }
+                    }
+                }
+            }
+
+            JsonObject result = new JsonObject(); 
+            JsonArray array = new JsonArray();
+            JsonObject json;
+
+            int userId = currentUser == null ? -1 : currentUser.UserID;
+            BLL.Shop.Products.ShoppingCartHelper cartHelper = new BLL.Shop.Products.ShoppingCartHelper(userId);
+            ShoppingCartInfo cartInfo = cartHelper.GetShoppingCart();
+
+          
+
+            if (cartInfo.Quantity < 1)
+            {
+                result.Accumulate("STATUS", "NO");
+                result.Accumulate("DATA", "NODATA");
+                Response.Write(result.ToString());
+                return ;
+            }
+            decimal freight = BLL.Shop.Products.ShoppingCartHelper.CalcFreightGroup(cartInfo, _regionManage.GetModelByCache(GetRegionId), CurrentUser.UserID, dicShip);
+             
+            result.Accumulate("STATUS", "OK");
+            result.Accumulate("DATA", freight.ToString("F"));
+            Response.Write(result.ToString());
+            return ;
+        }
     }
 }

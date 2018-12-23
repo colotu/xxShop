@@ -10,6 +10,7 @@ using YSWL.MALL.Model.Shop.Products;
 using YSWL.MALL.Web.Components.Setting.Shop;
 using YSWL.MALL.ViewModel.Shop;
 using YSWL.Json;
+using YSWL.MALL.BLL.Shop.Products;
 
 namespace YSWL.MALL.Web.Areas.MShop.Controllers
 {
@@ -123,7 +124,7 @@ namespace YSWL.MALL.Web.Areas.MShop.Controllers
                 }
 
                 #region 限时抢购
-                ProductInfo proSaleInfo = null;
+                Model.Shop.Products.ProductInfo proSaleInfo = null;
                 if (c > 0)
                 {
                     proSaleInfo = productBll.GetProSaleModel(c);
@@ -135,7 +136,7 @@ namespace YSWL.MALL.Web.Areas.MShop.Controllers
                 #endregion
 
                 #region 团购
-                ProductInfo groupBuyInfo = null;
+                Model.Shop.Products.ProductInfo groupBuyInfo = null;
                 if (g > 0)
                 {
                     groupBuyInfo = productBll.GetGroupBuyModel(g);
@@ -207,6 +208,28 @@ namespace YSWL.MALL.Web.Areas.MShop.Controllers
 
             //是否开启发票项
             ViewBag.IsOpenInvoicesItem = BLL.SysManage.ConfigSystem.GetBoolValueByCache("IsOpenInvoicesItem");
+
+
+
+            #region 处理默认的配送方式
+            var dic = ShoppingCartHelper.GetSuppCartItems(cartInfo.Items);
+            string shipStr = "";
+            foreach (var di in dic)
+            {
+                var typeModel = _shippingTypeManage.GetCacgeModelBySupplied(di.Key);
+                if (String.IsNullOrWhiteSpace(shipStr))
+                {
+                    shipStr = di.Key + "-" + typeModel.ModeId;
+                }
+                else
+                {
+                    shipStr = shipStr + "|" + di.Key + "-" + typeModel.ModeId;
+                }
+
+            }
+            Common.Cookies.setCookie("shipStr", shipStr, 1440);
+            #endregion
+
 
             #region SEO 优化设置
             IPageSetting pageSetting = PageSetting.GetPageSetting("Home", Model.SysManage.ApplicationKeyType.Shop);
@@ -393,7 +416,7 @@ namespace YSWL.MALL.Web.Areas.MShop.Controllers
             #region 团购
             bool isGroupRegionId = true;
             int g = Common.Globals.SafeInt(Session["SubmitOrder_GroupBuy"], 0);//团购
-            ProductInfo groupBuyInfo = null;
+            Model.Shop.Products.ProductInfo groupBuyInfo = null;
             if (g > 0)
             {
                 groupBuyInfo = productManage.GetGroupBuyModel(g);
