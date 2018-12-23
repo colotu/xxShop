@@ -1122,6 +1122,8 @@ namespace YSWL.MALL.Web.Areas.MShop.Controllers
 
         public ActionResult MyQRCode(string id, string viewName = "MyQRCode")
         {
+            Bitmap b = null;
+            System.Drawing.Image i = null;
             try
             {
                 if (id == null)
@@ -1147,8 +1149,8 @@ namespace YSWL.MALL.Web.Areas.MShop.Controllers
                     string bgPath = Server.MapPath("/Upload/QRcode/qrewmbj.png");
                     string qrPath = QRPath;
                     ////调整图像大小
-                    Bitmap b = new Bitmap(bgPath);
-                    System.Drawing.Image i = resizeImage(b, new Size(459, 898));
+                    b = new Bitmap(bgPath);
+                    i = resizeImage(b, new Size(459, 898));
                     string rePath = Server.MapPath("/Upload/QRcode/QRBJ/") + "rebg.png";
                     i.Save(rePath);
                     i.Dispose();
@@ -1161,9 +1163,14 @@ namespace YSWL.MALL.Web.Areas.MShop.Controllers
                 }
                 ViewBag.UserQRurl = QRPathbj;
             }
-            catch
+            catch (Exception ex)
             {
                 ViewBag.UserQRurl = "/Images/QR_notExist.png";
+            }
+            finally
+            {
+                b.Dispose();
+                i.Dispose();
             }
             viewName = "MyQRCode";
             return View(viewName);
@@ -1172,6 +1179,7 @@ namespace YSWL.MALL.Web.Areas.MShop.Controllers
         //拼图函数
         private void MergeImage(string strBg, string strQr, string stuserid)
         {
+             
             // 数组元素个数(即要拼图的图片个数)
             int lenth = 2;
             // 图片集合
@@ -1180,49 +1188,69 @@ namespace YSWL.MALL.Web.Areas.MShop.Controllers
             int[] pointY = new int[lenth];
             //读取本地图片初始化Bitmap
             Bitmap map = null;
+            Bitmap bitMap = null;
+            Graphics g1 = null;
 
-            //第一个图片对象，背景图片
-            map = new Bitmap(strBg);
-            maps[0] = map;
-            pointY[0] = 0;
-            //第二个图片对象，二维码
-            map = new Bitmap(strQr);
-            maps[1] = map;
-            pointY[1] = 695;
-            // 初始化背景图片的宽高
-            Bitmap bitMap = new Bitmap(459, 898);
-            // 初始化画板
-            Graphics g1 = Graphics.FromImage(bitMap);
-            ////设置画布背景颜色为白色
-            //g1.FillRectangle(Brushes.White, new Rectangle(80, 45, 160, 125));
-            //绘制第一个图片，背景图
-            for (int i = 0; i < maps[0].Width; i++)
+            if (!System.IO.File.Exists(strQr))
             {
-                for (int j = 0; j < maps[0].Height; j++)
-                {
-                    // 以像素点形式绘制(将要拼图的图片上的每个坐标点绘制到拼图对象的指定位置，直至所有点都绘制完成)
-                    var temp = maps[0].GetPixel(i, j);
-                    // 将图片画布的点绘制到整体画布的指定位置
-                    bitMap.SetPixel(i, pointY[0] + j, temp);
-                }
+                return;
             }
-            maps[0].Dispose();
-            //绘制第二个图片，一个白色边框
-            g1.FillRectangle(Brushes.LightGreen, new Rectangle(60, 694, 182, 182));
-            //绘制第三个图片，二维码
-            for (int i = 0; i < maps[1].Width; i++)
+
+            try
             {
-                for (int j = 0; j < maps[1].Height; j++)
+                //第一个图片对象，背景图片
+                map = new Bitmap(strBg);
+                maps[0] = map;
+                pointY[0] = 0;
+                //第二个图片对象，二维码
+                map = new Bitmap(strQr);
+                maps[1] = map;
+                pointY[1] = 695;
+               
+                // 初始化背景图片的宽高
+                bitMap = new Bitmap(459, 898);
+                // 初始化画板
+               g1 = Graphics.FromImage(bitMap);
+                ////设置画布背景颜色为白色
+                //g1.FillRectangle(Brushes.White, new Rectangle(80, 45, 160, 125));
+                //绘制第一个图片，背景图
+                for (int i = 0; i < maps[0].Width; i++)
                 {
-                    var temp = maps[1].GetPixel(i, j);
-                    bitMap.SetPixel(61 + i, pointY[1] + j, temp);
+                    for (int j = 0; j < maps[0].Height; j++)
+                    {
+                        // 以像素点形式绘制(将要拼图的图片上的每个坐标点绘制到拼图对象的指定位置，直至所有点都绘制完成)
+                        var temp = maps[0].GetPixel(i, j);
+                        // 将图片画布的点绘制到整体画布的指定位置
+                        bitMap.SetPixel(i, pointY[0] + j, temp);
+                    }
                 }
+                maps[0].Dispose();
+                //绘制第二个图片，一个白色边框
+                g1.FillRectangle(Brushes.LightGreen, new Rectangle(60, 694, 182, 182));
+                //绘制第三个图片，二维码
+                for (int i = 0; i < maps[1].Width; i++)
+                {
+                    for (int j = 0; j < maps[1].Height; j++)
+                    {
+                        var temp = maps[1].GetPixel(i, j);
+                        bitMap.SetPixel(61 + i, pointY[1] + j, temp);
+                    }
+                }
+                maps[1].Dispose();
+                // 保存输出到本地
+                bitMap.Save(Server.MapPath("/Upload/QRcode/QRBJ") + "/" + stuserid + "bj.jpg");
+                g1.Dispose();
+                bitMap.Dispose();
             }
-            maps[1].Dispose();
-            // 保存输出到本地
-            bitMap.Save(Server.MapPath("/Upload/QRcode/QRBJ") + "/" + stuserid + "bj.jpg");
-            g1.Dispose();
-            bitMap.Dispose();
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally{
+                g1.Dispose();
+                bitMap.Dispose();
+                map.Dispose();
+            }  
         }
 
         //调整图像大小

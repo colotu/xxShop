@@ -1150,27 +1150,31 @@ namespace YSWL.MALL.Web.Components
             //获取指令关键字
             string reply = BLL.SysManage.ConfigSystem.GetValueByCache("WeChat_MShop_Reply");
 
-            if (string.IsNullOrEmpty(reply))
+            if (string.IsNullOrWhiteSpace(reply))
             {
                 postMsg.Description = "亲,好友扫码就成为您的盟友,盟友下单即获得奖金!";
             }
             else
             {
-                postMsg.Description = BLL.SysManage.ConfigSystem.GetValueByCache("WeChat_MShop_Reply");
+                postMsg.Description = reply;
             }
-
-
-
-            postMsg.Description= BLL.SysManage.ConfigSystem.GetValueByCache("WeChat_MShop_Reply");
-
             long enterpriseId = 0;
 
-            //调用委托方法创建并发送二维码
-            DeleMethod deleMethod = CreateQrCode;
+            try
+            {
+                //调用委托方法创建并发送二维码
+                DeleMethod deleMethod = CreateQrCode;
 
-            IAsyncResult re = deleMethod.BeginInvoke(context, userModel, msg, enterpriseId, null, null);
-           // deleMethod.EndInvoke(re);
-          
+                IAsyncResult re = deleMethod.BeginInvoke(context, userModel, msg, enterpriseId, null, null);
+                // deleMethod.EndInvoke(re);
+            }
+            catch (Exception ex)
+            {
+                YSWL.Log.LogHelper.AddErrorLog("调用委托方法创建并发送二维码错误：" + ex.Message, ex.StackTrace);
+
+                return postMsg;
+            }
+
             return postMsg;
         }
 
