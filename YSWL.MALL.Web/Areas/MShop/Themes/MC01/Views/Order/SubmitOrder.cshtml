@@ -251,51 +251,7 @@
                 return true;
             });
 
-            $(".select_ship").change(function () {
-               var shipStr = "";
-                //配送方式
-                $(".select_ship").each(function () {
-                    var suppid = $(this).attr("SuppId");
-                    var shipId = $(this).val();
-                    if (!shipStr) {
-                        shipStr = suppid + '-' + shipId;
-                    }
-                    else {
-                        shipStr = shipStr + "|" + suppid + '-' + shipId;
-                    }
-                })
-                $.cookie("shipStr", shipStr, { expires: 7 });
-                $.ajax({
-                    url: $YSWL.BasePath + "Order/GetFreight",
-                    type: 'post',
-                    dataType: 'json',
-                    timeout: 0,
-                    async: true,
-                    success: function (resultData) {
-                        switch (resultData.STATUS) {
-
-                            case "OK":
-                                $('#freightPriceId').attr('freightPrice', resultData.DATA).text(resultData.DATA);
-                                var totalprice = (parseFloat($('#payPriceId').attr('BasePrice')) + parseFloat(resultData.DATA));
-                                $('#payPriceId').text('￥' + totalprice);
-                                break;
-                            default:
-                                // 抛出异常消息
-                                $.alertError(resultData.STATUS);
-                                break;
-                        }
-                    },
-
-                    error: function (xmlHttpRequest, textStatus, errorThrown) {
-                        if (textStatus != 'timeout') {
-                            $.alertError(xmlHttpRequest.responseText);
-                        } else {
-                            $("#submit_message").html("噗, 您的网络忒慢了! 访问服务器超时了, 请再试一下!");
-                        }
-
-                    }
-                });
-            })
+            
 
 
             $('#order-submit')
@@ -312,18 +268,7 @@
                         $('#step-2').effect('highlight', 1000);
                         return false;
                     }
-                    var shipStr;
-                    //配送方式
-                    $(".select_ship").each(function () {
-                        var suppid = $(this).attr("SuppId");
-                        var shipId = $(this).val();
-                        if (!shipStr) {
-                            shipStr = suppid + '-' + shipId;
-                        }
-                        else {
-                            shipStr = shipStr + "|" + suppid + '-' + shipId;
-                        }
-                    }) 
+                    var shipStr = $.cookie("shipStr") 
 
                     SubmitOrder(this, addressId, payId, $("#hfcoupon").val(), $('#txtRemark').val(), shipStr);
                 });

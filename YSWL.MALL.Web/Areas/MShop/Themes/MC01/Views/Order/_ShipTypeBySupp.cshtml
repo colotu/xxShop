@@ -1,12 +1,22 @@
 ﻿@model List<YSWL.MALL.Model.Shop.Shipping.ShippingType> 
     @if (Model != null)
     {
-        <select class="select_ship" SuppId="@ViewBag.SuppId">
+<select class="select_ship" SuppId="@ViewBag.SuppId">
 
-        @foreach(var item in Model)
+    @foreach (var item in Model)
+    {
+        if (item.ModeId == ViewBag.SelectShip)
         {
-            <option value="@item.ModeId">@item.Name</option>
+            <option value="@item.ModeId" selected="selected">@item.Name</option>
         }
-        @*<span class="btn_default btn_red">@(Model.Name)</span>*@
-         </select>
+        else
+        {
+            <option value="@item.ModeId" >@item.Name</option>
+        }
+
     }
+    @*<span class="btn_default btn_red">@(Model.Name)</span>*@
+</select>
+    }
+
+

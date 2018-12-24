@@ -82,7 +82,7 @@
                     </div>
                 </div>
                 <div class="btn_wrap">
-                    @Html.Action("ew3GetShipTypeBySupp","Order",new {suppId=dicSuppCartItem.Key,viewName="_ShipTypeBySupp" })
+                    @Html.Action("GetShipTypeBySupp","Order",new {suppId=dicSuppCartItem.Key,viewName="_ShipTypeBySupp" })
                 </div>
             </div>
         }
@@ -108,13 +108,59 @@
         holdBottomButton($(".choose_way_wrap"), $(".btn_wrapper"), 'hold-fixed');
 
         //选中支付方式
-        var m_payid= $.cookie('m_so_payId');
+        var m_payid = $.cookie('m_so_payId');
         if (m_payid == null || m_payid == "") {
             $('#paylist li:eq(0)').addClass('active');
         } else {
             $('#paylist li[payid=' + m_payid + ']').addClass('active');
         }
-      
+
+        $(".select_ship").change(function () {
+            var shipStr = "";
+            //配送方式
+            $(".select_ship").each(function () {
+                var suppid = $(this).attr("SuppId");
+                var shipId = $(this).val();
+                if (!shipStr) {
+                    shipStr = suppid + '-' + shipId;
+                }
+                else {
+                    shipStr = shipStr + "|" + suppid + '-' + shipId;
+                }
+            })
+            $.cookie("shipStr", shipStr, { expires: 7 });
+            alert(shipStr)
+            $.ajax({
+                url: $YSWL.BasePath + "Order/GetFreight",
+                type: 'post',
+                dataType: 'json',
+                timeout: 0,
+                async: true,
+                success: function (resultData) {
+                    switch (resultData.STATUS) {
+
+                        case "OK":
+                            $('#freightPriceId').attr('freightPrice', resultData.DATA).text(resultData.DATA);
+                            var totalprice = (parseFloat($('#payPriceId').attr('BasePrice')) + parseFloat(resultData.DATA));
+                            $('#payPriceId').text('￥' + totalprice);
+                            break;
+                        default:
+                            // 抛出异常消息
+                            $.alertError(resultData.STATUS);
+                            break;
+                    }
+                },
+
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    if (textStatus != 'timeout') {
+                        $.alertError(xmlHttpRequest.responseText);
+                    } else {
+                        $("#submit_message").html("噗, 您的网络忒慢了! 访问服务器超时了, 请再试一下!");
+                    }
+
+                }
+            });
+        })
 
         //返回按钮
 		$('#c_back').click(function () {

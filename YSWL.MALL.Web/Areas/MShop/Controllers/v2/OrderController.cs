@@ -7,6 +7,7 @@ using YSWL.MALL.Model.Shop.Products;
 using YSWL.TaoBao.Domain;
 using System.Linq;
 using YSWL.Json;
+using System.Web;
 
 namespace YSWL.MALL.Web.Areas.MShop.Controllers
 {
@@ -29,6 +30,32 @@ namespace YSWL.MALL.Web.Areas.MShop.Controllers
         public ActionResult GetShipTypeBySupp(int suppId=0,string viewName= "_ShipTypeBySupp")
         {
             ViewBag.SuppId = suppId;
+
+            string shipStr = Common.Cookies.getKeyCookie("shipStr");
+            shipStr = shipStr.Replace("value=", "");
+            shipStr =HttpUtility.UrlDecode(shipStr);
+            Dictionary<int, int> dicShip = new Dictionary<int, int>();
+            if (!String.IsNullOrWhiteSpace(shipStr))
+            {
+                var shipArr = shipStr.Split('|');
+                foreach (var item in shipArr)
+                {
+                    if (item.Contains('-'))
+                    {
+                        var itemArr = item.Split('-');
+                        if (dicShip.ContainsKey(YSWL.Common.Globals.SafeInt(itemArr[0], 0)))
+                        {
+                            dicShip[YSWL.Common.Globals.SafeInt(itemArr[0], 0)] = YSWL.Common.Globals.SafeInt(itemArr[1], 0);
+                        }
+                        else
+                        {
+                            dicShip.Add(YSWL.Common.Globals.SafeInt(itemArr[0], 0), YSWL.Common.Globals.SafeInt(itemArr[1], 0));
+                        }
+                    }
+                }
+            }
+            ViewBag.SelectShip = dicShip[suppId];
+
             return View(viewName, _shippingTypeManage.GetListBySupplied(suppId));
         }
 
