@@ -54,7 +54,12 @@ namespace YSWL.MALL.Web.Areas.MShop.Controllers
                     }
                 }
             }
-            ViewBag.SelectShip = dicShip[suppId];
+            ViewBag.SelectShip = 0;
+            if (dicShip.ContainsKey(suppId))
+            {
+                ViewBag.SelectShip = dicShip[suppId];
+            }
+            
 
             return View(viewName, _shippingTypeManage.GetListBySupplied(suppId));
         }
