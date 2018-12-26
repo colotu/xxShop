@@ -79,7 +79,9 @@ namespace YSWL.MALL.IDAL.Shop.Order
 
        Decimal GetOrderTotal(string strWhere);
 
-       int GetOrderCount(string strWhere);
+        Decimal GetOrderDpxfjf(string strWhere);
+
+        int GetOrderCount(string strWhere);
 
        DataSet GetMySalesStatis(string strWhere);
 

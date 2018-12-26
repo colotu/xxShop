@@ -28,8 +28,9 @@
                     <asp:Literal ID="Literal2" runat="server" Text="输入商家名称" />：
                     <asp:TextBox ID="txtKeyword" runat="server"></asp:TextBox>
                     &nbsp &nbsp;
-                    <asp:Literal ID="Literal3" runat="server" Text="消费积分区间" />：
-                    <asp:TextBox ID="txtxfpointstr" runat="server" Text="0"></asp:TextBox>至<asp:TextBox ID="txtxfpointend" runat="server" Text="3000000"></asp:TextBox>
+                    <asp:Literal ID="Literal3" runat="server" Text="消费日期" />：
+                    <asp:TextBox ID="txtCreatedDateStart" runat="server" Width="150px" CssClass="mar-r0">                        
+                    </asp:TextBox> - <asp:TextBox ID="txtCreatedDateEnd" Width="150px" runat="server"></asp:TextBox>
                     <asp:Button ID="btnSearch" runat="server" Text="<%$ Resources:Site, btnSearchText %>"
                         OnClick="btnSearch_Click" class="adminsubmit_short  mar-le"></asp:Button>
                 </td>
@@ -59,7 +60,7 @@
                         <%# GetEnteClassName(Eval("CategoryId"))%>
                     </ItemTemplate>
                 </asp:TemplateField>
-                <asp:TemplateField HeaderText="消费积分" ItemStyle-HorizontalAlign="Left"  Visible="false">
+                <asp:TemplateField HeaderText="类型" ItemStyle-HorizontalAlign="Left"  Visible="false">
                     <ItemTemplate>
                         <%# GetCompanyType(Eval("CompanyType"))%>
                     </ItemTemplate>
@@ -136,7 +137,7 @@
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="操作" ItemStyle-HorizontalAlign="Center" SortExpression="">
                     <ItemTemplate>
-                        <a href='suppPointsDetail.aspx?Empid=<%#Eval("UserID") %>'>消费积分明细</a> &nbsp;&nbsp;
+                        <a href='suppPointsDetail.aspx?Empid=<%#Eval("SupplierId") %>&strstrdate=<%# txtCreatedDateStart.Text %>&strenddate=<%# txtCreatedDateEnd.Text %>'>消费积分明细</a> &nbsp;&nbsp;
                         <span id="lbtnModify" runat="server"><a href="Modify.aspx?id=<%# Eval("SupplierId")%>">
                             <asp:Literal ID="ltlEdit" runat="server" Text="<%$ Resources:Site, btnEditText %>"></asp:Literal></a>
                             &nbsp; </span><a href="Show.aspx?id=<%# Eval("SupplierId")%>">

@@ -45,9 +45,9 @@ namespace YSWL.MALL.SQLServerDAL.Shop.Order
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("insert into OMS_Orders(");
-            strSql.Append("OrderCode,ParentOrderId,SourceOrderId,SourceType,OriginalId,CreateUserId,CreatedDate,UpdatedDate,BuyerID,BuyerName,BuyerEmail,BuyerCellPhone,RegionId,ShipRegion,ShipAddress,ShipZipCode,ShipName,ShipTelPhone,ShipCellPhone,ShipEmail,ShippingModeId,ShippingModeName,RealShippingModeId,RealShippingModeName,ShipperId,ShipperName,ShipperAddress,ShipperCellPhone,Freight,FreightAdjusted,FreightActual,Weight,ShippingStatus,ShipOrderNumber,ExpressCompanyName,ExpressCompanyAbb,PaymentTypeId,PaymentTypeName,PaymentGateway,PaymentStatus,RefundStatus,PayCurrencyCode,PayCurrencyName,PaymentFee,PaymentFeeAdjusted,GatewayOrderId,OrderTotal,OrderPoint,OrderCostPrice,OrderProfit,OrderOtherCost,OrderOptionPrice,DiscountName,DiscountAmount,DiscountAdjusted,DiscountValue,DiscountValueType,CouponCode,CouponName,CouponAmount,CouponValue,CouponValueType,ActivityName,ActivityFreeAmount,ActivityStatus,GroupBuyId,GroupBuyPrice,GroupBuyStatus,Amount,OrderType,OrderTypeSub,OrderStatus,SellerID,SellerName,SellerEmail,SellerCellPhone,CommentStatus,SupplierId,SupplierName,ReferID,ReferURL,ReferType,OrderIP,Remark,ProductTotal,HasChildren,IsReviews,IsFreeShipping,DepotId,DepotName,AssignUserId,AssignName,AssignDate,WaveId,WaveNumber,OrderSort,WaveStatus,TaskBatchId,BatchNumber,DistributionId,Gwjf,Wdbh,RemarkOne,RemarkTwo)");
+            strSql.Append("OrderCode,ParentOrderId,SourceOrderId,SourceType,OriginalId,CreateUserId,CreatedDate,UpdatedDate,BuyerID,BuyerName,BuyerEmail,BuyerCellPhone,RegionId,ShipRegion,ShipAddress,ShipZipCode,ShipName,ShipTelPhone,ShipCellPhone,ShipEmail,ShippingModeId,ShippingModeName,RealShippingModeId,RealShippingModeName,ShipperId,ShipperName,ShipperAddress,ShipperCellPhone,Freight,FreightAdjusted,FreightActual,Weight,ShippingStatus,ShipOrderNumber,ExpressCompanyName,ExpressCompanyAbb,PaymentTypeId,PaymentTypeName,PaymentGateway,PaymentStatus,RefundStatus,PayCurrencyCode,PayCurrencyName,PaymentFee,PaymentFeeAdjusted,GatewayOrderId,OrderTotal,OrderPoint,OrderCostPrice,OrderProfit,OrderOtherCost,OrderOptionPrice,DiscountName,DiscountAmount,DiscountAdjusted,DiscountValue,DiscountValueType,CouponCode,CouponName,CouponAmount,CouponValue,CouponValueType,ActivityName,ActivityFreeAmount,ActivityStatus,GroupBuyId,GroupBuyPrice,GroupBuyStatus,Amount,OrderType,OrderTypeSub,OrderStatus,SellerID,SellerName,SellerEmail,SellerCellPhone,CommentStatus,SupplierId,SupplierName,ReferID,ReferURL,ReferType,OrderIP,Remark,ProductTotal,HasChildren,IsReviews,IsFreeShipping,DepotId,DepotName,AssignUserId,AssignName,AssignDate,WaveId,WaveNumber,OrderSort,WaveStatus,TaskBatchId,BatchNumber,DistributionId,Gwjf,Wdbh,RemarkOne,RemarkTwo,Dpxfjf)");
             strSql.Append(" values (");
-            strSql.Append("@OrderCode,@ParentOrderId,@SourceOrderId,@SourceType,@OriginalId,@CreateUserId,@CreatedDate,@UpdatedDate,@BuyerID,@BuyerName,@BuyerEmail,@BuyerCellPhone,@RegionId,@ShipRegion,@ShipAddress,@ShipZipCode,@ShipName,@ShipTelPhone,@ShipCellPhone,@ShipEmail,@ShippingModeId,@ShippingModeName,@RealShippingModeId,@RealShippingModeName,@ShipperId,@ShipperName,@ShipperAddress,@ShipperCellPhone,@Freight,@FreightAdjusted,@FreightActual,@Weight,@ShippingStatus,@ShipOrderNumber,@ExpressCompanyName,@ExpressCompanyAbb,@PaymentTypeId,@PaymentTypeName,@PaymentGateway,@PaymentStatus,@RefundStatus,@PayCurrencyCode,@PayCurrencyName,@PaymentFee,@PaymentFeeAdjusted,@GatewayOrderId,@OrderTotal,@OrderPoint,@OrderCostPrice,@OrderProfit,@OrderOtherCost,@OrderOptionPrice,@DiscountName,@DiscountAmount,@DiscountAdjusted,@DiscountValue,@DiscountValueType,@CouponCode,@CouponName,@CouponAmount,@CouponValue,@CouponValueType,@ActivityName,@ActivityFreeAmount,@ActivityStatus,@GroupBuyId,@GroupBuyPrice,@GroupBuyStatus,@Amount,@OrderType,@OrderTypeSub,@OrderStatus,@SellerID,@SellerName,@SellerEmail,@SellerCellPhone,@CommentStatus,@SupplierId,@SupplierName,@ReferID,@ReferURL,@ReferType,@OrderIP,@Remark,@ProductTotal,@HasChildren,@IsReviews,@IsFreeShipping,@DepotId,@DepotName,@AssignUserId,@AssignName,@AssignDate,@WaveId,@WaveNumber,@OrderSort,@WaveStatus,@TaskBatchId,@BatchNumber,@DistributionId,@Gwjf,@Wdbh,@RemarkOne,@RemarkTwo)");
+            strSql.Append("@OrderCode,@ParentOrderId,@SourceOrderId,@SourceType,@OriginalId,@CreateUserId,@CreatedDate,@UpdatedDate,@BuyerID,@BuyerName,@BuyerEmail,@BuyerCellPhone,@RegionId,@ShipRegion,@ShipAddress,@ShipZipCode,@ShipName,@ShipTelPhone,@ShipCellPhone,@ShipEmail,@ShippingModeId,@ShippingModeName,@RealShippingModeId,@RealShippingModeName,@ShipperId,@ShipperName,@ShipperAddress,@ShipperCellPhone,@Freight,@FreightAdjusted,@FreightActual,@Weight,@ShippingStatus,@ShipOrderNumber,@ExpressCompanyName,@ExpressCompanyAbb,@PaymentTypeId,@PaymentTypeName,@PaymentGateway,@PaymentStatus,@RefundStatus,@PayCurrencyCode,@PayCurrencyName,@PaymentFee,@PaymentFeeAdjusted,@GatewayOrderId,@OrderTotal,@OrderPoint,@OrderCostPrice,@OrderProfit,@OrderOtherCost,@OrderOptionPrice,@DiscountName,@DiscountAmount,@DiscountAdjusted,@DiscountValue,@DiscountValueType,@CouponCode,@CouponName,@CouponAmount,@CouponValue,@CouponValueType,@ActivityName,@ActivityFreeAmount,@ActivityStatus,@GroupBuyId,@GroupBuyPrice,@GroupBuyStatus,@Amount,@OrderType,@OrderTypeSub,@OrderStatus,@SellerID,@SellerName,@SellerEmail,@SellerCellPhone,@CommentStatus,@SupplierId,@SupplierName,@ReferID,@ReferURL,@ReferType,@OrderIP,@Remark,@ProductTotal,@HasChildren,@IsReviews,@IsFreeShipping,@DepotId,@DepotName,@AssignUserId,@AssignName,@AssignDate,@WaveId,@WaveNumber,@OrderSort,@WaveStatus,@TaskBatchId,@BatchNumber,@DistributionId,@Gwjf,@Wdbh,@RemarkOne,@RemarkTwo,@Dpxfjf)");
             strSql.Append(";select @@IDENTITY");
             SqlParameter[] parameters = {
                     new SqlParameter("@OrderCode", SqlDbType.NVarChar,50),
@@ -153,7 +153,8 @@ namespace YSWL.MALL.SQLServerDAL.Shop.Order
                     new SqlParameter("@Gwjf", SqlDbType.Decimal,8),
                     new SqlParameter("@Wdbh", SqlDbType.NVarChar,50),
                     new SqlParameter("@RemarkOne", SqlDbType.NVarChar,2000),
-                    new SqlParameter("@RemarkTwo", SqlDbType.NVarChar,2000)};
+                    new SqlParameter("@RemarkTwo", SqlDbType.NVarChar,2000),
+                    new SqlParameter("@Dpxfjf", SqlDbType.Decimal,8)};
             parameters[0].Value = model.OrderCode;
             parameters[1].Value = model.ParentOrderId;
             parameters[2].Value = model.SourceOrderId;
@@ -258,6 +259,7 @@ namespace YSWL.MALL.SQLServerDAL.Shop.Order
             parameters[101].Value = model.Wdbh;
             parameters[102].Value = model.RemrkOne;
             parameters[103].Value = model.RemrkTwo;
+            parameters[104].Value = model.Dpxfjf;
             object obj = DBHelper.DefaultDBHelper.GetSingle(strSql.ToString(), parameters);
             if (obj == null)
             {
@@ -378,7 +380,8 @@ namespace YSWL.MALL.SQLServerDAL.Shop.Order
             strSql.Append("Gwjf=@Gwjf,");
             strSql.Append("Wdbh=@Wdbh,");
             strSql.Append("RemarkOne=@RemarkOne,");
-            strSql.Append("RemarkTwo=@RemarkTwo");
+            strSql.Append("RemarkTwo=@RemarkTwo,");
+            strSql.Append("Dpxfjf=@Dpxfjf");
             strSql.Append(" where OrderId=@OrderId");
             SqlParameter[] parameters = {
                     new SqlParameter("@OrderCode", SqlDbType.NVarChar,50),
@@ -485,6 +488,7 @@ namespace YSWL.MALL.SQLServerDAL.Shop.Order
                     new SqlParameter("@Wdbh", SqlDbType.NVarChar,50),
                     new SqlParameter("@RemarkOne", SqlDbType.NVarChar,2000),
                     new SqlParameter("@RemarkTwo", SqlDbType.NVarChar,2000),
+                    new SqlParameter("@Dpxfjf", SqlDbType.Decimal,8),
                     new SqlParameter("@OrderId", SqlDbType.BigInt,8)};
             parameters[0].Value = model.OrderCode;
             parameters[1].Value = model.ParentOrderId;
@@ -590,7 +594,8 @@ namespace YSWL.MALL.SQLServerDAL.Shop.Order
             parameters[101].Value = model.Wdbh;
             parameters[102].Value = model.RemrkOne;
             parameters[103].Value = model.RemrkTwo;
-            parameters[104].Value = model.OrderId;
+            parameters[104].Value = model.Dpxfjf;
+            parameters[105].Value = model.OrderId;
 
             int rows = DBHelper.DefaultDBHelper.ExecuteSql(strSql.ToString(), parameters);
             if (rows > 0)
@@ -654,7 +659,7 @@ namespace YSWL.MALL.SQLServerDAL.Shop.Order
         {
 
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select  top 1 OrderId,OrderCode,ParentOrderId,SourceOrderId,SourceType,OriginalId,CreateUserId,CreatedDate,UpdatedDate,BuyerID,BuyerName,BuyerEmail,BuyerCellPhone,RegionId,ShipRegion,ShipAddress,ShipZipCode,ShipName,ShipTelPhone,ShipCellPhone,ShipEmail,ShippingModeId,ShippingModeName,RealShippingModeId,RealShippingModeName,ShipperId,ShipperName,ShipperAddress,ShipperCellPhone,Freight,FreightAdjusted,FreightActual,Weight,ShippingStatus,ShipOrderNumber,ExpressCompanyName,ExpressCompanyAbb,PaymentTypeId,PaymentTypeName,PaymentGateway,PaymentStatus,RefundStatus,PayCurrencyCode,PayCurrencyName,PaymentFee,PaymentFeeAdjusted,GatewayOrderId,OrderTotal,OrderPoint,OrderCostPrice,OrderProfit,OrderOtherCost,OrderOptionPrice,DiscountName,DiscountAmount,DiscountAdjusted,DiscountValue,DiscountValueType,CouponCode,CouponName,CouponAmount,CouponValue,CouponValueType,ActivityName,ActivityFreeAmount,ActivityStatus,GroupBuyId,GroupBuyPrice,GroupBuyStatus,Amount,OrderType,OrderTypeSub,OrderStatus,SellerID,SellerName,SellerEmail,SellerCellPhone,CommentStatus,SupplierId,SupplierName,ReferID,ReferURL,ReferType,OrderIP,Remark,ProductTotal,HasChildren,IsReviews,IsFreeShipping,DepotId,DepotName,AssignUserId,AssignName,AssignDate,WaveId,WaveNumber,OrderSort,WaveStatus,TaskBatchId,BatchNumber,DistributionId,Gwjf,Wdbh,RemarkOne,RemarkTwo from OMS_Orders ");
+            strSql.Append("select  top 1 OrderId,OrderCode,ParentOrderId,SourceOrderId,SourceType,OriginalId,CreateUserId,CreatedDate,UpdatedDate,BuyerID,BuyerName,BuyerEmail,BuyerCellPhone,RegionId,ShipRegion,ShipAddress,ShipZipCode,ShipName,ShipTelPhone,ShipCellPhone,ShipEmail,ShippingModeId,ShippingModeName,RealShippingModeId,RealShippingModeName,ShipperId,ShipperName,ShipperAddress,ShipperCellPhone,Freight,FreightAdjusted,FreightActual,Weight,ShippingStatus,ShipOrderNumber,ExpressCompanyName,ExpressCompanyAbb,PaymentTypeId,PaymentTypeName,PaymentGateway,PaymentStatus,RefundStatus,PayCurrencyCode,PayCurrencyName,PaymentFee,PaymentFeeAdjusted,GatewayOrderId,OrderTotal,OrderPoint,OrderCostPrice,OrderProfit,OrderOtherCost,OrderOptionPrice,DiscountName,DiscountAmount,DiscountAdjusted,DiscountValue,DiscountValueType,CouponCode,CouponName,CouponAmount,CouponValue,CouponValueType,ActivityName,ActivityFreeAmount,ActivityStatus,GroupBuyId,GroupBuyPrice,GroupBuyStatus,Amount,OrderType,OrderTypeSub,OrderStatus,SellerID,SellerName,SellerEmail,SellerCellPhone,CommentStatus,SupplierId,SupplierName,ReferID,ReferURL,ReferType,OrderIP,Remark,ProductTotal,HasChildren,IsReviews,IsFreeShipping,DepotId,DepotName,AssignUserId,AssignName,AssignDate,WaveId,WaveNumber,OrderSort,WaveStatus,TaskBatchId,BatchNumber,DistributionId,Gwjf,Wdbh,RemarkOne,RemarkTwo,Dpxfjf from OMS_Orders ");
             strSql.Append(" where OrderId=@OrderId");
             SqlParameter[] parameters = {
                     new SqlParameter("@OrderId", SqlDbType.BigInt)
@@ -1126,6 +1131,12 @@ namespace YSWL.MALL.SQLServerDAL.Shop.Order
                 {
                     model.RemrkTwo = row["RemarkTwo"].ToString();
                 }
+
+                if (row["Dpxfjf"] != null && row["Dpxfjf"].ToString() != "")
+                {
+                    model.Dpxfjf = decimal.Parse(row["Dpxfjf"].ToString());
+                }
+
             }
             return model;
         }
@@ -1136,7 +1147,7 @@ namespace YSWL.MALL.SQLServerDAL.Shop.Order
         public DataSet GetList(string strWhere)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select OrderId,OrderCode,ParentOrderId,SourceOrderId,SourceType,OriginalId,CreateUserId,CreatedDate,UpdatedDate,BuyerID,BuyerName,BuyerEmail,BuyerCellPhone,RegionId,ShipRegion,ShipAddress,ShipZipCode,ShipName,ShipTelPhone,ShipCellPhone,ShipEmail,ShippingModeId,ShippingModeName,RealShippingModeId,RealShippingModeName,ShipperId,ShipperName,ShipperAddress,ShipperCellPhone,Freight,FreightAdjusted,FreightActual,Weight,ShippingStatus,ShipOrderNumber,ExpressCompanyName,ExpressCompanyAbb,PaymentTypeId,PaymentTypeName,PaymentGateway,PaymentStatus,RefundStatus,PayCurrencyCode,PayCurrencyName,PaymentFee,PaymentFeeAdjusted,GatewayOrderId,OrderTotal,OrderPoint,OrderCostPrice,OrderProfit,OrderOtherCost,OrderOptionPrice,DiscountName,DiscountAmount,DiscountAdjusted,DiscountValue,DiscountValueType,CouponCode,CouponName,CouponAmount,CouponValue,CouponValueType,ActivityName,ActivityFreeAmount,ActivityStatus,GroupBuyId,GroupBuyPrice,GroupBuyStatus,Amount,OrderType,OrderTypeSub,OrderStatus,SellerID,SellerName,SellerEmail,SellerCellPhone,CommentStatus,SupplierId,SupplierName,ReferID,ReferURL,ReferType,OrderIP,Remark,ProductTotal,HasChildren,IsReviews,IsFreeShipping,DepotId,DepotName,AssignUserId,AssignName,AssignDate,WaveId,WaveNumber,OrderSort,WaveStatus,TaskBatchId,BatchNumber,DistributionId,Gwjf,Wdbh,RemarkOne,RemarkTwo ");
+            strSql.Append("select OrderId,OrderCode,ParentOrderId,SourceOrderId,SourceType,OriginalId,CreateUserId,CreatedDate,UpdatedDate,BuyerID,BuyerName,BuyerEmail,BuyerCellPhone,RegionId,ShipRegion,ShipAddress,ShipZipCode,ShipName,ShipTelPhone,ShipCellPhone,ShipEmail,ShippingModeId,ShippingModeName,RealShippingModeId,RealShippingModeName,ShipperId,ShipperName,ShipperAddress,ShipperCellPhone,Freight,FreightAdjusted,FreightActual,Weight,ShippingStatus,ShipOrderNumber,ExpressCompanyName,ExpressCompanyAbb,PaymentTypeId,PaymentTypeName,PaymentGateway,PaymentStatus,RefundStatus,PayCurrencyCode,PayCurrencyName,PaymentFee,PaymentFeeAdjusted,GatewayOrderId,OrderTotal,OrderPoint,OrderCostPrice,OrderProfit,OrderOtherCost,OrderOptionPrice,DiscountName,DiscountAmount,DiscountAdjusted,DiscountValue,DiscountValueType,CouponCode,CouponName,CouponAmount,CouponValue,CouponValueType,ActivityName,ActivityFreeAmount,ActivityStatus,GroupBuyId,GroupBuyPrice,GroupBuyStatus,Amount,OrderType,OrderTypeSub,OrderStatus,SellerID,SellerName,SellerEmail,SellerCellPhone,CommentStatus,SupplierId,SupplierName,ReferID,ReferURL,ReferType,OrderIP,Remark,ProductTotal,HasChildren,IsReviews,IsFreeShipping,DepotId,DepotName,AssignUserId,AssignName,AssignDate,WaveId,WaveNumber,OrderSort,WaveStatus,TaskBatchId,BatchNumber,DistributionId,Gwjf,Wdbh,RemarkOne,RemarkTwo,Dpxfjf ");
             strSql.Append(" FROM OMS_Orders ");
             if (strWhere.Trim() != "")
             {
@@ -1156,7 +1167,7 @@ namespace YSWL.MALL.SQLServerDAL.Shop.Order
             {
                 strSql.Append(" top " + Top.ToString());
             }
-            strSql.Append(" OrderId,OrderCode,ParentOrderId,SourceOrderId,SourceType,OriginalId,CreateUserId,CreatedDate,UpdatedDate,BuyerID,BuyerName,BuyerEmail,BuyerCellPhone,RegionId,ShipRegion,ShipAddress,ShipZipCode,ShipName,ShipTelPhone,ShipCellPhone,ShipEmail,ShippingModeId,ShippingModeName,RealShippingModeId,RealShippingModeName,ShipperId,ShipperName,ShipperAddress,ShipperCellPhone,Freight,FreightAdjusted,FreightActual,Weight,ShippingStatus,ShipOrderNumber,ExpressCompanyName,ExpressCompanyAbb,PaymentTypeId,PaymentTypeName,PaymentGateway,PaymentStatus,RefundStatus,PayCurrencyCode,PayCurrencyName,PaymentFee,PaymentFeeAdjusted,GatewayOrderId,OrderTotal,OrderPoint,OrderCostPrice,OrderProfit,OrderOtherCost,OrderOptionPrice,DiscountName,DiscountAmount,DiscountAdjusted,DiscountValue,DiscountValueType,CouponCode,CouponName,CouponAmount,CouponValue,CouponValueType,ActivityName,ActivityFreeAmount,ActivityStatus,GroupBuyId,GroupBuyPrice,GroupBuyStatus,Amount,OrderType,OrderTypeSub,OrderStatus,SellerID,SellerName,SellerEmail,SellerCellPhone,CommentStatus,SupplierId,SupplierName,ReferID,ReferURL,ReferType,OrderIP,Remark,ProductTotal,HasChildren,IsReviews,IsFreeShipping,DepotId,DepotName,AssignUserId,AssignName,AssignDate,WaveId,WaveNumber,OrderSort,WaveStatus,TaskBatchId,BatchNumber,DistributionId,Gwjf,Wdbh,RemarkOne,RemarkTwo ");
+            strSql.Append(" OrderId,OrderCode,ParentOrderId,SourceOrderId,SourceType,OriginalId,CreateUserId,CreatedDate,UpdatedDate,BuyerID,BuyerName,BuyerEmail,BuyerCellPhone,RegionId,ShipRegion,ShipAddress,ShipZipCode,ShipName,ShipTelPhone,ShipCellPhone,ShipEmail,ShippingModeId,ShippingModeName,RealShippingModeId,RealShippingModeName,ShipperId,ShipperName,ShipperAddress,ShipperCellPhone,Freight,FreightAdjusted,FreightActual,Weight,ShippingStatus,ShipOrderNumber,ExpressCompanyName,ExpressCompanyAbb,PaymentTypeId,PaymentTypeName,PaymentGateway,PaymentStatus,RefundStatus,PayCurrencyCode,PayCurrencyName,PaymentFee,PaymentFeeAdjusted,GatewayOrderId,OrderTotal,OrderPoint,OrderCostPrice,OrderProfit,OrderOtherCost,OrderOptionPrice,DiscountName,DiscountAmount,DiscountAdjusted,DiscountValue,DiscountValueType,CouponCode,CouponName,CouponAmount,CouponValue,CouponValueType,ActivityName,ActivityFreeAmount,ActivityStatus,GroupBuyId,GroupBuyPrice,GroupBuyStatus,Amount,OrderType,OrderTypeSub,OrderStatus,SellerID,SellerName,SellerEmail,SellerCellPhone,CommentStatus,SupplierId,SupplierName,ReferID,ReferURL,ReferType,OrderIP,Remark,ProductTotal,HasChildren,IsReviews,IsFreeShipping,DepotId,DepotName,AssignUserId,AssignName,AssignDate,WaveId,WaveNumber,OrderSort,WaveStatus,TaskBatchId,BatchNumber,DistributionId,Gwjf,Wdbh,RemarkOne,RemarkTwo,Dpxfjf ");
             strSql.Append(" FROM OMS_Orders ");
             if (strWhere.Trim() != "")
             {
@@ -1375,6 +1386,7 @@ namespace YSWL.MALL.SQLServerDAL.Shop.Order
             strSql.Append("RemarkOne=@RemarkOne,");
             strSql.Append("RemarkTwo=@RemarkTwo,");
             strSql.Append("Remark=@Remark,");
+            strSql.Append("Dpxfjf=@Dpxfjf,");
             strSql.Append("CommentStatus=@CommentStatus");
             strSql.Append(" where OrderId=@OrderId");
             SqlParameter[] parameters = {
@@ -1458,6 +1470,7 @@ namespace YSWL.MALL.SQLServerDAL.Shop.Order
                     new SqlParameter("@RemarkOne", SqlDbType.NVarChar,2000),
                     new SqlParameter("@RemarkTwo", SqlDbType.NVarChar,2000),
                     new SqlParameter("@Remark", SqlDbType.NVarChar,2000),
+                    new SqlParameter("@Dpxfjf", SqlDbType.Decimal,8),
                     new SqlParameter("@CommentStatus", SqlDbType.SmallInt,2),
                     new SqlParameter("@OrderId", SqlDbType.BigInt,8)};
             parameters[0].Value = model.OrderCode;
@@ -1540,8 +1553,9 @@ namespace YSWL.MALL.SQLServerDAL.Shop.Order
             parameters[77].Value = model.RemrkOne;
             parameters[78].Value = model.RemrkTwo;
             parameters[79].Value = model.Remark;
-            parameters[80].Value = model.CommentStatus;
-            parameters[81].Value = model.OrderId;
+            parameters[80].Value = model.Dpxfjf;
+            parameters[81].Value = model.CommentStatus;
+            parameters[82].Value = model.OrderId;
             CommandInfo cmd = new CommandInfo(strSql.ToString(), parameters);
             sqllist.Add(cmd);
 
@@ -1676,6 +1690,33 @@ namespace YSWL.MALL.SQLServerDAL.Shop.Order
             strSql.Append("select    SUM(OrderTotal)   ");
             strSql.Append(" FROM OMS_Orders T ");
             strSql.Append(" where ReferID>0 and OrderStatus <> -1 AND OrderType =1");
+            if (strWhere.Trim() != "")
+            {
+                strSql.Append("  and " + strWhere);
+            }
+            object obj = DBHelper.DefaultDBHelper.GetSingle(strSql.ToString());
+            if (obj == null)
+            {
+                return 0;
+            }
+            else
+            {
+                return Common.Globals.SafeDecimal(obj, 0);
+            }
+
+        }
+
+        /// <summary>
+        /// 获取所有的消费积分
+        /// </summary>
+        /// <param name="strWhere"></param>
+        /// <returns></returns>
+        public Decimal GetOrderDpxfjf(string strWhere)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("select    SUM(Dpxfjf)   ");
+            strSql.Append(" FROM OMS_Orders T ");
+            strSql.Append(" where PaymentStatus>=2 and OrderStatus <> -1 AND OrderType =1");
             if (strWhere.Trim() != "")
             {
                 strSql.Append("  and " + strWhere);

@@ -961,6 +961,17 @@ namespace YSWL.MALL.Model.Shop.Order
             set { _remrkTwo = value; }
             get { return _remrkTwo; }
         }
+
+        private decimal _dpxfjf;
+        /// <summary>
+        /// 店铺消费积分
+        /// </summary>
+        public decimal Dpxfjf
+        {
+            set { _dpxfjf = value; }
+            get { return _dpxfjf; }
+        }
+
         #endregion Model
 
     }

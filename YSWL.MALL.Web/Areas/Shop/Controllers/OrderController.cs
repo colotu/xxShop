@@ -238,7 +238,7 @@ namespace YSWL.MALL.Web.Areas.Shop.Controllers
                 }
                
             }
-            Common.Cookies.setCookie("shipStr", shipStr, 1440);
+            Common.Cookies.setKeyCookie("shipStr", shipStr, 1440);
             #endregion
 
             return View(viewName, cartInfo);

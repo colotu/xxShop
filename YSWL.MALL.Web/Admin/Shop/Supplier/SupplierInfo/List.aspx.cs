@@ -17,6 +17,9 @@ namespace YSWL.MALL.Web.Admin.Shop.Supplier.SupplierInfo
         protected new int Act_DelData = 535;    //Shop_商家管理_删除数据
         YSWL.MALL.BLL.Shop.Supplier.SupplierInfo bll = new YSWL.MALL.BLL.Shop.Supplier.SupplierInfo();
         YSWL.MALL.BLL.Members.Users bllUsers = new YSWL.MALL.BLL.Members.Users();
+
+        YSWL.MALL.BLL.Shop.Order.Orders orderbll = new BLL.Shop.Order.Orders();
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
@@ -26,7 +29,9 @@ namespace YSWL.MALL.Web.Admin.Shop.Supplier.SupplierInfo
                 {
                     butAdd.Visible = false;
                 }
-           
+                txtCreatedDateStart.Text = DateTime.Now.ToString("yyyy-MM-dd");
+                txtCreatedDateEnd.Text = DateTime.Now.ToString("yyyy-MM-dd");
+
             }
         }
         
@@ -57,8 +62,6 @@ namespace YSWL.MALL.Web.Admin.Shop.Supplier.SupplierInfo
             #endregion
 
             string strName = Common.InjectionFilter.SqlFilter(txtKeyword.Text.Trim());
-            string strPointstr = Common.InjectionFilter.SqlFilter(txtxfpointstr.Text.Trim());
-            string strPointend = Common.InjectionFilter.SqlFilter(txtxfpointend.Text.Trim());
 
             DataSet ds = new DataSet();
             StringBuilder strWhere = new StringBuilder();
@@ -66,15 +69,6 @@ namespace YSWL.MALL.Web.Admin.Shop.Supplier.SupplierInfo
             if (!String.IsNullOrWhiteSpace(strName))
             {
                 sWhere = "Name like '%"+ strName + "%' and ";
-            }
-            if (!String.IsNullOrWhiteSpace(strPointstr))
-            {
-                sWhere += "RegisteredCapital >= '"+ strPointstr + "' and ";
-                //strWhere.AppendFormat(" RegisteredCapital >= '{0}' and ", Common.InjectionFilter.SqlFilter(txtxfpointstr.Text.Trim()));
-            }
-            if (!String.IsNullOrWhiteSpace(strPointend))
-            {
-                sWhere += "RegisteredCapital <= '" + strPointend + "' and ";
             }
             if (sWhere.Length > 5)
             {
@@ -101,6 +95,7 @@ namespace YSWL.MALL.Web.Admin.Shop.Supplier.SupplierInfo
                 //e.Row.Cells[0].Text = "<input id='Checkbox2' type='checkbox' onclick='CheckAll()'/><label></label>";
             }
         }
+
         protected void GridViewEx1_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             e.Row.Attributes.Add("style", "background:#FFF");
@@ -123,6 +118,14 @@ namespace YSWL.MALL.Web.Admin.Shop.Supplier.SupplierInfo
                 else
                 {
                     e.Row.Style.Add(HtmlTextWriterStyle.BackgroundColor, "#FFFFFF");
+                }
+
+                //string strschoolid = e.Row.Cells[1].Text.ToString().Trim();
+                string strSupplierI = gridView.DataKeys[e.Row.RowIndex].Values[0].ToString();
+                if (strSupplierI.Length > 0 && strSupplierI != "0")
+                {
+                    e.Row.Cells[6].Text = orderbll.GetOrderDpxfjf(" Wdbh='" + strSupplierI + "' and  CreatedDate>'" + txtCreatedDateStart.Text + "' and CreatedDate<'" + txtCreatedDateEnd.Text + "'").ToString();
+                   
                 }
             }
         }

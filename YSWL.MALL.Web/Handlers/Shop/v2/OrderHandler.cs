@@ -37,6 +37,8 @@ namespace YSWL.MALL.Web.Handlers.Shop.V2
 {
     public class OrderHandler : YSWL.MALL.Web.Handlers.Shop.OrderHandler
     {
+        BLL.Members.Users userbll = new BLL.Members.Users();//zhou 20181225新增
+        BLL.Shop.Supplier.SupplierInfo suppinfobll = new BLL.Shop.Supplier.SupplierInfo();//zhou 20181225新增
         shopCom spcom = new shopCom();
 
         BLL.Members.UsersExp userexpbll = new BLL.Members.UsersExp();
@@ -1176,6 +1178,21 @@ namespace YSWL.MALL.Web.Handlers.Shop.V2
             mainOrder.RemrkTwo = "";//
 
             #endregion
+
+
+            #region  zhou20181225 新增  获取会员所属的商家ID和订单消费积分（订单金额）
+            //---------------------zhou20181225 新增
+            //获取会员所属的商家ID
+            string strsuppEmpid = userbll.GetEmployeeIDByUserid(mainOrder.BuyerID.ToString()).ToString();//获取所有店铺的会员编号
+            string suppid = suppinfobll.GetSuppidBywhere(" UserId='" + strsuppEmpid + "'");//店铺会员编号获得店铺ID
+
+            mainOrder.Dpxfjf = mainOrder.OrderTotal;
+
+            mainOrder.Wdbh = suppid;
+            //-----------------
+            #endregion
+
+
             #endregion
             #region 执行事务-创建订单
             try

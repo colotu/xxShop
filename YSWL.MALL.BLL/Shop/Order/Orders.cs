@@ -1310,6 +1310,16 @@ namespace YSWL.MALL.BLL.Shop.Order
             return dal.GetOrderTotal(strWhere);
         }
 
+        /// <summary>
+        /// 获取所有的消费积分
+        /// </summary>
+        /// <param name="strWhere"></param>
+        /// <returns></returns>
+        public Decimal GetOrderDpxfjf(string strWhere)
+        {
+            return dal.GetOrderDpxfjf(strWhere);
+        }
+
         public int GetOrderCount(string strWhere)
         {
             return dal.GetOrderCount(strWhere);

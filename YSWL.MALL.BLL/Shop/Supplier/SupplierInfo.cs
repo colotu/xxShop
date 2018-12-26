@@ -140,7 +140,7 @@ namespace YSWL.MALL.BLL.Shop.Supplier
         }
 
         /// <summary>
-        /// 获得获取商户ID
+        /// 获得获取商户名称
         /// </summary>
         public string GetSuppNameBywhere(string strWhere)
         {

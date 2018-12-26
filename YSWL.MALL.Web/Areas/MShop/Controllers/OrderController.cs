@@ -227,7 +227,7 @@ namespace YSWL.MALL.Web.Areas.MShop.Controllers
                 }
 
             }
-            Common.Cookies.setCookie("shipStr", shipStr, 1440);
+            Common.Cookies.setKeyCookie("shipStr", shipStr, 1440);
             #endregion
 
 

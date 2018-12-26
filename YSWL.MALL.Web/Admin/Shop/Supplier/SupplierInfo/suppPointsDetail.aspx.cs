@@ -30,23 +30,34 @@ namespace YSWL.MALL.Web.Admin.Shop.Supplier.SupplierInfo
     {
         private User currentUser;
         protected override int Act_PageLoad { get { return 301; } } //用户管理_积分详情页
+
+
+        YSWL.MALL.BLL.Shop.Order.Orders orderbll = new BLL.Shop.Order.Orders();
+        YSWL.MALL.BLL.Shop.Supplier.SupplierInfo suppbll = new BLL.Shop.Supplier.SupplierInfo();
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
             {
                 if ((Request.Params["Empid"] != null) && (Request.Params["Empid"].ToString() != ""))
                 {
+
+                    if ((Request.Params["strstrdate"] != null) && (Request.Params["strstrdate"].ToString() != ""))
+                    {
+                        this.txtCreatedDateStart.Text = Request.Params["strstrdate"].ToString().Trim();
+                    }
+                    if ((Request.Params["strenddate"] != null) && (Request.Params["strenddate"].ToString() != ""))
+                    {
+                        this.txtCreatedDateEnd.Text = Request.Params["strenddate"].ToString().Trim();
+                    }
+
                     if (Common.PageValidate.IsNumber(Request.Params["Empid"]))
                     {
-                        int userid = int.Parse(Request.Params["Empid"]);
-                        currentUser = new User(userid);
-                        if (currentUser == null)
-                        {
-                            Response.Write("<script language=javascript>window.alert('" + Resources.Site.TooltipUserExist + "\\');history.back();</script>");
-                            return;
-                        }
-                        this.txtUserName.Text = currentUser.NickName + "的消费积分明细";
-                       
+                        this.lbsuppid.Text = Request.Params["Empid"].ToString().Trim();
+
+                        txtUserName.Text = suppbll.GetSuppNameBywhere(" SupplierId='"+lbsuppid.Text+"'");
+
+                        BindData();
                     }
                 }
             }
@@ -58,20 +69,14 @@ namespace YSWL.MALL.Web.Admin.Shop.Supplier.SupplierInfo
         {
             if ((Request.Params["Empid"] != null) && (Request.Params["Empid"].ToString() != ""))
             {
-                if (Common.PageValidate.IsNumber(Request.Params["Empid"]))
+                DataSet ds = new DataSet();
+
+                //获取积分明细
+                ds = orderbll.GetList(" Wdbh='" + lbsuppid.Text + "' and  CreatedDate>'" + txtCreatedDateStart.Text + "' and CreatedDate<'" + txtCreatedDateEnd.Text + "' ");
+
+                if (ds != null)
                 {
-                    int Empid = int.Parse(Request.Params["Empid"]);
-
-                    DataSet ds = new DataSet();
-                    YSWL.MALL.BLL.Members.PointsDetail points = new BLL.Members.PointsDetail();
-
-                    //获取积分明细
-                    ds = points.GetList(" Empid=" + Empid + "");
-
-                    if (ds != null)
-                    {
-                        gridView.DataSetSource = ds;
-                    }
+                    gridView.DataSetSource = ds;
                 }
             }
         }
@@ -90,7 +95,7 @@ namespace YSWL.MALL.Web.Admin.Shop.Supplier.SupplierInfo
         protected void gridView_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             e.Row.Attributes.Add("style", "background:#FFF");
-            if (e.Row.RowType == DataControlRowType.DataRow)
+            if (e.Row.RowIndex>-1)
             {
                 if (e.Row.RowIndex % 2 == 0)
                 {
@@ -100,6 +105,7 @@ namespace YSWL.MALL.Web.Admin.Shop.Supplier.SupplierInfo
                 {
                     e.Row.Style.Add(HtmlTextWriterStyle.BackgroundColor, "#FFFFFF");
                 }
+                //e.Row.Cells[3].Text = "购买商品";
             }
         }
 
