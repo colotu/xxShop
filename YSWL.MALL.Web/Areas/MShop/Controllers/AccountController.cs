@@ -1169,8 +1169,15 @@ namespace YSWL.MALL.Web.Areas.MShop.Controllers
             }
             finally
             {
-                b.Dispose();
-                i.Dispose();
+
+                if (b != null)
+                {
+                    b.Dispose();
+                }
+                if (i != null)
+                {
+                    i.Dispose();
+                }
             }
             viewName = "MyQRCode";
             return View(viewName);
@@ -1247,9 +1254,19 @@ namespace YSWL.MALL.Web.Areas.MShop.Controllers
                 throw ex;
             }
             finally{
-                g1.Dispose();
-                bitMap.Dispose();
-                map.Dispose();
+                if (g1 != null)
+                {
+                    g1.Dispose();
+                }
+                if (bitMap != null)
+                {
+                    bitMap.Dispose();
+                }
+                if (map != null)
+                {
+                    map.Dispose();
+                }
+                
             }  
         }
 

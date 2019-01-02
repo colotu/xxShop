@@ -10,17 +10,25 @@
                 <dd><a href="javascript:;">￥@(ViewBag.OrderAmount.ToString("F"))</a></dd>
             </dl>
         </div>
-        <div class="pay">
-        	<p class="orderNumber">您的订单编号为 <a href="@(ViewBag.BasePath)UserCenter/OrderInfo/@(ViewBag.OrderId)">@ViewBag.OrderCode</a>，自动进入支付页面！</p>
+        <div class="pay" Gateway="@ViewBag.PaymentGateway">
+            <p class="orderNumber">您的订单编号为 <a href="@(ViewBag.BasePath)UserCenter/OrderInfo/@(ViewBag.OrderId)">@ViewBag.OrderCode</a>。</p>
             <p class="payNow" style="display:none"><a href="javascript:;"></a></p>
             @*@if (ViewBag.PaymentGateway == "alipaybank")
-            {
-                @Html.Action("BankList", "Order")
-            }
-            else
-            {
-                <p class="payNow"><a href="javascript:;"></a></p>
-            }*@
+        {
+            @Html.Action("BankList", "Order")
+        }
+        else
+        {
+            <p class="payNow"><a href="javascript:;"></a></p>
+        }*@
+            
+            <div id="wechat" class="form-group" style="display: none;">
+                <label class="col-sm-2 control-label">支付二维码</label>
+                <div class="col-sm-8">
+                    <img id="wechatQR" />
+                </div>
+                <p class="miao-shu">请扫描上方二维码，立即支付</p>
+            </div>
         </div>
         <div class="goOnShopping">
         	<a href="@(ViewBag.BasePath)UserCenter/OrderInfo/@(ViewBag.OrderId)">查看订单详情</a>
@@ -48,11 +56,52 @@
 </script>*@
 
 <script type="text/javascript">
-     $(function () {
-         $(".progress ul").removeClass("progress-1").addClass("progress-3");
-         window.location.replace('/pay/certification@(ViewBag.OrderId)/@(ViewBag.CurrentArea)');
-         return;
-     });
+    $(function () {
+        var gateway = $(".pay").attr("Gateway")
+        if (gateway == 'wechat_v3') {
+            $.ajax({
+                type: "POST",
+                url: "/pay/certification@(ViewBag.OrderId)/@(ViewBag.CurrentArea)?action=qr", 
+                dataType: "json",
+                success: function (qrdata) { 
+                    if (qrdata.STATUS === 'SUCCESS') {
+                        $('#wechatQR').attr('src', '/tools/qr/gen.aspx?size=250&content=' + qrdata.DATA);
+                        $('#wechat').show();
+                        CheckPay(@(ViewBag.OrderId));
+                    } else {
+                        alert(qrdata.Result_Code);
+                    }
+                    sbrecharge = false;
+                }
+            });
+        }
+        else {
+             $(".progress ul").removeClass("progress-1").addClass("progress-3");
+             window.location.replace('/pay/certification@(ViewBag.OrderId)/@(ViewBag.CurrentArea)');
+             return;
+        }
+        
+    });
+
+     function CheckPay(id) {
+        if (id < 0)return;
+        $.ajax({
+            async: false,
+            type: "POST",
+            url: "@(ViewBag.BasePath)Order/CheckPay",
+            data: { id: id },
+            dataType: "text",
+            success: function(data) {
+                if (data === "NOTYET") {
+                    time = setTimeout('CheckPay(' + id + ')', 3000);
+                }
+                if (data === 'PREPAID') {
+                    ShowSuccessTip("支付成功!");
+                    window.location.replace('@(ViewBag.BasePath)PayResult / Success');
+                }
+            }
+        });
+    }
 
 </script>
 @*<script type="text/javascript">

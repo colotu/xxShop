@@ -15,6 +15,7 @@
 *└──────────────────────────────────┘
 */
 
+using System.Web;
 using YSWL.MALL.Model.Shop.Order;
 using YSWL.Web;
 #pragma warning disable 612
@@ -142,6 +143,7 @@ namespace YSWL.MALL.Web.Handlers.Shop.Pay
             //微信支付 向网关写入 APPID OPENID
             if (paymentMode.Gateway.StartsWith("wechat"))
             {
+                string action= HttpContext.Current.Request.QueryString["action"];
                 YSWL.Log.LogHelper.AddErrorLog("wechat", "进入微信支付");
                 string weChatAppId = YSWL.WeChat.BLL.Core.Config.GetValueByCache("WeChat_AppId", -1, "AA");
                 if (string.IsNullOrWhiteSpace(weChatAppId))
@@ -152,34 +154,38 @@ namespace YSWL.MALL.Web.Handlers.Shop.Pay
                     return false;
                 }
                 this.GatewayDatas.Add(weChatAppId);
-                string weChatOpenId = YSWL.WeChat.BLL.Core.Config.GetValueByCache("WeChat_OpenId", -1, "AA");
-                string weChatAppSercet = YSWL.WeChat.BLL.Core.Config.GetValueByCache("WeChat_AppSercet", -1, "AA");
-                if (string.IsNullOrWhiteSpace(weChatOpenId) || string.IsNullOrWhiteSpace(weChatAppSercet))
+                if (string.IsNullOrWhiteSpace(action))
                 {
-                    context.Response.Clear();
-                    context.Response.Write("NO WECHATINFO > WECHAT WECHAT_OPENID OR WECHAT_APPSERCET IS NULL!");
-                    YSWL.Log.LogHelper.AddErrorLog("wechat", "NO WECHATINFO > WECHAT WECHAT_OPENID OR WECHAT_APPSERCET IS NULL!");
-                    return false;
-                }
-                string authorizeCode = context.Request.QueryString["code"];
-                if (string.IsNullOrWhiteSpace(authorizeCode))
-                {
-                    string authorizeUrl =
-                       string.Format("https://open.weixin.qq.com/connect/oauth2/authorize?appid={0}&redirect_uri={1}&response_type=code&scope=snsapi_base&state={2}#wechat_redirect"
-                       , weChatAppId, Common.Globals.UrlEncode(context.Request.Url.ToString()), "MATICSOFTBEN");
-                    YSWL.Log.LogHelper.AddErrorLog("wechat-->authorizeUrl", authorizeUrl);
-                    context.Response.Redirect(authorizeUrl);
-                    return false;
-                }
+                    string weChatOpenId = YSWL.WeChat.BLL.Core.Config.GetValueByCache("WeChat_OpenId", -1, "AA");
+                    string weChatAppSercet = YSWL.WeChat.BLL.Core.Config.GetValueByCache("WeChat_AppSercet", -1, "AA");
+                    if (string.IsNullOrWhiteSpace(weChatOpenId) || string.IsNullOrWhiteSpace(weChatAppSercet))
+                    {
+                        context.Response.Clear();
+                        context.Response.Write("NO WECHATINFO > WECHAT WECHAT_OPENID OR WECHAT_APPSERCET IS NULL!");
+                        YSWL.Log.LogHelper.AddErrorLog("wechat", "NO WECHATINFO > WECHAT WECHAT_OPENID OR WECHAT_APPSERCET IS NULL!");
+                        return false;
+                    }
+                    string authorizeCode = context.Request.QueryString["code"];
+                    if (string.IsNullOrWhiteSpace(authorizeCode))
+                    {
+                        string authorizeUrl =
+                           string.Format("https://open.weixin.qq.com/connect/oauth2/authorize?appid={0}&redirect_uri={1}&response_type=code&scope=snsapi_base&state={2}#wechat_redirect"
+                           , weChatAppId, Common.Globals.UrlEncode(context.Request.Url.ToString()), "MATICSOFTBEN");
+                        YSWL.Log.LogHelper.AddErrorLog("wechat-->authorizeUrl", authorizeUrl);
+                        context.Response.Redirect(authorizeUrl);
+                        return false;
+                    }
 
-                string userOpenId = YSWL.WeChat.BLL.Core.Utils.GetUserOpenId(weChatAppId, weChatAppSercet, authorizeCode);
-                if (string.IsNullOrWhiteSpace(userOpenId))
-                {
-                    context.Response.Clear();
-                    context.Response.Write("NO USEROPENID > WECHAT USEROPENID IS NULL!");
-                    return false;
+                    string userOpenId = YSWL.WeChat.BLL.Core.Utils.GetUserOpenId(weChatAppId, weChatAppSercet, authorizeCode);
+                    if (string.IsNullOrWhiteSpace(userOpenId))
+                    {
+                        context.Response.Clear();
+                        context.Response.Write("NO USEROPENID > WECHAT USEROPENID IS NULL!");
+                        return false;
+                    }
+                    this.GatewayDatas.Add(userOpenId);
                 }
-                this.GatewayDatas.Add(userOpenId);
+              
             }
 
             if (u.ToLower().Contains("android") || u.ToLower().Contains("mobile"))//手机访问

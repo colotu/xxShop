@@ -28,6 +28,7 @@
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
     <TargetFrameworkProfile />
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -150,7 +151,8 @@
     <Reference Include="YSWL.OAuth">
       <HintPath>..\Lib\YSWL.OAuth.dll</HintPath>
     </Reference>
-    <Reference Include="YSWL.Payment">
+    <Reference Include="YSWL.Payment, Version=2.3.1.38588, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Lib\YSWL.Payment.dll</HintPath>
     </Reference>
     <Reference Include="YSWL.ShoppingCart">

@@ -886,6 +886,21 @@ namespace YSWL.MALL.Web.Areas.Shop.Controllers
 
             return View(viewName, bankList);
         }
+        #endregion
+
+        #region 
+
+        public ActionResult CheckPay(long id)
+        {
+            YSWL.MALL.Model.Shop.Order.OrderInfo info = _orderManage.GetModel(id);
+            if (info == null) return Content("NULL");
+
+            if (info.PaymentStatus == 2) return Content("PREPAID");
+
+            return Content("NOTYET");
+        }
+
+        
         #endregion 
 
     }
