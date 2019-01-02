@@ -73,6 +73,7 @@ namespace YSWL.Payment.Handler
             //针对URL 特殊Base64方法
             info.Data = Globals.EncodeData4Url(string.Join("|", GatewayDatas));
             info.DataList = GatewayDatas;
+            YSWL.Log.LogHelper.AddInfoLog("网关参数", string.Join("|", info.DataList));
             info.ReturnUrl = Globals.FullPath(string.Format(Option.ReturnUrl, info.Data));
             info.NotifyUrl = Globals.FullPath(string.Format(Option.NotifyUrl, info.Data));
             return info;

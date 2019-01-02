@@ -16,15 +16,16 @@ namespace YSWL.Payment.PaymentInterface.WeChat.v3
         private Dictionary<string, string> param = new Dictionary<string, string>();
         private string sign = string.Empty;
         private NotifyMessage message = null;
+        System.Text.StringBuilder log = new System.Text.StringBuilder();
 
         public WeChatNotify(NameValueCollection parameters)
         {
-            System.Text.StringBuilder sb = new System.Text.StringBuilder();
             try
             {
                 string xmlString = GetXmlString(HttpContext.Current.Request);
                 //此处应记录日志
-                //Core.Globals.WriteText(new System.Text.StringBuilder("xmlString:" + xmlString));
+                //Core.Globals.WriteText(new System.Text.StringBuilder(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + " xmlString:" + xmlString));
+                //Core.Globals.WriteText(new System.Text.StringBuilder(HttpContext.Current.Request.Url.PathAndQuery));
 
                 message = HttpClientHelper.XmlDeserialize<NotifyMessage>(xmlString);
 
@@ -45,11 +46,11 @@ namespace YSWL.Payment.PaymentInterface.WeChat.v3
             catch (Exception ex)
             {
                 //此处记录异常日志
-                sb.AppendFormat("YSWL.Payment.PaymentInterface.WeChat.v3.WeChatNotify 解析xml失败:" + ex.Message);
+                log.AppendFormat(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + " YSWL.Payment.PaymentInterface.WeChat.v3.WeChatNotify 解析xml失败:" + ex.Message);
             }
-            if (sb.Length > 0)
+            if (log.Length > 0)
             {
-                Core.Globals.WriteText(sb);
+                Core.Globals.WriteText(log);
             }
         }
 
@@ -70,6 +71,9 @@ namespace YSWL.Payment.PaymentInterface.WeChat.v3
                 gateway.DataList.Count < 4)
             {
                 this.OnNotifyVerifyFaild();
+                log.AppendFormat(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + " YSWL.Payment.PaymentInterface.WeChat.v3.WeChatNotify CHECK GATEWAY DATA 验证失败:" + gateway.DataList.Count);
+                Core.Globals.WriteText(log);
+                return;
             }
 
             //if ((((notify_id == null) || (partner == null) || (trade_state == null)) || ((transaction_id == null) ||
@@ -83,12 +87,12 @@ namespace YSWL.Payment.PaymentInterface.WeChat.v3
             //    this.OnNotifyVerifyFaild();
             //}
 
-            System.Text.StringBuilder sb = new System.Text.StringBuilder();
             try
             {
-                UnifiedWxPayModel model = UnifiedWxPayModel.CreateUnifiedModel(gateway.DataList[2], payee.Partner, payee.PrimaryKey);
+                UnifiedWxPayModel model = UnifiedWxPayModel.CreateUnifiedModel(gateway.DataList[3], payee.Partner, payee.PrimaryKey);
                 if (!model.ValidateMD5Signature(param, sign))
                 {
+                    log.AppendFormat(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + " YSWL.Payment.PaymentInterface.WeChat.v3.WeChatNotify.OnNotifyVerifyFaild 验证失败:" + param + "|sign:" + sign);
                     this.OnNotifyVerifyFaild();
                 }
                 else
@@ -101,9 +105,13 @@ namespace YSWL.Payment.PaymentInterface.WeChat.v3
             catch (Exception ex)
             {
                 //此处记录异常日志
-                sb.AppendFormat("YSWL.Payment.PaymentInterface.WeChat.v3.WeChatNotify.VerifyNotify 验证失败:" + ex.Message);
+                log.AppendFormat(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + " YSWL.Payment.PaymentInterface.WeChat.v3.WeChatNotify.VerifyNotify 验证失败:" + ex.Message);
             }
             this.OnNotifyVerifyFaild();
+            if (log.Length > 0)
+            {
+                Core.Globals.WriteText(log);
+            }
         }
 
         public override void WriteBack(HttpContext context, bool success)
@@ -115,7 +123,7 @@ namespace YSWL.Payment.PaymentInterface.WeChat.v3
                 if (!success)
                 {
                     returnMsg.Return_Code = "FAIL";
-                    returnMsg.Return_Msg = "YSWL.Payment.PaymentInterface.WeChat.v3.WeChatNotify.FAIL";
+                    returnMsg.Return_Msg = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + " YSWL.Payment.PaymentInterface.WeChat.v3.WeChatNotify.FAIL";
                 }
                 context.Response.Write(returnMsg.ToXmlString());
                 context.Response.End();

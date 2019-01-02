@@ -15,3 +15,10 @@ D:\MyWork\Shop\Lib\CS\YSWL.JsonRpc\YSWL.Json.RPC\obj\Debug\YSWL.Json.RPC.csproj.
 D:\MyWork\Shop\Lib\CS\YSWL.JsonRpc\YSWL.Json.RPC\obj\Debug\YSWL.Json.RPC.csproj.CopyComplete
 D:\MyWork\Shop\Lib\CS\YSWL.JsonRpc\YSWL.Json.RPC\obj\Debug\YSWL.Json.RPC.dll
 D:\MyWork\Shop\Lib\CS\YSWL.JsonRpc\YSWL.Json.RPC\obj\Debug\YSWL.Json.RPC.pdb
+D:\MyWork\xxShop\Lib\CS\YSWL.JsonRpc\bin\net-4.0\debug\YSWL.Json.RPC.dll
+D:\MyWork\xxShop\Lib\CS\YSWL.JsonRpc\bin\net-4.0\debug\YSWL.Json.RPC.pdb
+D:\MyWork\xxShop\Lib\CS\YSWL.JsonRpc\YSWL.Json.RPC\obj\Debug\YSWL.Json.RPC.csprojAssemblyReference.cache
+D:\MyWork\xxShop\Lib\CS\YSWL.JsonRpc\YSWL.Json.RPC\obj\Debug\YSWL.Json.RPC.csproj.CoreCompileInputs.cache
+D:\MyWork\xxShop\Lib\CS\YSWL.JsonRpc\YSWL.Json.RPC\obj\Debug\YSWL.Json.RPC.csproj.CopyComplete
+D:\MyWork\xxShop\Lib\CS\YSWL.JsonRpc\YSWL.Json.RPC\obj\Debug\YSWL.Json.RPC.dll
+D:\MyWork\xxShop\Lib\CS\YSWL.JsonRpc\YSWL.Json.RPC\obj\Debug\YSWL.Json.RPC.pdb

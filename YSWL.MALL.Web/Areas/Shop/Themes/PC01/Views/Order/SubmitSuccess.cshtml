@@ -22,12 +22,11 @@
             <p class="payNow"><a href="javascript:;"></a></p>
         }*@
             
-            <div id="wechat" class="form-group" style="display: none;">
-                <label class="col-sm-2 control-label">支付二维码</label>
+            <div id="wechat" class="form-group" style="display: none; text-align: center;"> 
                 <div class="col-sm-8">
                     <img id="wechatQR" />
                 </div>
-                <p class="miao-shu">请扫描上方二维码，立即支付</p>
+                <p class="miao-shu" style="font-size:14px">请扫描上方二维码，立即支付</p>
             </div>
         </div>
         <div class="goOnShopping">
@@ -64,7 +63,7 @@
                 url: "/pay/certification@(ViewBag.OrderId)/@(ViewBag.CurrentArea)?action=qr", 
                 dataType: "json",
                 success: function (qrdata) { 
-                    if (qrdata.STATUS === 'SUCCESS') {
+                    if (qrdata.STATUS === 'SUCCESS' && qrdata.Result_Code!='') {
                         $('#wechatQR').attr('src', '/tools/qr/gen.aspx?size=250&content=' + qrdata.DATA);
                         $('#wechat').show();
                         CheckPay(@(ViewBag.OrderId));

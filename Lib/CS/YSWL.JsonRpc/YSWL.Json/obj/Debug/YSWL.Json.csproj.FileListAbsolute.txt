@@ -12,3 +12,8 @@ D:\MyWork\Shop\Lib\CS\YSWL.JsonRpc\YSWL.Json\bin\Debug\YSWL.Json.pdb
 D:\MyWork\Shop\Lib\CS\YSWL.JsonRpc\YSWL.Json\obj\Debug\YSWL.Json.csproj.CoreCompileInputs.cache
 D:\MyWork\Shop\Lib\CS\YSWL.JsonRpc\YSWL.Json\obj\Debug\YSWL.Json.dll
 D:\MyWork\Shop\Lib\CS\YSWL.JsonRpc\YSWL.Json\obj\Debug\YSWL.Json.pdb
+D:\MyWork\xxShop\Lib\CS\YSWL.JsonRpc\YSWL.Json\bin\Debug\YSWL.Json.dll
+D:\MyWork\xxShop\Lib\CS\YSWL.JsonRpc\YSWL.Json\bin\Debug\YSWL.Json.pdb
+D:\MyWork\xxShop\Lib\CS\YSWL.JsonRpc\YSWL.Json\obj\Debug\YSWL.Json.csproj.CoreCompileInputs.cache
+D:\MyWork\xxShop\Lib\CS\YSWL.JsonRpc\YSWL.Json\obj\Debug\YSWL.Json.dll
+D:\MyWork\xxShop\Lib\CS\YSWL.JsonRpc\YSWL.Json\obj\Debug\YSWL.Json.pdb

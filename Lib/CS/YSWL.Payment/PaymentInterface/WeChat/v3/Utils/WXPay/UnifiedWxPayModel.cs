@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Web;
 
 namespace YSWL.Payment.PaymentInterface.WeChat.v3.Utils.WXPay
 {
@@ -90,25 +91,51 @@ namespace YSWL.Payment.PaymentInterface.WeChat.v3.Utils.WXPay
         /// <param name="notifyUrl"></param>
         /// <param name="openid"></param>
         /// <returns></returns>
-        public string CreatePrePayPackage(string description, string tradeNo, string totalFee, string createIp, string notifyUrl, string appid,string openid)
+        public string CreatePrePayPackage(string description, string tradeNo, string totalFee, string notifyUrl, TradeType tradeType, string openid = null)
         {
             Dictionary<string, string> nativeObj = new Dictionary<string, string>();
+            string spbill_create_ip;  //用户的公网ip，不是商户服务器IP
 
             nativeObj.Add("appid", AppId);
             nativeObj.Add("mch_id", PartnerId);
             nativeObj.Add("nonce_str", CommonUtil.CreateNoncestr());
             nativeObj.Add("body", description);
             nativeObj.Add("out_trade_no", tradeNo);
-            nativeObj.Add("total_fee", totalFee); //todo:写死为1
-            nativeObj.Add("spbill_create_ip", createIp);
+            nativeObj.Add("total_fee", totalFee);
+            //nativeObj.Add("time_start", DateTime.Now.ToString("yyyyMMddHHmmss"));//交易起始时间
+            //nativeObj.Add("time_expire", DateTime.Now.AddMinutes(10).ToString("yyyyMMddHHmmss"));//交易结束时间
+
+            switch (tradeType)
+            {
+                case TradeType.JSAPI:
+                    spbill_create_ip = getRealIp();
+                    nativeObj.Add("openid", openid);
+                    break;
+                case TradeType.APP:
+                default:
+                    spbill_create_ip = getRealIp();
+                    break;
+                case TradeType.NATIVE:
+                    spbill_create_ip = HttpContext.Current.Request.ServerVariables["Local_Addr"];
+                    nativeObj.Add("product_id", tradeNo);
+                    break;
+
+            }
+            nativeObj.Add("spbill_create_ip", spbill_create_ip);
             nativeObj.Add("notify_url", notifyUrl);
-            nativeObj.Add("trade_type", "JSAPI");
-            nativeObj.Add("openid", openid);
+            nativeObj.Add("trade_type", tradeType.ToString()); //交易类型
             nativeObj.Add("sign", GetCftPackage(nativeObj));
-            YSWL.Log.LogHelper.AddErrorLog("CreatePrePayPackage-->AppId", AppId);
-            YSWL.Log.LogHelper.AddErrorLog("CreatePrePayPackage-->openid", openid);
-            YSWL.Log.LogHelper.AddErrorLog("CreatePrePayPackage-->微信支付的提交数据", DictionaryToXmlString(nativeObj));
+
             return DictionaryToXmlString(nativeObj);
+        }
+
+        private static string getRealIp()
+        {
+            if (HttpContext.Current.Request.ServerVariables["HTTP_VIA"] != null)
+            {
+                return HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
+            }
+            return HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"];
         }
 
         #endregion
@@ -212,6 +239,11 @@ namespace YSWL.Payment.PaymentInterface.WeChat.v3.Utils.WXPay
             return dic;
         }
         #endregion
-       
+    }
+    public enum TradeType
+    {
+        JSAPI,
+        NATIVE,
+        APP
     }
 }

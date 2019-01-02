@@ -1162,7 +1162,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:YSWL.Payment.PaymentInterface.WeChat.v3.Utils.WXPay.UnifiedWxPayModel.CreatePrePayPackage(System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+        <member name="M:YSWL.Payment.PaymentInterface.WeChat.v3.Utils.WXPay.UnifiedWxPayModel.CreatePrePayPackage(System.String,System.String,System.String,System.String,YSWL.Payment.PaymentInterface.WeChat.v3.Utils.WXPay.TradeType,System.String)">
             <summary>
             生成 预支付 请求参数（XML）
             </summary>
