@@ -16,7 +16,6 @@ namespace YSWL.MALL.Web.Areas.MShop.Controllers
 {
     public partial class OrderController : MShopControllerBaseUser
     {
-        shopCom spcom = new shopCom();
 
         private readonly BLL.Shop.Shipping.ShippingType _shippingTypeManage = new BLL.Shop.Shipping.ShippingType();
         private readonly BLL.Shop.Shipping.ShippingAddress _addressManage = new BLL.Shop.Shipping.ShippingAddress();
@@ -188,18 +187,18 @@ namespace YSWL.MALL.Web.Areas.MShop.Controllers
             ViewBag.TotalGwjf = cartInfo.TotalGwjf;
 
             //我的商城积分账户
-            decimal mygwjfnow = spcom.GetPointByUsername(CurrentUser.UserName);
+            //decimal mygwjfnow = spcom.GetPointByUsername(CurrentUser.UserName);
 
-            ViewBag.Mygwjf = mygwjfnow.ToString();
+            //ViewBag.Mygwjf = mygwjfnow.ToString();
 
-            decimal gwjfkou = cartInfo.TotalGwjf;
-            if (cartInfo.TotalGwjf > mygwjfnow)
-            {
-                gwjfkou = mygwjfnow;//如果商品的商城积分大于会员账户的商城积分，那就扣系统账户的积分
-            }
+            //decimal gwjfkou = cartInfo.TotalGwjf;
+            //if (cartInfo.TotalGwjf > mygwjfnow)
+            //{
+            //    gwjfkou = mygwjfnow;//如果商品的商城积分大于会员账户的商城积分，那就扣系统账户的积分
+            //}
 
             //实际付款金额
-            ViewBag.TotalPrice = cartInfo.TotalAdjustedPrice + ViewBag.Freight - gwjfkou;
+            ViewBag.TotalPrice = cartInfo.TotalAdjustedPrice + ViewBag.Freight;
 
             //团购/限时抢购 是否能使用优惠券
             ViewBag.PromotionsIsUseCoupon = BLL.SysManage.ConfigSystem.GetBoolValueByCache("PromotionsIsUseCoupon");

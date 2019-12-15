@@ -26,7 +26,7 @@ namespace YSWL.MALL.Web.Handlers.Shop.Pay
     /// </summary>
     public class BalanceHandler : HandlerBase, System.Web.SessionState.IRequiresSessionState
     {
-        shopCom spcom = new shopCom();
+        //shopCom spcom = new shopCom();
         #region 成员
         private readonly Payment.Model.IPaymentOption<OrderInfo> _paymentOption = new PaymentOption();
         #endregion
@@ -156,36 +156,36 @@ namespace YSWL.MALL.Web.Handlers.Shop.Pay
                 }
                 #endregion
             }
-            else if (getwayDatas[0].ToString().ToLower().Trim() == "gouwujifencount")
-            {
-                #region 效验用户购物积分
+            //else if (getwayDatas[0].ToString().ToLower().Trim() == "gouwujifencount")
+            //{
+            //    #region 效验用户购物积分
                 
-                decimal balance = spcom.GetVipGwjfByusername(currentUser.UserName);//获取用户的购物积分
-                if (balance < orderInfo.Amount)
-                {
-                    context.Session[PaymentReturnHandler.KEY_STATUS] = "NOBALANCE";
-                    context.Response.Redirect(basePath + "PayResult/NoBalance");
-                    return;
-                }
-                #endregion
+            //    decimal balance = spcom.GetVipGwjfByusername(currentUser.UserName);//获取用户的购物积分
+            //    if (balance < orderInfo.Amount)
+            //    {
+            //        context.Session[PaymentReturnHandler.KEY_STATUS] = "NOBALANCE";
+            //        context.Response.Redirect(basePath + "PayResult/NoBalance");
+            //        return;
+            //    }
+            //    #endregion
 
-                #region 效验用户购物积分
+            //    #region 效验用户购物积分
 
-                if (!spcom.UpVIPjfByuser(currentUser.UserName, "Shopping", orderInfo.Amount.ToString()))
-                {
-                    context.Session[PaymentReturnHandler.KEY_STATUS] = STATUS_FAILED;
-                    context.Response.Redirect(basePath + "PayResult/Fail");
-                    return;
-                }
-                //余额支付成功 调用支付订单
-                else if (!_paymentOption.PayForOrder(orderInfo))
-                {
-                    context.Session[PaymentReturnHandler.KEY_STATUS] = STATUS_FAILED;
-                    context.Response.Redirect(basePath + "PayResult/Fail");
-                    return;
-                }
-                #endregion
-            }
+            //    if (!spcom.UpVIPjfByuser(currentUser.UserName, "Shopping", orderInfo.Amount.ToString()))
+            //    {
+            //        context.Session[PaymentReturnHandler.KEY_STATUS] = STATUS_FAILED;
+            //        context.Response.Redirect(basePath + "PayResult/Fail");
+            //        return;
+            //    }
+            //    //余额支付成功 调用支付订单
+            //    else if (!_paymentOption.PayForOrder(orderInfo))
+            //    {
+            //        context.Session[PaymentReturnHandler.KEY_STATUS] = STATUS_FAILED;
+            //        context.Response.Redirect(basePath + "PayResult/Fail");
+            //        return;
+            //    }
+            //    #endregion
+            //}
 
 
             context.Session[PaymentReturnHandler.KEY_STATUS] = STATUS_SUCCESS.ToLower();

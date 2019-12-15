@@ -31,9 +31,9 @@ namespace YSWL.MALL.Web.Areas.MShop.Controllers
         //private readonly string strlezuanka = ConfigurationSettings.AppSettings["zuanka"].ToString();
         //private readonly string strlefeicunka = ConfigurationSettings.AppSettings["feicun"].ToString();
 
-        private readonly string strVipUrl = ConfigurationSettings.AppSettings["VipUrl"].ToString();
+        //private readonly string strVipUrl = ConfigurationSettings.AppSettings["VipUrl"].ToString();
 
-        shopCom spcom = new shopCom();
+        //shopCom spcom = new shopCom();
         private readonly BLL.Members.Users userBll = new BLL.Members.Users();
         //
         // GET: /Mobile/UserCenter/
@@ -91,7 +91,7 @@ namespace YSWL.MALL.Web.Areas.MShop.Controllers
 
                 ViewBag.suppName = suppName;
 
-                ViewBag.mfjyurl = strVipUrl;
+               // ViewBag.mfjyurl = strVipUrl;
                 //获取商城积分
                 ///----------------------
                 ViewBag.GwjfTotal = usersModel.Points.ToString();
@@ -1733,18 +1733,18 @@ namespace YSWL.MALL.Web.Areas.MShop.Controllers
 
                 ////从接口获取用户是否存在
 
-                string strTjrUsername = spcom.GetUserTrueName(txtTjrUsername);
+                //string strTjrUsername = spcom.GetUserTrueName(txtTjrUsername);
 
-                if (strTjrUsername.Trim().Length > 0)
-                {
-                    json.Accumulate("msg", "" + strTjrUsername + "");
-                    json.Accumulate("STATUS", "EXISTS");
-                }
-                else
-                {
-                    json.Accumulate("STATUS", "NOTEXISTS");
-                }
-
+                //if (strTjrUsername.Trim().Length > 0)
+                //{
+                //    json.Accumulate("msg", "" + strTjrUsername + "");
+                //    json.Accumulate("STATUS", "EXISTS");
+                //}
+                //else
+                //{
+                //    json.Accumulate("STATUS", "NOTEXISTS");
+                //}
+                json.Accumulate("STATUS", "NOTEXISTS");
                 Response.Write(json.ToString());
             }
         }
@@ -1941,30 +1941,31 @@ namespace YSWL.MALL.Web.Areas.MShop.Controllers
                 //网点自提，网点编号不能为空
                 Wdbh = InjectionFilter.Filter(Wdbh);
 
-                if (Wdbh.Length > 0)
-                {
-                    string strwdbhname = spcom.GetIsWdbh(Wdbh).ToString();
-                    if (strwdbhname != "不是生活馆")
-                    {
-                        if (strwdbhname.Length > 0)
-                        {
-                            json.Accumulate("STATUS", "EXISTS");
-                            json.Accumulate("msg", "" + strwdbhname + "");
-                        }
-                        else
-                        {
-                            json.Accumulate("STATUS", "NOTEXISTS");
-                        }
-                    }
-                    else
-                    {
-                        json.Accumulate("STATUS", "NOTshenghg");
-                    }
-                }
-                else
-                {
-                    json.Accumulate("STATUS", "NOTEXISTS");
-                }
+                //if (Wdbh.Length > 0)
+                //{
+                //    string strwdbhname = spcom.GetIsWdbh(Wdbh).ToString();
+                //    if (strwdbhname != "不是生活馆")
+                //    {
+                //        if (strwdbhname.Length > 0)
+                //        {
+                //            json.Accumulate("STATUS", "EXISTS");
+                //            json.Accumulate("msg", "" + strwdbhname + "");
+                //        }
+                //        else
+                //        {
+                //            json.Accumulate("STATUS", "NOTEXISTS");
+                //        }
+                //    }
+                //    else
+                //    {
+                //        json.Accumulate("STATUS", "NOTshenghg");
+                //    }
+                //}
+                //else
+                //{
+                //    json.Accumulate("STATUS", "NOTEXISTS");
+                //}
+                json.Accumulate("STATUS", "NOTEXISTS");
                 Response.Write(json.ToString());
             }
         }

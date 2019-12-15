@@ -25,5 +25,10 @@ namespace YSWL.MALL.Model.Members.Enum
         /// SAAS 云平台
         /// </summary>
         SAAS = 6,
+        /// <summary>
+        /// 积分会员
+        /// </summary>
+        Vip = 7,
+
     }
 }

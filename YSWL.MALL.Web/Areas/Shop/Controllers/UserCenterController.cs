@@ -40,7 +40,7 @@ namespace YSWL.MALL.Web.Areas.Shop.Controllers
         //private readonly string strlefeicunka = ConfigurationSettings.AppSettings["feicun"].ToString();
 
         private readonly string strVipUrl = ConfigurationSettings.AppSettings["VipUrl"].ToString();
-        shopCom spcom = new shopCom();
+        //shopCom spcom = new shopCom();
 
         private readonly BLL.Members.Users userBll = new BLL.Members.Users();
 
@@ -99,9 +99,8 @@ namespace YSWL.MALL.Web.Areas.Shop.Controllers
                 ///----------------------
                 ViewBag.PointTotal = usersModel.Points.ToString();
 
-                string strTureNmae= spcom.GetUserTrueName(currentUser.UserName);
-                //ViewBag.XJJF = spcom.GetVipXJjfByusername(currentUser.UserName);
-                //ViewBag.Gwjifen = spcom.GetVipGwjfByusername(currentUser.UserName);
+               // string strTureNmae= spcom.GetUserTrueName(currentUser.UserName);
+                 
                 ViewBag.mfjyurl = strVipUrl;
                 ///----------------------
 
@@ -2254,24 +2253,24 @@ namespace YSWL.MALL.Web.Areas.Shop.Controllers
             }
             else
             {
-                JsonObject json = new JsonObject();
-                string txtTjrUsername = collection["TjrName"];//获取页面的积分数量
+                //JsonObject json = new JsonObject();
+                //string txtTjrUsername = collection["TjrName"];//获取页面的积分数量
 
-                ////从接口获取用户是否存在
+                //////从接口获取用户是否存在
 
-                string strTjrUsername = spcom.GetUserTrueName(txtTjrUsername);
+                //string strTjrUsername = spcom.GetUserTrueName(txtTjrUsername);
 
-                if (strTjrUsername.Trim().Length > 0)
-                {
-                    json.Accumulate("msg", "" + strTjrUsername + "");
-                    json.Accumulate("STATUS", "EXISTS");
-                }
-                else
-                {
-                    json.Accumulate("STATUS", "NOTEXISTS");
-                }
+                //if (strTjrUsername.Trim().Length > 0)
+                //{
+                //    json.Accumulate("msg", "" + strTjrUsername + "");
+                //    json.Accumulate("STATUS", "EXISTS");
+                //}
+                //else
+                //{
+                //    json.Accumulate("STATUS", "NOTEXISTS");
+                //}
 
-                Response.Write(json.ToString());
+                //Response.Write(json.ToString());
             }
         }
 
@@ -2461,37 +2460,37 @@ namespace YSWL.MALL.Web.Areas.Shop.Controllers
             else
             {
                 JsonObject json = new JsonObject();
-                string Wdbh = collection["ShenghgName"];//获取页面的网点编号
+                //string Wdbh = collection["ShenghgName"];//获取页面的网点编号
 
 
-                YSWL.MALL.Model.Members.UsersExpModel usersModel = userEXBll.GetUsersModel(CurrentUser.UserID);
-                //网点自提，网点编号不能为空
-                Wdbh = InjectionFilter.Filter(Wdbh);
+                //YSWL.MALL.Model.Members.UsersExpModel usersModel = userEXBll.GetUsersModel(CurrentUser.UserID);
+                ////网点自提，网点编号不能为空
+                //Wdbh = InjectionFilter.Filter(Wdbh);
 
-                if (Wdbh.Length > 0)
-                {
-                    string strwdbhname = spcom.GetIsWdbh(Wdbh).ToString();
-                    if (strwdbhname != "不是生活馆")
-                    {
-                        if (strwdbhname.Length > 0)
-                        {
-                            json.Accumulate("STATUS", "EXISTS");
-                            json.Accumulate("msg", "" + strwdbhname + "");
-                        }
-                        else
-                        {
-                            json.Accumulate("STATUS", "NOTEXISTS");
-                        }
-                    }
-                    else
-                    {
-                        json.Accumulate("STATUS", "NOTshenghg");
-                    }
-                }
-                else
-                {
-                    json.Accumulate("STATUS", "NOTEXISTS");
-                }
+                //if (Wdbh.Length > 0)
+                //{
+                //    string strwdbhname = spcom.GetIsWdbh(Wdbh).ToString();
+                //    if (strwdbhname != "不是生活馆")
+                //    {
+                //        if (strwdbhname.Length > 0)
+                //        {
+                //            json.Accumulate("STATUS", "EXISTS");
+                //            json.Accumulate("msg", "" + strwdbhname + "");
+                //        }
+                //        else
+                //        {
+                //            json.Accumulate("STATUS", "NOTEXISTS");
+                //        }
+                //    }
+                //    else
+                //    {
+                //        json.Accumulate("STATUS", "NOTshenghg");
+                //    }
+                //}
+                //else
+                //{
+                //    json.Accumulate("STATUS", "NOTEXISTS");
+                //}
                 Response.Write(json.ToString());
             }
         }

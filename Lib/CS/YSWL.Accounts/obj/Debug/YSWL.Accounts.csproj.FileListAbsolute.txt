@@ -64,3 +64,4 @@ D:\MyWork\xxShop\Lib\CS\YSWL.Accounts\obj\Debug\YSWL.Accounts.csproj.CoreCompile
 D:\MyWork\xxShop\Lib\CS\YSWL.Accounts\obj\Debug\YSWL.Accounts.csproj.CopyComplete
 D:\MyWork\xxShop\Lib\CS\YSWL.Accounts\obj\Debug\YSWL.Accounts.dll
 D:\MyWork\xxShop\Lib\CS\YSWL.Accounts\obj\Debug\YSWL.Accounts.pdb
+D:\MyWork\xxShop\Lib\CS\YSWL.Accounts\bin\Debug\YSWL.Json.dll

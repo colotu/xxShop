@@ -1,8 +1,0 @@
-发生时间：2017/9/20 23:20:28
-事件级别：Error
-事件来源：Application_Error:未找到路径“/Areas/Shop/Themes/PC01/Views/Account/Login.cshtml”。
-事件操作人信息：()
-事件内容： 详细错误：   在 System.Web.HttpNotFoundHandler.ProcessRequest(HttpContext context)
-   在 System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
-   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
----------------------------------------------------------

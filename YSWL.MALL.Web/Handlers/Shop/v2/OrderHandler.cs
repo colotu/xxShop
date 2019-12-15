@@ -39,7 +39,7 @@ namespace YSWL.MALL.Web.Handlers.Shop.V2
     {
         BLL.Members.Users userbll = new BLL.Members.Users();//zhou 20181225新增
         BLL.Shop.Supplier.SupplierInfo suppinfobll = new BLL.Shop.Supplier.SupplierInfo();//zhou 20181225新增
-        shopCom spcom = new shopCom();
+        //shopCom spcom = new shopCom();
 
         BLL.Members.UsersExp userexpbll = new BLL.Members.UsersExp();
 
@@ -1132,34 +1132,31 @@ namespace YSWL.MALL.Web.Handlers.Shop.V2
             
 
             //商城积分抵扣金额开始
-            mainOrder.Gwjf = shoppingCartInfo.TotalGwjf;
+            //mainOrder.Gwjf = shoppingCartInfo.TotalGwjf; 
+            //decimal userGwJF = spcom.GetPointByUsername(userBuyer.UserName);//获取商城积分 
+            ////获取用户的商城积分
+            //if (userGwJF < mainOrder.Gwjf)
+            //{
+            //    mainOrder.Gwjf = userGwJF;
+            //}
 
-            decimal userGwJF = spcom.GetPointByUsername(userBuyer.UserName);//获取商城积分
+            //decimal amount = 0;
 
-
-            //获取用户的商城积分
-            if (userGwJF < mainOrder.Gwjf)
-            {
-                mainOrder.Gwjf = userGwJF;
-            }
-
-            decimal amount = 0;
-
-            if (paymentModeInfo.Gateway.ToLower() == "gouwujifencount")//如果使用购物积分来兑换商品时，不适用商城积分 20180312 zhou 修改
-            { 
-                //订单最终支付金额 = 项目调整后总售价 + 调整后运费-优惠券价格
-                 amount = shoppingCartInfo.TotalAdjustedPrice + mainOrder.FreightAdjusted.Value - mainOrder.CouponAmount.Value;
-            }
-            else
-            {
-                //订单最终支付金额 = 项目调整后总售价 + 调整后运费-优惠券价格---商城积分
-                amount = shoppingCartInfo.TotalAdjustedPrice + mainOrder.FreightAdjusted.Value - mainOrder.CouponAmount.Value - mainOrder.Gwjf;//减去商城积分
-            }
+            //if (paymentModeInfo.Gateway.ToLower() == "gouwujifencount")//如果使用购物积分来兑换商品时，不适用商城积分 20180312 zhou 修改
+            //{ 
+            //    //订单最终支付金额 = 项目调整后总售价 + 调整后运费-优惠券价格
+            //     amount = shoppingCartInfo.TotalAdjustedPrice + mainOrder.FreightAdjusted.Value - mainOrder.CouponAmount.Value;
+            //}
+            //else
+            //{
+            //    //订单最终支付金额 = 项目调整后总售价 + 调整后运费-优惠券价格---商城积分
+            //    amount = shoppingCartInfo.TotalAdjustedPrice + mainOrder.FreightAdjusted.Value - mainOrder.CouponAmount.Value - mainOrder.Gwjf;//减去商城积分
+            //}
             //商城积分抵扣金额结束
 
 
             //订单最终支付金额 = 项目调整后总售价 + 调整后运费-优惠券价格
-           // decimal amount = shoppingCartInfo.TotalAdjustedPrice + mainOrder.FreightAdjusted.Value - mainOrder.CouponAmount.Value;
+           decimal amount = shoppingCartInfo.TotalAdjustedPrice + mainOrder.FreightAdjusted.Value - mainOrder.CouponAmount.Value;
             mainOrder.Amount = amount > 0 ? amount : 0;
             //折扣金额
             mainOrder.DiscountAdjusted = shoppingCartInfo.TotalSellPrice - shoppingCartInfo.TotalAdjustedPrice;

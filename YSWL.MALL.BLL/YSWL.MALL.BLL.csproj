@@ -132,6 +132,7 @@
     <Compile Include="Members\GuestBook.cs" />
     <Compile Include="Members\Feedback.cs" />
     <Compile Include="Members\FeedbackType.cs" />
+    <Compile Include="Members\IntegralApiHelper.cs" />
     <Compile Include="Members\PointsAction.cs" />
     <Compile Include="Members\PointsDetail.cs" />
     <Compile Include="Members\PointsLimit.cs" />

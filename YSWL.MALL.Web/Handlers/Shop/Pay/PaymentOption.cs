@@ -33,7 +33,6 @@ namespace YSWL.MALL.Web.Handlers.Shop.Pay
         BLL.Members.Users userbll = new BLL.Members.Users();
         
         BLL.Members.PointsDetail pointbll = new BLL.Members.PointsDetail();
-        shopCom spcom = new shopCom();
         #region 成员
         private readonly BLL.Shop.Order.Orders _orderManage = new BLL.Shop.Order.Orders();
         private const string _returnUrl = "/pay/payment/{0}/return_url.aspx";
@@ -82,35 +81,35 @@ namespace YSWL.MALL.Web.Handlers.Shop.Pay
             retubool = OrderManage.PayForOrder(orderInfo);
 
             #region  订单状态修改完之后，扣商城积分
-            if (retubool&& orderInfo.PaymentGateway!="gouwujifencount")
-            {
-                #region 扣除会员商城积分
+            //if (retubool&& orderInfo.PaymentGateway!="gouwujifencount")
+            //{
+            //    #region 扣除会员商城积分
 
-                decimal orderGwjf = orderInfo.Gwjf;//订单中抵扣的商城积分。
-                int userGwJF = spcom.GetPointByUsername(orderInfo.BuyerName);//获取用户的商城积分
+            //    decimal orderGwjf = orderInfo.Gwjf;//订单中抵扣的商城积分。
+            //    int userGwJF = spcom.GetPointByUsername(orderInfo.BuyerName);//获取用户的商城积分
 
-                // 商城积分抵扣金额开始
-                //获取积分抵扣商品
-                if (orderGwjf > 0 && userGwJF > 0)//商品订单积分大于用户商城积分,并用户积分大于0，进行抵扣
-                {
-                    if (orderGwjf > decimal.Parse(userGwJF.ToString()))
-                    {
-                        orderGwjf = userGwJF;
-                    }
+            //    // 商城积分抵扣金额开始
+            //    //获取积分抵扣商品
+            //    if (orderGwjf > 0 && userGwJF > 0)//商品订单积分大于用户商城积分,并用户积分大于0，进行抵扣
+            //    {
+            //        if (orderGwjf > decimal.Parse(userGwJF.ToString()))
+            //        {
+            //            orderGwjf = userGwJF;
+            //        }
                     
-                    int PointSop = int.Parse(orderGwjf.ToString().Substring(0, orderGwjf.ToString().IndexOf('.')));
+            //        int PointSop = int.Parse(orderGwjf.ToString().Substring(0, orderGwjf.ToString().IndexOf('.')));
 
 
-                    pointbll.PointsHuzhuan(-2, orderInfo.BuyerID, "抵扣商品订单号：" + orderInfo.OrderCode + "，抵扣商城积分：" + orderGwjf + "", PointSop, "", 1);//把
+            //        pointbll.PointsHuzhuan(-2, orderInfo.BuyerID, "抵扣商品订单号：" + orderInfo.OrderCode + "，抵扣商城积分：" + orderGwjf + "", PointSop, "", 1);//把
 
-                }
-                else
-                {
-                }
-                //商城积分抵扣金额开始
+            //    }
+            //    else
+            //    {
+            //    }
+            //    //商城积分抵扣金额开始
                 
-                #endregion
-            }
+            //    #endregion
+            //}
             //订单状态修改完之后，扣商城积分
             #endregion
 

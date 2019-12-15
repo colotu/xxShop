@@ -57,12 +57,13 @@
                         <div class="detailContent">
                             <p class="detailTxt">@Model.ProductInfo.ProductName</p>
                             <div class="detailPrice">
-                               <span class="price" >
-                                   ￥@(decimal.Subtract(Model.ProductInfo.LowestSalePrice, decimal.Parse(Model.ProductInfo.Gwjf.ToString())).ToString("#0.00")) 
-                              </span>
+                                <span class="price">
+                                    @*￥@(decimal.Subtract(Model.ProductInfo.LowestSalePrice, decimal.Parse(Model.ProductInfo.Gwjf.ToString())).ToString("#0.00"))*@
+                                    ￥@(Model.ProductInfo.LowestSalePrice.ToString("F"))
+                                </span>
                                 <del>￥@(Model.ProductInfo.MarketPrice.HasValue ? Model.ProductInfo.MarketPrice.Value.ToString("F") : "0")</del>
 
-                                &nbsp;&nbsp;<span style="color:red;"> <i>   积分：</i>@Model.ProductInfo.Gwjf</span>
+                                &nbsp;&nbsp;<span style="color:red;display:none"> <i>   积分：</i>@Model.ProductInfo.Gwjf</span>
                             </div>
 
                         </div>

@@ -1068,6 +1068,8 @@ namespace YSWL.MALL.BLL.Members
             return dal.SetEmpidByUserid(userId, EmployeeID);
         }
 
+  
+
 
         /// <summary>
         /// zhou20180304xiugai

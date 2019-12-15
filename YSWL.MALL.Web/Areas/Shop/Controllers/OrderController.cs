@@ -17,7 +17,7 @@ namespace YSWL.MALL.Web.Areas.Shop.Controllers
 {
     public partial class OrderController : ShopControllerBaseUser
     {
-        shopCom spcom = new shopCom();
+        //shopCom spcom = new shopCom();
 
         private readonly BLL.Shop.Shipping.ShippingType _shippingTypeManage = new BLL.Shop.Shipping.ShippingType();
         private readonly BLL.Shop.Shipping.ShippingAddress _addressManage = new BLL.Shop.Shipping.ShippingAddress();
@@ -191,18 +191,18 @@ namespace YSWL.MALL.Web.Areas.Shop.Controllers
             ViewBag.GwjfTotal = cartInfo.TotalGwjf;
 
             //我的商城积分账户
-            decimal mygwjfnow = spcom.GetPointByUsername(CurrentUser.UserName);
+            //decimal mygwjfnow = spcom.GetPointByUsername(CurrentUser.UserName);
 
-            ViewBag.Mygwjf = mygwjfnow.ToString();
+            //ViewBag.Mygwjf = mygwjfnow.ToString();
 
-            decimal gwjfkou = cartInfo.TotalGwjf;
-            if (cartInfo.TotalGwjf > mygwjfnow)
-            {
-                gwjfkou = mygwjfnow;//如果商品的商城积分大于会员账户的积分，那就扣系统账户的积分
-            }
+            //decimal gwjfkou = cartInfo.TotalGwjf;
+            //if (cartInfo.TotalGwjf > mygwjfnow)
+            //{
+            //    gwjfkou = mygwjfnow;//如果商品的商城积分大于会员账户的积分，那就扣系统账户的积分
+            //}
 
 
-            ViewBag.TotalPrice = cartInfo.TotalSellPrice + ViewBag.Freight - gwjfkou;
+            ViewBag.TotalPrice = cartInfo.TotalSellPrice + ViewBag.Freight ;
             //促销 - 批销规则优惠 kmmm
             ViewBag.TotalPromPrice = cartInfo.TotalSellPrice - cartInfo.TotalAdjustedPrice;
             #endregion

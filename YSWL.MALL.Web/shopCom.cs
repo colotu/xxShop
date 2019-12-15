@@ -10,9 +10,9 @@ using System.Text;
 
 namespace YSWL.MALL.Web
 {
-    public class shopCom
+    public class shopCom1
     {
-        BLL.Pay.BalanceDetails balanceManage = new BLL.Pay.BalanceDetails();//转进钱包
+        BLL.Pay.BalanceDetails balanceManage1 = new BLL.Pay.BalanceDetails();//转进钱包
 
         BLL.Members.PointsDetail pointbll = new BLL.Members.PointsDetail();
 

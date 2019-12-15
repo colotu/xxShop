@@ -95,6 +95,7 @@
     <Compile Include="Members\Guestbook.cs" />
     <Compile Include="Members\Feedback.cs" />
     <Compile Include="Members\FeedbackType.cs" />
+    <Compile Include="Members\IntegralMbInfo.cs" />
     <Compile Include="Members\PointsAction.cs" />
     <Compile Include="Members\PointsDetail.cs" />
     <Compile Include="Members\PointsLimit.cs" />

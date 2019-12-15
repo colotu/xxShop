@@ -21,6 +21,8 @@ using System.IO;
 using YSWL.Web;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using YSWL.MALL.BLL.Members;
+using YSWL.MALL.Model.Members;
 
 namespace YSWL.MALL.Web.Areas.MShop.Controllers
 {
@@ -28,11 +30,10 @@ namespace YSWL.MALL.Web.Areas.MShop.Controllers
     {
         //private string strZjbXzLeave = ConfigurationSettings.AppSettings["zhicheng"].ToString();//会员限制职称
         //private string strZjbToQianbao = ConfigurationSettings.AppSettings["ZjbToQb"].ToString();//会员限制职称
-        shopCom spcom = new shopCom();
-
-        BLL.Pay.BalanceDetails balanceManage = new BLL.Pay.BalanceDetails();//转进钱包
 
         BLL.Members.PointsDetail pointBLL = new BLL.Members.PointsDetail();
+        IntegralApiHelper integralApi = new IntegralApiHelper();
+
 
         //
         // GET: /Mobile/Account/
@@ -54,7 +55,7 @@ namespace YSWL.MALL.Web.Areas.MShop.Controllers
             {
                 ViewBag.returnUrl = returnUrl;
             }
-         
+
             if (IsCloseLogin)
             {
                 return Redirect(ViewBag.BasePath + "Error/TurnOff");
@@ -122,28 +123,20 @@ namespace YSWL.MALL.Web.Areas.MShop.Controllers
                 AccountsPrincipal userPrincipal = AccountsPrincipal.ValidateLogin(model.UserName, model.Password);
                 if (userPrincipal == null)
                 {
-                    //判断输入的用户名在会员系统里面是否存在                                        
-                    if (spcom.IsHaveUsername(model.UserName, model.Password))
-                    {
-                        string strUserLave = spcom.GetUserLeave(model.UserName);//获取会员的职称
-
-                        if (RegisterVIPuser(model.UserName, model.Password))
-                        {
-                            userPrincipal = AccountsPrincipal.ValidateLogin(model.UserName, model.Password);
-
-
-                        }
-                        else
-                        {
-                            ModelState.AddModelError("Message", "用户名或密码不正确, 请重新输入!");
-                            return View(model);
-                        }
-                    }
-                    else
+                    //判断输入的用户名在会员系统里面是否存在        
+                    bool isSucess = integralApi.MBAuthenticate(model.UserName, model.Password);
+                    if (!isSucess)
                     {
                         ModelState.AddModelError("Message", "用户名或密码不正确, 请重新输入!");
                         return View(model);
                     }
+                    isSucess = RegisterVIPUser(model.UserName, model.Password);
+                    if (!isSucess)
+                    {
+                        ModelState.AddModelError("Message", "用户名或密码不正确, 请重新输入!");
+                        return View(model);
+                    }
+                    userPrincipal = AccountsPrincipal.ValidateLogin(model.UserName, model.Password);
                 }
                 User currentUser = new YSWL.Accounts.Bus.User(userPrincipal);
                 if (!currentUser.Activity)
@@ -160,30 +153,16 @@ namespace YSWL.MALL.Web.Areas.MShop.Controllers
                 int pointers = pointBll.AddPoints(1, currentUser.UserID, "登录操作");
                 int rankScore = BLL.Members.RankDetail.AddScore(1, currentUser.UserID, "登录操作");
                 BLL.Shop.Products.ShoppingCartHelper.LoadShoppingCart(currentUser.UserID);
-
-
-
-
-                ////--会员登录后，自动把会员商城积分转入商城本身的积分账户--------
-
-                //if (spcom.GetUserTrueName(model.UserName).Length > 0)//判断是VIP会员
-                //{
-
-                //    YSWL.MALL.Model.Members.UsersExpModel userexpVIPmodel = userExpManage.GetModelByCache(currentUser.UserID);
-                //    userexpVIPmodel.BodilyForm = "VIP";
-                //    userExpManage.UpdateEx(userexpVIPmodel);
-
-
-                //    int vipShopjifen = spcom.GetVipShopjfByusername(model.UserName);
-                //    if (vipShopjifen > 0)//VIP会员积分大于0的话，把会员系统的商城积分转入商城的商城积分
-                //    {
-                //        spcom.UpVIPjfByuser(model.UserName, "Mall", vipShopjifen.ToString());//把会员系统的商城积分扣掉
-
-                //        pointBLL.PointsHuzhuan(100, currentUser.UserID, "VIP会员把VIP商城积分转入商城的积分账户", Convert.ToInt32(vipShopjifen.ToString()), "", 0);//把会员系统的商城积分转入商城的商城积分
-                //    }
-                //}
-                ////-----------------------------------------------------------------------
-
+                 
+                //--会员登录后，把会员余额转到账户上-------- 
+                IntegralMbInfo integralMb = integralApi.GetMBInfo(model.UserName);
+                if (integralMb != null)
+                {
+                    BLL.Members.UsersExp ueBll = new BLL.Members.UsersExp();
+                    UsersExpModel usersExp = ueBll.GetUsersModel(currentUser.UserID);
+                    usersExp.Balance = integralMb.MB_BaoDianTotal;
+                    ueBll.Update(usersExp);
+                } 
 
                 bool IsNeedBind = YSWL.MALL.BLL.SysManage.ConfigSystem.GetBoolValueByCache("SyStem_WeChat_UserBind");
                 YSWL.Log.LogHelper.AddInfoLog("SyStem_WeChat_UserBind", IsNeedBind.ToString());
@@ -191,7 +170,7 @@ namespace YSWL.MALL.Web.Areas.MShop.Controllers
                 {
                     YSWL.WeChat.BLL.Core.User wUserBll = new WeChat.BLL.Core.User();
                     YSWL.WeChat.Model.Core.User wUserModel = wUserBll.GetUser(OpenId, UserOpen);
-                    YSWL.Log.LogHelper.AddInfoLog("SyStem_WeChat_UserBind-->OpenId,UserOpen", OpenId+"----"+ UserOpen);
+                    YSWL.Log.LogHelper.AddInfoLog("SyStem_WeChat_UserBind-->OpenId,UserOpen", OpenId + "----" + UserOpen);
                     if (wUserModel != null && wUserModel.UserId <= 0)
                     {
                         //绑定当前系统用户
@@ -220,28 +199,22 @@ namespace YSWL.MALL.Web.Areas.MShop.Controllers
             return View(model);
         }
 
-        public bool RegisterVIPuser(string strUsername, string strPwd)
+        public bool RegisterVIPUser(string userName, string pwd)
         {
             bool returnRegB = false;
             int uid = -1;
-
-            string strPassJM = FormsAuthentication.HashPasswordForStoringInConfigFile(strPwd.Replace("'", ""), "MD5");
-
-            bool IsCloseRegisterSendEmail = BLL.SysManage.ConfigSystem.GetBoolValueByCache("System_Close_RegisterEmailCheck");
             User newUser = new User();
-            //DONE: 警告DB字段未对应: Email 字段 varchar(100) UserName 字段 varchar(50) 已完成 BEN DONE 2012-11-22
-            newUser.UserName = strUsername;
-            newUser.NickName = spcom.GetUserTrueName(strUsername);  //昵称名称相同
-
-            newUser.TrueName = newUser.NickName;//model.TrueName; //真实名字
-            newUser.Password = AccountsPrincipal.EncryptPassword(strPwd);
+            newUser.UserName = userName;
+            IntegralMbInfo mbInfo = integralApi.GetMBInfo(userName);
+            newUser.NickName = mbInfo == null ? userName : mbInfo.MB_Name;  //昵称名称相同
+            newUser.TrueName = newUser.NickName;
+            newUser.Password = AccountsPrincipal.EncryptPassword(pwd);
 
             newUser.Activity = true;
             newUser.UserType = "UU";
             newUser.Style = 1;
             newUser.User_dateCreate = DateTime.Now;
             newUser.User_cLang = "zh-CN";
-
             int userid = newUser.Create();
 
             #region
@@ -256,7 +229,6 @@ namespace YSWL.MALL.Web.Areas.MShop.Controllers
             ue.NativePlaceVisible = 0;
             ue.NativePlaceIndexVisible = false;
             ue.RegionId = 0;
-            //ue.RegionId = Common.Globals.SafeInt(model.RegionId, 0); //用户地点区域
             ue.AddressVisible = 0;
             ue.AddressIndexVisible = false;
             ue.BodilyFormVisible = 0;
@@ -271,15 +243,15 @@ namespace YSWL.MALL.Web.Areas.MShop.Controllers
             ue.LastAccessTime = DateTime.Now;
             ue.LastLoginTime = DateTime.Now;
             ue.LastPostTime = DateTime.Now;
-            ue.NickName = strUsername;//用户昵称
-
+            ue.NickName = userName;//用户昵称
+            ue.Balance = mbInfo == null ? 0 : mbInfo.MB_BaoDianTotal;
+            ue.Points = mbInfo == null ? 0 : Common.Globals.SafeInt(mbInfo.MB_QianBaoTotal, 0);
             // ue.PersonalDomain = U;//个人身份证号码
             ue.BodilyForm = "VIP";
-
-            ue.MSN = strPwd;//把用户的明文密码填写到这个字段保存
+            ue.MSN = pwd;//把用户的明文密码填写到这个字段保存
             #endregion
             //注册来源
-            ue.SourceType = (int)YSWL.MALL.Model.Members.Enum.SourceType.Cust;
+            ue.SourceType = (int)YSWL.MALL.Model.Members.Enum.SourceType.Vip;
             if (!ue.AddExp(ue, uid))
             {
                 userManage.Delete(userid);
@@ -293,6 +265,7 @@ namespace YSWL.MALL.Web.Areas.MShop.Controllers
             //清除Session 
             Session["SMSCode"] = null;
             Session["SMS_DATE"] = DateTime.MinValue;
+
             #region
             string DefaultGravatar = BLL.SysManage.ConfigSystem.GetValueByCache("DefaultGravatar");
             DefaultGravatar = string.IsNullOrEmpty(DefaultGravatar) ? "/Upload/User/Gravatar/Default.jpg" : DefaultGravatar;
@@ -381,41 +354,39 @@ namespace YSWL.MALL.Web.Areas.MShop.Controllers
                             #endregion
                         }
                     }
-
-
                     return Content("1|" + pointers.ToString());
                 }
-                else
+                if (integralApi.MBAuthenticate(UserName, UserPwd))
                 {
-                    if (spcom.IsHaveUsername(UserName, UserPwd))
+                    if (RegisterVIPUser(UserName, UserPwd))
                     {
-                        if (RegisterVIPuser(UserName, UserPwd))
-                        {
-                            userPrincipal = AccountsPrincipal.ValidateLogin(UserName, UserPwd);
+                        userPrincipal = AccountsPrincipal.ValidateLogin(UserName, UserPwd);
 
-                            HttpContext.User = userPrincipal;
-                            FormsAuthentication.SetAuthCookie(UserName, true);
-                            Session[YSWL.Common.Globals.SESSIONKEY_USER] = currentUser;
-                            //登录成功加积分
-                            YSWL.MALL.BLL.Members.PointsDetail pointBll = new BLL.Members.PointsDetail();
-                            int pointers = pointBll.AddPoints(1, currentUser.UserID, "登录操作");
-                            int rankScore = BLL.Members.RankDetail.AddScore(1, currentUser.UserID, "登录操作");
-                            BLL.Shop.Products.ShoppingCartHelper.LoadShoppingCart(currentUser.UserID);
-                            return Content("1|" + pointers.ToString());
-                        }
-                        else
-                        {
-                            return Content("0");
-                        }
-                    }
-                    else
-                    {
-                        return Content("0");
+                        HttpContext.User = userPrincipal;
+                        FormsAuthentication.SetAuthCookie(UserName, true);
+                        Session[YSWL.Common.Globals.SESSIONKEY_USER] = currentUser;
+                        //登录成功加积分
+                        YSWL.MALL.BLL.Members.PointsDetail pointBll = new BLL.Members.PointsDetail();
+                        int pointers = pointBll.AddPoints(1, currentUser.UserID, "登录操作");
+                        int rankScore = BLL.Members.RankDetail.AddScore(1, currentUser.UserID, "登录操作");
+                        BLL.Shop.Products.ShoppingCartHelper.LoadShoppingCart(currentUser.UserID);
+                        return Content("1|" + pointers.ToString());
                     }
                 }
             }
+
+            //--会员登录后，把会员余额转到账户上-------- 
+            IntegralMbInfo integralMb = integralApi.GetMBInfo(UserName);
+            if (integralMb != null)
+            {
+                BLL.Members.UsersExp ueBll = new BLL.Members.UsersExp();
+                UsersExpModel usersExp = ueBll.GetUsersModel(currentUser.UserID);
+                usersExp.Balance = integralMb.MB_BaoDianTotal;
+                ueBll.Update(usersExp);
+            }
+
             return Content("0");
-        } 
+        }
         #region 退出
         public ActionResult Logout()
         {
@@ -462,7 +433,7 @@ namespace YSWL.MALL.Web.Areas.MShop.Controllers
                 }
             }
 
-            if (!String.IsNullOrWhiteSpace(id)&& id!="-1")
+            if (!String.IsNullOrWhiteSpace(id) && id != "-1")
             {
                 string InviteUserIdI = Common.DEncrypt.Hex16.Decode(id);
                 int InviteuidI = Globals.SafeInt(InviteUserIdI, -1);//获取邀请人用户ID
@@ -531,7 +502,7 @@ namespace YSWL.MALL.Web.Areas.MShop.Controllers
                 ViewBag.SCodeError = "短信校验码有误";
                 return View(model);
             }
-    
+
 
             // bool IsCloseRegisterSendEmail = YSWL.MALL.BLL.SysManage.ConfigSystem.GetBoolValueByCache("System_Close_RegisterEmailCheck");
             User newUser = new User();
@@ -835,7 +806,7 @@ namespace YSWL.MALL.Web.Areas.MShop.Controllers
             Session["SMS_DATE"] = DateTime.Now;
             Session["SMSPhone"] = Phone;
             string[] numbers = new string[] { Phone };
-            bool isSuccess =YSWL.MALL.Web.Components.SMSHelper.SendSMS(content, numbers);
+            bool isSuccess = YSWL.MALL.Web.Components.SMSHelper.SendSMS(content, numbers);
             if (isSuccess)
             {
                 if (IsOpenFrequentVerified)
@@ -864,7 +835,7 @@ namespace YSWL.MALL.Web.Areas.MShop.Controllers
         {
             string code = Fm["SMSCode"];
             string phoneNumber = Fm["Phone"];
-            return VerifiySMSCode(phoneNumber,code) ? Content("True") : Content("False");
+            return VerifiySMSCode(phoneNumber, code) ? Content("True") : Content("False");
         }
         /// <summary>
         /// 验证短信校验码是否正确
@@ -872,7 +843,7 @@ namespace YSWL.MALL.Web.Areas.MShop.Controllers
         /// <param name="smscode"></param>
         /// <param name="phone"></param>
         /// <returns></returns>
-        private bool VerifiySMSCode(string phone,string smscode)
+        private bool VerifiySMSCode(string phone, string smscode)
         {
             if (Session["SMSCode"] == null || String.IsNullOrWhiteSpace(Session["SMSCode"].ToString()))
             {
@@ -997,7 +968,7 @@ namespace YSWL.MALL.Web.Areas.MShop.Controllers
                 return Redirect(returnUrl);
                 #endregion
             }
-           
+
             return View(viewName);
         }
 
@@ -1035,7 +1006,7 @@ namespace YSWL.MALL.Web.Areas.MShop.Controllers
             }
             User newUser = new User();
             //DONE: 警告DB字段未对应: Email 字段 varchar(100) UserName 字段 varchar(50) 已完成 BEN DONE 2012-11-22
-            int nextUserId=userManage.GetMaxId()+1;
+            int nextUserId = userManage.GetMaxId() + 1;
             newUser.UserName = UserOpen;// "wx" + nextUserId + new Random().Next(10, 99);
             newUser.NickName = NickName; //昵称名称相同
             newUser.Password = AccountsPrincipal.EncryptPassword(newUser.UserName);
@@ -1110,7 +1081,7 @@ namespace YSWL.MALL.Web.Areas.MShop.Controllers
             }
 
             #region 建立关联关系
-           
+
             inviteBll.AddInvite(wUserModel.OpenId, wUserModel.UserName, newUser.UserID, newUser.UserName, newUser.NickName);
             #endregion
 
@@ -1186,7 +1157,7 @@ namespace YSWL.MALL.Web.Areas.MShop.Controllers
         //拼图函数
         private void MergeImage(string strBg, string strQr, string stuserid)
         {
-             
+
             // 数组元素个数(即要拼图的图片个数)
             int lenth = 2;
             // 图片集合
@@ -1213,11 +1184,11 @@ namespace YSWL.MALL.Web.Areas.MShop.Controllers
                 map = new Bitmap(strQr);
                 maps[1] = map;
                 pointY[1] = 695;
-               
+
                 // 初始化背景图片的宽高
                 bitMap = new Bitmap(459, 898);
                 // 初始化画板
-               g1 = Graphics.FromImage(bitMap);
+                g1 = Graphics.FromImage(bitMap);
                 ////设置画布背景颜色为白色
                 //g1.FillRectangle(Brushes.White, new Rectangle(80, 45, 160, 125));
                 //绘制第一个图片，背景图
@@ -1253,7 +1224,8 @@ namespace YSWL.MALL.Web.Areas.MShop.Controllers
             {
                 throw ex;
             }
-            finally{
+            finally
+            {
                 if (g1 != null)
                 {
                     g1.Dispose();
@@ -1266,8 +1238,8 @@ namespace YSWL.MALL.Web.Areas.MShop.Controllers
                 {
                     map.Dispose();
                 }
-                
-            }  
+
+            }
         }
 
         //调整图像大小
