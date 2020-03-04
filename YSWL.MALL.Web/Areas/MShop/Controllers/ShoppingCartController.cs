@@ -528,7 +528,7 @@ namespace YSWL.MALL.Web.Areas.MShop.Controllers
                     }
                     break;
                 default:
-                    return Content("fasle");
+                    return Content("false");
             }
             cartHelper.SaveShoppingCart(cartInfo);
             return Content("OK");
